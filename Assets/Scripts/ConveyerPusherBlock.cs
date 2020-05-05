@@ -85,10 +85,10 @@ public class ConveyerPusherBlock : MonoBehaviour
         _currentWayPoint = wayPoint;
         _currentWayPointIndex = index;
 
-        if(_currentWayPoint != null)
+        if (_currentWayPoint != null)
         {
             this.transform.DOKill();
-            this.transform.DOLocalMove(wayPoint.transform.position, time);
+            this.transform.DOLocalMove(wayPoint.transform.position, time).SetEase(Ease.Linear);
             this.transform.DOLocalRotate(wayPoint.transform.rotation.eulerAngles, time);
         }
     }
