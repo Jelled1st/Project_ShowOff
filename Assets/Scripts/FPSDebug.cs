@@ -8,7 +8,8 @@ public class FPSDebug : MonoBehaviour
 
 	void Update()
 	{
-		deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+		//deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+		deltaTime = Time.unscaledDeltaTime;
 	}
 
 	void OnGUI()
