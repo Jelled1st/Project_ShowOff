@@ -16,24 +16,33 @@ public class GameManager : MonoBehaviour
 
 
     private GameObject _package;
+    private bool _isRespawning;
 
     private void Start()
     {
-        _package = Instantiate(_packagePrefab, _startPosition);
-        _package.GetComponentInChildren<Rigidbody>().AddForce(Vector3.left * _pushForce);
+        _package = Instantiate(_packagePrefab);
+        RespawnPackage();
     }
 
     private void Update()
     {
-        if (_package.transform.position.y <= _groundLevel)
+        if (!_isRespawning && _package.transform.position.y <= _groundLevel)
         {
+            _isRespawning = true;
             Invoke(nameof(RespawnPackage), _respawnTime);
         }
     }
 
     private void RespawnPackage()
     {
+        var rigidbody = _package.GetComponentInChildren<Rigidbody>();
+        
+        rigidbody.velocity=Vector3.zero;
         _package.transform.position = _startPosition.position;
         _package.transform.rotation = Quaternion.identity;
+
+        rigidbody.AddForce(Vector3.left * _pushForce);
+
+        _isRespawning = false;
     }
 }
