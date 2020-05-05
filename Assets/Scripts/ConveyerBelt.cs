@@ -51,7 +51,6 @@ public class ConveyerBelt : MonoBehaviour
                     wayPointIndex = 1; // waypoint[0] is start point 
                     float wayPointDistance = GetSpaceBetweenWayPoints(0, 1).magnitude;
                     Transform wayPointTransform = _wayPoints.transform.GetChild(0);
-                    _pusherBlocks[i].transform.DOKill();
                     _pusherBlocks[i].transform.SetPositionAndRotation(wayPointTransform.localPosition, wayPointTransform.localRotation);
                     _pusherBlocks[i].SetCurrentWayPoint(_wayPoints.transform.GetChild(wayPointIndex).gameObject, wayPointIndex, _speed * wayPointDistance);
                 }
