@@ -46,6 +46,6 @@ MonoBehaviour:
   _packagePrefab: {fileID: 6941339113540420157, guid: 198380ca7f1e8e346a023db19066072d,
     type: 3}
   _startPosition: {fileID: 0}
-  _groundLevel: 0
+  _groundLevel: 0.5
   _respawnTime: 2
   _pushForce: 150
