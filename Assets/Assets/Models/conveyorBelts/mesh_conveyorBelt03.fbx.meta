@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33c28c4882bdd0147a54bd10e18fdf57
+guid: 58234d53ce9672e4bbef505130d7b194
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -18,7 +18,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: conveyorBelt_rolls
-    second: {fileID: 2100000, guid: f2386fd31e567a94f92a1ec0654c8f36, type: 2}
+    second: {fileID: 2100000, guid: 45f460afb4e8f09458ae1ac82f1e86e9, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
