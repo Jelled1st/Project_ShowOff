@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class ConveyerBelt : MonoBehaviour
+public class ConveyorBelt : MonoBehaviour
 {
     [SerializeField] private GameObject _conveyerBelt;
     [SerializeField] private GameObject _pusherBlockPrefab;
@@ -11,19 +11,19 @@ public class ConveyerBelt : MonoBehaviour
     [SerializeField] private uint _sampleSize = 5;
     [Tooltip("Speed is how many second it takes to travel 1 unit")][SerializeField] private float _speed = 2f;
 
-    private ConveyerPusherBlock[] _pusherBlocks;
+    private ConveyorPusherBlock[] _pusherBlocks;
 
     // Start is called before the first frame update
     void Start()
     {
-        _pusherBlocks = new ConveyerPusherBlock[_sampleSize];
+        _pusherBlocks = new ConveyorPusherBlock[_sampleSize];
         //calculate the emptyspace up until the 
         Vector3 emptySpace = GetSpaceBetweenWayPoints(0, _wayPoints.transform.childCount - 1) / (_sampleSize);
         Vector3 spawnPosition = _wayPoints.transform.GetChild(0).transform.localPosition;
         for(int i = 0; i < _sampleSize; ++i)
         {
             GameObject pusherBlock = Instantiate(_pusherBlockPrefab);
-            _pusherBlocks[i] = pusherBlock.GetComponent<ConveyerPusherBlock>();
+            _pusherBlocks[i] = pusherBlock.GetComponent<ConveyorPusherBlock>();
             _pusherBlocks[i].Init("Pusher_Block_" + i, this, this.gameObject.transform, spawnPosition + (emptySpace * i));
             float wayPointDistance = (_wayPoints.transform.GetChild(1).position - (spawnPosition + (emptySpace * i))).magnitude;
             _pusherBlocks[i].SetCurrentWayPoint(_wayPoints.transform.GetChild(1).gameObject, 1, _speed * wayPointDistance);

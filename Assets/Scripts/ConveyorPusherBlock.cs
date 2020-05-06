@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ConveyerPusherBlock : MonoBehaviour
+public class ConveyorPusherBlock : MonoBehaviour
 {
     private static readonly Vector3 InitScale = new Vector3(0.10f, 0.3f, 0.75f);
 
-    private ConveyerBelt _conveyerBelt;
+    private ConveyorBelt _conveyerBelt;
     private GameObject _lastWayPoint;
     private GameObject _currentWayPoint;
     private int _lastWayPointIndex;
@@ -15,7 +15,7 @@ public class ConveyerPusherBlock : MonoBehaviour
 
     private bool _initCalled = false;
 
-    public void Init(string name, ConveyerBelt conveyerBelt, Transform parent, Vector3 position)
+    public void Init(string name, ConveyorBelt conveyerBelt, Transform parent, Vector3 position)
     {
         _conveyerBelt = conveyerBelt;
 
