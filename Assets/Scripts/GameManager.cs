@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,31 @@ public class GameManager : MonoBehaviour
 
     private GameObject _package;
     private bool _isRespawning;
+
+    private void OnEnable()
+    {
+        FindObjectOfType<FinishTrigger>().FinishTriggerHit.AddListener(OnFinishTriggerHit);
+    }
+
+    private void OnDisable()
+    {
+        FindObjectOfType<FinishTrigger>().FinishTriggerHit.RemoveListener(OnFinishTriggerHit);
+    }
+
+    private void OnFinishTriggerHit(GameObject hitGameObject)
+    {
+        if (gameObject == _package)
+        {
+            LevelFinished();
+        }
+    }
+
+    private void LevelFinished()
+    {
+        Debug.Log("Package reached the end");
+        RespawnPackage();
+    }
+
 
     private void Start()
     {
