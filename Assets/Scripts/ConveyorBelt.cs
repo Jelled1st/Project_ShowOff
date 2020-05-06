@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using DG.Tweening.Core;
 using UnityEngine;
 
 public class ConveyorBelt : MonoBehaviour
@@ -15,6 +16,7 @@ public class ConveyorBelt : MonoBehaviour
 
     private ConveyorPusherBlock[] _pusherBlocks;
     private bool _isTurning;
+    private Tween _rotateTween;
 
     // Start is called before the first frame update
     void Start()
@@ -73,9 +75,9 @@ public class ConveyorBelt : MonoBehaviour
 
     public void Turn()
     {
-        if (_canTurn)
+        if (_canTurn && (_rotateTween==null || !_rotateTween.IsPlaying()))
         {
-            this.gameObject.transform.DORotate(this.gameObject.transform.rotation.eulerAngles + new Vector3(0, _turnInterval, 0), 0.2f);
+            _rotateTween = this.gameObject.transform.DORotate(this.gameObject.transform.rotation.eulerAngles + new Vector3(0, _turnInterval, 0), 0.2f);
             _isTurning = true;
         }
     }
