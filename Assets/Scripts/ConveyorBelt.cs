@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -18,15 +18,31 @@ public class ConveyorBelt : MonoBehaviour
     {
         _pusherBlocks = new ConveyorPusherBlock[_sampleSize];
         //calculate the emptyspace up until the 
-        Vector3 emptySpace = GetSpaceBetweenWayPoints(0, _wayPoints.transform.childCount - 1) / (_sampleSize);
-        Vector3 spawnPosition = _wayPoints.transform.GetChild(0).transform.position;
         for(int i = 0; i < _sampleSize; ++i)
         {
             GameObject pusherBlock = Instantiate(_pusherBlockPrefab);
             _pusherBlocks[i] = pusherBlock.GetComponent<ConveyorPusherBlock>();
-            _pusherBlocks[i].Init("Pusher_Block_" + i, this, this.gameObject.transform, spawnPosition + (emptySpace * i));
-            float wayPointDistance = (_wayPoints.transform.GetChild(1).position - (spawnPosition + (emptySpace * i))).magnitude;
-            _pusherBlocks[i].SetCurrentWayPoint(_wayPoints.transform.GetChild(1).gameObject, 1, _speed * wayPointDistance);
+
+            // calculates in between which waypoints the current pusherblock is and the distance to the next
+            // gives a number like 1.6f meaning moving towards waypoint 2 and is 6/10th of the way there
+            float inbetweenWayPoints = ((_wayPoints.transform.childCount - 1) / (float)(_sampleSize)) * i;
+            //this calculates the waypoint where the current pusherblock will start
+            int startWayPointIndex = Mathf.FloorToInt(inbetweenWayPoints);
+            float inbetween = inbetweenWayPoints - (float)Math.Truncate((double)(inbetweenWayPoints));
+
+            Transform startWayPointTransform = _wayPoints.transform.GetChild(startWayPointIndex);
+
+            Vector3 beforeWayPointPosition = startWayPointTransform.transform.position;
+            Vector3 distanceBetweenWayPoints = GetSpaceBetweenWayPoints(startWayPointIndex, startWayPointIndex + 1);
+            Quaternion beforeWayPointRotation = startWayPointTransform.rotation;
+            Quaternion rotationBetweenWayPoints = GetRotationBetweenWayPoints(startWayPointIndex, startWayPointIndex + 1);
+
+            Quaternion added = beforeWayPointRotation * rotationBetweenWayPoints;
+            Quaternion spawnRotation = Quaternion.Lerp(beforeWayPointRotation, added, inbetween);
+
+            _pusherBlocks[i].Init("Pusher_Block_" + i, this, this.gameObject.transform, beforeWayPointPosition + distanceBetweenWayPoints* inbetween, spawnRotation);
+            float wayPointDistance = (distanceBetweenWayPoints * (1 - inbetween)).magnitude;
+            _pusherBlocks[i].SetCurrentWayPoint(_wayPoints.transform.GetChild(startWayPointIndex+1).gameObject, startWayPointIndex+1, _speed * wayPointDistance);
         }
     }
 
@@ -46,7 +62,6 @@ public class ConveyorBelt : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Reset " + i);
                     // reset to start
                     wayPointIndex = 1; // waypoint[0] is start point 
                     float wayPointDistance = GetSpaceBetweenWayPoints(0, 1).magnitude;
@@ -58,9 +73,15 @@ public class ConveyorBelt : MonoBehaviour
         }
     }
 
-    private Vector3 GetSpaceBetweenWayPoints(int waypoint1, int waypoint2)
+    private Vector3 GetSpaceBetweenWayPoints(int wayPoint1, int wayPoint2)
     {
-        Vector3 distance = _wayPoints.transform.GetChild(waypoint2).transform.position - _wayPoints.transform.GetChild(waypoint1).transform.position;
+        Vector3 distance = _wayPoints.transform.GetChild(wayPoint2).position - _wayPoints.transform.GetChild(wayPoint1).position;
         return distance;
+    }
+
+    private Quaternion GetRotationBetweenWayPoints(int wayPoint1, int wayPoint2)
+    {
+        Quaternion rotation = Quaternion.FromToRotation(_wayPoints.transform.GetChild(wayPoint1).forward, _wayPoints.transform.GetChild(wayPoint2).forward);
+        return rotation;
     }
 }

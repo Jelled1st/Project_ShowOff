@@ -15,7 +15,7 @@ public class ConveyorPusherBlock : MonoBehaviour
 
     private bool _initCalled = false;
 
-    public void Init(string name, ConveyorBelt conveyerBelt, Transform parent, Vector3 position)
+    public void Init(string name, ConveyorBelt conveyerBelt, Transform parent, Vector3 position, Quaternion rotation)
     {
         _conveyerBelt = conveyerBelt;
 
@@ -27,13 +27,15 @@ public class ConveyorPusherBlock : MonoBehaviour
             collider = this.gameObject.AddComponent<BoxCollider>();
         }
 
-        this.gameObject.transform.localScale = InitScale;
-        this.gameObject.transform.position = position;
-
         GameObject visualizer = GameObject.CreatePrimitive(PrimitiveType.Cube);
         visualizer.transform.SetParent(this.transform);
         visualizer.transform.localPosition = new Vector3(0, 0, 0);
         visualizer.transform.localScale = new Vector3(1, 1, 1);
+
+        this.gameObject.transform.position = position;
+        this.gameObject.transform.Rotate(rotation.eulerAngles);
+        this.gameObject.transform.localScale = InitScale;
+
 
         _initCalled = true;
     }
