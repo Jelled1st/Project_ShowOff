@@ -28,6 +28,7 @@ public class ConveyorPusherBlock : MonoBehaviour
         }
 
         GameObject visualizer = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        Destroy(visualizer.GetComponent<BoxCollider>());
         visualizer.transform.SetParent(this.transform);
         visualizer.transform.localPosition = new Vector3(0, 0, 0);
         visualizer.transform.localScale = new Vector3(1, 1, 1);
@@ -51,10 +52,15 @@ public class ConveyorPusherBlock : MonoBehaviour
         // if there is no waypoint to move to, return
         if (_currentWayPoint == null) return;
 
-        if (this.transform.position == _currentWayPoint.transform.position)
+        if (!DOTween.IsTweening(this.gameObject.transform))
         {
             SetCurrentWayPoint(null, -1, 0);
         }
+
+        //if (this.transform.position == _currentWayPoint.transform.position)
+        //{
+        //    SetCurrentWayPoint(null, -1, 0);
+        //}
     }
 
     #region waypoint getters and setters
@@ -96,4 +102,15 @@ public class ConveyorPusherBlock : MonoBehaviour
     }
 
     #endregion
+
+    public ConveyorBelt GetConveyorBelt()
+    {
+        return _conveyerBelt;
+    }
+
+    private void OnDestroy()
+    {
+        
+        this.transform.DOKill();
+    }
 }
