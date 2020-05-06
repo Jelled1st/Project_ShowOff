@@ -112,9 +112,12 @@ MonoBehaviour:
   _conveyerBelt: {fileID: 6487382225413388767}
   _pusherBlockPrefab: {fileID: 8711939188225645570, guid: b4200ddbc4e92974888039f78a7d13e8,
     type: 3}
-  _wayPoints: {fileID: 4818231302035378378}
+  _waypointsParent: {fileID: 4818231302035378378}
   _sampleSize: 5
   _speed: 2
+  _canTurn: 1
+  _turnInterval: 90
+  _inReverse: 0
 --- !u!65 &5536733392081953729
 BoxCollider:
   m_ObjectHideFlags: 0
