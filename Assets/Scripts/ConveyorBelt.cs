@@ -19,7 +19,7 @@ public class ConveyorBelt : MonoBehaviour
         _pusherBlocks = new ConveyorPusherBlock[_sampleSize];
         //calculate the emptyspace up until the 
         Vector3 emptySpace = GetSpaceBetweenWayPoints(0, _wayPoints.transform.childCount - 1) / (_sampleSize);
-        Vector3 spawnPosition = _wayPoints.transform.GetChild(0).transform.localPosition;
+        Vector3 spawnPosition = _wayPoints.transform.GetChild(0).transform.position;
         for(int i = 0; i < _sampleSize; ++i)
         {
             GameObject pusherBlock = Instantiate(_pusherBlockPrefab);
@@ -51,7 +51,7 @@ public class ConveyorBelt : MonoBehaviour
                     wayPointIndex = 1; // waypoint[0] is start point 
                     float wayPointDistance = GetSpaceBetweenWayPoints(0, 1).magnitude;
                     Transform wayPointTransform = _wayPoints.transform.GetChild(0);
-                    _pusherBlocks[i].transform.SetPositionAndRotation(wayPointTransform.localPosition, wayPointTransform.localRotation);
+                    _pusherBlocks[i].transform.SetPositionAndRotation(wayPointTransform.position, wayPointTransform.rotation);
                     _pusherBlocks[i].SetCurrentWayPoint(_wayPoints.transform.GetChild(wayPointIndex).gameObject, wayPointIndex, _speed * wayPointDistance);
                 }
             }
@@ -60,7 +60,7 @@ public class ConveyorBelt : MonoBehaviour
 
     private Vector3 GetSpaceBetweenWayPoints(int waypoint1, int waypoint2)
     {
-        Vector3 distance = _wayPoints.transform.GetChild(waypoint2).transform.localPosition - _wayPoints.transform.GetChild(waypoint1).transform.localPosition;
+        Vector3 distance = _wayPoints.transform.GetChild(waypoint2).transform.position - _wayPoints.transform.GetChild(waypoint1).transform.position;
         return distance;
     }
 }

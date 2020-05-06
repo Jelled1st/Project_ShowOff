@@ -28,7 +28,7 @@ public class ConveyorPusherBlock : MonoBehaviour
         }
 
         this.gameObject.transform.localScale = InitScale;
-        this.gameObject.transform.localPosition = position;
+        this.gameObject.transform.position = position;
 
         GameObject visualizer = GameObject.CreatePrimitive(PrimitiveType.Cube);
         visualizer.transform.SetParent(this.transform);
@@ -88,8 +88,8 @@ public class ConveyorPusherBlock : MonoBehaviour
         if (_currentWayPoint != null)
         {
             this.transform.DOKill();
-            this.transform.DOLocalMove(wayPoint.transform.position, time).SetEase(Ease.Linear);
-            this.transform.DOLocalRotate(wayPoint.transform.rotation.eulerAngles, time);
+            this.transform.DOMove(wayPoint.transform.position, time).SetEase(Ease.Linear);
+            this.transform.DORotate(wayPoint.transform.rotation.eulerAngles, time);
         }
     }
 
