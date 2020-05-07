@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                Debug.Log("hit something: " + hit.transform.gameObject.name);
+                Debug.Log("hit da " + hit.transform.gameObject.name);
                 GameObject hitObject = hit.transform.gameObject;
                 ConveyorBelt conveyor = null;
                 if (hitObject.TryGetComponent<ConveyorBelt>(out conveyor))
@@ -31,6 +31,18 @@ public class Player : MonoBehaviour
                 {
                     conveyor = conveyorPusherBlock.GetConveyorBelt();
                     conveyor.Turn();
+                    return;
+                }
+                FlatConveyorBelt flatConveyorBelt;
+                if (hitObject.TryGetComponent<FlatConveyorBelt>(out flatConveyorBelt))
+                {
+                    flatConveyorBelt.Turn();
+                    return;
+                }
+                FlatConveyorBeltCurve flatConveyorBeltCurve;
+                if (hitObject.TryGetComponent<FlatConveyorBeltCurve>(out flatConveyorBeltCurve))
+                {
+                    flatConveyorBeltCurve.Turn();
                     return;
                 }
             }

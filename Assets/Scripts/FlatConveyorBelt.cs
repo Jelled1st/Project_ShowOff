@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class FlatConveyorBelt : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class FlatConveyorBelt : MonoBehaviour
     [SerializeField] private Material _conveyorMaterial;
 
     private Rigidbody _rBody;
+    //magic number so that the speed of the moving package matches the speed of the moving texture - eye candy
+    private float _eyeCandySpeedMultiplier = 0.7f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +30,10 @@ public class FlatConveyorBelt : MonoBehaviour
         Vector3 pos = _rBody.position;
         _rBody.position += _rBody.transform.right * -_speed * Time.deltaTime;
         _rBody.MovePosition(pos);
+    }
+
+    public void Turn()
+    {
+        this.gameObject.transform.DORotate(this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0), 0.2f);
     }
 }
