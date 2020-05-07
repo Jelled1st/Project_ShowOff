@@ -49,3 +49,5 @@ MonoBehaviour:
   _groundLevel: 0.5
   _respawnTime: 2
   _pushForce: 150
+  _stuckCheckTime: 2
+  _stuckDistance: 0.1
