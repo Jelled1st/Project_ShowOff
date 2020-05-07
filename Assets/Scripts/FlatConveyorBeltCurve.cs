@@ -5,12 +5,8 @@ using DG.Tweening;
 
 public class FlatConveyorBeltCurve : FlatConveyorBelt
 {
-    private Transform _childConveyor;
     //magic number so that the speed of the moving package matches the speed of the moving texture - eye candy
     private float _eyeCandySpeedMultiplier = 0.7f;
-
-    private bool _turning = false;
-    private float _totalTurned = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +17,8 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
         }
         _rBody.useGravity = true;
         _rBody.isKinematic = true;
-        
-        SetConveyorSpeed();
 
-        _childConveyor = this.gameObject.transform.GetChild(0);
+        SetConveyorSpeed();
     }
 
     // Update is called once per frame
@@ -33,45 +27,10 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
         Quaternion rot = _rBody.rotation;
         _rBody.rotation *= Quaternion.Euler(0, _speed * _eyeCandySpeedMultiplier, 0);
         _rBody.MoveRotation(rot);
-
-        if(_turning)
-        {
-            Turn();
-            if (_totalTurned >= 90)
-            {
-                _totalTurned = 0;
-                _turning = false;
-            }
-        }
     }
 
     public override void Turn()
     {
-        float turnAmount = 90 * 0.2f;
-        if(_totalTurned + turnAmount > 90)
-        {
-            turnAmount = 90 - _totalTurned;
-        }
-        _totalTurned += turnAmount;
-        //this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(-1, 0, -1), new Vector3(0, 1, 0), turnAmount); // -> correct
-        Vector3 rot = this.gameObject.transform.rotation.eulerAngles;
-        if (rot.y >= 0 && rot.y < 90)
-        {
-            this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(-1, 0, 0), new Vector3(0, 1, 0), turnAmount);
-        }
-        else if(rot.y >= 90 && rot.y < 180)
-        {
-            this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(0, 0, 1), new Vector3(0, 1, 0), turnAmount);
-        }
-        else if(rot.y >= 180 && rot.y < 270)
-        {
-            this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(1, 0, 0), new Vector3(0, 1, 0), turnAmount);
-        }
-        else if (rot.y >= 270 && rot.y < 360)
-        {
-            this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(0, 0, -1), new Vector3(0, 1, 0), turnAmount);
-        }
-
-        _turning = true;
+        this.gameObject.transform.parent.DORotate(this.gameObject.transform.parent.rotation.eulerAngles + new Vector3(0, 90, 0), 0.2f);
     }
 }
