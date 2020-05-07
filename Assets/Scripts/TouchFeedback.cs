@@ -24,10 +24,11 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     public void OnPress(RaycastHit hit)
     {
-        _pressFeedback.transform.position = hit.point;
+        _pressFeedback.transform.position = hit.point + hit.normal*0.1f;
         _pressFeedback.transform.forward = hit.normal;
         _pressFeedback.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-        _pressFeedback.transform.DOPunchScale(new Vector3(1.0f, 1.0f, 1.0f), 0.4f, 0);
+        _pressFeedback.transform.DOComplete();
+        _pressFeedback.transform.DOPunchScale(new Vector3(3.0f, 3.0f, 3.0f), 0.6f, 0);
         _pressFeedback.Play();
     }
 
