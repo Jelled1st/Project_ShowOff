@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 0
-    path: Assets/Scenes/Style Experiments.unity
-    guid: 12552bdbeb6e0f5438fdf86503494091
-  - enabled: 1
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
     path: Assets/Scenes/Chloe Tests.unity
     guid: 4fc662d31c3e9644392b5a97336362bc
+  - enabled: 1
+    path: Assets/Scenes/Prototype Week 1.unity
+    guid: 64e5b7a2b240e894b98f8fd79aee2653
   m_configObjects: {}
