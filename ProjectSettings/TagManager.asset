@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ConveyorBelt
+  - Controller
   layers:
   - Default
   - TransparentFX

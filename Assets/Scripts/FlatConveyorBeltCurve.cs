@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class FlatConveyorBeltCurve : MonoBehaviour
+public class FlatConveyorBeltCurve : FlatConveyorBelt
 {
-    [SerializeField] private float _speed = 1;
-    [SerializeField] private Material _conveyorMaterial;
-
-    private Rigidbody _rBody;
     private Transform _childConveyor;
     //magic number so that the speed of the moving package matches the speed of the moving texture - eye candy
     private float _eyeCandySpeedMultiplier = 0.7f;
@@ -48,7 +44,7 @@ public class FlatConveyorBeltCurve : MonoBehaviour
         }
     }
 
-    public void Turn()
+    public override void Turn()
     {
         float turnAmount = 90 * 0.2f;
         if(_totalTurned + turnAmount > 90)

@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class FlatConveyorBelt : MonoBehaviour
+public class FlatConveyorBelt : MonoBehaviour, IControllable
 {
-    [SerializeField] private float _speed = 1;
-    [SerializeField] private Material _conveyorMaterial;
+    [SerializeField] protected float _speed = 1;
+    [SerializeField] protected Material _conveyorMaterial;
 
-    private Rigidbody _rBody;
-
-    //magic number so that the speed of the moving package matches the speed of the moving texture - eye candy
-    private float _eyeCandySpeedMultiplier = 0.7f;
+    protected Rigidbody _rBody;
     private Tween _rotateTween;
 
 
@@ -36,8 +33,7 @@ public class FlatConveyorBelt : MonoBehaviour
         _rBody.MovePosition(pos);
     }
 
-
-    public void Turn()
+    public virtual void Turn()
     {
         if (_rotateTween == null || !_rotateTween.IsPlaying())
         {
@@ -45,5 +41,20 @@ public class FlatConveyorBelt : MonoBehaviour
                 this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0),
                 0.2f);
         }
+    }
+
+    public void OnPress()
+    {
+        Turn();
+    }
+
+    public void OnHold(float holdTime)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnSwipe(Vector3 startPosition, Vector3 endPosition)
+    {
+        throw new System.NotImplementedException();
     }
 }
