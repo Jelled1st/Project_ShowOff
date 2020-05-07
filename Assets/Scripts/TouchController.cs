@@ -105,8 +105,11 @@ public class TouchController : MonoBehaviour, IControllable
             //register swipe
             if (!_currentlySwiping)
             {
-                if (GetFullLengthOfSwipe() > _swipeDistance) _currentlySwiping = true;
-                Debug.Log("Swiping");
+                if (GetFullLengthOfSwipe() > _swipeDistance)
+                {
+                    _currentlySwiping = true;
+                    //Debug.Log("Swiping");
+                }
             }
         }
         else
@@ -143,21 +146,21 @@ public class TouchController : MonoBehaviour, IControllable
 
     public void OnPress()
     {
-        Debug.Log("Press");
+        //Debug.Log("Press");
     }
 
     public void OnHold(float holdTime)
     {
-        Debug.Log("Hold " + holdTime);
+        //Debug.Log("Hold " + holdTime);
     }
 
     public void OnHoldRelease(float timeHeld)
     {
-        Debug.Log("HoldRelease " + timeHeld);
+        //Debug.Log("HoldRelease " + timeHeld);
     }
 
     public void OnSwipe(Vector3 direction)
     {
-        Debug.Log("Swipe " + direction);
+        //Debug.Log("Swipe " + direction);
     }
 }
