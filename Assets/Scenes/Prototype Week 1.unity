@@ -1378,6 +1378,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1948196978}
     m_Modifications:
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1621,7 +1625,7 @@ PrefabInstance:
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.000032797452
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -1631,7 +1635,7 @@ PrefabInstance:
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.000029951334
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -1646,7 +1650,7 @@ PrefabInstance:
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180.00299
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -1677,6 +1681,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: prefab_FlatConveyorBelt02 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775122812291790707, guid: a768c6c827528e347bdcfd402e53b0da,
+        type: 3}
+      propertyPath: _speed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8367685071214396771, guid: a768c6c827528e347bdcfd402e53b0da,
         type: 3}
@@ -2164,7 +2173,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449092488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.42, y: 1.1, z: -2.829}
+  m_LocalPosition: {x: 12.541, y: 1.1, z: -2.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3248971}
@@ -2337,6 +2346,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prefab_FlatConveyorBeltCurve
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _speed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6bc17b4493e57341a7176c98275646e, type: 3}
