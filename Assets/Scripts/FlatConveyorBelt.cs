@@ -66,11 +66,13 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public void OnHold(float holdTime)
     {
-        throw new System.NotImplementedException();
     }
 
-    public void OnSwipe(Vector3 startPosition, Vector3 endPosition)
+    public void OnHoldRelease(float timeHeld)
     {
-        throw new System.NotImplementedException();
+    }
+
+    public void OnSwipe(Vector3 direction)
+    {
     }
 }

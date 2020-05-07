@@ -6,5 +6,6 @@ public interface IControllable
 {
     void OnPress();
     void OnHold(float holdTime);
-    void OnSwipe(Vector3 startPosition, Vector3 endPosition);
+    void OnHoldRelease(float timeHeld);
+    void OnSwipe(Vector3 direction);
 }
