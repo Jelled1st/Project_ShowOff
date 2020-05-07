@@ -151,8 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holdTime: 0.3
-  _swipeSpeed: 1
-  _swipeDistance: 5
+  _swipeSpeed: 50
+  _swipeDistance: 150
 --- !u!4 &92225753
 Transform:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _conveyorMaterial: {fileID: 2100000, guid: 9f2f4a0c889066744b27ec5edab36e75, type: 2}
+  _conveyorRenderer: {fileID: 0}
 --- !u!65 &333100214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -290,7 +290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333100212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.14, y: 0, z: -1.381}
+  m_LocalPosition: {x: 3.16, y: 0, z: 0.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -573,7 +573,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573875769}
   m_LocalRotation: {x: 0.12940954, y: -0.8365163, z: 0.22414392, w: 0.48296285}
-  m_LocalPosition: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalPosition: {x: 7.22, y: 5.646, z: 5.224}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _conveyorMaterial: {fileID: 2100000, guid: 1155328f31e0cd545893482e382470ff, type: 2}
+  _conveyorRenderer: {fileID: 0}
 --- !u!4 &2084333317
 Transform:
   m_ObjectHideFlags: 0
@@ -766,8 +766,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084333313}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2066843759}
@@ -903,7 +903,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8053312207168730789}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.389, y: 0, z: 2}
+  m_LocalPosition: {x: 0.61, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -963,7 +963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6941339114357181990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.549, y: 1.266, z: -1.66}
+  m_LocalPosition: {x: 0.5, y: 1.266, z: 0.34}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 826036684509980364}
@@ -1004,7 +1004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _conveyorMaterial: {fileID: 2100000, guid: 1155328f31e0cd545893482e382470ff, type: 2}
+  _conveyorRenderer: {fileID: 0}
 --- !u!65 &8053312207168730791
 BoxCollider:
   m_ObjectHideFlags: 0

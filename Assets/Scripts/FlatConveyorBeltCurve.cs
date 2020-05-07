@@ -53,7 +53,25 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
             turnAmount = 90 - _totalTurned;
         }
         _totalTurned += turnAmount;
-        this.gameObject.transform.RotateAround(new Vector3(-1, 0, -1), new Vector3(0, 1, 0), turnAmount); // -> correct
+        //this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(-1, 0, -1), new Vector3(0, 1, 0), turnAmount); // -> correct
+        Vector3 rot = this.gameObject.transform.rotation.eulerAngles;
+        if (rot.y >= 0 && rot.y < 90)
+        {
+            this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(-1, 0, 0), new Vector3(0, 1, 0), turnAmount);
+        }
+        else if(rot.y >= 90 && rot.y < 180)
+        {
+            this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(0, 0, 1), new Vector3(0, 1, 0), turnAmount);
+        }
+        else if(rot.y >= 180 && rot.y < 270)
+        {
+            this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(1, 0, 0), new Vector3(0, 1, 0), turnAmount);
+        }
+        else if (rot.y >= 270 && rot.y < 360)
+        {
+            this.gameObject.transform.RotateAround(this.gameObject.transform.position + new Vector3(0, 0, -1), new Vector3(0, 1, 0), turnAmount);
+        }
+
         _turning = true;
     }
 }
