@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchController : MonoBehaviour, IControllable
+public class TouchController : MonoBehaviour, ISubject
 {
     [Tooltip("Amount of time an object needs to be clicked before onHold() is called, if an object is held less than this time it will be registered as a single press")]
     [SerializeField] private float _holdTime = 0.3f;
@@ -10,8 +10,12 @@ public class TouchController : MonoBehaviour, IControllable
     [SerializeField] private float _swipeSpeed = 1;
     [Tooltip("Minimal distance for a swipe to be registered as swipe")]
     [SerializeField] private float _swipeDistance = 5;
+
+    List<IControlsObserver> _observers = new List<IControlsObserver>();
+
     private IControllable _selected = null;
     private float _timeHeld = 0.0f;
+    private Vector3 _hitPoint = new Vector3();
 
     private Vector3 _lastMousePosition;
     private List<Vector3> _swipePositions;
@@ -20,11 +24,15 @@ public class TouchController : MonoBehaviour, IControllable
 
     private bool _debugOutput = false;
 
+
+    void Awake()
+    {
+        this.gameObject.tag = "Controller";
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        this.gameObject.tag = "Controller";
-
         _swipePositions = new List<Vector3>();
         _swipeSpeed = Mathf.Abs(_swipeSpeed);
         _swipeDistance = Mathf.Abs(_swipeSpeed);
@@ -33,7 +41,6 @@ public class TouchController : MonoBehaviour, IControllable
     // Update is called once per frame
     void Update()
     {
-        if(_selected != null) Debug.Log(_selected);
         bool mousePressed = Input.GetMouseButton(0);
         HandleSwipe(mousePressed);
         if (mousePressed)
@@ -46,11 +53,11 @@ public class TouchController : MonoBehaviour, IControllable
                 {
                     if (_swipeStarted)
                     {
-                        controllable.OnSwipe(GetLastSwipeDirection());
-                        OnSwipe(GetLastSwipeDirection());
+                        OnSwipe(GetLastSwipeDirection(), _lastMousePosition, controllable);
                     }
                     else
                     {
+                        _hitPoint = hit.point;
                         //only if not swiping
                         if (_selected != null && _selected != controllable)
                         {
@@ -61,8 +68,7 @@ public class TouchController : MonoBehaviour, IControllable
                         _timeHeld += Time.deltaTime;
                         if (_timeHeld >= _holdTime)
                         {
-                            _selected.OnHold(_timeHeld);
-                            OnHold(_timeHeld);
+                            OnHold(_timeHeld, _selected, _hitPoint);
                         }
                     }
                 }
@@ -93,13 +99,11 @@ public class TouchController : MonoBehaviour, IControllable
     {
         if (_timeHeld >= _holdTime)
         {
-            controllable.OnHoldRelease(_timeHeld);
-            OnHoldRelease(_timeHeld);
+            OnHoldRelease(_timeHeld, _selected);
         }
         else
         {
-            controllable.OnPress();
-            OnPress();
+            OnPress(_selected, _hitPoint);
         }
     }
 
@@ -112,11 +116,11 @@ public class TouchController : MonoBehaviour, IControllable
             {
                 _swipeStarted = true;
                 _swipePositions.Add(mousePos);
-                Debug.Log(_swipePositions.Count);
                 if(_swipePositions.Count == 50)
                 {
                     _swipePositions.RemoveAt(0);
                 }
+                OnSwipe(GetLastSwipeDirection(), _lastMousePosition, null);
                 //register swipe
                 if (!_currentlySwiping)
                 {
@@ -168,23 +172,50 @@ public class TouchController : MonoBehaviour, IControllable
         return length;
     }
 
-    public void OnPress()
+
+    public void Register(IObserver observer)
     {
-        if (_debugOutput) Debug.Log("Press");
+        if (observer is IControlsObserver) _observers.Add((IControlsObserver)observer);
     }
 
-    public void OnHold(float holdTime)
+    public void UnRegister(IObserver observer)
     {
-        if (_debugOutput) Debug.Log("Hold " + holdTime);
+        if (observer is IControlsObserver) _observers.Remove((IControlsObserver)observer);
     }
 
-    public void OnHoldRelease(float timeHeld)
+    public void OnPress(IControllable pressed, Vector3 hitPoint)
     {
-        if (_debugOutput) Debug.Log("HoldRelease " + timeHeld);
+        pressed.OnPress(hitPoint);
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnPress(pressed, hitPoint);
+        }
     }
 
-    public void OnSwipe(Vector3 direction)
+    public void OnHold(float holdTime, IControllable held, Vector3 hitPoint)
     {
-        if (_debugOutput) Debug.Log("Swipe " + direction);
+        held.OnHold(holdTime, hitPoint);
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnHold(holdTime, held, hitPoint);
+        }
+    }
+
+    public void OnHoldRelease(float timeHeld, IControllable released)
+    {
+        released.OnHoldRelease(timeHeld);
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnHoldRelease(timeHeld, released);
+        }
+    }
+
+    public void OnSwipe(Vector3 direction, Vector3 lastPoint, IControllable swiped)
+    {
+        if(swiped != null) swiped.OnSwipe(direction, lastPoint);
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnSwipe(direction, lastPoint, swiped);
+        }
     }
 }
