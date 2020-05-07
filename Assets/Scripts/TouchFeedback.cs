@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class TouchFeedback : MonoBehaviour, IControlsObserver
 {
@@ -20,11 +21,17 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         }
     }
 
-    public void OnPress(IControllable pressed, Vector3 hitPoint)
+
+    public void OnPress(RaycastHit hit)
     {
+        _pressFeedback.transform.position = hit.point;
+        _pressFeedback.transform.forward = hit.normal;
+        _pressFeedback.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        _pressFeedback.transform.DOPunchScale(new Vector3(1.0f, 1.0f, 1.0f), 0.4f, 0);
+        _pressFeedback.Play();
     }
 
-    public void OnHold(float holdTime, IControllable held, Vector3 hitPoint)
+    public void OnHold(float holdTime, RaycastHit hit)
     {
     }
 
@@ -32,7 +39,7 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
     {
     }
 
-    public void OnSwipe(Vector3 direction, Vector3 lastPoint, IControllable swiped)
+    public void OnSwipe(Vector3 direction, Vector3 lastPoint, RaycastHit hit)
     {
     }
 
@@ -45,5 +52,4 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
     {
         subject.UnRegister(this);
     }
-
 }
