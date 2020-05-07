@@ -6,7 +6,7 @@ using DG.Tweening;
 public class FlatConveyorBelt : MonoBehaviour, IControllable
 {
     [SerializeField] protected float _speed = 1;
-    [SerializeField] protected Material _conveyorMaterial;
+    [SerializeField] protected MeshRenderer _conveyorRenderer;
 
     protected Rigidbody _rBody;
     private Tween _rotateTween;
@@ -22,7 +22,23 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
         _rBody.useGravity = true;
         _rBody.isKinematic = true;
-        _conveyorMaterial.SetFloat("_scrollingSpeed", _speed);
+
+        SetConveyorSpeed();
+    }
+
+    protected void SetConveyorSpeed()
+    {
+        if (!_conveyorRenderer.Equals(null))
+        {
+            for (var i = 0; i < _conveyorRenderer.materials.Length; i++)
+            {
+                if (_conveyorRenderer.materials[i].shader.name.Equals("Shader Graphs/shdr_textureScroll"))
+                {
+                    _conveyorRenderer.materials[i] = new Material(_conveyorRenderer.materials[i]);
+                    _conveyorRenderer.materials[i].SetFloat("_scrollingSpeed", _speed);
+                }
+            }
+        }
     }
 
     // Update is called once per frame

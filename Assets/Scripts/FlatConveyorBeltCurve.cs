@@ -21,7 +21,8 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
         }
         _rBody.useGravity = true;
         _rBody.isKinematic = true;
-        _conveyorMaterial.SetFloat("_scrollingSpeed", _speed);
+        
+        SetConveyorSpeed();
 
         _childConveyor = this.gameObject.transform.GetChild(0);
     }
