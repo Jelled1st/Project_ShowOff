@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0cdd210d63a340e4bb7abb46ffcda59d
+guid: 2c5b545203095364d9a3478836ac5924
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: c5607ec1f04772749bc8a7423d77bbd6, type: 2}
+      name: potatoWasher_buttons
+    second: {fileID: 2100000, guid: b59b2fb8495217649a4c432b6b395538, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: potatoWasher_frame
+    second: {fileID: 2100000, guid: 863d6a5d65aecdc4fb2210f943a3ce2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: potatoWasher_metal01
+    second: {fileID: 2100000, guid: ebb607beea15f8a4fb6d49f9023777d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: potatoWasher_metal02
+    second: {fileID: 2100000, guid: 19a661394b53c7d4b897fc2e6bce6c55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: potatoWasher_metal03
+    second: {fileID: 2100000, guid: 2d54f6349f5d41b479083221a4edb75e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
