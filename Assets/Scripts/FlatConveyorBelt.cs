@@ -59,12 +59,12 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         }
     }
 
-    public void OnPress()
+    public void OnPress(Vector3 hitPoint)
     {
         Turn();
     }
 
-    public void OnHold(float holdTime)
+    public void OnHold(float holdTime, Vector3 hitPoint)
     {
     }
 
@@ -72,7 +72,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     {
     }
 
-    public void OnSwipe(Vector3 direction)
+    public void OnSwipe(Vector3 direction, Vector3 lastPosition)
     {
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IControllable
 {
-    void OnPress();
-    void OnHold(float holdTime);
+    void OnPress(Vector3 hitPoint);
+    void OnHold(float holdTime, Vector3 hitPoint);
     void OnHoldRelease(float timeHeld);
-    void OnSwipe(Vector3 direction);
+    void OnSwipe(Vector3 direction, Vector3 lastPoint);
 }
