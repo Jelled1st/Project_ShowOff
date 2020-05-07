@@ -9,16 +9,20 @@ public class FlatConveyorBelt : MonoBehaviour
     [SerializeField] private Material _conveyorMaterial;
 
     private Rigidbody _rBody;
+
     //magic number so that the speed of the moving package matches the speed of the moving texture - eye candy
     private float _eyeCandySpeedMultiplier = 0.7f;
+    private Tween _rotateTween;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        if(!TryGetComponent<Rigidbody>(out _rBody))
+        if (!TryGetComponent<Rigidbody>(out _rBody))
         {
             _rBody = this.gameObject.AddComponent<Rigidbody>();
         }
+
         _rBody.useGravity = true;
         _rBody.isKinematic = true;
         _conveyorMaterial.SetFloat("_scrollingSpeed", _speed);
@@ -32,8 +36,14 @@ public class FlatConveyorBelt : MonoBehaviour
         _rBody.MovePosition(pos);
     }
 
+
     public void Turn()
     {
-        this.gameObject.transform.DORotate(this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0), 0.2f);
+        if (_rotateTween == null || !_rotateTween.IsPlaying())
+        {
+            _rotateTween = this.gameObject.transform.DORotate(
+                this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0),
+                0.2f);
+        }
     }
 }
