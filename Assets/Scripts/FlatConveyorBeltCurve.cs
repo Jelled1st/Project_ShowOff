@@ -7,6 +7,7 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
 {
     //magic number so that the speed of the moving package matches the speed of the moving texture - eye candy
     private float _eyeCandySpeedMultiplier = 0.7f;
+    private Tween _rotateTween;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +16,7 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
         {
             _rBody = this.gameObject.AddComponent<Rigidbody>();
         }
+
         _rBody.useGravity = true;
         _rBody.isKinematic = true;
 
@@ -31,6 +33,11 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
 
     public override void Turn()
     {
-        this.gameObject.transform.parent.DORotate(this.gameObject.transform.parent.rotation.eulerAngles + new Vector3(0, 90, 0), 0.2f);
+        if (_rotateTween == null || !_rotateTween.IsPlaying())
+        {
+            _rotateTween =
+                this.gameObject.transform.parent.DORotate(
+                    this.gameObject.transform.parent.rotation.eulerAngles + new Vector3(0, 90, 0), 0.2f);
+        }
     }
 }
