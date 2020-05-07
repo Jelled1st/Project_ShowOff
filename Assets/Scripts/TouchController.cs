@@ -8,14 +8,17 @@ public class TouchController : MonoBehaviour, IControllable
     [SerializeField] private float _holdTime = 0.3f;
     [Tooltip("Minimal amount of speed required for a press and move for it to be registered as a swipe")]
     [SerializeField] private float _swipeSpeed = 1;
-    [Tooltip("Minimal distance for a swipe to be registered")]
+    [Tooltip("Minimal distance for a swipe to be registered as swipe")]
     [SerializeField] private float _swipeDistance = 5;
     private IControllable _selected = null;
     private float _timeHeld = 0.0f;
 
     private Vector3 _lastMousePosition;
     private List<Vector3> _swipePositions;
+    private bool _swipeStarted = false;
     private bool _currentlySwiping = false;
+
+    private bool _debugOutput = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,21 +26,25 @@ public class TouchController : MonoBehaviour, IControllable
         this.gameObject.tag = "Controller";
 
         _swipePositions = new List<Vector3>();
+        _swipeSpeed = Mathf.Abs(_swipeSpeed);
+        _swipeDistance = Mathf.Abs(_swipeSpeed);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if(_selected != null) Debug.Log(_selected);
+        bool mousePressed = Input.GetMouseButton(0);
+        HandleSwipe(mousePressed);
+        if (mousePressed)
         {
-            HandleSwipe();
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
                 IControllable controllable;
                 if (hit.transform.gameObject.TryGetComponent<IControllable>(out controllable))
                 {
-                    if (_currentlySwiping)
+                    if (_swipeStarted)
                     {
                         controllable.OnSwipe(GetLastSwipeDirection());
                         OnSwipe(GetLastSwipeDirection());
@@ -96,24 +103,41 @@ public class TouchController : MonoBehaviour, IControllable
         }
     }
 
-    private void HandleSwipe()
+    private void HandleSwipe(bool mousePressed)
     {
         Vector3 mousePos = Input.mousePosition;
-        if ((mousePos - _lastMousePosition).magnitude >= _swipeSpeed)
+        if (mousePressed)
         {
-            _swipePositions.Add(mousePos);
-            //register swipe
-            if (!_currentlySwiping)
+            if (_currentlySwiping || Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed)
             {
-                if (GetFullLengthOfSwipe() > _swipeDistance)
+                _swipeStarted = true;
+                _swipePositions.Add(mousePos);
+                Debug.Log(_swipePositions.Count);
+                if(_swipePositions.Count == 50)
                 {
-                    _currentlySwiping = true;
-                    //Debug.Log("Swiping");
+                    _swipePositions.RemoveAt(0);
                 }
+                //register swipe
+                if (!_currentlySwiping)
+                {
+                    if (GetFullLengthOfSwipe() > _swipeDistance)
+                    {
+                        _currentlySwiping = true;
+                        if (_debugOutput) Debug.Log("Started swiping");
+                    }
+                }
+            }
+            else
+            {
+                _swipeStarted = false;
+                //if there was a swipe, it ended
+                _swipePositions.Clear();
+                _currentlySwiping = false;
             }
         }
         else
         {
+            _swipeStarted = false;
             //if there was a swipe, it ended
             _swipePositions.Clear();
             _currentlySwiping = false;
@@ -146,21 +170,21 @@ public class TouchController : MonoBehaviour, IControllable
 
     public void OnPress()
     {
-        //Debug.Log("Press");
+        if (_debugOutput) Debug.Log("Press");
     }
 
     public void OnHold(float holdTime)
     {
-        //Debug.Log("Hold " + holdTime);
+        if (_debugOutput) Debug.Log("Hold " + holdTime);
     }
 
     public void OnHoldRelease(float timeHeld)
     {
-        //Debug.Log("HoldRelease " + timeHeld);
+        if (_debugOutput) Debug.Log("HoldRelease " + timeHeld);
     }
 
     public void OnSwipe(Vector3 direction)
     {
-        //Debug.Log("Swipe " + direction);
+        if (_debugOutput) Debug.Log("Swipe " + direction);
     }
 }
