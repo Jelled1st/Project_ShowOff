@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 0.2
   _conveyorMaterial: {fileID: 2100000, guid: 1155328f31e0cd545893482e382470ff, type: 2}
+  _conveyorRenderer: {fileID: 3757057280818435087}
 --- !u!54 &6863068748597989280
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,6 +150,12 @@ PrefabInstance:
 --- !u!4 &1892690952510673600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 216cbb0a15f31f3478d10dd19508c961,
+    type: 3}
+  m_PrefabInstance: {fileID: 6863068748717701594}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3757057280818435087 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1504981713932161579, guid: 216cbb0a15f31f3478d10dd19508c961,
     type: 3}
   m_PrefabInstance: {fileID: 6863068748717701594}
   m_PrefabAsset: {fileID: 0}

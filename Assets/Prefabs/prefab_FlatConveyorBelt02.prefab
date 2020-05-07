@@ -129,3 +129,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 1
   _conveyorMaterial: {fileID: 2100000, guid: 1155328f31e0cd545893482e382470ff, type: 2}
+  _conveyorRenderer: {fileID: 6519086807216685996}
