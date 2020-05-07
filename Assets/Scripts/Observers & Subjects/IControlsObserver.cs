@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IControlsObserver : IObserver
 {
-    void OnPress(IControllable pressed, Vector3 hitPoint);
-    void OnHold(float holdTime, IControllable held, Vector3 hitPoint);
+    void OnPress(RaycastHit hit);
+    void OnHold(float holdTime, RaycastHit hit);
     void OnHoldRelease(float timeHeld, IControllable released);
-    void OnSwipe(Vector3 direction, Vector3 lastPoint, IControllable swiped);
+    void OnSwipe(Vector3 direction, Vector3 lastPoint, RaycastHit hit);
 }

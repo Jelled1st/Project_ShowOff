@@ -16,6 +16,7 @@ public class TouchController : MonoBehaviour, ISubject
     private IControllable _selected = null;
     private float _timeHeld = 0.0f;
     private Vector3 _hitPoint = new Vector3();
+    private RaycastHit _lastHit;
 
     private Vector3 _lastMousePosition;
     private List<Vector3> _swipePositions;
@@ -45,30 +46,29 @@ public class TouchController : MonoBehaviour, ISubject
         HandleSwipe(mousePressed);
         if (mousePressed)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out _lastHit))
             {
                 IControllable controllable;
-                if (hit.transform.gameObject.TryGetComponent<IControllable>(out controllable))
+                if (_lastHit.transform.gameObject.TryGetComponent<IControllable>(out controllable))
                 {
                     if (_swipeStarted)
                     {
-                        OnSwipe(GetLastSwipeDirection(), _lastMousePosition, controllable);
+                        OnSwipe(GetLastSwipeDirection(), _lastMousePosition, controllable, _lastHit);
                     }
                     else
                     {
-                        _hitPoint = hit.point;
+                        _hitPoint = _lastHit.point;
                         //only if not swiping
                         if (_selected != null && _selected != controllable)
                         {
-                            NotifyControls(_selected);
+                            NotifyControls(_selected, _lastHit);
                             _timeHeld = 0;
                         }
                         _selected = controllable;
                         _timeHeld += Time.deltaTime;
                         if (_timeHeld >= _holdTime)
                         {
-                            OnHold(_timeHeld, _selected, _hitPoint);
+                            OnHold(_timeHeld, _selected, _hitPoint, _lastHit);
                         }
                     }
                 }
@@ -89,21 +89,21 @@ public class TouchController : MonoBehaviour, ISubject
     {
         if (_selected != null)
         {
-            NotifyControls(_selected);
+            NotifyControls(_selected, _lastHit);
             _selected = null;
             _timeHeld = 0;
         }
     }
 
-    private void NotifyControls(IControllable controllable)
+    private void NotifyControls(IControllable controllable, RaycastHit hit)
     {
         if (_timeHeld >= _holdTime)
         {
-            OnHoldRelease(_timeHeld, _selected);
+            OnHoldRelease(_timeHeld, _selected, hit);
         }
         else
         {
-            OnPress(_selected, _hitPoint);
+            OnPress(_selected, _hitPoint, hit);
         }
     }
 
@@ -120,7 +120,7 @@ public class TouchController : MonoBehaviour, ISubject
                 {
                     _swipePositions.RemoveAt(0);
                 }
-                OnSwipe(GetLastSwipeDirection(), _lastMousePosition, null);
+                OnSwipe(GetLastSwipeDirection(), _lastMousePosition, null, _lastHit);
                 //register swipe
                 if (!_currentlySwiping)
                 {
@@ -183,25 +183,25 @@ public class TouchController : MonoBehaviour, ISubject
         if (observer is IControlsObserver) _observers.Remove((IControlsObserver)observer);
     }
 
-    public void OnPress(IControllable pressed, Vector3 hitPoint)
+    public void OnPress(IControllable pressed, Vector3 hitPoint, RaycastHit hit)
     {
         pressed.OnPress(hitPoint);
         for (int i = 0; i < _observers.Count; ++i)
         {
-            _observers[i].OnPress(pressed, hitPoint);
+            _observers[i].OnPress(hit);
         }
     }
 
-    public void OnHold(float holdTime, IControllable held, Vector3 hitPoint)
+    public void OnHold(float holdTime, IControllable held, Vector3 hitPoint, RaycastHit hit)
     {
         held.OnHold(holdTime, hitPoint);
         for (int i = 0; i < _observers.Count; ++i)
         {
-            _observers[i].OnHold(holdTime, held, hitPoint);
+            _observers[i].OnHold(holdTime, hit);
         }
     }
 
-    public void OnHoldRelease(float timeHeld, IControllable released)
+    public void OnHoldRelease(float timeHeld, IControllable released, RaycastHit hit)
     {
         released.OnHoldRelease(timeHeld);
         for(int i = 0; i < _observers.Count; ++i)
@@ -210,12 +210,12 @@ public class TouchController : MonoBehaviour, ISubject
         }
     }
 
-    public void OnSwipe(Vector3 direction, Vector3 lastPoint, IControllable swiped)
+    public void OnSwipe(Vector3 direction, Vector3 lastPoint, IControllable swiped, RaycastHit hit)
     {
         if(swiped != null) swiped.OnSwipe(direction, lastPoint);
         for (int i = 0; i < _observers.Count; ++i)
         {
-            _observers[i].OnSwipe(direction, lastPoint, swiped);
+            _observers[i].OnSwipe(direction, lastPoint, hit);
         }
     }
 }
