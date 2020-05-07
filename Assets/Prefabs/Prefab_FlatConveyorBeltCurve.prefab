@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4692160242927975961}
   m_Layer: 0
-  m_Name: prefab_FlatConveyorBeltCurve
+  m_Name: Prefab_FlatConveyorBeltCurve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7841305793709066074}
   - component: {fileID: 8425456584887366533}
   - component: {fileID: 8425456584887366539}
-  - component: {fileID: 8425456584887366532}
+  - component: {fileID: 2390746747053782737}
   m_Layer: 0
   m_Name: mesh_conveyorBeltCurve
   m_TagString: Untagged
@@ -147,8 +147,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &8425456584887366532
-BoxCollider:
+--- !u!64 &2390746747053782737
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -157,6 +157,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0850654, y: 0.8671235, z: 2.0850658}
-  m_Center: {x: -1.0425332, y: 0.43356174, z: -1.0651283}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4769390152216309138, guid: 6ccdb6202d961da4bb70df033a31d22c, type: 3}
