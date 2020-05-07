@@ -28,7 +28,7 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         _pressFeedback.transform.forward = hit.normal;
         _pressFeedback.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         _pressFeedback.transform.DOComplete();
-        _pressFeedback.transform.DOPunchScale(new Vector3(3.0f, 3.0f, 3.0f), 0.6f, 0);
+        _pressFeedback.transform.DOPunchScale(new Vector3(3.0f, 3.0f, 3.0f), 0.3f, 0);
         _pressFeedback.Play();
     }
 
