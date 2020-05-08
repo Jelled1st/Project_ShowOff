@@ -32,7 +32,7 @@ public class TouchableObject : MonoBehaviour, IControllable
 
     public void OnHold(float holdTime, Vector3 hitPoint)
     {
-        this.transform.localScale = new Vector3(1 + holdTime, 1 + holdTime, 1 + holdTime);
+        this.transform.localScale = new Vector3(1 + holdTime/3, 1 + holdTime/3, 1 + holdTime/3);
     }
 
     public void OnHoldRelease(float timeHeld)
