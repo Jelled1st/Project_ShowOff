@@ -104,7 +104,7 @@ public class TouchController : MonoBehaviour, ISubject
         }
         else
         {
-            if(_swipeStarted) OnPress(_selected, _hitPoint, hit);
+            if(!_swipeStarted) OnPress(_selected, _hitPoint, hit);
         }
     }
 
