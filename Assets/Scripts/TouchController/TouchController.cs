@@ -90,7 +90,7 @@ public class TouchController : MonoBehaviour, ISubject
     {
         if (_selected != null)
         {
-            if(!_swipeStarted) NotifyControls(_selected, _lastHit);
+            NotifyControls(_selected, _lastHit);
             _selected = null;
             _timeHeld = 0;
         }
@@ -104,7 +104,7 @@ public class TouchController : MonoBehaviour, ISubject
         }
         else
         {
-            OnPress(_selected, _hitPoint, hit);
+            if(_swipeStarted) OnPress(_selected, _hitPoint, hit);
         }
     }
 
