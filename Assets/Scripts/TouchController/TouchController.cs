@@ -90,7 +90,7 @@ public class TouchController : MonoBehaviour, ISubject
     {
         if (_selected != null)
         {
-            NotifyControls(_selected, _lastHit);
+            if(!_swipeStarted) NotifyControls(_selected, _lastHit);
             _selected = null;
             _timeHeld = 0;
         }
@@ -152,8 +152,16 @@ public class TouchController : MonoBehaviour, ISubject
 
     private Vector3 GetLastSwipeDirection()
     {
-        int lastIndex = _swipePositions.Count-1;
-        return _swipePositions[lastIndex] - _swipePositions[lastIndex - 1];
+        if (_swipePositions.Count <= 0) return new Vector3();
+        else if (_swipePositions.Count == 1)
+        {
+            return _swipePositions[0] - _lastMousePosition;
+        }
+        else
+        {
+            int lastIndex = _swipePositions.Count - 1;
+            return _swipePositions[lastIndex] - _swipePositions[lastIndex - 1];
+        }
     }
 
     private Vector3 GetAvergaSwipeDirection()
@@ -165,7 +173,7 @@ public class TouchController : MonoBehaviour, ISubject
     {
         float length = 0;
 
-        for(int i = 0; i < _swipePositions.Count -1; ++i)
+        for(int i = 0; i < _swipePositions.Count - 1; ++i)
         {
             length += (_swipePositions[i + 1] - _swipePositions[i]).magnitude;
         }
