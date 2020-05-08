@@ -21,6 +21,10 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         }
     }
 
+    public void OnClick(RaycastHit hit)
+    {
+
+    }
 
     public void OnPress(RaycastHit hit)
     {

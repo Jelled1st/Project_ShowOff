@@ -51,6 +51,7 @@ public class TouchController : MonoBehaviour, ISubject
                 IControllable controllable;
                 if (_lastHit.transform.gameObject.TryGetComponent<IControllable>(out controllable))
                 {
+                    OnClick(controllable, _lastHit.point, _lastHit);
                     if (_swipeStarted)
                     {
                         OnSwipe(GetLastSwipeDirection(), _lastMousePosition, controllable, _lastHit);
@@ -175,12 +176,24 @@ public class TouchController : MonoBehaviour, ISubject
 
     public void Register(IObserver observer)
     {
-        if (observer is IControlsObserver) _observers.Add((IControlsObserver)observer);
+        if (observer is IControlsObserver)
+        {
+            _observers.Add((IControlsObserver)observer);
+        }
     }
 
     public void UnRegister(IObserver observer)
     {
         if (observer is IControlsObserver) _observers.Remove((IControlsObserver)observer);
+    }
+
+    public void OnClick(IControllable pressed, Vector3 hitPoint, RaycastHit hit)
+    {
+        pressed.OnClick(hitPoint);
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnClick(hit);
+        }
     }
 
     public void OnPress(IControllable pressed, Vector3 hitPoint, RaycastHit hit)
