@@ -6,9 +6,11 @@ using DG.Tweening;
 public class TouchFeedback : MonoBehaviour, IControlsObserver
 {
     [SerializeField] private ParticleSystem _pressFeedback;
+    [SerializeField] private ParticleSystem _swipeFeedback;
 
     private TouchController _touchController;
     private bool _isHeld = false;
+    private bool _isSwiping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,15 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
             _touchController = controller.GetComponent<TouchController>();
             Subscribe(_touchController);
         }
+    }
+
+    void Update()
+    {
+        if(_isSwiping == false)
+        {
+            _swipeFeedback.gameObject.SetActive(false);
+        }
+        _isSwiping = false;
     }
 
     public void OnClick(RaycastHit hit)
@@ -70,6 +81,14 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint, RaycastHit hit)
     {
+        _swipeFeedback.gameObject.SetActive(true);
+        _isSwiping = true;      
+        Vector3 screenPoint = lastPoint + direction;
+        screenPoint.z = 10;
+        Vector3 mouse3d = Camera.main.ScreenToWorldPoint(screenPoint);
+
+        _swipeFeedback.transform.position = mouse3d;
+        if(!_swipeFeedback.isPlaying)_swipeFeedback.Play();
     }
 
     public void Subscribe(ISubject subject)
