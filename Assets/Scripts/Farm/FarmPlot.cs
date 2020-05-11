@@ -16,6 +16,16 @@ public class FarmPlot : MonoBehaviour, IControllable
 
     }
 
+    public static void Plant(FarmPlot plot)
+    {
+        plot.Plant();
+    }
+
+    public static void Water(FarmPlot plot)
+    {
+        plot.Water();
+    }
+
     public void Plant()
     {
 
