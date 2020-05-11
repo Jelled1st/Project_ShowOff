@@ -83,15 +83,25 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint, ControllerHitInfo hitInfo)
     {
-        if (hitInfo.uiElement) return;
+        _isSwiping = true;
         _swipeFeedback.gameObject.SetActive(true);
-        _isSwiping = true;      
         Vector3 screenPoint = lastPoint + direction;
-        screenPoint.z = 10;
+        screenPoint.z = 1;
         Vector3 mouse3d = Camera.main.ScreenToWorldPoint(screenPoint);
 
         _swipeFeedback.transform.position = mouse3d;
         if(!_swipeFeedback.isPlaying)_swipeFeedback.Play();
+    }
+    public void OnDrag(Vector3 position, IControllable dragged)
+    {
+    }
+
+    public void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo)
+    {
+    }
+
+    public void OnDragDropFailed(Vector3 position, IControllable dragged)
+    {
     }
 
     public void Subscribe(ISubject subject)

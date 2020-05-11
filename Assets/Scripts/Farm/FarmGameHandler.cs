@@ -47,6 +47,18 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver
     {
     }
 
+    public void OnDrag(Vector3 position, IControllable dragged)
+    {
+    }
+
+    public void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo)
+    {
+    }
+
+    public void OnDragDropFailed(Vector3 position, IControllable dragged)
+    {
+    }
+
     public void Subscribe(ISubject subject)
     {
         subject.Register(this);

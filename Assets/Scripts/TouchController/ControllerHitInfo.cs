@@ -24,6 +24,16 @@ public struct ControllerHitInfo
         uiElement = true;
     }
 
+    public ControllerHitInfo(bool everythingNull)
+    {
+        if (!everythingNull) throw new System.Exception("ControllerHitInfo Everything null error");
+        controllable = null;
+        gameObject = null;
+        point = new Vector3();
+        normal = new Vector3();
+        uiElement = false;
+    }
+
     public readonly IControllable controllable;
     public readonly GameObject gameObject;
     public readonly Vector3 point;

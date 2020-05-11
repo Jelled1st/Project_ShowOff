@@ -6,6 +6,9 @@ public class TouchableObject : MonoBehaviour, IControllable
 {
     bool _wasSwiped = false;
     bool _swiping = false;
+
+    GameObject clone;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,5 +57,33 @@ public class TouchableObject : MonoBehaviour, IControllable
     private Color GetRandomColor()
     {
         return new Color((float)Random.Range(0f, 1f), (float)Random.Range(0f, 1f), (float)Random.Range(0f, 1f));
+    }
+
+    public void OnDrag(Vector3 position)
+    {
+        if (clone == null)
+        {
+            clone = Instantiate(this.gameObject);
+            Destroy(clone.GetComponent<TouchableObject>());
+            Destroy(clone.GetComponent<BoxCollider>());
+            clone.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.3f);
+        }
+        clone.transform.position = position;
+    }
+
+    public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
+    {
+        Destroy(clone);
+        clone = null;
+    }
+
+    public void OnDragDropFailed(Vector3 position)
+    {
+        Destroy(clone);
+        clone = null;
+    }
+
+    public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
+    {
     }
 }

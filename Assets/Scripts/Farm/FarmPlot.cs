@@ -56,4 +56,21 @@ public class FarmPlot : MonoBehaviour, IControllable
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
     }
+
+    public void OnDrag(Vector3 position)
+    {
+    }
+
+    public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
+    {
+    }
+
+    public void OnDragDropFailed(Vector3 position)
+    {
+    }
+
+    public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
+    {
+        Debug.Log("Package delivered");
+    }
 }
