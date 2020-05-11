@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "DragFunctionality", menuName = "ScriptableObjects/DragFunctionality", order = 1)]
-public class DragFunctionality : ScriptableObject
+[CreateAssetMenu(fileName = "DragFunctionality", menuName = "ScriptableObjects/DragFunctionalitySO", order = 1)]
+public class DragFunctionalitySO : ScriptableObject
 {
     enum Functionalities
     {

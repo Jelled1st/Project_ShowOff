@@ -23,20 +23,19 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver
     {
 
     }
-    public void OnClick(RaycastHit hit)
+    public void OnClick(ControllerHitInfo hitInfo)
     {
     }
 
-    public void OnPress(RaycastHit hit)
+    public void OnPress(ControllerHitInfo hitInfo)
     {
         FarmPlot plot;
-        if (hit.transform.gameObject.TryGetComponent<FarmPlot>(out plot))
+        if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
         {
-            Debug.Log("Hit plot " + plot);
         }
     }
 
-    public void OnHold(float holdTime, RaycastHit hit)
+    public void OnHold(float holdTime, ControllerHitInfo hitInfo)
     {
     }
 
@@ -44,7 +43,7 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver
     {
     }
 
-    public void OnSwipe(Vector3 direction, Vector3 lastPoint, RaycastHit hit)
+    public void OnSwipe(Vector3 direction, Vector3 lastPoint, ControllerHitInfo hitInfo)
     {
     }
 

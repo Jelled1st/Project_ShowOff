@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class FarmTopBar : MonoBehaviour
 {
-    [SerializeField] private List<DragFunctionality> _seeds;
+    [SerializeField] private List<DragFunctionalitySO> _seeds;
     [SerializeField] private GameObject _topBarPanel;
 
     private List<Image> _icons;
