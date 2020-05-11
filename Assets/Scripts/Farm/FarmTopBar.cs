@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class FarmTopBar : MonoBehaviour
 {
-    [SerializeField] private List<SeedsScriptableObject> _seeds;
+    [SerializeField] private List<DragFunctionality> _seeds;
     [SerializeField] private GameObject _topBarPanel;
 
     private List<Image> _icons;
@@ -13,11 +13,11 @@ public class FarmTopBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ScaleTopBar();
         for(int i = 0; i < _seeds.Count; ++i)
         {
-            AddIconToTopBar(LoadImageFromPath(_seeds[i].GetFile()));
+            AddIconToTopBar(LoadImageFromPath(_seeds[i].GetIconFile()));
         }
+        ScaleTopBar();
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class FarmTopBar : MonoBehaviour
     private void ScaleTopBar()
     {
         RectTransform topBar = _topBarPanel.GetComponent<RectTransform>();
-        topBar.sizeDelta = new Vector2(Screen.width, topBar.sizeDelta.y);
+        topBar.sizeDelta = new Vector2(_icons.Count*100, topBar.sizeDelta.y);
     }
 
     private GameObject LoadImageFromPath(string file)
@@ -38,8 +38,7 @@ public class FarmTopBar : MonoBehaviour
         Image img = imageObject.AddComponent<Image>();
         Texture2D tex = Resources.Load(file) as Texture2D;
         img.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0, 0));
-        if (img.sprite == null) Debug.Log("Something went wrong");
-        Debug.Log(Resources.Load(file));
+        if (img.sprite == null) Debug.LogError("Couldn't load Texture2D: " + file);
         return imageObject;
     }
 
@@ -51,6 +50,6 @@ public class FarmTopBar : MonoBehaviour
         Image img = imageObject.GetComponent<Image>();
         if (_icons == null) _icons = new List<Image>();
         _icons.Add(img);
-        imageObject.GetComponent<RectTransform>().localPosition = new Vector2(0, -50);
+        imageObject.GetComponent<RectTransform>().localPosition = new Vector2(topBar.rect.width/2 -150 + 100*_icons.Count, 50);
     }
 }

@@ -16,6 +16,16 @@ public class FarmPlot : MonoBehaviour, IControllable
 
     }
 
+    public void Plant()
+    {
+
+    }
+
+    public void Water()
+    {
+
+    }
+
 
     public void OnClick(Vector3 hitPoint)
     {
