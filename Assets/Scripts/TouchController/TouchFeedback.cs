@@ -33,25 +33,27 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         _isSwiping = false;
     }
 
-    public void OnClick(RaycastHit hit)
+    public void OnClick(ControllerHitInfo hitInfo)
     {
 
     }
 
-    public void OnPress(RaycastHit hit)
+    public void OnPress(ControllerHitInfo hitInfo)
     {
-        _pressFeedback.transform.position = hit.point + hit.normal*0.1f;
-        _pressFeedback.transform.forward = hit.normal;
+        if (hitInfo.uiElement) return;
+        _pressFeedback.transform.position = hitInfo.point + hitInfo.normal*0.1f;
+        _pressFeedback.transform.forward = hitInfo.normal;
         _pressFeedback.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         _pressFeedback.transform.DOComplete();
         _pressFeedback.transform.DOPunchScale(new Vector3(3.0f, 3.0f, 3.0f), 0.3f, 0);
         _pressFeedback.Play();
     }
 
-    public void OnHold(float holdTime, RaycastHit hit)
+    public void OnHold(float holdTime, ControllerHitInfo hitInfo)
     {
-        _pressFeedback.transform.position = hit.point + hit.normal * 0.1f;
-        _pressFeedback.transform.forward = hit.normal;
+        if (hitInfo.uiElement) return;
+        _pressFeedback.transform.position = hitInfo.point + hitInfo.normal * 0.1f;
+        _pressFeedback.transform.forward = hitInfo.normal;
         _pressFeedback.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         if(!_isHeld)
         {
@@ -79,8 +81,9 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         _pressFeedback.transform.localScale = new Vector3(0, 0, 0);
     }
 
-    public void OnSwipe(Vector3 direction, Vector3 lastPoint, RaycastHit hit)
+    public void OnSwipe(Vector3 direction, Vector3 lastPoint, ControllerHitInfo hitInfo)
     {
+        if (hitInfo.uiElement) return;
         _swipeFeedback.gameObject.SetActive(true);
         _isSwiping = true;      
         Vector3 screenPoint = lastPoint + direction;
