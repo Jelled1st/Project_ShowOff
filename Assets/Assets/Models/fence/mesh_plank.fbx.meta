@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1dda0090aaa48ff4b89a01102bbd28e9
+guid: 88b35db404d30b74797fb8ece2bac0bf
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: 8a41828b9c51d074599cfbdd5352de1b, type: 2}
+      name: mat_fence_wood
+    second: {fileID: 2100000, guid: 74dfdc41efca4194ca6eb4a77c8d8cd0, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
