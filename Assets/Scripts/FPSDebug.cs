@@ -45,7 +45,7 @@ public class FPSDebug : MonoBehaviour
 
 
 		int width = 2;
-		Rect debuggerRect = new Rect(0, h-100, width * frameTimes.Length, 100);
+		Rect debuggerRect = new Rect(w-width*frameTimes.Length, 0, width * frameTimes.Length, 100);
 		Texture2D frameTimeRect = new Texture2D((int)debuggerRect.width, (int)debuggerRect.height);
 
 		for (int i = 0; i < frameTimes.Length; ++i)

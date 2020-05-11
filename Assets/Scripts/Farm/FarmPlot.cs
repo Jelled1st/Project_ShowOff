@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class FarmPlot : MonoBehaviour, IControllable
 {
+    enum State
+    {
+        Withered = -1,
+
+        Rough = 0,
+        Dug,
+        Planted,
+        Grown,
+    };
+
+    private State _state;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        _state = State.Rough;
     }
 
     // Update is called once per frame
@@ -16,24 +28,64 @@ public class FarmPlot : MonoBehaviour, IControllable
 
     }
 
-    public static void Plant(FarmPlot plot)
+    public static bool Dig(FarmPlot plot)
     {
-        plot.Plant();
+        return plot.Dig();
     }
 
-    public static void Water(FarmPlot plot)
+    public static bool Plant(FarmPlot plot)
     {
-        plot.Water();
+        return plot.Plant();
     }
 
-    public void Plant()
+    public static bool Water(FarmPlot plot)
     {
-
+        return plot.Water();
     }
 
-    public void Water()
+    public bool Dig()
     {
+        if (_state == State.Rough)
+        {
+            Debug.Log("Digging");
+            ++_state;
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not allowed");
+            return false;
+        }
+    }
 
+    public bool Plant()
+    {
+        if (_state == State.Dug)
+        {
+            Debug.Log("Planting");
+            ++_state;
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not allowed");
+            return false;
+        }
+    }
+
+    public bool Water()
+    {
+        if (_state == State.Planted)
+        {
+            Debug.Log("Watering");
+            ++_state;
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not allowed");
+            return false;
+        }
     }
 
 
@@ -71,6 +123,5 @@ public class FarmPlot : MonoBehaviour, IControllable
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
-        Debug.Log(dropped + " was dropped");
     }
 }

@@ -7,12 +7,13 @@ public class PlotFunctionality : MonoBehaviour, IControllable
 {
     enum Functionalities
     {
+        Dig,
         Plant,
         Water,
     }
 
     [SerializeField] Functionalities _functionality;
-    private delegate void FunctionalityFunctions(FarmPlot plot);
+    private delegate bool FunctionalityFunctions(FarmPlot plot);
     private FunctionalityFunctions _functionaliesHandler;
 
     // Start is called before the first frame update
@@ -20,6 +21,9 @@ public class PlotFunctionality : MonoBehaviour, IControllable
     {
         switch(_functionality)
         {
+            case Functionalities.Dig:
+                _functionaliesHandler = FarmPlot.Dig;
+                break;
             case Functionalities.Plant:
                 _functionaliesHandler = FarmPlot.Plant;
                 break;
@@ -61,6 +65,11 @@ public class PlotFunctionality : MonoBehaviour, IControllable
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
+        FarmPlot plot;
+        if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
+        {
+            _functionaliesHandler(plot);
+        }
     }
 
     public void OnDragDropFailed(Vector3 position)
