@@ -71,6 +71,6 @@ public class FarmPlot : MonoBehaviour, IControllable
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
-        Debug.Log("Package delivered");
+        Debug.Log(dropped + " was dropped");
     }
 }

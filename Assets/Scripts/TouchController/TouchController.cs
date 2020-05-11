@@ -106,7 +106,7 @@ public class TouchController : MonoBehaviour, ISubject
             ResetPressAndHold();
         }
         //Debug.Log(controllable != null);
-        HandleDragCalls(controllable != null, hitInfo, controllable);
+        HandleDragCalls();
         HandleSwipe(mousePressed, controllable != null);
     }
 
@@ -202,7 +202,7 @@ public class TouchController : MonoBehaviour, ISubject
     }
 
     // Paramaters are not the start values, but values for if something new was hit this frame
-    private void HandleDragCalls(bool hitControllable, ControllerHitInfo hitInfo, IControllable droppedOn)
+    private void HandleDragCalls()
     {
         Vector3 mouse3d = new Vector3();
         if (_isDragging || _wasDraggingLastFrame) mouse3d = Get3dCursorPosition((_dragStartInfo.gameObject.transform.position - Camera.main.transform.position).magnitude);
@@ -211,13 +211,25 @@ public class TouchController : MonoBehaviour, ISubject
         {
             OnDrag(mouse3d, _dragSelected);
         }
-        else if(_wasDraggingLastFrame && hitControllable)
+        else
         {
-            OnDragDrop(mouse3d, _dragSelected, droppedOn, hitInfo);
-        }
-        else if(_wasDraggingLastFrame && !hitControllable)
-        {
-            OnDragDropFailed(mouse3d, _dragSelected);
+            IControllable controllable = null;
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+            {
+                if (hit.transform.gameObject.TryGetComponent<IControllable>(out controllable))
+                {
+                }
+            }
+
+            if (_wasDraggingLastFrame && controllable != null)
+            {
+                OnDragDrop(mouse3d, _dragSelected, controllable, new ControllerHitInfo(controllable, hit));
+            }
+            else if (_wasDraggingLastFrame && controllable == null)
+            {
+                OnDragDropFailed(mouse3d, _dragSelected);
+            }
         }
     }
 
@@ -366,7 +378,6 @@ public class TouchController : MonoBehaviour, ISubject
 
     public void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        Debug.Log("Drag dropped");
         dragged.OnDragDrop(position, droppedOn, hitInfo);
         droppedOn.OnDrop(dragged, hitInfo);
         for (int i = 0; i < _observers.Count; ++i)
@@ -377,7 +388,6 @@ public class TouchController : MonoBehaviour, ISubject
 
     public void OnDragDropFailed(Vector3 position, IControllable dragged)
     {
-        Debug.Log("Drag dropped failed");
         dragged.OnDragDropFailed(position);
         for (int i = 0; i < _observers.Count; ++i)
         {
