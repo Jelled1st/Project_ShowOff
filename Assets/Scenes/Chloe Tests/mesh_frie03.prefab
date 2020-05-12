@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3459519539255277200}
   - component: {fileID: 5573670792335084710}
   - component: {fileID: 2190193512884056159}
-  - component: {fileID: 2284141802047181205}
   - component: {fileID: 3287803216017477878}
+  - component: {fileID: -8905876268147254737}
   m_Layer: 0
   m_Name: mesh_frie03
   m_TagString: Untagged
@@ -50,9 +50,9 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457668871277741187}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -81,20 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &2284141802047181205
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 457668871277741187}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2992153598055606163, guid: d56893d6257e7e740a4aa7c096198ac6, type: 3}
 --- !u!54 &3287803216017477878
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -105,9 +91,22 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &-8905876268147254737
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457668871277741187}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.17436793, y: 0.048165333, z: 0.14415464}
+  m_Center: {x: 0, y: 0.0000000018626451, z: 0.000000011175871}
