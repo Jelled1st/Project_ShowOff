@@ -21,13 +21,15 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     private bool _freeUseForStart = true;
 
     [Header("State meshes")]
-    [SerializeField] private Mesh _roughGround = null;
-    [SerializeField] private Mesh _dugGround = null;
-    [SerializeField] private Mesh _planted = null;
-    [SerializeField] private Mesh _grown = null;
-    [SerializeField] private Mesh _withered = null;
-    private Dictionary<State, Mesh> _meshes;
+    [SerializeField] GameObject _dirtMound;
+    [SerializeField] List<GameObject> _plantGrowingMeshes;
+    [SerializeField] List<GameObject> _plantDecayingMeshes;
+    [SerializeField] List<GameObject> _plantWitheredMeshes;
+    [SerializeField] List<GameObject> _plantGrownMeshes;
     private bool useMeshSwitching = false;
+
+    [Header("Plant positions")]
+    [SerializeField] GameObject[] _plantPositions = new GameObject[4];
 
     // Observers
     List<IFarmPlotObserver> _observers;
@@ -41,13 +43,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     // Start is called before the first frame update
     void Start()
     {
-        _meshes = new Dictionary<State, Mesh>();
-        if (_roughGround != null) _meshes.Add(State.Rough, _roughGround);
-        if (_dugGround != null) _meshes.Add(State.Dug, _roughGround);
-        if (_planted != null) _meshes.Add(State.Planted, _roughGround);
-        if (_grown != null) _meshes.Add(State.Grown, _roughGround);
-        if (_withered != null) _meshes.Add(State.Withered, _roughGround);
-        if (_meshes.Count != 5 && useMeshSwitching) Debug.LogError("Not all meshes have been assigned");
+        CultivateToState(_state);
+        _freeUseForStart = true;
     }
 
     // Update is called once per frame
@@ -75,7 +72,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     {
         if (ReadyForState(State.Dug))
         {
-            Debug.Log("Digging");
             CultivateToState(State.Dug);
             return true;
         }
@@ -90,7 +86,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     {
         if (ReadyForState(State.Planted))
         {
-            Debug.Log("Planting");
             CultivateToState(State.Planted);
             return true;
         }
@@ -105,7 +100,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     {
         if (ReadyForState(State.Grown))
         {
-            Debug.Log("Watering");
             CultivateToState(State.Grown);
             return true;
         }
@@ -150,9 +144,55 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     {
         InformObserversOfStateSwitch(state, _state);
         _state = state;
+        ClearPlants();
+        switch (_state)
+        {
+            case State.Withered:
+                _dirtMound.SetActive(true);
+                SetPlants(_plantWitheredMeshes);
+                break;
+            case State.Rough:
+                _dirtMound.SetActive(false);
+                break;
+            case State.Dug:
+                _dirtMound.SetActive(true);
+                break;
+            case State.Planted:
+                _dirtMound.SetActive(true);
+                SetPlants(_plantGrowingMeshes);
+                break;
+            case State.Decay:
+                _dirtMound.SetActive(true);
+                SetPlants(_plantDecayingMeshes);
+                break;
+            case State.Grown:
+                _dirtMound.SetActive(true);
+                SetPlants(_plantGrownMeshes);
+                break;
+            default:
+                break;
+        }
         _timeSinceLastCultivation = 0.0f;
         _freeUseForStart = false;
-        if(useMeshSwitching) GetComponent<MeshFilter>().sharedMesh = Instantiate(_meshes[_state]);
+    }
+
+    private void ClearPlants()
+    {
+        for(int i = 0; i < _plantPositions.Length; ++i)
+        {
+            if(_plantPositions[i].transform.childCount > 0) Destroy(_plantPositions[i].transform.GetChild(0));
+        }
+    }
+
+    private void SetPlants(List<GameObject> plantMeshes)
+    {
+        if (plantMeshes == null || plantMeshes.Count == 0) return;
+        for(int i = 0; i < _plantPositions.Length; ++i)
+        {
+            GameObject plant = Instantiate(plantMeshes[Random.Range(0, plantMeshes.Count)]);
+            plant.transform.SetParent(_plantPositions[i].transform);
+            plant.transform.localPosition = new Vector3(0, 0, 0);
+        }
     }
 
     #region IControllable

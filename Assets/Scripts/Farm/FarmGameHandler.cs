@@ -90,10 +90,12 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver, IFarmPlotObserv
     private Vector3 GetRandomSwarmPosition()
     {
         Vector3 random = new Vector3();
-        random.x = Random.Range(-5, 5);
+        random.x = Random.Range(1, 2);
         random.y = 1;
-        random.z = Random.Range(-5, 5);
-        return random;
+        random.z = Random.Range(1, 2);
+        if (Random.Range(-1, 1) < 0) random.x *= -1; 
+        if (Random.Range(-1, 1) < 0) random.z *= -1; 
+        return random * 2.5f;
     }
 
     public void OnPlotHarvest(FarmPlot plot)

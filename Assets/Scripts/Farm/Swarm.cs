@@ -25,6 +25,7 @@ public class Swarm : MonoBehaviour
             Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
             swarmUnit.transform.position = startPosition + offset;
             swarmUnit.transform.LookAt(plotPos);
+            swarmUnit.GetComponent<SwarmUnit>().Init(this);
         }
         _farmPlot = destination;
     }
@@ -43,6 +44,15 @@ public class Swarm : MonoBehaviour
         {
             Vector3 diff = destination - _swarmUnits[i].transform.position;
             _swarmUnits[i].transform.localPosition += diff.normalized * _speed * Time.deltaTime;
+        }
+    }
+
+    public void UnitEnterPlot(SwarmUnit unit, FarmPlot plot)
+    {
+        if(plot == _farmPlot)
+        {
+            _swarmUnits.Remove(unit.gameObject);
+            Destroy(unit.gameObject);
         }
     }
 }
