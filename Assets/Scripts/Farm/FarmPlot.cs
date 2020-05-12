@@ -14,18 +14,36 @@ public class FarmPlot : MonoBehaviour, IControllable
         Grown,
     };
 
-    private State _state;
+    [SerializeField] private float _cooldown = 3.0f;
+    private State _state = State.Rough;
+    private float _timeSinceLastCultivation = 0.0f;
+    private bool _freeUseForStart = true;
+
+    [Header("State meshes")]
+    [SerializeField] private Mesh _roughGround = null;
+    [SerializeField] private Mesh _dugGround = null;
+    [SerializeField] private Mesh _planted = null;
+    [SerializeField] private Mesh _grown = null;
+    [SerializeField] private Mesh _withered = null;
+    private Dictionary<State, Mesh> _meshes;
+    private bool useMeshSwitching = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        _state = State.Rough;
+        _meshes = new Dictionary<State, Mesh>();
+        if (_roughGround != null) _meshes.Add(State.Rough, _roughGround);
+        if (_dugGround != null) _meshes.Add(State.Dug, _roughGround);
+        if (_planted != null) _meshes.Add(State.Planted, _roughGround);
+        if (_grown != null) _meshes.Add(State.Grown, _roughGround);
+        if (_withered != null) _meshes.Add(State.Withered, _roughGround);
+        if (_meshes.Count != 5 && useMeshSwitching) Debug.LogError("Not all meshes have been assigned");
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        _timeSinceLastCultivation += Time.deltaTime;
     }
 
     public static bool Dig(FarmPlot plot)
@@ -45,10 +63,10 @@ public class FarmPlot : MonoBehaviour, IControllable
 
     public bool Dig()
     {
-        if (_state == State.Rough)
+        if (ReadyForState(State.Dug))
         {
             Debug.Log("Digging");
-            ++_state;
+            Cultivate();
             return true;
         }
         else
@@ -60,10 +78,10 @@ public class FarmPlot : MonoBehaviour, IControllable
 
     public bool Plant()
     {
-        if (_state == State.Dug)
+        if (ReadyForState(State.Planted))
         {
             Debug.Log("Planting");
-            ++_state;
+            Cultivate();
             return true;
         }
         else
@@ -75,10 +93,10 @@ public class FarmPlot : MonoBehaviour, IControllable
 
     public bool Water()
     {
-        if (_state == State.Planted)
+        if (ReadyForState(State.Grown))
         {
             Debug.Log("Watering");
-            ++_state;
+            Cultivate();
             return true;
         }
         else
@@ -86,6 +104,23 @@ public class FarmPlot : MonoBehaviour, IControllable
             Debug.Log("Not allowed");
             return false;
         }
+    }
+
+    private bool ReadyForState(State state)
+    {
+        if (_state + 1 == state && (_timeSinceLastCultivation >= _cooldown || _freeUseForStart))
+        {
+            return true;
+        }
+        else return false;
+    }
+
+    private void Cultivate()
+    {
+        ++_state;
+        _timeSinceLastCultivation = 0.0f;
+        _freeUseForStart = false;
+        if(useMeshSwitching) GetComponent<MeshFilter>().sharedMesh = Instantiate(_meshes[_state]);
     }
 
 

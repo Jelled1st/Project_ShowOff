@@ -13,8 +13,11 @@ public class PlotFunctionality : MonoBehaviour, IControllable
     }
 
     [SerializeField] Functionalities _functionality;
+    [SerializeField] float _cooldown = 3.0f;
     private delegate bool FunctionalityFunctions(FarmPlot plot);
     private FunctionalityFunctions _functionaliesHandler;
+    float _timeSinceLastUse = 0.0f;
+    bool _freeUseForStart = true;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +39,7 @@ public class PlotFunctionality : MonoBehaviour, IControllable
     // Update is called once per frame
     void Update()
     {
-        
+        _timeSinceLastUse += Time.deltaTime;
     }
 
     public void OnClick(Vector3 hitPoint)
@@ -65,11 +68,19 @@ public class PlotFunctionality : MonoBehaviour, IControllable
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        FarmPlot plot;
-        if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
+        if (_timeSinceLastUse >= _cooldown || _freeUseForStart)
         {
-            _functionaliesHandler(plot);
+            FarmPlot plot;
+            if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
+            {
+                if (_functionaliesHandler(plot))
+                {
+                    _timeSinceLastUse = 0;
+                    _freeUseForStart = false;
+                }
+            }
         }
+        else Debug.Log("Use is on cooldown");
     }
 
     public void OnDragDropFailed(Vector3 position)
