@@ -121,49 +121,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1334878430
-GameObject:
+--- !u!1001 &4670300887616563188
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1334878432}
-  - component: {fileID: 1334878431}
-  m_Layer: 0
-  m_Name: Stage Changer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1334878431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334878430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9fe1841e96b4cefa4f7844d8d64d3ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stageSettingsContainer: {fileID: 11400000, guid: ce6db3a2e3dbe6347a95ac95e84eef5c,
-    type: 2}
-  _initialState: 1
---- !u!4 &1334878432
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334878430}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4416808, y: 0.93944645, z: -0.23441982}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4416808
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.93944645
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.23441982
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049428, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670300888664049450, guid: 6e64bef8b94701e4c8f535e4f616dd81,
+        type: 3}
+      propertyPath: m_Name
+      value: Stage Changer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e64bef8b94701e4c8f535e4f616dd81, type: 3}
