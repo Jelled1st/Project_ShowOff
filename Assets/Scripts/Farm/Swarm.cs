@@ -53,6 +53,13 @@ public class Swarm : MonoBehaviour
         {
             _swarmUnits.Remove(unit.gameObject);
             Destroy(unit.gameObject);
+            _farmPlot.Decay();
         }
+    }
+
+    public void UnitSwiped(SwarmUnit unit)
+    {
+        _swarmUnits.Remove(unit.gameObject);
+        Destroy(unit.gameObject);
     }
 }

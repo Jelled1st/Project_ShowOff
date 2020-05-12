@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwarmUnit : MonoBehaviour
+public class SwarmUnit : MonoBehaviour, IControllable
 {
     private Swarm _swarm;
 
@@ -29,5 +29,42 @@ public class SwarmUnit : MonoBehaviour
         {
             _swarm.UnitEnterPlot(this, plot);
         }
+    }
+
+    public void OnClick(Vector3 hitPoint)
+    {
+    }
+
+    public void OnPress(Vector3 hitPoint)
+    {
+    }
+
+    public void OnHold(float holdTime, Vector3 hitPoint)
+    {
+    }
+
+    public void OnHoldRelease(float timeHeld)
+    {
+    }
+
+    public void OnSwipe(Vector3 direction, Vector3 lastPoint)
+    {
+        _swarm.UnitSwiped(this);
+    }
+
+    public void OnDrag(Vector3 position)
+    {
+    }
+
+    public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
+    {
+    }
+
+    public void OnDragDropFailed(Vector3 position)
+    {
+    }
+
+    public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
+    {
     }
 }
