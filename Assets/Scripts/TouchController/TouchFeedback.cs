@@ -26,7 +26,7 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     void Update()
     {
-        if(_isSwiping == false)
+        if(_isSwiping == false && !_swipeFeedback.Equals(null))
         {
             _swipeFeedback.gameObject.SetActive(false);
         }
