@@ -20,21 +20,22 @@ namespace StateMachine
 
         private static void InitializeSingleton()
         {
-            if (_instance == null || _instance.Equals(null))
+            if (_instance != null && !_instance.Equals(null)) return;
+
+            var singletons = FindObjectsOfType<T>();
+            if (singletons.Length == 1)
             {
-                var singletons = FindObjectsOfType<T>();
-                if (singletons.Length > 1)
-                {
-                    throw new Exception($"More than one object of type {{{typeof(T)}}} is present in scene!");
-                }
-                else if (singletons.Length == 1)
-                {
-                    _instance = singletons.First();
-                }
-                else
-                {
-                    _instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
-                }
+                _instance = singletons.First();
+            }
+
+            if (singletons.Length > 1)
+            {
+                throw new Exception($"More than one object of type {{{typeof(T)}}} is present in scene!");
+            }
+
+            if (singletons.Length == 0)
+            {
+                _instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
             }
         }
     }
