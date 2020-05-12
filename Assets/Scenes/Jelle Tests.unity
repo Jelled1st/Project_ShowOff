@@ -11133,6 +11133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b7323bf97c21e48945244f803e1d5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _swarmPrefab: {fileID: 7359385969299041225, guid: 74a3f260f4e08fc4180b59636cf4fa09,
+    type: 3}
 --- !u!4 &2079251490
 Transform:
   m_ObjectHideFlags: 0

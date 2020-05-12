@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FarmPlot : MonoBehaviour, IControllable
+public class FarmPlot : MonoBehaviour, IControllable, ISubject
 {
-    enum State
+    public enum State
     {
         Withered = -1,
 
         Rough = 0,
         Dug,
         Planted,
+        Decay,
         Grown,
     };
 
@@ -27,6 +28,15 @@ public class FarmPlot : MonoBehaviour, IControllable
     [SerializeField] private Mesh _withered = null;
     private Dictionary<State, Mesh> _meshes;
     private bool useMeshSwitching = false;
+
+    // Observers
+    List<IFarmPlotObserver> _observers;
+
+    void Awake()
+    {
+        this.gameObject.name = "FarmPlot";
+        this.gameObject.tag = "FarmPlot";
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -66,7 +76,7 @@ public class FarmPlot : MonoBehaviour, IControllable
         if (ReadyForState(State.Dug))
         {
             Debug.Log("Digging");
-            Cultivate();
+            CultivateToState(State.Dug);
             return true;
         }
         else
@@ -81,7 +91,7 @@ public class FarmPlot : MonoBehaviour, IControllable
         if (ReadyForState(State.Planted))
         {
             Debug.Log("Planting");
-            Cultivate();
+            CultivateToState(State.Planted);
             return true;
         }
         else
@@ -96,7 +106,7 @@ public class FarmPlot : MonoBehaviour, IControllable
         if (ReadyForState(State.Grown))
         {
             Debug.Log("Watering");
-            Cultivate();
+            CultivateToState(State.Grown);
             return true;
         }
         else
@@ -108,22 +118,44 @@ public class FarmPlot : MonoBehaviour, IControllable
 
     private bool ReadyForState(State state)
     {
-        if (_state + 1 == state && (_timeSinceLastCultivation >= _cooldown || _freeUseForStart))
+        if (_timeSinceLastCultivation >= _cooldown || _freeUseForStart)
         {
-            return true;
+            switch(_state)
+            {
+                case State.Withered:
+                    if (state == State.Dug) return true;
+                    else return false;
+                case State.Rough:
+                    if (state == State.Dug) return true;
+                    else return false;
+                case State.Dug:
+                    if (state == State.Planted) return true;
+                    else return false;
+                case State.Planted:
+                    if (state == State.Grown || state == State.Decay) return true;
+                    else return false;
+                case State.Decay:
+                    if (state == State.Planted) return true;
+                    else return false;
+                case State.Grown:
+                    return false;
+                default:
+                    return false;
+            }
         }
         else return false;
     }
 
-    private void Cultivate()
+    private void CultivateToState(State state)
     {
-        ++_state;
+        InformObserversOfStateSwitch(state, _state);
+        _state = state;
         _timeSinceLastCultivation = 0.0f;
         _freeUseForStart = false;
         if(useMeshSwitching) GetComponent<MeshFilter>().sharedMesh = Instantiate(_meshes[_state]);
     }
 
-
+    #region IControllable
     public void OnClick(Vector3 hitPoint)
     {
     }
@@ -159,4 +191,44 @@ public class FarmPlot : MonoBehaviour, IControllable
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
     }
+    #endregion
+
+    #region ISubject
+    public void Register(IObserver observer)
+    {
+        if (_observers == null) _observers = new List<IFarmPlotObserver>();
+        if(observer is IFarmPlotObserver)
+        {
+            _observers.Add(observer as IFarmPlotObserver);
+        }
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        if (observer is IFarmPlotObserver)
+        {
+            _observers.Remove(observer as IFarmPlotObserver);
+        }
+    }
+    #endregion
+
+    #region Inform Observers
+    private void InformObserversOfStateSwitch(State current, State previous)
+    {
+        if (_observers == null) return;
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnPlotStateSwitch(current, previous, this);
+        }
+    }
+
+    private void InformObserversOfHarvest()
+    {
+        if (_observers == null) return;
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnPlotHarvest(this);
+        }
+    }
+    #endregion
 }

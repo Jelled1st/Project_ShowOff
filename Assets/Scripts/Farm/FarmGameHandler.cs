@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FarmGameHandler : MonoBehaviour, IControlsObserver
+public class FarmGameHandler : MonoBehaviour, IControlsObserver, IFarmPlotObserver
 {
+    [SerializeField] GameObject _swarmPrefab;
     private TouchController _touchController;
 
     // Start is called before the first frame update
@@ -15,6 +16,12 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver
         {
             _touchController = controller.GetComponent<TouchController>();
             Subscribe(_touchController);
+        }
+
+        GameObject[] farmPlots = GameObject.FindGameObjectsWithTag("FarmPlot");
+        for(int i = 0; i < farmPlots.Length; ++i)
+        {
+            Subscribe(farmPlots[i].GetComponent<FarmPlot>());
         }
     }
 
@@ -67,5 +74,29 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
+    }
+
+    public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
+    {
+        if(state == FarmPlot.State.Planted)
+        {
+            GameObject swarmGO = Instantiate(_swarmPrefab);
+            Swarm swarm = swarmGO.GetComponent<Swarm>();
+            Vector3 randomPos = GetRandomSwarmPosition();
+            swarm.Init(plot, randomPos + plot.transform.position);
+        }
+    }
+
+    private Vector3 GetRandomSwarmPosition()
+    {
+        Vector3 random = new Vector3();
+        random.x = Random.Range(-5, 5);
+        random.y = 1;
+        random.z = Random.Range(-5, 5);
+        return random;
+    }
+
+    public void OnPlotHarvest(FarmPlot plot)
+    {
     }
 }
