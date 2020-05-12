@@ -96,6 +96,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _albedoMultiply: 1
     - _enableMetallicSmoothnessTexture: 0
     - _metalness: 0
     - _scrollingEnabled: 1
