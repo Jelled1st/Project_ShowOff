@@ -15,13 +15,6 @@ namespace Factory
         {
             SceneManager.LoadScene(StageSettings.StageScene);
 
-            if (SceneManager.GetActiveScene().buildIndex != StageSettings.StageScene)
-            {
-                yield return null;
-            }
-
-            PackageManager.SpawnPackage();
-
             FinishTrigger.FinishTriggerHit += OnFinishTriggerHit;
 
             yield return null;

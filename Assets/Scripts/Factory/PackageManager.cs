@@ -10,6 +10,11 @@ namespace Factory
         private static FactoryStageSettings FactoryStageSettings =>
             GameStageManager.GetStageSettings<FactoryStageSettings>();
 
+        private void Start()
+        {
+            SpawnPackage();
+        }
+
         private void OnEnable()
         {
             PackageController.PackageStuck += OnPackageStuck;
