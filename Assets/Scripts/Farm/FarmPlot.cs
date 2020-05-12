@@ -180,7 +180,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     {
         for(int i = 0; i < _plantPositions.Length; ++i)
         {
-            if(_plantPositions[i].transform.childCount > 0) Destroy(_plantPositions[i].transform.GetChild(0));
+            if(_plantPositions[i].transform.childCount > 0) Destroy(_plantPositions[i].transform.GetChild(0).gameObject);
         }
     }
 
@@ -193,6 +193,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
             plant.transform.SetParent(_plantPositions[i].transform);
             plant.transform.localPosition = new Vector3(0, 0, 0);
         }
+    }
+
+    public void Decay()
+    {
+        CultivateToState(State.Decay);
     }
 
     #region IControllable
