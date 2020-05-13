@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwarmUnit : MonoBehaviour, IControllable
+public class HarvestCollecter : MonoBehaviour, IControllable
 {
-    private Swarm _swarm;
-
-    public void Init(Swarm swarm)
-    {
-        _swarm = swarm;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -22,21 +15,10 @@ public class SwarmUnit : MonoBehaviour, IControllable
     {
 
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        FarmPlot plot;
-        if (other.gameObject.TryGetComponent<FarmPlot>(out plot))
-        {
-            _swarm.UnitEnterPlot(this, plot);
-        }
-    }
+
+
 
     public void OnClick(Vector3 hitPoint)
-    {
-        _swarm.UnitHit(this);
-    }
-
-    public void OnPress(Vector3 hitPoint)
     {
     }
 
@@ -45,6 +27,10 @@ public class SwarmUnit : MonoBehaviour, IControllable
     }
 
     public void OnHoldRelease(float timeHeld)
+    {
+    }
+
+    public void OnPress(Vector3 hitPoint)
     {
     }
 
@@ -66,13 +52,16 @@ public class SwarmUnit : MonoBehaviour, IControllable
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
+        if(dropped is FarmPlot)
+        {
+            FarmPlot plot = (FarmPlot)dropped;
+            Debug.Log("plot dropped");
+            plot.Harvest();
+        }
     }
 
     public GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(this.gameObject);
-        Destroy(copy.GetComponent<SwarmUnit>());
-        Destroy(copy.GetComponent<BoxCollider>());
-        return copy;
+        return null;
     }
 }

@@ -85,34 +85,47 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint, ControllerHitInfo hitInfo)
     {
-        _isSwiping = true;
-        _swipeFeedback.gameObject.SetActive(true);
         Vector3 screenPoint = lastPoint + direction;
         screenPoint.z = 1;
         Vector3 mouse3d = Camera.main.ScreenToWorldPoint(screenPoint);
 
-        _swipeFeedback.transform.position = mouse3d;
-        if(!_swipeFeedback.isPlaying)_swipeFeedback.Play();
+        DoSwipeParticle(mouse3d);
     }
+
+    private void DoSwipeParticle(Vector3 point)
+    {
+        _swipeFeedback.gameObject.SetActive(true);
+        _isSwiping = true;
+
+        Vector3 toCamera = Camera.main.transform.position - point;
+        point = Camera.main.transform.position - toCamera.normalized;
+
+        _swipeFeedback.transform.position = point;
+        if (!_swipeFeedback.isPlaying) _swipeFeedback.Play();
+    }
+
     public void OnDrag(Vector3 position, IControllable dragged, ControllerHitInfo hitInfo)
     {
         if (_dragCopy == null)
         {
-            Debug.Log("Drag");
             _dragCopy = dragged.GetDragCopy();
         }
-        if (hitInfo.uiElement) _dragCopy.transform.position = Input.mousePosition;
-        else _dragCopy.transform.position = position;
+        if (_dragCopy != null) // else would not call this if _dragCopy had just been set
+        {
+            if (hitInfo.uiElement) _dragCopy.transform.position = Input.mousePosition;
+            else _dragCopy.transform.position = position;
+        }
+        else DoSwipeParticle(position);
     }
 
     public void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        Destroy(_dragCopy);
+        if(_dragCopy != null) Destroy(_dragCopy);
     }
 
     public void OnDragDropFailed(Vector3 position, IControllable dragged)
     {
-        Destroy(_dragCopy);
+        if(_dragCopy != null) Destroy(_dragCopy);
     }
 
     public void Subscribe(ISubject subject)
