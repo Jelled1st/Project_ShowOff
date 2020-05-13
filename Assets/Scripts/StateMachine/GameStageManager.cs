@@ -2,13 +2,14 @@ using System;
 using System.Linq;
 using Factory;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace StateMachine
 {
     public class GameStageManager : LazySingleton<GameStageManager>
     {
         [SerializeField] private StageSettingsContainer _stageSettingsContainer;
-        [SerializeField] private GameStages _initialState;
+        [SerializeField] private GameStages _initialStage;
 
         private static GameStage CurrentStageType { get; set; }
 
@@ -16,15 +17,23 @@ namespace StateMachine
         {
             DontDestroyOnLoad(this);
 
-            Debug.Log($"Changing stage to {{{_initialState}}}");
-            switch (_initialState)
+
+            StartInitialStage();
+        }
+
+        private void StartInitialStage()
+        {
+            if (CurrentStageType != null)
+                return;
+
+            switch (_initialStage)
             {
                 case GameStages.Factory:
                     ChangeStage<FactoryStage>();
                     break;
                 default:
                     throw new Exception(
-                        $"Stage {{{_initialState}}} is either not implemented or hasn't been added to GameStageManager");
+                        $"Stage {{{_initialStage}}} is either not implemented or hasn't been added to GameStageManager");
             }
         }
 
@@ -43,10 +52,12 @@ namespace StateMachine
 
         public static void ChangeStage<T>() where T : GameStage, new()
         {
+            Debug.Log($"Changing stage to {{{typeof(T)}}}");
+
             CurrentStageType?.Cleanup();
 
             CurrentStageType = new T();
-            Instance.StartCoroutine(CurrentStageType.Setup());
+            CurrentStageType.Setup();
         }
     }
 }
