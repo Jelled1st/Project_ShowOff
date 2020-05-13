@@ -33,6 +33,7 @@ public class SwarmUnit : MonoBehaviour, IControllable
 
     public void OnClick(Vector3 hitPoint)
     {
+        _swarm.UnitHit(this);
     }
 
     public void OnPress(Vector3 hitPoint)
@@ -49,7 +50,6 @@ public class SwarmUnit : MonoBehaviour, IControllable
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
-        _swarm.UnitSwiped(this);
     }
 
     public void OnDrag(Vector3 position)

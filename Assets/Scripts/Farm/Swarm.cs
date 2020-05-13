@@ -56,7 +56,7 @@ public class Swarm : MonoBehaviour
         }
     }
 
-    public void UnitSwiped(SwarmUnit unit)
+    public void UnitHit(SwarmUnit unit)
     {
         RemoveUnit(unit);
     }
