@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using StateMachine;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Factory
     {
         private static FactoryStageSettings FactoryStageSettings =>
             GameStageManager.GetStageSettings<FactoryStageSettings>();
+
+        private HashSet<PackageController> _packagesToDestroy = new HashSet<PackageController>();
 
         private void Start()
         {
@@ -39,6 +42,7 @@ namespace Factory
 
         private void RespawnPackageDelayed(PackageController packageController)
         {
+            _packagesToDestroy.Add(packageController);
             StartCoroutine(WaitAndExecute(FactoryStageSettings.RespawnTime,
                 () => { RespawnPackageImmediate(packageController); }));
         }
@@ -51,6 +55,15 @@ namespace Factory
 
         private static void RespawnPackageImmediate(PackageController packageController)
         {
+            if (Instance._packagesToDestroy.Contains(packageController))
+            {
+                Instance._packagesToDestroy.Remove(packageController);
+            }
+            else
+            {
+                return;
+            }
+
             Destroy(packageController.gameObject);
             SpawnPackage();
         }
