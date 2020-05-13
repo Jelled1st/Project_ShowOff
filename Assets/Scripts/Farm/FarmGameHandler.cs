@@ -164,7 +164,7 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver, IFarmPlotObserv
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
-        if(state == FarmPlot.State.Planted)
+        if(state == FarmPlot.State.Growing)
         {
             GameObject swarmGO = Instantiate(_swarmPrefab);
             Swarm swarm = swarmGO.GetComponent<Swarm>();

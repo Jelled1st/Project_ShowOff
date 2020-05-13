@@ -11,11 +11,14 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
         Rough = 0,
         Dug,
         Planted,
+        Growing,
         Decay,
         Grown,
     };
 
     [SerializeField] private float _cooldown = 3.0f;
+    [SerializeField] private float _timeTillGrown = 10.0f;
+    [SerializeField] private float _timeTillWithered = 10.0f;
     private State _state = State.Rough;
     private float _timeSinceLastCultivation = 0.0f;
     private bool _freeUseForStart = true;
@@ -36,9 +39,10 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
 
     private bool _updateHasBeenCalled = false;
 
+    private bool _debugLog = true;
+
     void Awake()
     {
-        this.gameObject.name = "FarmPlot";
         this.gameObject.tag = "FarmPlot";
     }
 
@@ -61,6 +65,14 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     {
         _updateHasBeenCalled = true;
         _timeSinceLastCultivation += Time.deltaTime;
+        if(ReadyForState(State.Grown))
+        {
+            CultivateToState(State.Grown);
+        }
+        else if(ReadyForState(State.Withered))
+        {
+            CultivateToState(State.Withered);
+        }
     }
 
     public static bool Dig(FarmPlot plot)
@@ -108,9 +120,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
 
     public bool Water()
     {
-        if (ReadyForState(State.Grown))
+        if (ReadyForState(State.Growing))
         {
-            CultivateToState(State.Grown);
+            CultivateToState(State.Growing);
             return true;
         }
         else
@@ -124,25 +136,28 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     {
         if (_timeSinceLastCultivation >= _cooldown || _freeUseForStart)
         {
-            switch(_state)
+            switch(state)
             {
                 case State.Withered:
-                    if (state == State.Dug) return true;
+                    if (_state == State.Decay && _timeSinceLastCultivation >= _timeTillWithered) return true;
                     else return false;
                 case State.Rough:
-                    if (state == State.Dug) return true;
-                    else return false;
+                    return false;
                 case State.Dug:
-                    if (state == State.Planted) return true;
+                    if (_state == State.Rough || _state == State.Withered) return true;
                     else return false;
                 case State.Planted:
-                    if (state == State.Grown || state == State.Decay) return true;
+                    if (_state == State.Dug) return true;
+                    else return false;
+                case State.Growing:
+                    if (_state == State.Planted) return true;
                     else return false;
                 case State.Decay:
-                    if (state == State.Planted) return true;
+                    if (_state == State.Growing) return true;
                     else return false;
                 case State.Grown:
-                    return false;
+                    if (_state == State.Growing && _timeSinceLastCultivation >= _timeTillGrown) return true;
+                    else return false;
                 default:
                     return false;
             }
@@ -158,24 +173,35 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
         switch (_state)
         {
             case State.Withered:
-                _dirtMound.SetActive(true);
+                if (_debugLog) Debug.Log("Withered!");
+                _dirtMound.SetActive(false);
                 SetPlants(_plantWitheredMeshes);
                 break;
             case State.Rough:
+                if (_debugLog) Debug.Log("Rough!");
                 _dirtMound.SetActive(false);
                 break;
             case State.Dug:
+                if (_debugLog) Debug.Log("Dug!");
                 _dirtMound.SetActive(true);
                 break;
             case State.Planted:
+                if (_debugLog) Debug.Log("Planted!");
+                _dirtMound.SetActive(true);
+                SetPlants(_plantGrowingMeshes);
+                break;
+            case State.Growing:
+                if (_debugLog) Debug.Log("Growing!");
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrowingMeshes);
                 break;
             case State.Decay:
+                if (_debugLog) Debug.Log("Decay!");
                 _dirtMound.SetActive(true);
                 SetPlants(_plantDecayingMeshes);
                 break;
             case State.Grown:
+                if (_debugLog) Debug.Log("Grown!");
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrownMeshes);
                 break;
@@ -207,7 +233,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
 
     public void Decay()
     {
-        CultivateToState(State.Decay);
+        if(ReadyForState(State.Decay)) CultivateToState(State.Decay);
     }
 
     #region IControllable

@@ -98,7 +98,6 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
     {
         if (_dragCopy == null)
         {
-            Debug.Log("Drag");
             _dragCopy = dragged.GetDragCopy();
         }
         if (hitInfo.uiElement) _dragCopy.transform.position = Input.mousePosition;
