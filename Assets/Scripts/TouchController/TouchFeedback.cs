@@ -12,6 +12,8 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
     private bool _isHeld = false;
     private bool _isSwiping = false;
 
+    private GameObject _dragCopy = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,16 +94,25 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         _swipeFeedback.transform.position = mouse3d;
         if(!_swipeFeedback.isPlaying)_swipeFeedback.Play();
     }
-    public void OnDrag(Vector3 position, IControllable dragged)
+    public void OnDrag(Vector3 position, IControllable dragged, ControllerHitInfo hitInfo)
     {
+        if (_dragCopy == null)
+        {
+            Debug.Log("Drag");
+            _dragCopy = dragged.GetDragCopy();
+        }
+        if (hitInfo.uiElement) _dragCopy.transform.position = Input.mousePosition;
+        else _dragCopy.transform.position = position;
     }
 
     public void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
+        Destroy(_dragCopy);
     }
 
     public void OnDragDropFailed(Vector3 position, IControllable dragged)
     {
+        Destroy(_dragCopy);
     }
 
     public void Subscribe(ISubject subject)

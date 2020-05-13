@@ -12,6 +12,7 @@ public struct ControllerHitInfo
         gameObject = hit.transform.gameObject;
         point = hit.point;
         normal = hit.normal;
+        mousePosition = Input.mousePosition;
         uiElement = false;
     }
 
@@ -21,6 +22,7 @@ public struct ControllerHitInfo
         gameObject = hit.gameObject;
         point = hit.worldPosition;
         normal = hit.worldNormal;
+        mousePosition = Input.mousePosition;
         uiElement = true;
     }
 
@@ -31,6 +33,7 @@ public struct ControllerHitInfo
         gameObject = null;
         point = new Vector3();
         normal = new Vector3();
+        mousePosition = new Vector3();
         uiElement = false;
     }
 
@@ -38,5 +41,6 @@ public struct ControllerHitInfo
     public readonly GameObject gameObject;
     public readonly Vector3 point;
     public readonly Vector3 normal;
+    public readonly Vector3 mousePosition;
     public readonly bool uiElement;
 }

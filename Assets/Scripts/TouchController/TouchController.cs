@@ -209,7 +209,7 @@ public class TouchController : MonoBehaviour, ISubject
         else return;
         if (_isDragging)
         {
-            OnDrag(mouse3d, _dragSelected);
+            OnDrag(mouse3d, _dragSelected, _dragStartInfo);
         }
         else
         {
@@ -367,12 +367,12 @@ public class TouchController : MonoBehaviour, ISubject
         }
     }
 
-    public void OnDrag(Vector3 position, IControllable dragged)
+    public void OnDrag(Vector3 position, IControllable dragged, ControllerHitInfo hitInfo)
     {
         dragged.OnDrag(position);
         for (int i = 0; i < _observers.Count; ++i)
         {
-            _observers[i].OnDrag(position, dragged);
+            _observers[i].OnDrag(position, dragged, hitInfo);
         }
     }
 

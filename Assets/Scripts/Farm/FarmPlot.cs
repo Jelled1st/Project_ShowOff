@@ -236,6 +236,14 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
     }
+
+    public GameObject GetDragCopy()
+    {
+        GameObject copy = Instantiate(this.gameObject);
+        Destroy(copy.GetComponent<FarmPlot>());
+        Destroy(copy.GetComponent<BoxCollider>());
+        return copy;
+    }
     #endregion
 
     #region ISubject

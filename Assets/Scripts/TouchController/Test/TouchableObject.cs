@@ -86,4 +86,11 @@ public class TouchableObject : MonoBehaviour, IControllable
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
     }
+    public GameObject GetDragCopy()
+    {
+        GameObject copy = Instantiate(this.gameObject);
+        Destroy(copy.GetComponent<TouchableObject>());
+        Destroy(copy.GetComponent<BoxCollider>());
+        return copy;
+    }
 }

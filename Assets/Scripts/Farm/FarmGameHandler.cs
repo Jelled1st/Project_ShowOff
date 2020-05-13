@@ -54,7 +54,7 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver, IFarmPlotObserv
     {
     }
 
-    public void OnDrag(Vector3 position, IControllable dragged)
+    public void OnDrag(Vector3 position, IControllable dragged, ControllerHitInfo hitInfo)
     {
     }
 

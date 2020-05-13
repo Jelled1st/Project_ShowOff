@@ -32,4 +32,6 @@ public interface IControllable
     void OnDragDropFailed(Vector3 position);
     // OnDrop is called when something is dropped on the object
     void OnDrop(IControllable dropped, ControllerHitInfo hitInfo);
+
+    GameObject GetDragCopy();
 }

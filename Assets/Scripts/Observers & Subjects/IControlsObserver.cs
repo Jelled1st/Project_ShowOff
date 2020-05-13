@@ -24,7 +24,7 @@ public interface IControlsObserver : IObserver
     void OnSwipe(Vector3 direction, Vector3 lastPoint, ControllerHitInfo hitInfo);
 
 
-    void OnDrag(Vector3 position, IControllable dragged);
+    void OnDrag(Vector3 position, IControllable dragged, ControllerHitInfo hitInfo);
     // OnDragDrop is called when the object is released from dragging
     // and the drop was succesful - it was dropped on an IControllable
     void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo);

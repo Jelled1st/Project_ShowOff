@@ -90,4 +90,13 @@ public class PlotFunctionality : MonoBehaviour, IControllable
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
     }
+
+    public GameObject GetDragCopy()
+    {
+        GameObject copy = Instantiate(this.gameObject);
+        Destroy(copy.GetComponent<PlotFunctionality>());
+        copy.layer = 0;
+        copy.transform.SetParent(this.transform.parent.transform.parent);
+        return copy;
+    }
 }
