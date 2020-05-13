@@ -11,13 +11,12 @@ namespace Factory
         private bool _isRespawning;
         private Vector3 _lastPosition;
 
-        public override IEnumerator Setup()
+        public override void Setup()
         {
-            SceneManager.LoadScene(StageSettings.StageScene);
+            // if (SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex(StageSettings.StageScene))
+                SceneManager.LoadScene(StageSettings.StageScene);
 
             FinishTrigger.FinishTriggerHit += OnFinishTriggerHit;
-
-            yield return null;
         }
 
         public override void Cleanup()
