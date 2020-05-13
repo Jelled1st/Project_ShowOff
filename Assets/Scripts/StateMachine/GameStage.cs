@@ -10,7 +10,7 @@ namespace StateMachine
     public abstract class GameStage
     {
         public abstract void Cleanup();
-        public abstract IEnumerator Setup();
+        public abstract void Setup();
 
         public void RestartStage()
         {
