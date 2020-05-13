@@ -34,6 +34,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     // Observers
     List<IFarmPlotObserver> _observers;
 
+    private bool _updateHasBeenCalled = false;
+
     void Awake()
     {
         this.gameObject.name = "FarmPlot";
@@ -47,9 +49,17 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
         _freeUseForStart = true;
     }
 
+    public void SetStartState(State state)
+    {
+        if (_updateHasBeenCalled) return;
+        CultivateToState(state);
+        _freeUseForStart = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        _updateHasBeenCalled = true;
         _timeSinceLastCultivation += Time.deltaTime;
     }
 
