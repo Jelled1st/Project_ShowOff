@@ -22,9 +22,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
 
     [SerializeField] private float _cooldown = 3.0f;
     [SerializeField] private float _timeTillGrown = 10.0f;
+    [Tooltip("Higher slowness means growing takes longer")] [SerializeField] private float _decayGrowSlowness = 2.0f;
     [SerializeField] private float _timeTillWithered = 10.0f;
     [SerializeField] private ProgressBar _progressBar;
     private float _timeSinceLastCultivation = 0.0f;
+    private float _growTime;
     private bool _neglectCooldown = true;
 
     [SerializeField] private GameObject _harvestPotatoPrefab;
@@ -72,7 +74,16 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     {
         _updateHasBeenCalled = true;
         _timeSinceLastCultivation += Time.deltaTime;
-        if(ReadyForState(State.Grown))
+        if(_state == State.Growing)
+        {
+            _growTime += Time.deltaTime;
+            //Debug.Log("Grow time: " + _growTime + " ( " + (_growTime >= _timeTillGrown) + " )");
+        }
+        else if(_state == State.Decay)
+        {
+            _growTime += Time.deltaTime / _decayGrowSlowness;
+        }
+        if (ReadyForState(State.Grown))
         {
             CultivateToState(State.Grown);
         }
@@ -84,16 +95,21 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
         {
             if (_state == State.Growing)
             {
+                _progressBar.SetFillColor(new Color(30/255.0f, 30/255.0f, 200/255.0f));
                 _progressBar.SetActive(true);
-                _progressBar.SetPercentage(_timeSinceLastCultivation / _timeTillGrown);
+                float percentage = _growTime / _timeTillGrown;
+                if (percentage <= 1.0f) _progressBar.SetPercentage(percentage);
+                else _progressBar.SetPercentage(1.0f);
             }
             else if (_state == State.Decay)
             {
+                _progressBar.SetFillColor(new Color(1f, 60/255.0f, 0));
                 _progressBar.SetActive(true);
                 _progressBar.SetPercentage(1 - _timeSinceLastCultivation / _timeTillWithered);
             }
             else if (_timeSinceLastCultivation <= _cooldown && !_neglectCooldown)
             {
+                _progressBar.SetFillColor(new Color(30/255.0f, 30/255.0f, 200/255.0f));
                 _progressBar.SetActive(true);
                 _progressBar.SetPercentage(_timeSinceLastCultivation / _cooldown);
             }
@@ -114,6 +130,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     public static bool Water(FarmPlot plot)
     {
         return plot.Water();
+    }
+
+    public static bool Heal(FarmPlot plot)
+    {
+        return plot.Heal();
     }
 
     public bool Dig()
@@ -146,7 +167,21 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
 
     public bool Water()
     {
-        if (ReadyForState(State.Growing))
+        if (ReadyForState(State.Growing) && _state == State.Planted)
+        {
+            CultivateToState(State.Growing);
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not allowed");
+            return false;
+        }
+    }
+
+    public bool Heal()
+    {
+        if(ReadyForState(State.Growing) && _state == State.Decay)
         {
             CultivateToState(State.Growing);
             return true;
@@ -177,13 +212,13 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
                     if (_state == State.Dug) return true;
                     else return false;
                 case State.Growing:
-                    if (_state == State.Planted) return true;
+                    if (_state == State.Planted || _state == State.Decay) return true;
                     else return false;
                 case State.Decay:
                     if (_state == State.Growing) return true;
                     else return false;
                 case State.Grown:
-                    if (_state == State.Growing && _timeSinceLastCultivation >= _timeTillGrown) return true;
+                    if (_state == State.Growing && _growTime >= _timeTillGrown) return true;
                     else return false;
                 case State.Harvested:
                     if (_state == State.Grown) return true;
@@ -205,19 +240,23 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
         {
             case State.Withered:
                 if (_debugLog) Debug.Log("Withered!");
+                _growTime = 0.0f;
                 _dirtMound.SetActive(false);
                 SetPlants(_plantWitheredMeshes);
                 break;
             case State.Rough:
                 if (_debugLog) Debug.Log("Rough!");
+                _growTime = 0.0f;
                 _dirtMound.SetActive(false);
                 break;
             case State.Dug:
                 if (_debugLog) Debug.Log("Dug!");
+                _growTime = 0.0f;
                 _dirtMound.SetActive(true);
                 break;
             case State.Planted:
                 if (_debugLog) Debug.Log("Planted!");
+                _growTime = 0.0f;
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrowingMeshes);
                 break;
@@ -225,20 +264,24 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
                 if (_debugLog) Debug.Log("Growing!");
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrowingMeshes);
+                _neglectCooldown = true;
                 break;
             case State.Decay:
                 if (_debugLog) Debug.Log("Decay!");
                 _dirtMound.SetActive(true);
                 SetPlants(_plantDecayingMeshes);
+                _neglectCooldown = true;
                 break;
             case State.Grown:
                 if (_debugLog) Debug.Log("Grown!");
+                _growTime = 0.0f;
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrownMeshes);
                 _neglectCooldown = true;
                 break;
             case State.Harvested:
                 if (_debugLog) Debug.Log("Harvested!");
+                _growTime = 0.0f;
                 _dirtMound.SetActive(false);
                 break;
             default:

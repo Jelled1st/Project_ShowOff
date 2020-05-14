@@ -84,6 +84,7 @@ MonoBehaviour:
   _state: 0
   _cooldown: 3
   _timeTillGrown: 10
+  _decayGrowSlowness: 2
   _timeTillWithered: 10
   _progressBar: {fileID: 3745760333453003449}
   _harvestPotatoPrefab: {fileID: -927199367670048503, guid: cf7052664fcf0bc4baeebde2bd4f2270,

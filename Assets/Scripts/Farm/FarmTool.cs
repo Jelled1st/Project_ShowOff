@@ -10,6 +10,7 @@ public class FarmTool : MonoBehaviour, IControllable
         Dig,
         Plant,
         Water,
+        Heal,
     }
 
     [SerializeField] Functionalities _functionality;
@@ -32,6 +33,9 @@ public class FarmTool : MonoBehaviour, IControllable
                 break;
             case Functionalities.Water:
                 _functionaliesHandler = FarmPlot.Water;
+                break;
+            case Functionalities.Heal:
+                _functionaliesHandler = FarmPlot.Heal;
                 break;
         }
     }

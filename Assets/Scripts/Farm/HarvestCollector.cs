@@ -24,6 +24,7 @@ public class HarvestCollector : MonoBehaviour, IControllable
 
     }
 
+
     private void CollectPotato()
     {
         if(_potatoPositionsLeft.Count != 0)
