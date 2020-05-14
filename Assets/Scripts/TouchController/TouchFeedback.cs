@@ -109,11 +109,27 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         if (_dragCopy == null)
         {
             _dragCopy = dragged.GetDragCopy();
+            if(_dragCopy != null && !hitInfo.uiElement)
+            {
+                Vector3 originalPos = position;
+                Vector3 toCamera = Camera.main.transform.position - position;
+                position = Camera.main.transform.position - toCamera.normalized;
+
+                _dragCopy.transform.position = position;
+                _dragCopy.transform.localScale /= (Camera.main.transform.position - originalPos).magnitude;
+            }
         }
         if (_dragCopy != null) // else would not call this if _dragCopy had just been set
         {
             if (hitInfo.uiElement) _dragCopy.transform.position = Input.mousePosition;
-            else _dragCopy.transform.position = position;
+            else
+            {
+                Vector3 originalPos = position;
+                Vector3 toCamera = Camera.main.transform.position - position;
+                position = Camera.main.transform.position - toCamera.normalized;
+
+                _dragCopy.transform.position = position;
+            }
         }
         else DoSwipeParticle(position);
     }
