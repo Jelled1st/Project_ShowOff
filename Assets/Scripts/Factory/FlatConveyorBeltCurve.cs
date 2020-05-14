@@ -9,25 +9,12 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
     private float _eyeCandySpeedMultiplier = 0.7f;
     private Tween _rotateTween;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (!TryGetComponent<Rigidbody>(out _rBody))
-        {
-            _rBody = this.gameObject.AddComponent<Rigidbody>();
-        }
-
-        _rBody.useGravity = true;
-        _rBody.isKinematic = true;
-
-        SetConveyorSpeed();
-    }
 
     // Update is called once per frame
-    void FixedUpdate()
+    protected void FixedUpdate()
     {
         Quaternion rot = _rBody.rotation;
-        _rBody.rotation *= Quaternion.Euler(0, _speed * _eyeCandySpeedMultiplier, 0);
+        _rBody.rotation *= Quaternion.Euler(0, Speed * _eyeCandySpeedMultiplier, 0);
         _rBody.MoveRotation(rot);
     }
 
