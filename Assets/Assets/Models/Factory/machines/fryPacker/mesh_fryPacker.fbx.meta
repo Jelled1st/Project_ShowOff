@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: fryPacker_belt
-    second: {fileID: 2100000, guid: 03c0a801d33dd9a47ab5298dddb7358e, type: 2}
+    second: {fileID: 2100000, guid: 1155328f31e0cd545893482e382470ff, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
