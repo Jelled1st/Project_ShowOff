@@ -5271,6 +5271,11 @@ PrefabInstance:
       propertyPath: m_LightmapParameters
       value: 
       objectReference: {fileID: 15201, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -7704,6 +7709,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775122812291790707, guid: a768c6c827528e347bdcfd402e53b0da,
+        type: 3}
+      propertyPath: _speed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6519086807216685996, guid: a768c6c827528e347bdcfd402e53b0da,
         type: 3}
