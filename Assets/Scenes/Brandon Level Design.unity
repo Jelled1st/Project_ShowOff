@@ -7540,7 +7540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _reverseShaderDirection: 1
+  _reverseShaderDirection: 0
   _runtimeUseInspectorSpeed: 1
 --- !u!1001 &985923904
 PrefabInstance:
