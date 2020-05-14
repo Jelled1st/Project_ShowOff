@@ -117,11 +117,11 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         }
     }
 
-    public void OnClick(Vector3 hitPoint)
+    public virtual void OnClick(Vector3 hitPoint)
     {
     }
 
-    public void OnPress(Vector3 hitPoint)
+    public virtual void OnPress(Vector3 hitPoint)
     {
         Turn();
     }
