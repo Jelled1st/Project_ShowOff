@@ -17,12 +17,15 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
         Harvested,
     };
 
+    [SerializeField] private State _state = State.Rough;
+
     [SerializeField] private float _cooldown = 3.0f;
     [SerializeField] private float _timeTillGrown = 10.0f;
     [SerializeField] private float _timeTillWithered = 10.0f;
-    private State _state = State.Rough;
     private float _timeSinceLastCultivation = 0.0f;
     private bool _freeUseForStart = true;
+
+    [SerializeField] private GameObject _harvestPotatoPrefab;
 
     [Header("State meshes")]
     [SerializeField] GameObject _dirtMound;
@@ -296,9 +299,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     {
         if (_state == State.Grown)
         {
-            GameObject copy = Instantiate(this.gameObject);
-            Destroy(copy.GetComponent<FarmPlot>());
-            Destroy(copy.GetComponent<BoxCollider>());
+            GameObject copy = Instantiate(_harvestPotatoPrefab);
             return copy;
         }
         else return null;

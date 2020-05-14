@@ -80,7 +80,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305c86d0ac612a74681cb75d03b7a9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _state: 0
   _cooldown: 3
+  _timeTillGrown: 10
+  _timeTillWithered: 10
+  _harvestPotatoPrefab: {fileID: -927199367670048503, guid: cf7052664fcf0bc4baeebde2bd4f2270,
+    type: 3}
   _dirtMound: {fileID: 7826946927548121379}
   _plantGrowingMeshes:
   - {fileID: -927199367670048503, guid: 7ab7ef38b13037842bf7b1f7658d50fc, type: 3}
