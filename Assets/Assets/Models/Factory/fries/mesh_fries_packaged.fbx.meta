@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5143fa2e39b9d774e82f6679381c1503
+guid: 85f87da2978a6ac4899a210ba83a6611
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_fence_dirt
-    second: {fileID: 2100000, guid: fc9e495080aa6134298eb20ed6ed67b7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat_fence_wood
-    second: {fileID: 2100000, guid: 74dfdc41efca4194ca6eb4a77c8d8cd0, type: 2}
+      name: fries_packaged
+    second: {fileID: 2100000, guid: 64e42d0c0fddc2c439034a63a21b7c8b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -54,7 +49,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

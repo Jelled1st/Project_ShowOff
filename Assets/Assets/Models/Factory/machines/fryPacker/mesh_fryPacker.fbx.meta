@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5143fa2e39b9d774e82f6679381c1503
+guid: 362a399372cfb0343815e66204deed3d
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,13 +7,48 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_fence_dirt
-    second: {fileID: 2100000, guid: fc9e495080aa6134298eb20ed6ed67b7, type: 2}
+      name: fryPacker_belt
+    second: {fileID: 2100000, guid: 1155328f31e0cd545893482e382470ff, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_fence_wood
-    second: {fileID: 2100000, guid: 74dfdc41efca4194ca6eb4a77c8d8cd0, type: 2}
+      name: fryPacker_foil
+    second: {fileID: 2100000, guid: d224a4c66e8e535448f705c1b87b6d1e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fryPacker_frame
+    second: {fileID: 2100000, guid: 89122c9dc4fe91247856ec2541ca4a50, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fryPacker_metal02
+    second: {fileID: 2100000, guid: 3bbd38ee3fa262c4fad474367e3494ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fryPacker_metal03
+    second: {fileID: 2100000, guid: d5e404d96950df1459a4e11eada0d1fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fryPacker_roll
+    second: {fileID: 2100000, guid: ba6154f8b6735c5458d9c27268cf8d25, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frypacker_buttons
+    second: {fileID: 2100000, guid: 24628bf7d8628b54d990b3e07893ea5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frypacker_metal01
+    second: {fileID: 2100000, guid: 983d0a04d7a71984b939526b67709b81, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frypacker_screen
+    second: {fileID: 2100000, guid: 1f9eb1c0341e6c043a840142b332037d, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -65,9 +100,9 @@ ModelImporter:
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
+    secondaryUVAreaDistortion: 15
     secondaryUVHardAngle: 88
-    secondaryUVPackMargin: 4
+    secondaryUVPackMargin: 6
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
