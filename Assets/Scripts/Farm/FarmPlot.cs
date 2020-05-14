@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FarmPlot : MonoBehaviour, IControllable, ISubject
 {
@@ -22,8 +23,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     [SerializeField] private float _cooldown = 3.0f;
     [SerializeField] private float _timeTillGrown = 10.0f;
     [SerializeField] private float _timeTillWithered = 10.0f;
+    [SerializeField] private ProgressBar _progressBar;
     private float _timeSinceLastCultivation = 0.0f;
-    private bool _freeUseForStart = true;
+    private bool _neglectCooldown = true;
 
     [SerializeField] private GameObject _harvestPotatoPrefab;
 
@@ -47,6 +49,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
 
     void Awake()
     {
+        _progressBar?.SetActive(false);
         this.gameObject.tag = "FarmPlot";
     }
 
@@ -54,14 +57,14 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     void Start()
     {
         CultivateToState(_state);
-        _freeUseForStart = true;
+        _neglectCooldown = true;
     }
 
     public void SetStartState(State state)
     {
         if (_updateHasBeenCalled) return;
         CultivateToState(state);
-        _freeUseForStart = true;
+        _neglectCooldown = true;
     }
 
     // Update is called once per frame
@@ -76,6 +79,25 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
         else if(ReadyForState(State.Withered))
         {
             CultivateToState(State.Withered);
+        }
+        if(_progressBar != null)
+        {
+            if (_state == State.Growing)
+            {
+                _progressBar.SetActive(true);
+                _progressBar.SetPercentage(_timeSinceLastCultivation / _timeTillGrown);
+            }
+            else if (_state == State.Decay)
+            {
+                _progressBar.SetActive(true);
+                _progressBar.SetPercentage(1 - _timeSinceLastCultivation / _timeTillWithered);
+            }
+            else if (_timeSinceLastCultivation <= _cooldown && !_neglectCooldown)
+            {
+                _progressBar.SetActive(true);
+                _progressBar.SetPercentage(_timeSinceLastCultivation / _cooldown);
+            }
+            else _progressBar.SetActive(false);
         }
     }
 
@@ -138,7 +160,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
 
     private bool ReadyForState(State state)
     {
-        if (_timeSinceLastCultivation >= _cooldown || _freeUseForStart)
+        if (_timeSinceLastCultivation >= _cooldown || _neglectCooldown)
         {
             switch(state)
             {
@@ -178,6 +200,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
         InformObserversOfStateSwitch(state, _state);
         _state = state;
         ClearPlants();
+        _neglectCooldown = false;
         switch (_state)
         {
             case State.Withered:
@@ -212,6 +235,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
                 if (_debugLog) Debug.Log("Grown!");
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrownMeshes);
+                _neglectCooldown = true;
                 break;
             case State.Harvested:
                 if (_debugLog) Debug.Log("Harvested!");
@@ -221,7 +245,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
                 break;
         }
         _timeSinceLastCultivation = 0.0f;
-        _freeUseForStart = false;
     }
 
     private void ClearPlants()
