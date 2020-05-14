@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlotFunctionality : MonoBehaviour, IControllable
+public class FarmTool : MonoBehaviour, IControllable
 {
     enum Functionalities
     {
@@ -94,7 +94,7 @@ public class PlotFunctionality : MonoBehaviour, IControllable
     public GameObject GetDragCopy()
     {
         GameObject copy = Instantiate(this.gameObject);
-        Destroy(copy.GetComponent<PlotFunctionality>());
+        Destroy(copy.GetComponent<FarmTool>());
         copy.layer = 0;
         copy.transform.SetParent(this.transform.parent.transform.parent);
         return copy;
