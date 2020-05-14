@@ -122,10 +122,6 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver, IFarmPlotObserv
 
     public void OnPress(ControllerHitInfo hitInfo)
     {
-        FarmPlot plot;
-        if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
-        {
-        }
     }
 
     public void OnHold(float holdTime, ControllerHitInfo hitInfo)

@@ -204,6 +204,11 @@ public class TouchController : MonoBehaviour, ISubject
     // Paramaters are not the start values, but values for if something new was hit this frame
     private void HandleDragCalls()
     {
+        if (_dragStartInfo.gameObject == null)
+        {
+            _isDragging = false;
+            _wasDraggingLastFrame = false;
+        }
         Vector3 mouse3d = new Vector3();
         if (_isDragging || _wasDraggingLastFrame) mouse3d = Get3dCursorPosition((_dragStartInfo.gameObject.transform.position - Camera.main.transform.position).magnitude);
         else return;

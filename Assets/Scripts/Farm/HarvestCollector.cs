@@ -28,7 +28,6 @@ public class HarvestCollector : MonoBehaviour, IControllable
     {
         if(_potatoPositionsLeft.Count != 0)
         {
-            Debug.Log("Them potatoes");
             int rand = Random.Range(0, _potatoPositionsLeft.Count);
             int index = _potatoPositionsLeft[rand];
             _potatoPositionsLeft.RemoveAt(rand);
