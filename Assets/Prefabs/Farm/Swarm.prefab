@@ -45,4 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _swarmUnitPrefab: {fileID: 4712983814634473045, guid: 484607db1182a514ba9aea5ef78a8ba0,
     type: 3}
-  _swarmSize: {x: 2, y: 5}
+  _swarmSize: {x: 1, y: 3}
+  _spawnRange: 3
+  _speed: 0.5

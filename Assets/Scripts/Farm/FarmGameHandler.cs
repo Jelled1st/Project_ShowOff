@@ -164,21 +164,11 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver, IFarmPlotObserv
         {
             GameObject swarmGO = Instantiate(_swarmPrefab);
             Swarm swarm = swarmGO.GetComponent<Swarm>();
-            Vector3 randomPos = GetRandomSwarmPosition();
-            swarm.Init(plot, randomPos + plot.transform.position);
+            swarm.Init(plot);
+            swarmGO.transform.position = plot.gameObject.transform.position;
         }
     }
 
-    private Vector3 GetRandomSwarmPosition()
-    {
-        Vector3 random = new Vector3();
-        random.x = UnityEngine.Random.Range(1, 2);
-        random.y = 1;
-        random.z = UnityEngine.Random.Range(1, 2);
-        if (UnityEngine.Random.Range(-1, 1) < 0) random.x *= -1; 
-        if (UnityEngine.Random.Range(-1, 1) < 0) random.z *= -1; 
-        return random * 2.5f;
-    }
 
     public void OnPlotHarvest(FarmPlot plot)
     {

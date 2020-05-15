@@ -14,25 +14,25 @@ public class SwarmUnit : MonoBehaviour, IControllable
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("on trigger enter");
         FarmPlot plot;
         if (other.gameObject.TryGetComponent<FarmPlot>(out plot))
         {
-            _swarm.UnitEnterPlot(this, plot);
+            _swarm.UnitReachedPlot(this, plot);
         }
     }
 
     public void OnClick(Vector3 hitPoint)
     {
+        Debug.Log("unit hit and " + _swarm);
         _swarm.UnitHit(this);
     }
 
@@ -70,9 +70,6 @@ public class SwarmUnit : MonoBehaviour, IControllable
 
     public GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(this.gameObject);
-        Destroy(copy.GetComponent<SwarmUnit>());
-        Destroy(copy.GetComponent<BoxCollider>());
-        return copy;
+        return null;
     }
 }
