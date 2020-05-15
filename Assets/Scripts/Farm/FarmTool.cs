@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class FarmTool : MonoBehaviour, IControllable
@@ -15,10 +16,18 @@ public class FarmTool : MonoBehaviour, IControllable
 
     [SerializeField] Functionalities _functionality;
     [SerializeField] float _cooldown = 3.0f;
+    [SerializeField] ProgressBar _cooldownBar;
     private delegate bool FunctionalityFunctions(FarmPlot plot);
     private FunctionalityFunctions _functionaliesHandler;
-    float _timeSinceLastUse = 0.0f;
-    bool _freeUseForStart = true;
+    private float _timeSinceLastUse = 0.0f;
+    private RawImage _image;
+    private bool _isOnCooldown = false;
+
+    void Awake()
+    {
+        _image = this.GetComponent<RawImage>();
+        _cooldownBar.SetActive(false);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +53,29 @@ public class FarmTool : MonoBehaviour, IControllable
     void Update()
     {
         _timeSinceLastUse += Time.deltaTime;
+        if(_timeSinceLastUse < _cooldown)
+        {
+            if(_isOnCooldown) _cooldownBar.SetPercentage(1 - (_timeSinceLastUse / _cooldown));
+        }
+        else if(_isOnCooldown)
+        {
+            OnBecomesUseable();
+            _isOnCooldown = false;
+        }
+    }
+
+    private void OnUse()
+    {
+        _timeSinceLastUse = 0;
+        _isOnCooldown = true;
+        _image.color = new Color(0.5f, 0.5f, 0.5f);
+        _cooldownBar.SetActive(true);
+    }
+
+    private void OnBecomesUseable()
+    {
+        _cooldownBar.SetActive(false);
+        _image.color = new Color(1.0f, 1.0f, 1.0f);
     }
 
     public void OnClick(Vector3 hitPoint)
@@ -72,15 +104,14 @@ public class FarmTool : MonoBehaviour, IControllable
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if (_timeSinceLastUse >= _cooldown || _freeUseForStart)
+        if (!_isOnCooldown)
         {
             FarmPlot plot;
             if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
             {
                 if (_functionaliesHandler(plot))
                 {
-                    _timeSinceLastUse = 0;
-                    _freeUseForStart = false;
+                    OnUse();
                 }
             }
         }

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
-    [SerializeField] private Canvas _canvas;
     [SerializeField] private Slider _slider;
     [SerializeField] private Image _backgroundColor;
     [SerializeField] private Image _fillColor;
@@ -23,7 +22,7 @@ public class ProgressBar : MonoBehaviour
 
     public void SetActive(bool active)
     {
-        _canvas.gameObject.SetActive(active);
+        _slider.gameObject.SetActive(active);
     }
 
     //set procentage from 0-1
