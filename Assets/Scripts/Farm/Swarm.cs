@@ -7,13 +7,19 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
     [SerializeField] private GameObject _swarmUnitPrefab;
     [Tooltip("SwarmSize, x is minimum size, y is maximum size")]
     [SerializeField] private Vector2Int _swarmSize = new Vector2Int(1, 3);
-    [SerializeField] private float _spawnRange = 3.0f;
+    [Tooltip("SwarmSize, x is minimum size, y is maximum size")]
+    [SerializeField] private Vector2 _spawnRange = new Vector2(2.0f, 3.0f);
     [SerializeField] private float _speed = 0.5f;
+    [SerializeField] private float _spawnTime = 1.5f;
+    [Tooltip("Spawnchance in percentage")]
+    [Range(0, 100)] [SerializeField] private float _spawnChance = 75;
     private FarmPlot _farmPlot;
     private List<GameObject> _swarmUnits;
     private bool _initCalled = false;
     private bool _continueSpawning = true;
     private List<float> _angles = new List<float>();
+    private float _timeSinceLastSpawn = 0.0f;
+    bool _ignoreSpawnTimer = true;
     Vector3 _destination;
 
     public void Init(FarmPlot plot)
@@ -23,7 +29,6 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
         Subscribe(_farmPlot);
         initAngleList();
         _destination = _farmPlot.transform.position + new Vector3(0, 0.5f, 0);
-        SpawnUnit();
     }
 
     private void initAngleList()
@@ -44,21 +49,33 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
     // Update is called once per frame
     void Update()
     {
-        if(_continueSpawning)
-        {
-
-        }
         for (int i = 0; i < _swarmUnits.Count; ++i)
         {
             Vector3 diff = _destination - _swarmUnits[i].transform.position;
             _swarmUnits[i].transform.localPosition += diff.normalized * _speed * Time.deltaTime;
         }
+        if (_continueSpawning)
+        {
+            Debug.Log("Chance to spawn");
+            _timeSinceLastSpawn += Time.deltaTime;
+            if (_timeSinceLastSpawn >= _spawnTime || _ignoreSpawnTimer)
+            {
+                float rand = Random.Range(0.0f, 100.0f);
+                if (rand <= _spawnChance)
+                {
+                    SpawnUnits();
+                    OnSpawnUnit();
+                }
+                else OnFailedSpawnChance();
+            }
+        }
     }
 
-    private void SpawnUnit()
+    private void SpawnUnits()
     {
         if (_angles.Count == 0) return;
         int spawnCount = Random.Range(_swarmSize.x, _swarmSize.y+1);
+        Debug.Log("Spawning " + spawnCount);
         while(spawnCount >= 0)
         {
             int angleIndex = Random.Range(0, _angles.Count);
@@ -67,8 +84,7 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
             GameObject unit = Instantiate(_swarmUnitPrefab);
             _swarmUnits.Add(unit);
             Quaternion angleRotation = Quaternion.Euler(0, angle, 0);
-            Vector3 positionWithoutRotation = GetRandomPosition();
-            Vector3 spawnPosition = angleRotation * positionWithoutRotation;
+            Vector3 spawnPosition = angleRotation * new Vector3(Random.Range(_spawnRange.x, _spawnRange.y), 1.0f, 0);
             unit.GetComponent<SwarmUnit>().Init(this);
             unit.transform.localPosition = spawnPosition;
             unit.transform.SetParent(this.transform);
@@ -78,15 +94,16 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
         }
     }
 
-    private Vector3 GetRandomPosition()
+    private void OnSpawnUnit()
     {
-        Vector3 random = new Vector2();
-        random.x = UnityEngine.Random.Range(1, 2);
-        random.y = 1.0f;
-        random.z = UnityEngine.Random.Range(1, 2);
-        if (UnityEngine.Random.Range(-1, 1) < 0) random.x *= -1;
-        if (UnityEngine.Random.Range(-1, 1) < 0) random.z *= -1;
-        return random * _spawnRange;
+        _timeSinceLastSpawn = 0.0f;
+        _ignoreSpawnTimer = false;
+    }
+
+    private void OnFailedSpawnChance()
+    {
+        _timeSinceLastSpawn = 0.0f;
+        _ignoreSpawnTimer = false;
     }
 
     public void UnitReachedPlot(SwarmUnit unit, FarmPlot plot)
@@ -100,7 +117,6 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
 
     public void UnitHit(SwarmUnit unit)
     {
-        Debug.Log("It ought to be removed");
         RemoveUnit(unit);
     }
 
@@ -108,12 +124,12 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
     {
         _swarmUnits.Remove(unit.gameObject);
         Destroy(unit.gameObject);
-        if (_swarmUnits.Count == 0) Destroy(this.gameObject);
+        if (_swarmUnits.Count == 0 && !_continueSpawning) Destroy(this.gameObject);
     }
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
-        _continueSpawning = false;
+        if(state != FarmPlot.State.Growing) _continueSpawning = false;
     }
 
     public void OnPlotHarvest(FarmPlot plot)
