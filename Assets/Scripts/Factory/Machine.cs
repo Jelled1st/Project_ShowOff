@@ -21,6 +21,8 @@ namespace Factory
         [Header("Clogging settings")] [SerializeField]
         private float _baseFixTime = 1f;
 
+        [SerializeField] private ParticleSystem _clogVisual;
+        
         [SerializeField] private GameObject _repairVisuals;
 
 
@@ -97,6 +99,8 @@ namespace Factory
             {
                 // Increase delay by slowPerStage %
                 Delay *= 1 + _slowPerStage;
+                
+                _clogVisual.Play(true);
 
                 // Debug.Log($"Clog [{_currentClogStage}] {gameObject.name}");
             }
@@ -106,8 +110,8 @@ namespace Factory
 
         private void Repair()
         {
-            // if (_currentClogStage == 0)
-            //     return;
+            if (_currentClogStage <= 0 || _isRepairing)
+                return;
 
             _repairVisuals?.SetActive(true);
             _isRepairing = true;
@@ -165,7 +169,6 @@ namespace Factory
 
         public void OnPress(Vector3 hitPoint)
         {
-            Debug.Log($"Clicked :{gameObject.name}");
             Repair();
         }
 
