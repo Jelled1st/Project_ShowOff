@@ -234,6 +234,10 @@ MonoBehaviour:
   _outputPushForce: 500
   _particleSystem: {fileID: 0}
   _delay: 2
+  _baseFixTime: 1
+  _repairVisuals: {fileID: 0}
+  _slowPerStage: 0.33333334
+  _breakEverySeconds: {x: 4.2110996, y: 7.243805}
   _shaderName: Shader Graphs/shdr_potatoes
   _propertyToDisable: _enableClean
   _propertyToEnable: _enablePeeled

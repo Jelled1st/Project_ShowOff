@@ -136,7 +136,12 @@ MonoBehaviour:
   _inputFunnelTrigger: {fileID: 1064042827766033556}
   _output: {fileID: 8413351585495675543}
   _outputPushForce: 100
+  _particleSystem: {fileID: 0}
   _delay: 1
+  _baseFixTime: 1
+  _repairVisuals: {fileID: 0}
+  _slowPerStage: 0.33333334
+  _breakEverySeconds: {x: 3.497522, y: 8.135777}
   _substitute:
   - {fileID: 6075627235216453774, guid: cf12fe4f3b6008d4699e4d4a05253d6d, type: 3}
 --- !u!1 &5438428182625289378

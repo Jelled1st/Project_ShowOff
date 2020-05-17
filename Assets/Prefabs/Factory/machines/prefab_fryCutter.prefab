@@ -183,6 +183,10 @@ MonoBehaviour:
   _outputPushForce: 100
   _particleSystem: {fileID: 0}
   _delay: 0.5
+  _baseFixTime: 1
+  _repairVisuals: {fileID: 0}
+  _slowPerStage: 0.33333334
+  _breakEverySeconds: {x: 4.7928004, y: 8.901668}
   _substitute:
   - {fileID: 4628057192833825956, guid: a7cfa98c0972a024ebb2fe388436b0d7, type: 3}
   - {fileID: 7123373888999861644, guid: 5c55b868e1f7e834b906f105518b8850, type: 3}

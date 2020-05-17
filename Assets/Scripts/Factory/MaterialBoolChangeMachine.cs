@@ -13,13 +13,13 @@ namespace Factory
         [SerializeField] private string _propertyToEnable = "_enableClean";
 
 
-        protected override GameObject PreDelayAction(GameObject o)
+        protected override GameObject PreDelayProcess(GameObject o)
         {
             o.SetActive(false);
             return o;
         }
 
-        protected override GameObject PostDelayAction(GameObject o)
+        protected override GameObject PostDelayProcess(GameObject o)
         {
             o.SetActive(true);
             foreach (var material in o.GetComponent<Renderer>().materials.Where(m => m.shader.name == _shaderName))
