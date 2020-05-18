@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface GameHandlerObserver : IObserver
+public interface IGameHandlerObserver : IObserver
 {
     // OnPause is called when the game gets paused
     void OnPause();
