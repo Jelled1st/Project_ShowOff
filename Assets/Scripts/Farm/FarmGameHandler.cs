@@ -2,23 +2,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(BoxCollider))]
 public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarmPlotObserver 
 {
     [SerializeField] GameObject _swarmPrefab;
     private TouchController _touchController;
     [Header("SpawnStates and rates")]
     [SerializeField] List<FarmPlotSpawnStateRate> _stateSpawnRates;
+    [SerializeField] private string _nextScene = "";
 
     private List<IGameHandlerObserver> _gameHandlerObservers;
     private bool _paused = false;
-    private bool _finished = false;
+    private bool gameFinished = false;
 
     bool _debugLog = false;
 
     void Awake()
     {
         this.gameObject.tag = "GameHandler";
+        if (_nextScene == "")
+        {
+            _nextScene = SceneManager.GetActiveScene().name;
+            Debug.LogWarning("Next scene not set, reloading this scene assumed");
+        }
     }
 
     // Start is called before the first frame update
@@ -123,11 +131,15 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            FinishGame();
+        }
     }
 
     public void LastPotatoCollected()
     {
-
+        FinishGame();
     }
 
     public void Pause()
@@ -156,13 +168,23 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void FinishGame()
     {
-        if (!_finished)
+        if (!gameFinished)
         {
-            _finished = true;
+            gameFinished = true;
             for (int i = 0; i < _gameHandlerObservers.Count; ++i)
             {
                 _gameHandlerObservers[i].OnFinish();
             }
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        Truck truck;
+        if(other.TryGetComponent<Truck>(out truck) && gameFinished)
+        {
+            //Game trully finished
+            SceneManager.LoadScene(_nextScene);
         }
     }
 

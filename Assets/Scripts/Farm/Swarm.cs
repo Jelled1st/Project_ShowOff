@@ -167,5 +167,6 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
 
     public void OnFinish()
     {
+        if (!_paused) _paused = true;
     }
 }

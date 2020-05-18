@@ -434,6 +434,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public void OnFinish()
     {
+        if (!_paused) _paused = true;
     }
 
     public void Subscribe(ISubject subject)
