@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Swarm : MonoBehaviour, IFarmPlotObserver
+public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
 {
     [SerializeField] private GameObject _swarmUnitPrefab;
     [Tooltip("SwarmSize, x is minimum size, y is maximum size")]
@@ -21,9 +21,17 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
     private float _timeSinceLastSpawn = 0.0f;
     bool _ignoreSpawnTimer = true;
     Vector3 _destination;
+    private static bool _paused;
 
     public void Init(FarmPlot plot)
     {
+        GameObject gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
+        ISubject gameHandlerSubject;
+        if (gameHandler.TryGetComponent<ISubject>(out gameHandlerSubject))
+        {
+            Subscribe(gameHandlerSubject);
+        }
+
         _swarmUnits = new List<GameObject>();
         _farmPlot = plot;
         Subscribe(_farmPlot);
@@ -49,6 +57,7 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
     // Update is called once per frame
     void Update()
     {
+        if (_paused) return;
         for (int i = 0; i < _swarmUnits.Count; ++i)
         {
             Vector3 diff = _destination - _swarmUnits[i].transform.position;
@@ -144,5 +153,19 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
+    }
+
+    public void OnPause()
+    {
+        if (!_paused) _paused = true;
+    }
+
+    public void OnContinue()
+    {
+        if (_paused) _paused = false;
+    }
+
+    public void OnFinish()
+    {
     }
 }

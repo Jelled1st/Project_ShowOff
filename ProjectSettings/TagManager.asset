@@ -14,6 +14,8 @@ TagManager:
   - Factory/Potato_Dirty
   - Factory/Potato_Cut
   - Factory/Potato_Packed
+  - FxTemporaire
+  - GameHandler
   layers:
   - Default
   - TransparentFX

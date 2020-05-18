@@ -3,14 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FarmGameHandler : MonoBehaviour, IControlsObserver, IFarmPlotObserver
+public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarmPlotObserver 
 {
     [SerializeField] GameObject _swarmPrefab;
     private TouchController _touchController;
     [Header("SpawnStates and rates")]
     [SerializeField] List<FarmPlotSpawnStateRate> _stateSpawnRates;
 
+    private List<IGameHandlerObserver> _gameHandlerObservers;
+    private bool _paused = false;
+    private bool _finished = false;
+
     bool _debugLog = false;
+
+    void Awake()
+    {
+        this.gameObject.tag = "GameHandler";
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -114,8 +123,49 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver, IFarmPlotObserv
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void LastPotatoCollected()
+    {
 
     }
+
+    public void Pause()
+    {
+        if (!_paused)
+        {
+            _paused = true;
+            for (int i = 0; i < _gameHandlerObservers.Count; ++i)
+            {
+                _gameHandlerObservers[i].OnPause();
+            }
+        }
+    }
+
+    public void UnPause()
+    {
+        if (_paused)
+        {
+            _paused = false;
+            for (int i = 0; i < _gameHandlerObservers.Count; ++i)
+            {
+                _gameHandlerObservers[i].OnContinue();
+            }
+        }
+    }
+
+    public void FinishGame()
+    {
+        if (!_finished)
+        {
+            _finished = true;
+            for (int i = 0; i < _gameHandlerObservers.Count; ++i)
+            {
+                _gameHandlerObservers[i].OnFinish();
+            }
+        }
+    }
+
     public void OnClick(ControllerHitInfo hitInfo)
     {
     }
@@ -172,5 +222,22 @@ public class FarmGameHandler : MonoBehaviour, IControlsObserver, IFarmPlotObserv
 
     public void OnPlotHarvest(FarmPlot plot)
     {
+    }
+
+    public void Register(IObserver observer)
+    {
+        if (_gameHandlerObservers == null) _gameHandlerObservers = new List<IGameHandlerObserver>();
+        if (observer is IGameHandlerObserver)
+        {
+            _gameHandlerObservers.Add(observer as IGameHandlerObserver);
+        }
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        if (observer is IGameHandlerObserver)
+        {
+            _gameHandlerObservers.Remove(observer as IGameHandlerObserver);
+        }
     }
 }

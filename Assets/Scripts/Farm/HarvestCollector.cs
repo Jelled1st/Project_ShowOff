@@ -7,6 +7,7 @@ public class HarvestCollector : MonoBehaviour, IControllable
     [SerializeField] private List<GameObject> _collectedPotatoesPrefab;
     [SerializeField] private List<GameObject> _collectedPotatoPosition;
     List<int> _potatoPositionsLeft;
+    [SerializeField] private FarmGameHandler _gameHandler;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,11 @@ public class HarvestCollector : MonoBehaviour, IControllable
             GameObject potatoes = Instantiate(_collectedPotatoesPrefab[rand], _collectedPotatoPosition[index].transform);
             potatoes.transform.localPosition = new Vector3(0, 0, 0);
             potatoes.transform.localScale = new Vector3(1, 1, 1);
+            if (_potatoPositionsLeft.Count == 0)
+            {
+                //last potato has been collected
+                _gameHandler.LastPotatoCollected();
+            }
         }
     }
 

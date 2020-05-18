@@ -6,7 +6,7 @@ using UnityEngine.Profiling;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class TouchController : MonoBehaviour, ISubject
+public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 {
     [Tooltip("Amount of time an object needs to be clicked before onHold() is called, if an object is held less than this time it will be registered as a single press")]
     [SerializeField] private float _holdTime = 0.3f;
@@ -15,6 +15,7 @@ public class TouchController : MonoBehaviour, ISubject
 
     // General
     private IControllable _selected = null;
+    private bool _paused = false;
     
     // Holding
     private float _timeHeld = 0.0f;
@@ -52,6 +53,13 @@ public class TouchController : MonoBehaviour, ISubject
     // Start is called before the first frame update
     void Start()
     {
+        GameObject gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
+        ISubject gameHandlerSubject;
+        if (gameHandler.TryGetComponent<ISubject>(out gameHandlerSubject))
+        {
+            Subscribe(gameHandlerSubject);
+        }
+
         _swipePositions = new List<Vector3>();
         _swipeSpeed = Mathf.Abs(_swipeSpeed);
         _swipeDistance = Mathf.Abs(_swipeSpeed);
@@ -73,6 +81,7 @@ public class TouchController : MonoBehaviour, ISubject
     // Update is called once per frame
     void Update()
     {
+        if (_paused) return;
         bool mousePressed = Input.GetMouseButton(0);
         IControllable controllable = null;
         ControllerHitInfo hitInfo = new ControllerHitInfo(true);
@@ -400,5 +409,29 @@ public class TouchController : MonoBehaviour, ISubject
         {
             _observers[i].OnDragDropFailed(position, dragged);
         }
+    }
+
+    public void OnPause()
+    {
+        _paused = true;
+    }
+
+    public void OnContinue()
+    {
+        _paused = false;
+    }
+
+    public void OnFinish()
+    {
+    }
+
+    public void Subscribe(ISubject subject)
+    {
+        subject.Register(this);
+    }
+
+    public void UnSubscribe(ISubject subject)
+    {
+        subject.UnRegister(this);
     }
 }

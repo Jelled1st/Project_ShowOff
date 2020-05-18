@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FarmPlot : MonoBehaviour, IControllable, ISubject
+public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObserver
 {
     public enum State
     {
@@ -28,6 +28,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     private float _timeSinceLastCultivation = 0.0f;
     private float _growTime;
     private bool _neglectCooldown = true;
+    private static bool _paused = false;
 
     [SerializeField] private GameObject _harvestPotatoPrefab;
 
@@ -58,6 +59,13 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     // Start is called before the first frame update
     void Start()
     {
+        GameObject gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
+        ISubject gameHandlerSubject;
+        if (gameHandler.TryGetComponent<ISubject>(out gameHandlerSubject))
+        {
+            Subscribe(gameHandlerSubject);
+        }
+
         CultivateToState(_state);
         _neglectCooldown = true;
     }
@@ -72,6 +80,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
     // Update is called once per frame
     void Update()
     {
+        if (_paused) return;
         _updateHasBeenCalled = true;
         _timeSinceLastCultivation += Time.deltaTime;
         if(_state == State.Growing)
@@ -316,6 +325,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
 
     public bool Harvest()
     {
+        InformObserversOfHarvest();
         if (ReadyForState(State.Harvested))
         {
             CultivateToState(State.Harvested);
@@ -408,6 +418,32 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject
         {
             _observers[i].OnPlotHarvest(this);
         }
+    }
+    #endregion
+
+    #region GamehandlerObserver
+    public void OnPause()
+    {
+        if (!_paused) _paused = true; 
+    }
+
+    public void OnContinue()
+    {
+        if (_paused) _paused = false;
+    }
+
+    public void OnFinish()
+    {
+    }
+
+    public void Subscribe(ISubject subject)
+    {
+        subject.Register(this);
+    }
+
+    public void UnSubscribe(ISubject subject)
+    {
+        subject.UnRegister(this);
     }
     #endregion
 }
