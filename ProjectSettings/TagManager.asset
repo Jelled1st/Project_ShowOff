@@ -9,6 +9,11 @@ TagManager:
   - StartPosition
   - Factory/Package
   - FarmPlot
+  - Factory/Potato_Peeled
+  - Factory/Potato_Washed
+  - Factory/Potato_Dirty
+  - Factory/Potato_Cut
+  - Factory/Potato_Packed
   layers:
   - Default
   - TransparentFX
@@ -18,7 +23,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Touchable
   - 
   - 
   - 

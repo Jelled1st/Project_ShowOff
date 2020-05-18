@@ -156,9 +156,10 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(this.gameObject);
-        Destroy(copy.GetComponent<FlatConveyorBelt>());
-        Destroy(copy.GetComponent<BoxCollider>());
-        return copy;
+        // GameObject copy = Instantiate(this.gameObject);
+        // Destroy(copy.GetComponent<FlatConveyorBelt>());
+        // Destroy(copy.GetComponent<BoxCollider>());
+        // return copy;
+        return null;
     }
 }
