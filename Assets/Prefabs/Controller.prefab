@@ -9555,8 +9555,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holdTime: 0.3
-  _swipeSpeed: 10
-  _swipeDistance: 20
+  _swipeSpeed: 1
+  _swipeDistance: 1
   _canvas: {fileID: 0}
 --- !u!114 &1458415689702892829
 MonoBehaviour:

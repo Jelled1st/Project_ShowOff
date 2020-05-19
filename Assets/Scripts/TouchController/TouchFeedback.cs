@@ -86,10 +86,10 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
     public void OnSwipe(Vector3 direction, Vector3 lastPoint, ControllerHitInfo hitInfo)
     {
         Vector3 screenPoint = lastPoint + direction;
-        screenPoint.z = 1;
-        Vector3 mouse3d = Camera.main.ScreenToWorldPoint(screenPoint);
+        //screenPoint.z = 1;
+        //Vector3 mouse3d = Camera.main.ScreenToWorldPoint(screenPoint);
 
-        DoSwipeParticle(mouse3d);
+        DoSwipeParticle(screenPoint);
     }
 
     private void DoSwipeParticle(Vector3 point)
