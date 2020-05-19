@@ -60,8 +60,8 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         }
 
         _swipePositions = new List<Vector3>();
-        _swipeSpeed = Mathf.Abs(_swipeSpeed)* 0.005f;
-        _swipeDistance = Mathf.Abs(_swipeSpeed);
+        _swipeSpeed = Mathf.Abs(_swipeSpeed) * 0.005f;
+        _swipeDistance = Mathf.Abs(_swipeDistance);
 
         if (_canvas != null)
         {
@@ -250,7 +250,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     private void HandleSwipe(bool mousePressed, bool hitControllable)
     {
-        Vector3 mousePos = Get3dCursorPosition(1);
+        Vector3 mousePos = Get3dCursorPosition(0.02f);
         if (mousePressed)
         {
             if ( _currentlySwiping || ( (Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed && !hitControllable && !_isDragging) ) ) //if a controllable was hit swiped are not allowed to start
@@ -268,7 +268,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                     if (GetFullLengthOfSwipe() > _swipeDistance)
                     {
                         _currentlySwiping = true;
-                        /*if (_debugOutput)*/ Debug.Log("Started swiping");
+                        if (_debugOutput) Debug.Log("Started swiping");
                     }
                 }
             }
