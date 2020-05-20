@@ -8,7 +8,10 @@ public class Knife : MonoBehaviour, IControllable
 {
     [Tooltip("1 is most precise (complete equal to the rotation), 0 is perpedicular, -1 is opposite direction")]
     [SerializeField] private float _swipePrecision = 0.8f;
+    [SerializeField] private int _swipeFramesLength = 5;
     private Rigidbody _rigidBody;
+    private bool _isSwiping = false;
+    private int _swipeFramesCount = 0;
     private bool _isCutting = false;
     private bool _isResettingCut = false;
     private Vector3 _rotationBeforeCut;
@@ -31,14 +34,22 @@ public class Knife : MonoBehaviour, IControllable
     // Update is called once per frame
     void Update()
     {
-        if(_isCutting)
+        if(_swipeFramesCount >= -_swipeFramesLength || _isCutting)
         {
+            _swipeFramesCount = 0;
             Cut();
         }
         else if(_isResettingCut)
         {
+            _swipeFramesCount = 0;
             ResetCut();
         }
+        if (!_isSwiping)
+        {
+            _swipeFramesCount = 0;
+        }
+        else Debug.Log(_swipeFramesCount);
+        _isSwiping = false;
     }
 
     private void Cut()
@@ -127,7 +138,8 @@ public class Knife : MonoBehaviour, IControllable
         float directionRotationDiff = Vector3.Dot(direction.normalized, this.transform.forward);
         if(directionRotationDiff >= _swipePrecision)
         {
-            Cut();
+            _isSwiping = true;
+            ++_swipeFramesCount;
         }
     }
 
