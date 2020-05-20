@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class Knife : MonoBehaviour, IControllable
 {
     [Tooltip("1 is most precise (complete equal to the rotation), 0 is perpedicular, -1 is opposite direction")]
     [SerializeField] private float _swipePrecision = 0.8f;
     private Rigidbody _rigidBody;
-    private int _swipeFramesCount = 0;
-    private bool _isSwiping = false;
     private bool _isCutting = false;
     private bool _isResettingCut = false;
     private Vector3 _rotationBeforeCut;
+
+    private List<CuttableFood> _foodsToCut = null;
 
     void Awake()
     {
@@ -31,39 +31,30 @@ public class Knife : MonoBehaviour, IControllable
     // Update is called once per frame
     void Update()
     {
-        if(_swipeFramesCount >= 5 || _isCutting)
+        if(_isCutting)
         {
             Cut();
-            _swipeFramesCount = 0;
         }
         else if(_isResettingCut)
         {
-            _swipeFramesCount = 0; // make sure a new cut cannot happen whilst resetting
             ResetCut();
         }
-        if(!_isSwiping)
-        {
-            _swipeFramesCount = 0;
-        }
-        _isSwiping = false; // if swiping is active it will be set true again (set it to false because it would otherwise never be false)
     }
 
     private void Cut()
     {
         if (!DOTween.IsTweening(this.transform))
         {
-            Debug.Log("Not tweening");
             if (!_isCutting)
             {
                 _isCutting = true;
                 this.transform.DORotate(new Vector3(0, 0, 0), 0.4f);
-                Debug.Log("tweening down");
             }
             else
             {
+                TryCutFood();
                 _isCutting = false;
                 ResetCut();
-                Debug.Log("Bottom cut");
             }
         }
     }
@@ -72,18 +63,25 @@ public class Knife : MonoBehaviour, IControllable
     {
         if (!DOTween.IsTweening(this.transform))
         {
-            Debug.Log("Not tweening");
             if (!_isResettingCut)
             {
                 _isResettingCut = true;
                 this.transform.DORotate(_rotationBeforeCut, 0.4f);
-                Debug.Log("tweening down");
             }
             else
             {
                 _isResettingCut = false;
-                Debug.Log("End o' cut");
             }
+        }
+    }
+
+    private void TryCutFood()
+    {
+        if (_foodsToCut == null) return;
+        for (int i = 0; i < _foodsToCut.Count; ++i)
+        {
+            _foodsToCut[i].Cut();
+            Debug.Log("Cut meself some food");
         }
     }
 
@@ -129,8 +127,28 @@ public class Knife : MonoBehaviour, IControllable
         float directionRotationDiff = Vector3.Dot(direction.normalized, this.transform.forward);
         if(directionRotationDiff >= _swipePrecision)
         {
-            _isSwiping = true;
-            ++_swipeFramesCount;
+            Cut();
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        CuttableFood food;
+        if(other.TryGetComponent<CuttableFood>(out food))
+        {
+            if (_foodsToCut == null) _foodsToCut = new List<CuttableFood>();
+            _foodsToCut.Add(food);
+            Debug.Log("Food entered");
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        CuttableFood food;
+        if (other.TryGetComponent<CuttableFood>(out food))
+        {
+            _foodsToCut.Remove(food);
+            Debug.Log("Food exited");
         }
     }
 }
