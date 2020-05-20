@@ -131,7 +131,7 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
                 _dragCopy.transform.position = position;
             }
         }
-        else DoSwipeParticle(position);
+        //else DoSwipeParticle(position);
     }
 
     public void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo)
