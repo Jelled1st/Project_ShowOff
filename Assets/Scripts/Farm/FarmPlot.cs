@@ -34,6 +34,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     [Header("State meshes")]
     [SerializeField] GameObject _dirtMound;
+    [SerializeField] List<GameObject> _plantPlantedMeshes;
     [SerializeField] List<GameObject> _plantGrowingMeshes;
     [SerializeField] List<GameObject> _plantDecayingMeshes;
     [SerializeField] List<GameObject> _plantWitheredMeshes;
@@ -267,7 +268,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                 if (_debugLog) Debug.Log("Planted!");
                 _growTime = 0.0f;
                 _dirtMound.SetActive(true);
-                SetPlants(_plantGrowingMeshes);
+                SetPlants(_plantPlantedMeshes);
                 break;
             case State.Growing:
                 if (_debugLog) Debug.Log("Growing!");
