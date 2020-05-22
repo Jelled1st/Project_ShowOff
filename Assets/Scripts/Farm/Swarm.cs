@@ -65,7 +65,6 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
         }
         if (_continueSpawning)
         {
-            Debug.Log("Chance to spawn");
             _timeSinceLastSpawn += Time.deltaTime;
             if (_timeSinceLastSpawn >= _spawnTime || _ignoreSpawnTimer)
             {

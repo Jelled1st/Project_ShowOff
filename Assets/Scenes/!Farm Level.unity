@@ -8705,7 +8705,7 @@ PrefabInstance:
     - target: {fileID: 1458415689702892830, guid: ce500e75d4a6f8840ba94706022f8e99,
         type: 3}
       propertyPath: _swipeSpeed
-      value: 0.1
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 1458415689702892830, guid: ce500e75d4a6f8840ba94706022f8e99,
         type: 3}

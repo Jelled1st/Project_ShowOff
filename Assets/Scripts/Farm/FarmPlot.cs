@@ -49,7 +49,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     private bool _updateHasBeenCalled = false;
 
-    private bool _debugLog = false;
+    private const bool _debugLog = false;
 
     void Awake()
     {
@@ -243,6 +243,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     private void CultivateToState(State state)
     {
         InformObserversOfStateSwitch(state, _state);
+        State previousState = _state;
         _state = state;
         ClearPlants();
         _neglectCooldown = false;
@@ -272,6 +273,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                 break;
             case State.Growing:
                 if (_debugLog) Debug.Log("Growing!");
+                if (previousState == State.Decay) _growTime = Mathf.Min(_growTime, _timeTillGrown - 1.0f);
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrowingMeshes);
                 _neglectCooldown = true;
