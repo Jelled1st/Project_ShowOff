@@ -14,6 +14,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     // General
     private IControllable _selected = null;
+    private IControllable _previousSelected = null;
     private bool _paused = false;
     
     // Holding
@@ -128,9 +129,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             {
                 if (!_isDragging)
                 {
-                    _dragSelected = _selected;
-                    _dragStartInfo = _hitInfo;
-                    _isDragging = true;
+                    StartDrag();
                 }
             }
 
@@ -148,6 +147,14 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         }
         _wasDraggingLastFrame = _isDragging;
         if(!Input.GetMouseButton(0)) _isDragging = false;
+    }
+
+    private void StartDrag()
+    {
+        _dragSelected = _selected;
+        _dragStartInfo = _hitInfo;
+        _isDragging = true;
+        Debug.Log("Set drag true!");
     }
 
     private bool HandleUIRaycast(out ControllerHitInfo hitInfo)
@@ -198,6 +205,10 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                 }
 
                 _timeHeld = 0;
+            }
+            if(_selected != null && _selected != controllable)
+            {
+                StartDrag();
             }
             _selected = controllable;
             _timeHeld += Time.deltaTime;
