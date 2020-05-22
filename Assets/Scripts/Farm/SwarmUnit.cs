@@ -22,7 +22,6 @@ public class SwarmUnit : MonoBehaviour, IControllable
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("on trigger enter");
         FarmPlot plot;
         if (other.gameObject.TryGetComponent<FarmPlot>(out plot))
         {
@@ -32,7 +31,6 @@ public class SwarmUnit : MonoBehaviour, IControllable
 
     public void OnClick(Vector3 hitPoint)
     {
-        Debug.Log("unit hit and " + _swarm);
         _swarm.UnitHit(this);
     }
 

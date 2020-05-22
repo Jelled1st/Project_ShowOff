@@ -83,7 +83,6 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
     {
         if (_angles.Count == 0) return;
         int spawnCount = Random.Range(_swarmSize.x, _swarmSize.y+1);
-        Debug.Log("Spawning " + spawnCount);
         while(spawnCount >= 0)
         {
             int angleIndex = Random.Range(0, _angles.Count);

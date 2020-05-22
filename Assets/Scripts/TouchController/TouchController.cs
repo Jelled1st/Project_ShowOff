@@ -183,7 +183,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         {
             OnSwipe(GetLastSwipeDirection(), _lastMousePosition, controllable, hitInfo);
         }
-        else // Not dragging nor swiping
+        else if(!_isDragging)// Not dragging nor swiping
         {
             //only if not swiping
             if (_selected != null && _selected != controllable)
@@ -250,7 +250,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         Vector3 mousePos = Get3dCursorPosition(0.02f);
         if (mousePressed)
         {
-            if ( _currentlySwiping || ( (Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed/* && !hitControllable && !_isDragging*/) ) ) //if a controllable was hit swiped are not allowed to start
+            if ( _currentlySwiping || ( (Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed && (!hitControllable || _swipeStarted)) ) ) //if a controllable was hit swiped are not allowed to start
             {
                 _swipeStarted = true;
                 _swipePositions.Add(mousePos);
