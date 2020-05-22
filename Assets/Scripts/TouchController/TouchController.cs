@@ -14,6 +14,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     // General
     private IControllable _selected = null;
+    private IControllable _previousSelected = null;
     private bool _paused = false;
     
     // Holding
@@ -128,9 +129,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             {
                 if (!_isDragging)
                 {
-                    _dragSelected = _selected;
-                    _dragStartInfo = _hitInfo;
-                    _isDragging = true;
+                    StartDrag();
                 }
             }
 
@@ -148,6 +147,14 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         }
         _wasDraggingLastFrame = _isDragging;
         if(!Input.GetMouseButton(0)) _isDragging = false;
+    }
+
+    private void StartDrag()
+    {
+        _dragSelected = _selected;
+        _dragStartInfo = _hitInfo;
+        _isDragging = true;
+        Debug.Log("Set drag true!");
     }
 
     private bool HandleUIRaycast(out ControllerHitInfo hitInfo)
@@ -183,7 +190,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         {
             OnSwipe(GetLastSwipeDirection(), _lastMousePosition, controllable, hitInfo);
         }
-        else // Not dragging nor swiping
+        else if(!_isDragging)// Not dragging nor swiping
         {
             //only if not swiping
             if (_selected != null && _selected != controllable)
@@ -198,6 +205,10 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                 }
 
                 _timeHeld = 0;
+            }
+            if(_selected != null && _selected != controllable)
+            {
+                StartDrag();
             }
             _selected = controllable;
             _timeHeld += Time.deltaTime;
@@ -250,7 +261,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         Vector3 mousePos = Get3dCursorPosition(0.02f);
         if (mousePressed)
         {
-            if ( _currentlySwiping || ( (Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed/* && !hitControllable && !_isDragging*/) ) ) //if a controllable was hit swiped are not allowed to start
+            if ( _currentlySwiping || ( (Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed && (!hitControllable || _swipeStarted)) ) ) //if a controllable was hit swiped are not allowed to start
             {
                 _swipeStarted = true;
                 _swipePositions.Add(mousePos);

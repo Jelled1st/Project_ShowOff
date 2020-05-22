@@ -48,7 +48,8 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
             farmPlots[i] = farmPlotsGOs[i].GetComponent<FarmPlot>();
         }
         SetFarmPlotStates(farmPlots);
-        for(int i = 0; i < farmPlots.Length; ++i)
+
+        for (int i = 0; i < farmPlots.Length; ++i)
         {
             Subscribe(farmPlots[i]);
         }

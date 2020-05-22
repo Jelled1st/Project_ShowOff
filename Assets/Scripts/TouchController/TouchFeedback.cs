@@ -89,7 +89,7 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         //screenPoint.z = 1;
         //Vector3 mouse3d = Camera.main.ScreenToWorldPoint(screenPoint);
 
-        DoSwipeParticle(screenPoint);
+        if(_dragCopy == null) DoSwipeParticle(screenPoint);
     }
 
     private void DoSwipeParticle(Vector3 point)
@@ -131,7 +131,6 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
                 _dragCopy.transform.position = position;
             }
         }
-        //else DoSwipeParticle(position);
     }
 
     public void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo)
