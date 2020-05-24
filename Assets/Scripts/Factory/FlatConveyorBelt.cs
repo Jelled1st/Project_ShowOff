@@ -148,12 +148,12 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         Turn();
     }
 
-    public void OnHold(float holdTime, Vector3 hitPoint)
+    public virtual void OnHold(float holdTime, Vector3 hitPoint)
     {
         ChangeSpecialBeltSpeed();
     }
 
-    public void OnHoldRelease(float timeHeld)
+    public virtual void OnHoldRelease(float timeHeld)
     {
         ResetSpecialBeltSpeed();
     }
