@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{5273bd22-5cf6-4681-8e55-5f0daa568530}">
+		<property name="assetPath">
+			<value>SFX/shoveling 3.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.84129166666666666</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{cf4ed741-5b91-4e4f-a93b-39a04b6066c0}</destination>
+		</relationship>
+	</object>
+</objects>
