@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using DG.Tweening;
+using NaughtyAttributes;
 
 public class FlatConveyorBelt : MonoBehaviour, IControllable
 {
@@ -10,6 +11,16 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     [SerializeField] private bool _reverseShaderDirection;
     [SerializeField] private bool _runtimeUseInspectorSpeed;
+    [SerializeField] private bool _isSpecialConveyor;
+
+    [ShowIf(nameof(_isSpecialConveyor))] [SerializeField]
+    private bool _isTurnedOn = true;
+
+    [ShowIf(nameof(_isSpecialConveyor))] [SerializeField]
+    private float _speedChangeTime = 0.5f;
+
+    [Tooltip("Speed of belt when held")] [ShowIf(nameof(_isSpecialConveyor))] [SerializeField]
+    private float _heldSpeed = 2f;
 
 
     private static readonly int ScrollingSpeedShader = Shader.PropertyToID("_scrollingSpeed");
@@ -24,9 +35,6 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     {
         get
         {
-            if (_speed != _nonSerializedSpeed)
-                _nonSerializedSpeed = _speed;
-
             if (_runtimeUseInspectorSpeed)
                 return _speed;
 
@@ -52,6 +60,8 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
         _rBody.useGravity = true;
         _rBody.isKinematic = true;
+
+        _nonSerializedSpeed = _speed;
 
         LoadScrollingMaterials();
         SetConveyorSpeed(Speed);
@@ -85,14 +95,11 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     private void SetConveyorSpeed(float speed)
     {
+        if (_scrollingMaterials.Count == 0 || _previousSpeed == speed)
+            return;
+
         if (_reverseShaderDirection)
             speed *= -1;
-
-        if (_scrollingMaterials.Count == 0)
-            return;
-
-        if (_previousSpeed == speed)
-            return;
 
         _scrollingMaterials.ForEach(t => t.SetFloat(ScrollingSpeedShader, speed));
 
@@ -102,8 +109,12 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     // Update is called once per frame
     protected virtual void FixedUpdate()
     {
+        if (_isSpecialConveyor)
+            if (!_isTurnedOn)
+                return;
+
         Vector3 pos = _rBody.position;
-        _rBody.position += _rBody.transform.right * -_speed * Time.fixedDeltaTime;
+        _rBody.position += _rBody.transform.right * -Speed * Time.fixedDeltaTime;
         _rBody.MovePosition(pos);
     }
 
@@ -117,6 +128,17 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         }
     }
 
+    private void ChangeSpecialBeltSpeed()
+    {
+        if (Speed != _heldSpeed)
+            DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime);
+    }
+
+    private void ResetSpecialBeltSpeed()
+    {
+        DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime);
+    }
+
     public virtual void OnClick(Vector3 hitPoint)
     {
     }
@@ -128,10 +150,12 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public void OnHold(float holdTime, Vector3 hitPoint)
     {
+        ChangeSpecialBeltSpeed();
     }
 
     public void OnHoldRelease(float timeHeld)
     {
+        ResetSpecialBeltSpeed();
     }
 
     public void OnSwipe(Vector3 direction, Vector3 lastPosition)
