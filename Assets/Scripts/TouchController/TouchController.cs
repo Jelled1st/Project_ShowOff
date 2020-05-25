@@ -154,7 +154,6 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         _dragSelected = _selected;
         _dragStartInfo = _hitInfo;
         _isDragging = true;
-        Debug.Log("Set drag true!");
     }
 
     private bool HandleUIRaycast(out ControllerHitInfo hitInfo)
