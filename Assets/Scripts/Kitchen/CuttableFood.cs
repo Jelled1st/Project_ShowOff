@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))] 
-public class CuttableFood : MonoBehaviour
+public class CuttableFood : MonoBehaviour, IControllable, IIngredient
 {
+    [SerializeField] private IngredientType _ingredientType;
+    [SerializeField] private float _ingredientHeight;
     [SerializeField] private GameObject _currentState;
     [SerializeField] private List<GameObject> _cutStates;
     int _currentStateIndex = 0;
@@ -35,4 +37,83 @@ public class CuttableFood : MonoBehaviour
         }
         else return false;
     }
+
+    #region IIngredient
+    public IngredientType GetIngredientType()
+    {
+        return _ingredientType;
+    }
+
+    public bool ReadyForDish()
+    {
+        return _currentStateIndex >= _cutStates.Count - 1;
+    }
+
+    public void AddedToDish()
+    {
+        Destroy(this.gameObject);
+    }
+
+    public float GetHeight()
+    {
+        return _ingredientHeight;
+    }
+
+    public GameObject GetDishMesh()
+    {
+        return _cutStates[_cutStates.Count-1];
+    }
+
+    #endregion
+
+    #region IControllable
+    public void OnClick(Vector3 hitPoint)
+    {
+    }
+
+    public void OnPress(Vector3 hitPoint)
+    {
+    }
+
+    public void OnHold(float holdTime, Vector3 hitPoint)
+    {
+    }
+
+    public void OnHoldRelease(float timeHeld)
+    {
+    }
+
+    public void OnSwipe(Vector3 direction, Vector3 lastPoint)
+    {
+    }
+
+    public void OnDrag(Vector3 position)
+    {
+    }
+
+    public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
+    {
+    }
+
+    public void OnDragDropFailed(Vector3 position)
+    {
+    }
+
+    public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
+    {
+    }
+
+    public GameObject GetDragCopy()
+    {
+        if (ReadyForDish())
+        {
+            GameObject copy = Instantiate(this.gameObject);
+            Destroy(copy.GetComponent<CuttableFood>());
+            Destroy(copy.GetComponent<Collider>());
+            copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            return copy;
+        }
+        else return null;
+    }
+    #endregion
 }

@@ -32,6 +32,14 @@ namespace Factory
             Move();
         }
 
+        public override void OnHold(float holdTime, Vector3 hitPoint)
+        {
+        }
+
+        public override void OnHoldRelease(float timeHeld)
+        {
+        }
+
         private void Move()
         {
             var rotation = transform.parent.rotation.eulerAngles;
