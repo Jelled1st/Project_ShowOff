@@ -116,7 +116,6 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         {
             ResetPressAndHold();
         }
-        //Debug.Log(controllable != null);
         HandleDragCalls();
         HandleSwipe(mousePressed, controllable != null);
     }
@@ -194,20 +193,17 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             //only if not swiping
             if (_selected != null && _selected != controllable)
             {
+                StartDrag();
                 if (_timeHeld >= _holdTime)
                 {
                     OnHoldRelease(_timeHeld, _selected);
                 }
                 else
                 {
-                    if (!_swipeStarted) OnPress(_selected, hitInfo);
+                    if (!_swipeStarted && !_isDragging) OnPress(_selected, hitInfo);
                 }
 
                 _timeHeld = 0;
-            }
-            if(_selected != null && _selected != controllable)
-            {
-                StartDrag();
             }
             _selected = controllable;
             _timeHeld += Time.deltaTime;
