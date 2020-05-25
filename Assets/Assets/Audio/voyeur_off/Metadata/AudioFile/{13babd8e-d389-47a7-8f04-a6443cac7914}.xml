@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="AudioFile" id="{13babd8e-d389-47a7-8f04-a6443cac7914}">
 		<property name="assetPath">
-			<value>SFX/shoveling 1.wav</value>
+			<value>SFX/Farm/shoveling 1.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
