@@ -7,6 +7,8 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 {
     [SerializeField] private ParticleSystem _pressFeedback;
     [SerializeField] private ParticleSystem _swipeFeedback;
+    [SerializeField] private bool _doPressFeedback = true;
+    [SerializeField] private bool _doHoldFeedback = true;
 
     private TouchController _touchController;
     private bool _isHeld = false;
@@ -42,7 +44,7 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     public void OnPress(ControllerHitInfo hitInfo)
     {
-        if (hitInfo.uiElement) return;
+        if (hitInfo.uiElement || !_doPressFeedback) return;
         _pressFeedback.transform.position = hitInfo.point + hitInfo.normal*0.1f;
         _pressFeedback.transform.forward = hitInfo.normal;
         _pressFeedback.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
@@ -53,7 +55,7 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     public void OnHold(float holdTime, ControllerHitInfo hitInfo)
     {
-        if (hitInfo.uiElement) return;
+        if (hitInfo.uiElement || !_doHoldFeedback) return;
         _pressFeedback.transform.position = hitInfo.point + hitInfo.normal * 0.1f;
         _pressFeedback.transform.forward = hitInfo.normal;
         _pressFeedback.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);

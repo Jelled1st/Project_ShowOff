@@ -34,7 +34,7 @@ public class Knife : MonoBehaviour, IControllable
     // Update is called once per frame
     void Update()
     {
-        if(_swipeFramesCount >= -_swipeFramesLength || _isCutting)
+        if(_swipeFramesCount >= _swipeFramesLength || _isCutting)
         {
             _swipeFramesCount = 0;
             Cut();
@@ -48,7 +48,6 @@ public class Knife : MonoBehaviour, IControllable
         {
             _swipeFramesCount = 0;
         }
-        else Debug.Log(_swipeFramesCount);
         _isSwiping = false;
     }
 
@@ -92,7 +91,6 @@ public class Knife : MonoBehaviour, IControllable
         for (int i = 0; i < _foodsToCut.Count; ++i)
         {
             _foodsToCut[i].Cut();
-            Debug.Log("Cut meself some food");
         }
     }
 
@@ -150,7 +148,6 @@ public class Knife : MonoBehaviour, IControllable
         {
             if (_foodsToCut == null) _foodsToCut = new List<CuttableFood>();
             _foodsToCut.Add(food);
-            Debug.Log("Food entered");
         }
     }
 
@@ -160,7 +157,6 @@ public class Knife : MonoBehaviour, IControllable
         if (other.TryGetComponent<CuttableFood>(out food))
         {
             _foodsToCut.Remove(food);
-            Debug.Log("Food exited");
         }
     }
 }
