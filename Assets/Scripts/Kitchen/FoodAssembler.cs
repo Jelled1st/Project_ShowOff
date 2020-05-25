@@ -51,13 +51,13 @@ public class FoodAssembler : MonoBehaviour, IControllable
 
     private void AddIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight)
     {
+        if (ingredientMesh == null) return;
         _addedIngredients.Add(type);
         GameObject ingredientGO = Instantiate(ingredientMesh);
         _addedIngredientObjects.Add(type, ingredientGO);
         ingredientGO.transform.SetParent(this.transform);
         ingredientGO.transform.position = _ingredientPosition.transform.position;
         ingredientGO.transform.rotation = _ingredientPosition.transform.rotation;
-        ingredientGO.transform.localScale = new Vector3(1,1,1);
         _ingredientPosition.transform.position += new Vector3(0, ingredientHeight, 0);
     }
 
