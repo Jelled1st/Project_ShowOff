@@ -139,7 +139,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             }
             else
             {
-                if (!_swipeStarted) OnPress(_selected, _hitInfo);
+                if (!_swipeStarted && !_isDragging) OnPress(_selected, _hitInfo);
             }
 
             _selected = null;
