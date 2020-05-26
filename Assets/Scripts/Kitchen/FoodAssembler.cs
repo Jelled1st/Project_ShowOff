@@ -84,10 +84,8 @@ public class FoodAssembler : MonoBehaviour, IControllable
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
-        Debug.Log("Drop");
         if(dropped is IIngredient)
         {
-            Debug.Log("Drop is ingredient");
             IIngredient ingredient = dropped as IIngredient;
             if (ingredient.ReadyForDish()) if(TryAddIngredient(ingredient)) ingredient.AddedToDish();
         }

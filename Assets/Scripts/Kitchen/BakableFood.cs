@@ -8,21 +8,56 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     [SerializeField] private IngredientType _ingredientType;
     [SerializeField] private float _ingredientHeight;
     [SerializeField] private float _timeToBake;
+    [SerializeField] private float _timeTillBurned = 10.0f;
     [SerializeField] private int _jumpHeight = 10;
+    [SerializeField] private ParticleSystem _smokeParticles;
     private float[] _bakedTimes = new float[2];
+    private bool[] _sideIsBurned = new bool[2];
     private int _currentFace = 0;
     private bool _isBaking = false;
+    private bool _wasBaking = false;
     public FryingPan fryingPan;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        ParticleSystem.MainModule main = _smokeParticles.main;
+        main.playOnAwake = false;
+        _smokeParticles.Pause();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_isBaking)
+        {
+            if (_bakedTimes[_currentFace] > _timeToBake)
+            {
+                _smokeParticles.Play();
+            }
+            else
+            {
+                _smokeParticles.Pause();
+                _smokeParticles.Clear();
+            }
+            if(_bakedTimes[_currentFace] > _timeTillBurned)
+            {
+                if (!_sideIsBurned[_currentFace])
+                {
+                    ParticleSystem.MainModule main = _smokeParticles.main;
+                    main.startColor = new Color(0.6f, 0.6f, 0.6f, 1.0f);
+                    main.simulationSpeed = 1.8f;
+                    _sideIsBurned[_currentFace] = true;
+                }
+            }
+            else
+            {
+                ParticleSystem.MainModule main = _smokeParticles.main;
+                main.startColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                main.simulationSpeed = 1.0f;
+            }
+        }
+        _wasBaking = _isBaking;
         _isBaking = false;
     }
 
@@ -31,11 +66,12 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     {
         _isBaking = true;
         _bakedTimes[_currentFace] += Time.deltaTime;
+        
     }
 
     public void Flip()
     {
-        if (_isBaking && !DOTween.IsTweening(this.transform))
+        if ((_isBaking || _wasBaking) && !DOTween.IsTweening(this.transform))
         {
             _currentFace = (_currentFace+1) % 2;
             this.transform.DOPunchPosition(new Vector3(0, _ingredientHeight * _jumpHeight, 0), 0.7f, 0);
@@ -82,6 +118,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
         GameObject copy = Instantiate(this.gameObject);
         Destroy(copy.GetComponent<Collider>());
         Destroy(copy.GetComponent<BakableFood>());
+        Destroy(copy.GetComponentInChildren<ParticleSystem>());
         return copy;
     }
 
