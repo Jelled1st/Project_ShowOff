@@ -146,7 +146,8 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public virtual void OnPress(Vector3 hitPoint)
     {
-        Turn();
+        if (!_isSpecialConveyor)
+            Turn();
     }
 
     public virtual void OnHold(float holdTime, Vector3 hitPoint)
