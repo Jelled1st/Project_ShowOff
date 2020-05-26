@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2966706795270230033}
   - component: {fileID: 6084603493314652711}
   - component: {fileID: 525887379095230174}
-  - component: {fileID: 8260332648427965043}
   - component: {fileID: 5128868740023001219}
+  - component: {fileID: 4637635913526227428}
   m_Layer: 2
   m_Name: prefab_potato03
   m_TagString: Untagged
@@ -81,19 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8260332648427965043
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2265457690556178946}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3227067, y: 0.27407038, z: 0.27313572}
-  m_Center: {x: 0.024055667, y: 0.052600008, z: -0.03272269}
 --- !u!54 &5128868740023001219
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -110,3 +97,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &4637635913526227428
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2265457690556178946}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5653699004533318933, guid: 20ade21f6df19be4b886196415c981a6, type: 3}

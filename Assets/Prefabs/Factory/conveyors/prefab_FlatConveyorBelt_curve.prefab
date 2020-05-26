@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4692160242927975961}
   m_Layer: 0
-  m_Name: Prefab_FlatConveyorBeltCurve
+  m_Name: prefab_FlatConveyorBelt_curve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 8425456584887366533}
   - component: {fileID: 8425456584887366539}
   - component: {fileID: 2390746747053782737}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mesh_conveyorBeltCurve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _conveyorRenderer: {fileID: 7841305793709066074}
+  _reverseShaderDirection: 0
+  _runtimeUseInspectorSpeed: 0
+  _isSpecialConveyor: 0
+  _isTurnedOn: 1
+  _speedChangeTime: 0.5
+  _heldSpeed: 2
 --- !u!54 &8425456584887366539
 Rigidbody:
   m_ObjectHideFlags: 0

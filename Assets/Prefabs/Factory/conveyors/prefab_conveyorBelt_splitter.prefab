@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1577923620351665923}
   - component: {fileID: 3732546645245561955}
   - component: {fileID: 3732546645245561964}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mesh_conveyorBelt_splitter_belt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,10 @@ MonoBehaviour:
   _speed: -1
   _reverseShaderDirection: 1
   _runtimeUseInspectorSpeed: 0
+  _isSpecialConveyor: 0
+  _isTurnedOn: 1
+  _speedChangeTime: 0.5
+  _heldSpeed: 2
   _rotationSpeed: 1
   _delay: 1
   _angle: 45
@@ -129,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3732546645390390801}
   - component: {fileID: 3732546645390390800}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

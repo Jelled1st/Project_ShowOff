@@ -42,8 +42,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _conveyorMaterial: {fileID: 2100000, guid: 9f2f4a0c889066744b27ec5edab36e75, type: 2}
-  _conveyorRenderer: {fileID: 2497783585136514412}
+  _reverseShaderDirection: 0
+  _runtimeUseInspectorSpeed: 0
+  _isSpecialConveyor: 0
+  _isTurnedOn: 1
+  _speedChangeTime: 0.5
+  _heldSpeed: 2
 --- !u!1001 &5311102910036211897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,19 +113,18 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 3a3501b61111a5a4a93a8438c440360c,
         type: 3}
       propertyPath: m_Name
-      value: prefab_FlatConveyorBelt01
+      value: prefab_FlatConveyorBelt_short
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 3a3501b61111a5a4a93a8438c440360c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a3501b61111a5a4a93a8438c440360c, type: 3}
 --- !u!1 &4221349372024005040 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 3a3501b61111a5a4a93a8438c440360c,
-    type: 3}
-  m_PrefabInstance: {fileID: 5311102910036211897}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &2497783585136514412 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -1504981713932161579, guid: 3a3501b61111a5a4a93a8438c440360c,
     type: 3}
   m_PrefabInstance: {fileID: 5311102910036211897}
   m_PrefabAsset: {fileID: 0}

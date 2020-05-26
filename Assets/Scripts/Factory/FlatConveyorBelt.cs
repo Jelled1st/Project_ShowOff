@@ -44,7 +44,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         set
         {
             if (_runtimeUseInspectorSpeed)
-                Debug.LogWarning("Belt speed is using inspector values. Setting the speed value won't have effect!");
+                Debug.LogWarning("Belt Speed is using inspector values. Setting the Speed value won't have effect!");
 
             _nonSerializedSpeed = value;
         }
@@ -64,7 +64,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         _nonSerializedSpeed = _speed;
 
         LoadScrollingMaterials();
-        SetConveyorSpeed(Speed);
+        SetConveyorSpeed();
     }
 
     private void LoadScrollingMaterials()
@@ -90,20 +90,21 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     private void Update()
     {
-        SetConveyorSpeed(Speed);
+        SetConveyorSpeed();
     }
 
-    private void SetConveyorSpeed(float speed)
+    private void SetConveyorSpeed()
     {
-        if (_scrollingMaterials.Count == 0 || _previousSpeed == speed)
+        if (_scrollingMaterials.Count == 0 || _previousSpeed == Speed)
             return;
 
+        var mul = 1;
         if (_reverseShaderDirection)
-            speed *= -1;
+            mul *= -1;
 
-        _scrollingMaterials.ForEach(t => t.SetFloat(ScrollingSpeedShader, speed));
+        _scrollingMaterials.ForEach(t => t.SetFloat(ScrollingSpeedShader, Speed * mul));
 
-        _previousSpeed = speed;
+        _previousSpeed = Speed;
     }
 
     // Update is called once per frame
@@ -145,17 +146,20 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public virtual void OnPress(Vector3 hitPoint)
     {
-        Turn();
+        if (!_isSpecialConveyor)
+            Turn();
     }
 
     public virtual void OnHold(float holdTime, Vector3 hitPoint)
     {
-        ChangeSpecialBeltSpeed();
+        if (_isSpecialConveyor)
+            ChangeSpecialBeltSpeed();
     }
 
     public virtual void OnHoldRelease(float timeHeld)
     {
-        ResetSpecialBeltSpeed();
+        if (_isSpecialConveyor)
+            ResetSpecialBeltSpeed();
     }
 
     public void OnSwipe(Vector3 direction, Vector3 lastPosition)
