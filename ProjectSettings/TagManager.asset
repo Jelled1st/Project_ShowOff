@@ -16,6 +16,7 @@ TagManager:
   - Factory/Potato_Packed
   - FxTemporaire
   - GameHandler
+  - AudioManager
   layers:
   - Default
   - TransparentFX
