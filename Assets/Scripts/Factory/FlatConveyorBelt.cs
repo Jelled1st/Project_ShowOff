@@ -98,10 +98,11 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         if (_scrollingMaterials.Count == 0 || _previousSpeed == Speed)
             return;
 
+        var mul = 1;
         if (_reverseShaderDirection)
-            Speed *= -1;
+            mul *= -1;
 
-        _scrollingMaterials.ForEach(t => t.SetFloat(ScrollingSpeedShader, Speed));
+        _scrollingMaterials.ForEach(t => t.SetFloat(ScrollingSpeedShader, Speed * mul));
 
         _previousSpeed = Speed;
     }
