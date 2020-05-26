@@ -100,7 +100,11 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     {
         if (ReadyForDish())
         {
-            return this.gameObject;
+            GameObject copy = Instantiate(this.gameObject);
+            Destroy(copy.GetComponent<Collider>());
+            Destroy(copy.GetComponent<BakableFood>());
+            Destroy(copy.GetComponentInChildren<ParticleSystem>());
+            return copy;
         }
         else return null;
     }

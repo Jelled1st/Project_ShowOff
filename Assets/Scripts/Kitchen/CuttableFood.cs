@@ -61,6 +61,14 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
 
     public GameObject GetDishMesh()
     {
+        if(ReadyForDish())
+        {
+            GameObject copy = Instantiate(this.gameObject);
+            Destroy(copy.GetComponent<CuttableFood>());
+            Destroy(copy.GetComponent<Collider>());
+            copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            return copy;
+        }
         return _cutStates[_cutStates.Count-1];
     }
 
