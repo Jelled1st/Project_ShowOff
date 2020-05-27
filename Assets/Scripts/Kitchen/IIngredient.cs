@@ -8,6 +8,8 @@ public enum IngredientType
     Cheese,
     Lettuce,
     Patty,
+    Fries,
+    Buns,
 }
 
 public interface IIngredient

@@ -9,7 +9,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     [SerializeField] private float _ingredientHeight;
     [SerializeField] private float _timeToBake;
     [SerializeField] private float _timeTillBurned = 10.0f;
-    [SerializeField] private int _jumpHeight = 10;
+    [SerializeField] private int _flipHeight = 10;
     [SerializeField] private ParticleSystem _smokeParticles;
     private float[] _bakedTimes = new float[2];
     private bool[] _sideIsBurned = new bool[2];
@@ -74,7 +74,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
         if ((_isBaking || _wasBaking) && !DOTween.IsTweening(this.transform))
         {
             _currentFace = (_currentFace+1) % 2;
-            this.transform.DOPunchPosition(new Vector3(0, _ingredientHeight * _jumpHeight, 0), 0.7f, 0);
+            this.transform.DOPunchPosition(new Vector3(0, _ingredientHeight * _flipHeight, 0), 0.7f, 0);
             this.transform.DORotate(new Vector3(180, 0, 0), 0.4f, RotateMode.WorldAxisAdd);
         }
     }
@@ -101,8 +101,8 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
         if (ReadyForDish())
         {
             GameObject copy = Instantiate(this.gameObject);
-            Destroy(copy.GetComponent<Collider>());
             Destroy(copy.GetComponent<BakableFood>());
+            Destroy(copy.GetComponent<Collider>());
             Destroy(copy.GetComponentInChildren<ParticleSystem>());
             return copy;
         }
@@ -120,8 +120,8 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     public GameObject GetDragCopy()
     {
         GameObject copy = Instantiate(this.gameObject);
-        Destroy(copy.GetComponent<Collider>());
         Destroy(copy.GetComponent<BakableFood>());
+        Destroy(copy.GetComponent<Collider>());
         Destroy(copy.GetComponentInChildren<ParticleSystem>());
         return copy;
     }

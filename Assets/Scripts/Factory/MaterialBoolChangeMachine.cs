@@ -22,10 +22,15 @@ namespace Factory
         protected override GameObject PostDelayProcess(GameObject o)
         {
             o.SetActive(true);
-            foreach (var material in o.GetComponent<Renderer>().materials.Where(m => m.shader.name == _shaderName))
+            var renderer = o.GetComponent<Renderer>();
+
+            if (renderer != null)
             {
-                material.SetFloat(_propertyToDisable, 0f);
-                material.SetFloat(_propertyToEnable, 1f);
+                foreach (var material in renderer.materials.Where(m => m.shader.name == _shaderName))
+                {
+                    material.SetFloat(_propertyToDisable, 0f);
+                    material.SetFloat(_propertyToEnable, 1f);
+                }
             }
 
             return o;

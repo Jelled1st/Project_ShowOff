@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using NaughtyAttributes;
 
+[SelectionBase]
 public class FlatConveyorBelt : MonoBehaviour, IControllable
 {
     [Header("Conveyor settings")] [SerializeField]

@@ -9,6 +9,7 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
     [SerializeField] private Vector2Int _swarmSize = new Vector2Int(1, 3);
     [Tooltip("SwarmSize, x is minimum size, y is maximum size")]
     [SerializeField] private Vector2 _spawnRange = new Vector2(2.0f, 3.0f);
+    [SerializeField] private int _angleAmount = 10;
     [SerializeField] private float _speed = 0.5f;
     [SerializeField] private float _spawnTime = 1.5f;
     [Tooltip("Spawnchance in percentage")]
@@ -41,10 +42,9 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
 
     private void initAngleList()
     {
-        int angleAmount = 10;
-        for(int i = 0; i < (360/angleAmount); ++i)
+        for(int i = 0; i < (360/_angleAmount); ++i)
         {
-            _angles.Add(i * angleAmount);
+            _angles.Add(i * _angleAmount);
         }
     }
 
@@ -93,8 +93,8 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
             Quaternion angleRotation = Quaternion.Euler(0, angle, 0);
             Vector3 spawnPosition = angleRotation * new Vector3(Random.Range(_spawnRange.x, _spawnRange.y), 1.0f, 0);
             unit.GetComponent<SwarmUnit>().Init(this);
-            unit.transform.localPosition = spawnPosition;
             unit.transform.SetParent(this.transform);
+            unit.transform.localPosition = spawnPosition;
             unit.transform.LookAt(_destination);
 
             --spawnCount;

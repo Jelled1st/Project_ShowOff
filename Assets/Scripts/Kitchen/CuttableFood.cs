@@ -9,6 +9,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
     [SerializeField] private float _ingredientHeight;
     [SerializeField] private GameObject _currentState;
     [SerializeField] private List<GameObject> _cutStates;
+    public CuttingBoard cuttingBoard = null;
     int _currentStateIndex = 0;
 
     // Start is called before the first frame update
@@ -51,6 +52,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
 
     public void AddedToDish()
     {
+
         Destroy(this.gameObject);
     }
 
@@ -101,6 +103,10 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
+        if(!(droppedOn is CuttingBoard))
+        {
+            cuttingBoard?.RequestRemoveSelected(this);
+        }
     }
 
     public void OnDragDropFailed(Vector3 position)
@@ -113,15 +119,11 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
 
     public GameObject GetDragCopy()
     {
-        if (ReadyForDish())
-        {
-            GameObject copy = Instantiate(this.gameObject);
-            Destroy(copy.GetComponent<CuttableFood>());
-            Destroy(copy.GetComponent<Collider>());
-            copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            return copy;
-        }
-        else return null;
+        GameObject copy = Instantiate(this.gameObject);
+        Destroy(copy.GetComponent<CuttableFood>());
+        Destroy(copy.GetComponent<Collider>());
+        copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        return copy;
     }
     #endregion
 }
