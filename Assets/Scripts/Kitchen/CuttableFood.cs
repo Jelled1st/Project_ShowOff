@@ -113,15 +113,11 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
 
     public GameObject GetDragCopy()
     {
-        if (ReadyForDish())
-        {
-            GameObject copy = Instantiate(this.gameObject);
-            Destroy(copy.GetComponent<CuttableFood>());
-            Destroy(copy.GetComponent<Collider>());
-            copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            return copy;
-        }
-        else return null;
+        GameObject copy = Instantiate(this.gameObject);
+        Destroy(copy.GetComponent<CuttableFood>());
+        Destroy(copy.GetComponent<Collider>());
+        copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        return copy;
     }
     #endregion
 }
