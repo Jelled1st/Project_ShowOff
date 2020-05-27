@@ -5,6 +5,7 @@ using UnityEngine;
 public class CuttingBoard : MonoBehaviour, IControllable
 {
     [SerializeField] private GameObject _cutPosition;
+    private CuttableFood _selected = null;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,11 @@ public class CuttingBoard : MonoBehaviour, IControllable
     void Update()
     {
 
+    }
+
+    public void RequestRemoveSelected(CuttableFood food)
+    {
+        if (_selected == food) _selected = null;
     }
 
     #region IControllable
@@ -42,9 +48,11 @@ public class CuttingBoard : MonoBehaviour, IControllable
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
-        if(dropped is CuttableFood)
+        if(dropped is CuttableFood && _selected == null)
         {
             CuttableFood food = dropped as CuttableFood;
+            _selected = food;
+            food.cuttingBoard = this;
             food.transform.position = _cutPosition.transform.position;
             food.transform.rotation = _cutPosition.transform.rotation;
         }
