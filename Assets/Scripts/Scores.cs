@@ -5,6 +5,12 @@ using UnityEngine;
 
 public static class Scores
 {
+    public const int MachineCompleteBreakage = 300;
+    public const int StageTwoMachinePassed = 150;
+    public const int PerUnusedSpecialConveyor = 250;
+    public const int LeftTimeMultiplier = 100;
+
+
     public class UserScore : IComparable
     {
         public int id;
