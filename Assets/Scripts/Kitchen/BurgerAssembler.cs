@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class FoodAssembler : MonoBehaviour, IControllable
+public class BurgerAssembler : MonoBehaviour, IControllable
 {
     [SerializeField] private GameObject _ingredientPosition;
     [SerializeField] private List<IngredientType> _requiredIngredients;
@@ -23,6 +23,11 @@ public class FoodAssembler : MonoBehaviour, IControllable
     void Update()
     {
 
+    }
+
+    public bool IsDone()
+    {
+        return _requiredIngredients.Count == 0;
     }
 
     private bool TryAddIngredient(IIngredient ingredient)
