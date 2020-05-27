@@ -74,6 +74,11 @@ public class FryFryer : MonoBehaviour, IControllable
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
+        // call the ondrop function on the droppedon with every food 
+        for(int i = 0; i < _food.Count; ++i)
+        {
+            droppedOn.OnDrop(_food[i].GetComponent<IControllable>(), hitInfo);
+        }
     }
 
     public void OnDragDropFailed(Vector3 position)
@@ -82,7 +87,6 @@ public class FryFryer : MonoBehaviour, IControllable
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
-
         if (dropped is FryableFood)
         {
             AddFood(dropped as FryableFood);
