@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Grow
   guid: c4a817ca81cd94408bc97618b127ac87
   Banks:
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -63,6 +63,24 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &-7911335099375348153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261917827604966
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &-7465544350368918628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,8 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX_FARM/Unroot
   guid: e8b377a96b9fef45bb4026ad7be7f7d5
-  Banks:
-  - {fileID: 7556555208999072830}
+  Banks: []
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -141,7 +158,7 @@ MonoBehaviour:
   Path: event:/BKM/Farm Music
   guid: ef67f50d4ca32d48aaec2535ee173fdd
   Banks:
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -164,7 +181,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Dig
   guid: 00a2da533470c84292c311676c72ee8f
   Banks:
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -187,7 +204,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Water
   guid: 96a3d5cbdf95554ebc2a8a37fb039f9b
   Banks:
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -195,6 +212,42 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 3537
+--- !u!114 &-6135889198564394457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261933379609380
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-6008675695008527300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261966886820637
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &-5992489673939099372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +306,24 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 901
+--- !u!114 &-4653587795205359109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261970538617868
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &-4297520269011531280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +346,24 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &-3179680483399110788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261974434717411
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-2850933142029774615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +397,24 @@ MonoBehaviour:
   Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
   SubDir: 
   lastModified: 637258683842871227
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-1933447077111293721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SwarmBus.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/SwarmBus.bank
+  SubDir: 
+  lastModified: 637261916436734950
   LoadResult: 0
   FileSizes: []
   Exists: 0
@@ -351,6 +458,24 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &-1153106966795423179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SWARM.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/SWARM.bank
+  SubDir: 
+  lastModified: 637261917827779994
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &-878128635320220063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,14 +567,14 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Pesticide
   guid: 325d7286a9702d4095cb7002a0de1e32
   Banks:
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 0
+  Length: 1502
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,7 +589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 7246374577463575359}
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   EditorEvents:
   - {fileID: 4842912547013922698}
   - {fileID: -7301463348470895070}
@@ -474,13 +599,13 @@ MonoBehaviour:
   - {fileID: -7062573428301051873}
   - {fileID: -8799885346981540030}
   - {fileID: -79432489562480576}
-  - {fileID: -7443098959739837650}
+  - {fileID: 1768900735967170500}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   StringsBanks:
   - {fileID: 7246374577463575359}
-  stringsBankWriteTime: 637261305388653040
+  stringsBankWriteTime: 637261974648019337
   cacheVersion: 3
 --- !u!114 &221036536916897391
 MonoBehaviour:
@@ -558,6 +683,29 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &1768900735967170500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX_FARM/Uproot
+  m_EditorClassIdentifier: 
+  Path: event:/SFX_FARM/Uproot
+  guid: e8b377a96b9fef45bb4026ad7be7f7d5
+  Banks:
+  - {fileID: 6744734423391520006}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 501
 --- !u!114 &2419355681518732325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,15 +719,15 @@ MonoBehaviour:
   m_Name: event:/SFX_TRUCK/Truck Driving
   m_EditorClassIdentifier: 
   Path: event:/SFX_TRUCK/Truck Driving
-  guid: c4fa35388731be4694a9690944e4d90b
+  guid: b557982010243843beab3ae103d43b3b
   Banks:
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 25
+  MinDistance: 0
+  MaxDistance: 0
   Length: 13431
 --- !u!114 &2790238750908973610
 MonoBehaviour:
@@ -603,6 +751,42 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &3680302910936067336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261966797235124
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &3886041723167944436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261873223747699
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &3994117369324314133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,7 +802,7 @@ MonoBehaviour:
   Path: event:/SFX_TRUCK/Truck Idle
   guid: d34a0ead9812bc47b47e001880bfd15b
   Banks:
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -641,7 +825,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Swarm
   guid: 4d0c533f2fb3c94b85601b705226101c
   Banks:
-  - {fileID: 7556555208999072830}
+  - {fileID: 6744734423391520006}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -649,6 +833,24 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 30979
+--- !u!114 &5243537492239639849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261966670663215
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &5412399314447807534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,6 +891,96 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &5967283530003702158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261857075859885
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &6121221744019947023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261919699944939
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &6547643373306562927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261916436559924
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &6627719335556079370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261857007658434
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &6744734423391520006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637261974648004333
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &6936878322473547480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,7 +1017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637261305388653040
+  lastModified: 637261974648019337
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -748,4 +1040,4 @@ MonoBehaviour:
   lastModified: 637261305388641265
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0

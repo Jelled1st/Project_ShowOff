@@ -9730,8 +9730,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee4297568ba6ab4e9a452e9f671874a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: event:/BKM/Farm Music
-  volumeTesting: 0.45
+  _musicFarm: event:/BKM/Farm Music
+  _truckDrive: event:/SFX_TRUCK/Truck Driving
+  _truckIdle: event:/SFX_TRUCK/Truck Idle
 --- !u!4 &1826009601
 Transform:
   m_ObjectHideFlags: 0
