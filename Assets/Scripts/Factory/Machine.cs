@@ -22,7 +22,7 @@ namespace Factory
         private float _baseFixTime = 1f;
 
         [SerializeField] private ParticleSystem _clogVisual;
-        
+
         [SerializeField] private GameObject _repairVisuals;
 
 
@@ -77,7 +77,7 @@ namespace Factory
 
             if (_repairVisuals.Equals(null))
                 _repairVisuals = null;
-            
+
             _repairVisuals?.SetActive(false);
 
             WaitAndClog();
@@ -99,7 +99,7 @@ namespace Factory
             {
                 // Increase delay by slowPerStage %
                 Delay *= 1 + _slowPerStage;
-                
+
                 _clogVisual.Play(true);
 
                 // Debug.Log($"Clog [{_currentClogStage}] {gameObject.name}");
@@ -146,9 +146,15 @@ namespace Factory
 
         private IEnumerator WaitAndExecute(GameObject otherGameObject, float delay)
         {
-            if(_currentClogStage==_stagesToBreak)
+            if (_currentClogStage == _stagesToBreak)
                 yield break;
-            
+
+            Debug.Log(otherGameObject.name + LayerMask.LayerToName(otherGameObject.layer));
+            var check = otherGameObject.layer == LayerMask.NameToLayer("ConveyorBelt");
+            Debug.Log(check);
+            if (check)
+                yield break;
+
             var processedObject = PreDelayProcess(otherGameObject);
 
             _particleSystem?.Play();
