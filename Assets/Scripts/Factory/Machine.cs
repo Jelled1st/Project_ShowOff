@@ -149,9 +149,7 @@ namespace Factory
             if (_currentClogStage == _stagesToBreak)
                 yield break;
 
-            Debug.Log(otherGameObject.name + LayerMask.LayerToName(otherGameObject.layer));
             var check = otherGameObject.layer == LayerMask.NameToLayer("ConveyorBelt");
-            Debug.Log(check);
             if (check)
                 yield break;
 
