@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -13,8 +14,9 @@ namespace Factory
         private float _rotationSpeed;
 
         [SerializeField] private float _delay;
-        [SerializeField] private float _angle;
+        [SerializeField] private List<float> _angles = new List<float> {-45f, 45f};
 
+        private int _currentAngleId = 0;
         private Sequence _sequence;
         private bool _direction;
 
@@ -23,7 +25,8 @@ namespace Factory
             base.Start();
 
             transform.rotation =
-                Quaternion.Euler(transform.rotation.eulerAngles.z, _angle / 2f, transform.rotation.eulerAngles.z);
+                Quaternion.Euler(transform.rotation.eulerAngles.z, transform.rotation.eulerAngles.z + _angles[0],
+                    transform.rotation.eulerAngles.z);
         }
 
 
@@ -44,10 +47,11 @@ namespace Factory
         {
             var rotation = transform.parent.rotation.eulerAngles;
 
-            if (_direction)
-                rotation.y += _angle / 2f;
-            else
-                rotation.y -= _angle / 2f;
+            rotation.y += _angles[_currentAngleId];
+
+            _currentAngleId++;
+            if (_currentAngleId >= _angles.Count)
+                _currentAngleId = 0;
 
 
             _sequence = DOTween.Sequence();
