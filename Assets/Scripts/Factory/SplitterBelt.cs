@@ -24,9 +24,13 @@ namespace Factory
         {
             base.Start();
 
-            transform.rotation =
-                Quaternion.Euler(transform.rotation.eulerAngles.z, transform.rotation.eulerAngles.z + _angles[0],
-                    transform.rotation.eulerAngles.z);
+            var localRotation = transform.localRotation;
+
+            localRotation =
+                Quaternion.Euler(localRotation.eulerAngles.x, localRotation.eulerAngles.y + _angles[0],
+                    localRotation.eulerAngles.z);
+
+            transform.localRotation = localRotation;
         }
 
 
@@ -45,14 +49,13 @@ namespace Factory
 
         private void Move()
         {
-            var rotation = transform.parent.rotation.eulerAngles;
-
-            rotation.y += _angles[_currentAngleId];
+            var rotation = transform.parent.localRotation.eulerAngles;
 
             _currentAngleId++;
             if (_currentAngleId >= _angles.Count)
                 _currentAngleId = 0;
 
+            rotation.y += _angles[_currentAngleId];
 
             _sequence = DOTween.Sequence();
             _sequence.AppendCallback(() => { _direction = !_direction; });
