@@ -122,7 +122,9 @@ MonoBehaviour:
   _heldSpeed: 2
   _rotationSpeed: 1
   _delay: 1
-  _angle: 45
+  _angles:
+  - -45
+  - 45
 --- !u!1 &3732546645390390802
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,6 +180,7 @@ GameObject:
   - component: {fileID: 8554059363587793306}
   - component: {fileID: 859370679408925612}
   - component: {fileID: 6400055421146883925}
+  - component: {fileID: 4986291198349556652}
   m_Layer: 0
   m_Name: prefab_conveyorBelt_splitter
   m_TagString: Untagged
@@ -248,3 +251,15 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4986291198349556652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4678473050156946313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461d16b32e312e441a5725bdb3beb8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
