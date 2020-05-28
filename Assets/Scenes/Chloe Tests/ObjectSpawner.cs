@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
+﻿using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _objects;
-    [SerializeField] private float _spawnerRotationSpeed;
+    [Header("Green axis (Y) is the throw direction")] [SerializeField]
+    private GameObject[] _objects;
+
 
     [MinMaxSlider(0, 2000)] [SerializeField]
     private Vector2 _pushForce;
 
     [SerializeField] private float _spawnInterval;
-
 
     [SerializeField] private bool _spawnEndlessly;
 
@@ -33,14 +30,6 @@ public class ObjectSpawner : MonoBehaviour
     {
         if (_objects.Length == 0)
             return;
-
-        if (Mathf.Abs(_spawnerRotationSpeed) < .01f)
-        {
-            DOTween.Sequence()
-                .AppendCallback(() => { transform.Rotate(new Vector3(0, _spawnerRotationSpeed, 0), Space.World); })
-                .SetLoops(-1);
-        }
-
 
         if (_spawnEndlessly)
         {
