@@ -29,6 +29,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     private float _growTime;
     private bool _neglectCooldown = true;
     private static bool _paused = false;
+    private bool _hasBeenPoisened = false;
 
     [SerializeField] private GameObject _harvestPotatoPrefab;
 
@@ -280,6 +281,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                 break;
             case State.Decay:
                 if (_debugLog) Debug.Log("Decay!");
+                _hasBeenPoisened = true;
                 _dirtMound.SetActive(true);
                 SetPlants(_plantDecayingMeshes);
                 _neglectCooldown = true;
@@ -319,6 +321,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             plant.transform.SetParent(_plantPositions[i].transform);
             plant.transform.localPosition = new Vector3(0, 0, 0);
         }
+    }
+
+    public bool HasBeenPoisened()
+    {
+        return _hasBeenPoisened;
     }
 
     public void Decay()

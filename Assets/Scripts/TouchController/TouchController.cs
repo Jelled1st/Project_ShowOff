@@ -256,7 +256,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         Vector3 mousePos = Get3dCursorPosition(0.02f);
         if (mousePressed)
         {
-            if ( _currentlySwiping || ( (Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed && (!hitControllable || _swipeStarted)) ) ) //if a controllable was hit swiped are not allowed to start
+            if ( _currentlySwiping || ( (Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed || (_swipeStarted)) ) ) //if a controllable was hit swiped are not allowed to start
             {
                 _swipeStarted = true;
                 _swipePositions.Add(mousePos);
