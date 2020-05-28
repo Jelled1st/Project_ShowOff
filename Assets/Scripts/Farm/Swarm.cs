@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
+public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObserver
 {
     [SerializeField] private GameObject _swarmUnitPrefab;
     [Tooltip("SwarmSize, x is minimum size, y is maximum size")]
@@ -25,6 +25,8 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
     bool _ignoreSpawnTimer = true;
     Vector3 _destination;
     private static bool _paused;
+
+    private List<ISwarmObserver> _observers = new List<ISwarmObserver>();
 
     public void Init(FarmPlot plot)
     {
@@ -79,7 +81,6 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
                 if (rand <= _spawnChance)
                 {
                     SpawnUnits();
-                    OnSpawnUnit();
                 }
                 else OnFailedSpawnChance();
             }
@@ -99,10 +100,12 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
             _swarmUnits.Add(unit);
             Quaternion angleRotation = Quaternion.Euler(0, angle, 0);
             Vector3 spawnPosition = angleRotation * new Vector3(Random.Range(_spawnRange.x, _spawnRange.y), 1.0f, 0);
-            unit.GetComponent<SwarmUnit>().Init(this);
+            SwarmUnit script = unit.GetComponent<SwarmUnit>();
+            script.Init(this);
             unit.transform.SetParent(this.transform);
             unit.transform.localPosition = spawnPosition;
             unit.transform.LookAt(_destination);
+            OnSpawnUnit(script);
 
             --spawnCount;
         }
@@ -115,16 +118,34 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
         return angle;
     }
 
-    private void OnSpawnUnit()
+    private void OnSpawnUnit(SwarmUnit unit)
     {
         _timeSinceLastSpawn = 0.0f;
         _ignoreSpawnTimer = false;
+
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnBugSpawn(unit);
+        }
     }
 
     private void OnFailedSpawnChance()
     {
         _timeSinceLastSpawn = 0.0f;
         _ignoreSpawnTimer = false;
+
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnBugspawnFail();
+        }
+    }
+
+    private void OnFlee()
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnFlee();
+        }
     }
 
     public void UnitReachedPlot(SwarmUnit unit, FarmPlot plot)
@@ -143,6 +164,11 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
 
     private void RemoveUnit(SwarmUnit unit)
     {
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnBugKill(unit);
+        }
+
         _swarmUnits.Remove(unit.gameObject);
         Destroy(unit.gameObject);
         if (_swarmUnits.Count == 0 && !_continueSpawning) Destroy(this.gameObject);
@@ -154,6 +180,7 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
         {
             _continueSpawning = false;
             _flee = true;
+            OnFlee();
         }
     }
 
@@ -184,5 +211,31 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
     public void OnFinish()
     {
         if (!_paused) _paused = true;
+    }
+
+    #region ISubject
+    public void Register(IObserver observer)
+    {
+        if(observer is ISwarmObserver)
+        {
+            _observers.Add(observer as ISwarmObserver);
+        }
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        if (observer is ISwarmObserver)
+        {
+            _observers.Remove(observer as ISwarmObserver);
+        }
+    }
+    #endregion
+
+    public void OnDestroy()
+    {
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnSwarmDestroy();
+        }
     }
 }
