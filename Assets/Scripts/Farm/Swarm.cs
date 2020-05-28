@@ -159,16 +159,15 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     public void UnitHit(SwarmUnit unit)
     {
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnBugKill(unit);
+        }
         RemoveUnit(unit);
     }
 
     private void RemoveUnit(SwarmUnit unit)
     {
-        for (int i = 0; i < _observers.Count; ++i)
-        {
-            _observers[i].OnBugKill(unit);
-        }
-
         _swarmUnits.Remove(unit.gameObject);
         Destroy(unit.gameObject);
         if (_swarmUnits.Count == 0 && !_continueSpawning) Destroy(this.gameObject);

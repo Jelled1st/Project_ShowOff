@@ -15,9 +15,10 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     [Header("Scores")]
     [SerializeField] private float _harvestPoints = 250;
+    [SerializeField] private float _fullyHealthyPoints = 500;
     [SerializeField] private float _killBugPoinst = 100;
     [SerializeField] private float _decayPenaltyPoints = 0;
-    [SerializeField] private float _witherPenaltyPoints = -25;
+    [SerializeField] private float _witherPenaltyPoints = 25;
 
     private List<IGameHandlerObserver> _gameHandlerObservers;
     private bool _paused = false;
@@ -244,11 +245,11 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     {
         if(state == FarmPlot.State.Decay)
         {
-            Scores.AddScore(_decayPenaltyPoints);
+            Scores.SubScore(_decayPenaltyPoints);
         }
         else if (state == FarmPlot.State.Withered)
         {
-            Scores.AddScore(_witherPenaltyPoints);
+            Scores.SubScore(_witherPenaltyPoints);
         }
         else if(state == FarmPlot.State.Growing)
         {
@@ -257,6 +258,10 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
             swarm.Init(plot);
             swarmGO.transform.position = plot.gameObject.transform.position;
             Subscribe(swarm);
+        }
+        else if(state == FarmPlot.State.Grown)
+        {
+            if (!plot.HasBeenPoisened()) Scores.AddScore(_fullyHealthyPoints);
         }
     }
 
