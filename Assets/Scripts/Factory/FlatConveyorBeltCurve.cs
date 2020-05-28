@@ -11,7 +11,7 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
 
 
     // Update is called once per frame
-    protected void FixedUpdate()
+    protected override void FixedUpdate()
     {
         Quaternion rot = _rBody.rotation;
         _rBody.rotation *= Quaternion.Euler(0, Speed * _eyeCandySpeedMultiplier, 0);

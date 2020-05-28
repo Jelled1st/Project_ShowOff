@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Factory
@@ -14,7 +15,7 @@ namespace Factory
         private float _rotationSpeed;
 
         [SerializeField] private float _delay;
-        [SerializeField] private List<float> _angles = new List<float> {-45f, 45f};
+        [ReorderableList] [SerializeField] private List<float> _angles = new List<float> {-45f, 45f};
 
         private int _currentAngleId = 0;
         private Sequence _sequence;
