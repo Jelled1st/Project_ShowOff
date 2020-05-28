@@ -5,6 +5,8 @@ using UnityEngine;
 public class SwarmUnit : MonoBehaviour, IControllable
 {
     private Swarm _swarm;
+    [SerializeField] private Vector3 _hoverMovementScale = new Vector3(0, 0.2f, 0.1f);
+    [SerializeField] private Vector3 _sinTimeScale = new Vector3(1, 5.0f, 0.3f);
 
     public void Init(Swarm swarm)
     {
@@ -19,7 +21,14 @@ public class SwarmUnit : MonoBehaviour, IControllable
     // Update is called once per frame
     void Update()
     {
+        Vector3 hoverMove = new Vector3(
+            Mathf.Sin(Time.realtimeSinceStartup * _sinTimeScale.x) * _hoverMovementScale.x,
+            Mathf.Sin(Time.realtimeSinceStartup * _sinTimeScale.y) * _hoverMovementScale.y,
+            Mathf.Sin(Time.realtimeSinceStartup * _sinTimeScale.z) * _hoverMovementScale.z );
+
+        this.gameObject.transform.localPosition += hoverMove * Time.deltaTime;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         FarmPlot plot;
@@ -29,6 +38,7 @@ public class SwarmUnit : MonoBehaviour, IControllable
         }
     }
 
+    #region IControllable
     public void OnClick(Vector3 hitPoint)
     {
         _swarm.UnitHit(this);
@@ -70,4 +80,5 @@ public class SwarmUnit : MonoBehaviour, IControllable
     {
         return null;
     }
+    #endregion
 }

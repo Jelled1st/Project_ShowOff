@@ -105,6 +105,11 @@ namespace Factory
                 // Debug.Log($"Clog [{_currentClogStage}] {gameObject.name}");
             }
 
+            if (_currentClogStage == _stagesToBreak)
+            {
+                Scores.AddScore(Scores.MachineCompleteBreakage);
+            }
+
             WaitAndClog();
         }
 
