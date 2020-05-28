@@ -9,7 +9,7 @@ public static class Scores
     public const int StageTwoMachinePassed = 150;
     public const int PerUnusedSpecialConveyor = 250;
     public const int LeftTimeMultiplier = 100;
-
+    private static List<IScoresObserver> _observers = new List<IScoresObserver>();
 
     public class UserScore : IComparable
     {
@@ -83,6 +83,25 @@ public static class Scores
             _currentUser = new UserScore(BlankName, 0f, -1);
 
         _currentUser.score += score;
+        NotifyAddScore(score);
+    }
+
+    public static void SubScore(float score)
+    {
+        if (_currentUser == null)
+            _currentUser = new UserScore(BlankName, 0f, -1);
+
+        _currentUser.score -= score;
+        NotifySubScore(score);
+    }
+
+    public static void AdjustScore(float score)
+    {
+        if (_currentUser == null)
+            _currentUser = new UserScore(BlankName, 0f, -1);
+
+        _currentUser.score += score;
+        NotifyAdjustScore(score);
     }
 
     public static void AppendScoreToLeaderboard(string username)
@@ -116,5 +135,39 @@ public static class Scores
 
         _currentUser = null;
         RefreshScores();
+    }
+
+    public static void Register(IScoresObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public static void UnRegister(IScoresObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    private static void NotifyAddScore(float score)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].AddedScore(score);
+        }
+    }
+
+    private static void NotifySubScore(float score)
+    {
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].SubtractedScore(score);
+        }
+    }
+
+    private static void NotifyAdjustScore(float score)
+    {
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].AdjustedScore(score);
+        }
     }
 }
