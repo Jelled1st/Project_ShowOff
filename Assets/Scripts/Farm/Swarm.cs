@@ -11,6 +11,7 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
     [SerializeField] private Vector2 _spawnRange = new Vector2(2.0f, 3.0f);
     [SerializeField] private int _angleAmount = 10;
     [SerializeField] private float _speed = 0.5f;
+    [SerializeField] private float _fleeSpeed = 2.0f;
     [SerializeField] private float _spawnTime = 1.5f;
     [Tooltip("Spawnchance in percentage")]
     [Range(0, 100)] [SerializeField] private float _spawnChance = 75;
@@ -18,6 +19,7 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
     private List<GameObject> _swarmUnits;
     private bool _initCalled = false;
     private bool _continueSpawning = true;
+    private bool _flee = false;
     private List<float> _angles = new List<float>();
     private float _timeSinceLastSpawn = 0.0f;
     bool _ignoreSpawnTimer = true;
@@ -61,7 +63,12 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
         for (int i = 0; i < _swarmUnits.Count; ++i)
         {
             Vector3 diff = _destination - _swarmUnits[i].transform.position;
-            _swarmUnits[i].transform.localPosition += diff.normalized * _speed * Time.deltaTime;
+            if (_flee)
+            {
+                _swarmUnits[i].transform.localPosition += diff.normalized * -_fleeSpeed * Time.deltaTime;
+                if (Mathf.Abs(GetUnitAngleWithCamera(_swarmUnits[i])) > Camera.main.fieldOfView) RemoveUnit(_swarmUnits[i].GetComponent<SwarmUnit>());
+            }
+            else _swarmUnits[i].transform.localPosition += diff.normalized * _speed * Time.deltaTime;
         }
         if (_continueSpawning)
         {
@@ -101,6 +108,13 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
         }
     }
 
+    private float GetUnitAngleWithCamera(GameObject unit)
+    {
+        Vector3 toCam = unit.transform.position - Camera.main.transform.position;
+        float angle = Vector3.Angle(toCam, Camera.main.transform.forward);
+        return angle;
+    }
+
     private void OnSpawnUnit()
     {
         _timeSinceLastSpawn = 0.0f;
@@ -136,7 +150,11 @@ public class Swarm : MonoBehaviour, IFarmPlotObserver, IGameHandlerObserver
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
-        if(state != FarmPlot.State.Growing) _continueSpawning = false;
+        if (state != FarmPlot.State.Growing)
+        {
+            _continueSpawning = false;
+            _flee = true;
+        }
     }
 
     public void OnPlotHarvest(FarmPlot plot)
