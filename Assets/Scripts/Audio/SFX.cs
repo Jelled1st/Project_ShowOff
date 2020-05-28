@@ -7,39 +7,25 @@ using UnityEngine;
 
 public class SFX : MonoBehaviour
 {
-    
-    [FMODUnity.EventRef, HideInInspector] public string sfxEvent;
-    //public string sfxEvent;
-        
+    [FMODUnity.EventRef] private string _sfxEvent;
     private bool _isPlaying = false;
-
     [SerializeField] private float clipLength;
+    private FMOD.Studio.EventInstance _swarmInstance;
 
+    [HideInInspector] public bool swarmInstancePlaying = false;
+    
     /* Wherever the sound needs to play
-     [In the script]
-     private GameObject _audioManager;
-     private SFX _soundScript
-     
-     Start() 
-     {
-        _audioManager = GameObject.FindGameObjectWithTag("AudioManager");
-        _soundScript = _audioManager.GetComponent<SFX>().
-     }
-     
      [In the area where it needs to play]
      _soundScript.Sound[Name]();     
     */
-    
-    // Digging Shovel Sound
-
-    private FMOD.Studio.EventInstance _swarmInstance;
 
     #region FarmSounds
+    // Digging Shovel Sound
     public void SoundDig()
     {
         Play("SFX_FARM/Dig");
         
-        clipLength = 0.9f;
+        clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -48,7 +34,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FARM/Water");
         
-        clipLength = 2.9f;
+        clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
     
@@ -57,7 +43,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FARM/Grow");
         
-        clipLength = 0.45f;
+        clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
     
@@ -66,7 +52,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FARM/Pesticide");
         
-        clipLength = 1.4f;
+        clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
     
@@ -75,7 +61,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FARM/Uproot");
         
-        clipLength = 0.45f;
+        clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
     
@@ -84,19 +70,29 @@ public class SFX : MonoBehaviour
     // Sound Locust Swarm
     public void SoundSwarm()
     {
-        _swarmInstance = FMODUnity.RuntimeManager.CreateInstance("event:/SFX_FARM/Swarm");
-        _swarmInstance.start();
+        if (!swarmInstancePlaying)
+        {
+            Debug.Log("Spawning Swarm Sound");
+            _swarmInstance = FMODUnity.RuntimeManager.CreateInstance("event:/SFX_FARM/Swarm");
+            _swarmInstance.start();
 
-        clipLength = 1.0f;
+            swarmInstancePlaying = true;
+        }
+
+        clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
     // Sound Locust Kill
     public void SoundSwarmStop()
     {
-        Debug.Log("Audio is playing: " + _swarmInstance);
-        _swarmInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        _swarmInstance.release();
+        if (swarmInstancePlaying)
+        {
+            swarmInstancePlaying = false;
+            Debug.Log("Stopping swarm instance audio");
+            _swarmInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            _swarmInstance.release();   
+        }
     }
     
     #region playRules
@@ -105,9 +101,9 @@ public class SFX : MonoBehaviour
         Debug.Log("Audio is playing: " + fmodEvent);
         if (_isPlaying == false)
         {
-            sfxEvent = "event:/" + fmodEvent;
+            _sfxEvent = "event:/" + fmodEvent;
                 
-            FMODUnity.RuntimeManager.PlayOneShot(sfxEvent, transform.position);
+            FMODUnity.RuntimeManager.PlayOneShot(_sfxEvent, transform.position);
                 
             _isPlaying = true;
         }

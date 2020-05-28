@@ -8,7 +8,9 @@ public class Truck : MonoBehaviour, IGameHandlerObserver
     [SerializeField] private float _acceleration = 1.0f;
     private Rigidbody _rigidbody;
     private bool _drive = false;
-
+    
+    [SerializeField] private BKM musicManager;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +43,7 @@ public class Truck : MonoBehaviour, IGameHandlerObserver
 
     public void OnFinish()
     {
+        musicManager.TruckDriving();
         _drive = true;
     }
 

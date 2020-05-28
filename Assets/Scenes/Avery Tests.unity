@@ -355,6 +355,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1826009602}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1826009600}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -545,6 +555,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1826009602}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1826009600}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -1073,7 +1093,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2521e688f129030468b3057e18fab9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _acceleration: 1
+  _acceleration: 10
+  soundEffectManager: {fileID: 1826009602}
+  musicManager: {fileID: 1826009600}
 --- !u!114 &131309393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1503,6 +1525,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ce5adf8047fc954592e0edc07deca99, type: 2}
   - {fileID: 11400000, guid: 5a0ac57acbf2b4f46887eda4ff99ec6b, type: 2}
   _nextScene: 
+  _harvestPoints: 250
+  _fullyHealthyPoints: 500
+  _killBugPoinst: 100
+  _decayPenaltyPoints: 0
+  _witherPenaltyPoints: 25
 --- !u!65 &204829731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3914,6 +3941,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1826009602}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1826009600}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -4273,6 +4310,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1826009602}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1826009600}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -4558,6 +4605,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1826009602}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1826009600}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -5136,6 +5193,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1826009602}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1826009600}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -6355,6 +6422,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1826009602}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1826009600}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -7291,6 +7368,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1826009602}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1826009600}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -8412,6 +8499,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: soundEffectManager
+      value: 
+      objectReference: {fileID: 1826009602}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1826009600}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -9759,8 +9856,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1d62188ab3c6743a893236ccc7b52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxEvent: 
   clipLength: 0
+  swarmInstancePlaying: 0
 --- !u!1 &1932588122
 GameObject:
   m_ObjectHideFlags: 0

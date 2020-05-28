@@ -23,7 +23,6 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     private List<IGameHandlerObserver> _gameHandlerObservers;
     private bool _paused = false;
     private bool gameFinished = false;
-
     bool _debugLog = false;
 
     void Awake()
@@ -191,7 +190,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         Truck truck;
         if(other.TryGetComponent<Truck>(out truck) && gameFinished)
         {
-            //Game trully finished
+            //Game truly finished
             SceneManager.LoadScene(_nextScene);
         }
     }

@@ -30,6 +30,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     private bool _neglectCooldown = true;
     private static bool _paused = false;
     private bool _hasBeenPoisened = false;
+    
+    
+    [SerializeField] private SFX soundEffectManager;
 
     [SerializeField] private GameObject _harvestPotatoPrefab;
 
@@ -153,6 +156,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (ReadyForState(State.Dug))
         {
             CultivateToState(State.Dug);
+            soundEffectManager.SoundDig();
             return true;
         }
         else
@@ -181,6 +185,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (ReadyForState(State.Growing) && _state == State.Planted)
         {
             CultivateToState(State.Growing);
+            soundEffectManager.SoundWater();
             return true;
         }
         else
@@ -195,6 +200,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if(ReadyForState(State.Growing) && _state == State.Decay)
         {
             CultivateToState(State.Growing);
+            soundEffectManager.SoundPesticide();
             return true;
         }
         else
@@ -289,6 +295,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             case State.Grown:
                 if (_debugLog) Debug.Log("Grown!");
                 _growTime = 0.0f;
+                
+                soundEffectManager.SoundPlantGrowth();
+
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrownMeshes);
                 _neglectCooldown = true;
@@ -386,6 +395,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (_state == State.Grown)
         {
             GameObject copy = Instantiate(_harvestPotatoPrefab);
+            soundEffectManager.SoundUproot();
             return copy;
         }
         else return null;
