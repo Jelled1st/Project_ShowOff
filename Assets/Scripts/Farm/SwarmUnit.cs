@@ -10,14 +10,12 @@ public class SwarmUnit : MonoBehaviour, IControllable
 
     public void Init(Swarm swarm)
     {
-        Debug.Log(_hoverMovementScale);
         _swarm = swarm;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(_hoverMovementScale);
     }
 
     // Update is called once per frame
