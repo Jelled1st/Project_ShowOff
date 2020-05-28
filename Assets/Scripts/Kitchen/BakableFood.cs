@@ -76,6 +76,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
             _currentFace = (_currentFace+1) % 2;
             this.transform.DOPunchPosition(new Vector3(0, _ingredientHeight * _flipHeight, 0), 0.7f, 0);
             this.transform.DORotate(new Vector3(180, 0, 0), 0.4f, RotateMode.WorldAxisAdd);
+            _smokeParticles.transform.rotation = Quaternion.identity;
         }
     }
 
