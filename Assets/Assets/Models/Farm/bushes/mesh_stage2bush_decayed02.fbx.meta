@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_decaybushstem
-    second: {fileID: 2100000, guid: 0b668a8de84ff7e439cab3dbe58d6f4e, type: 2}
+    second: {fileID: 2100000, guid: cbf273e523bb93b428bf594b6615fc15, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_decayleafs_var01
-    second: {fileID: 2100000, guid: a03dd5628ab60214398689720853f408, type: 2}
+    second: {fileID: 2100000, guid: f4a6494cdf640f9479e89492bcefcdb4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_decayleafs_var02
-    second: {fileID: 2100000, guid: 3c34e86b329fcd544899df94e486ccc4, type: 2}
+    second: {fileID: 2100000, guid: 59b45bd6788e23547a43fa584470379f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_decayleafs_var03
-    second: {fileID: 2100000, guid: 1fd6aa60e2043bd47a849b640ef08e3f, type: 2}
+    second: {fileID: 2100000, guid: fade3676b1265994d9bdc243fda3dc10, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
