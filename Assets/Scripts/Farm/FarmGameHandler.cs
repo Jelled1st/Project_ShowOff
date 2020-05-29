@@ -5,13 +5,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider))]
-public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarmPlotObserver 
+public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarmPlotObserver, ISwarmObserver
 {
     [SerializeField] GameObject _swarmPrefab;
     private TouchController _touchController;
     [Header("SpawnStates and rates")]
     [SerializeField] List<FarmPlotSpawnStateRate> _stateSpawnRates;
     [SerializeField] private string _nextScene = "";
+
+    [Header("Scores")]
+    [SerializeField] private float _harvestPoints = 250;
+    [SerializeField] private float _fullyHealthyPoints = 500;
+    [SerializeField] private float _killBugPoinst = 100;
+    [SerializeField] private float _decayPenaltyPoints = 0;
+    [SerializeField] private float _witherPenaltyPoints = 25;
 
     private List<IGameHandlerObserver> _gameHandlerObservers;
     private bool _paused = false;
@@ -189,6 +196,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         }
     }
 
+    #region ControlsObserver
     public void OnClick(ControllerHitInfo hitInfo)
     {
     }
@@ -220,6 +228,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     public void OnDragDropFailed(Vector3 position, IControllable dragged)
     {
     }
+    #endregion
 
     public void Subscribe(ISubject subject)
     {
@@ -231,21 +240,37 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         subject.UnRegister(this);
     }
 
+    #region IFarmPlotObserver
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
-        if(state == FarmPlot.State.Growing)
+        if(state == FarmPlot.State.Decay)
+        {
+            Scores.SubScore(_decayPenaltyPoints);
+        }
+        else if (state == FarmPlot.State.Withered)
+        {
+            Scores.SubScore(_witherPenaltyPoints);
+        }
+        else if(state == FarmPlot.State.Growing)
         {
             GameObject swarmGO = Instantiate(_swarmPrefab);
             Swarm swarm = swarmGO.GetComponent<Swarm>();
             swarm.Init(plot);
             swarmGO.transform.position = plot.gameObject.transform.position;
+            Subscribe(swarm);
+        }
+        else if(state == FarmPlot.State.Grown)
+        {
+            if (!plot.HasBeenPoisened()) Scores.AddScore(_fullyHealthyPoints);
         }
     }
 
 
     public void OnPlotHarvest(FarmPlot plot)
     {
+        Scores.AddScore(_harvestPoints);
     }
+    #endregion
 
     public void Register(IObserver observer)
     {
@@ -263,4 +288,28 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
             _gameHandlerObservers.Remove(observer as IGameHandlerObserver);
         }
     }
+
+    #region ISwarmObserver
+
+    public void OnBugKill(SwarmUnit unit)
+    {
+        Scores.AddScore(_killBugPoinst);
+    }
+
+    public void OnSwarmDestroy()
+    {
+    }
+
+    public void OnFlee()
+    {
+    }
+
+    public void OnBugSpawn(SwarmUnit unit)
+    {
+    }
+
+    public void OnBugspawnFail()
+    {
+    }
+    #endregion
 }
