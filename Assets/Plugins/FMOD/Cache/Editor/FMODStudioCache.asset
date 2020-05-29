@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Grow
   guid: c4a817ca81cd94408bc97618b127ac87
   Banks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -99,6 +99,24 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &-7731155430666683132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637263552003396173
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-7465544350368918628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +194,7 @@ MonoBehaviour:
   Path: event:/BKM/Farm Music
   guid: ef67f50d4ca32d48aaec2535ee173fdd
   Banks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -217,7 +235,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Dig
   guid: 00a2da533470c84292c311676c72ee8f
   Banks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -240,7 +258,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Water
   guid: 96a3d5cbdf95554ebc2a8a37fb039f9b
   Banks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -639,7 +657,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Pesticide
   guid: 325d7286a9702d4095cb7002a0de1e32
   Banks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -661,7 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 7246374577463575359}
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   EditorEvents:
   - {fileID: 4842912547013922698}
   - {fileID: -7301463348470895070}
@@ -674,10 +692,10 @@ MonoBehaviour:
   - {fileID: 1768900735967170500}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   StringsBanks:
   - {fileID: 7246374577463575359}
-  stringsBankWriteTime: 637262953338131743
+  stringsBankWriteTime: 637263552003405795
   cacheVersion: 3
 --- !u!114 &221036536916897391
 MonoBehaviour:
@@ -770,7 +788,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Uproot
   guid: e8b377a96b9fef45bb4026ad7be7f7d5
   Banks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -793,7 +811,7 @@ MonoBehaviour:
   Path: event:/SFX_TRUCK/Truck Driving
   guid: b557982010243843beab3ae103d43b3b
   Banks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -892,7 +910,7 @@ MonoBehaviour:
   Path: event:/SFX_TRUCK/Truck Idle
   guid: d34a0ead9812bc47b47e001880bfd15b
   Banks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -915,7 +933,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Swarm
   guid: 4d0c533f2fb3c94b85601b705226101c
   Banks:
-  - {fileID: 8212002778058240279}
+  - {fileID: -7731155430666683132}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1143,7 +1161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637262953338131743
+  lastModified: 637263552003405795
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -1184,4 +1202,4 @@ MonoBehaviour:
   lastModified: 637262953338116743
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0

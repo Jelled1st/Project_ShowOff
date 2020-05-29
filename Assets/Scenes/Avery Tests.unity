@@ -910,7 +910,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 1cfcc4bd79d68db48b42ef03086e6bce,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1cfcc4bd79d68db48b42ef03086e6bce,
         type: 3}
@@ -1032,7 +1032,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2521e688f129030468b3057e18fab9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _acceleration: 10
+  _acceleration: 0.4
+  _maxSpeed: 10
+  _startupTime: 1.3
   musicManager: {fileID: 1826009600}
 --- !u!114 &131309393
 MonoBehaviour:

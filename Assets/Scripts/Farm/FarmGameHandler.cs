@@ -23,7 +23,9 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     private List<IGameHandlerObserver> _gameHandlerObservers;
     private bool _paused = false;
     private bool gameFinished = false;
-    bool _debugLog = false;
+    private bool _debugLog = false;
+
+    private bool _plantsStartAtGrown = true;
 
     void Awake()
     {
@@ -49,11 +51,19 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         GameObject[] farmPlotsGOs = GameObject.FindGameObjectsWithTag("FarmPlot");
         //Set states before substribing
         FarmPlot[] farmPlots = new FarmPlot[farmPlotsGOs.Length];
-        for(int i = 0; i < farmPlotsGOs.Length; ++i)
+        for (int i = 0; i < farmPlotsGOs.Length; ++i)
         {
             farmPlots[i] = farmPlotsGOs[i].GetComponent<FarmPlot>();
         }
-        SetFarmPlotStates(farmPlots);
+
+        if (_plantsStartAtGrown)
+        {
+            for (int i = 0; i < farmPlots.Length; ++i)
+            {
+                farmPlots[i].SetStartState(FarmPlot.State.Grown);
+            }
+        }
+        else SetFarmPlotStates(farmPlots);
 
         for (int i = 0; i < farmPlots.Length; ++i)
         {
