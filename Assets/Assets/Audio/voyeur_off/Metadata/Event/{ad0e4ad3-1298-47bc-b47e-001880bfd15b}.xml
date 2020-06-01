@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{ad0e4ad3-1298-47bc-b47e-001880bfd15b}">
 		<property name="name">
-			<value>Truck Idle</value>
+			<value>Farm Truck Transit</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>

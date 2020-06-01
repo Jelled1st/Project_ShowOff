@@ -3,26 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BKM : MonoBehaviour
 {
-    [FMODUnity.EventRef, SerializeField] private string _musicFarm = "event:/BKM/Farm Music";
-    [FMODUnity.EventRef, SerializeField] private string _truckDrive = "event:/SFX_TRUCK/Truck Driving";
-    [FMODUnity.EventRef, SerializeField] private string _truckIdle = "event:/SFX_TRUCK/Truck Idle";
-    //[FMODUnity.EventRef] private string _musicFactory;
-
+    [FMODUnity.EventRef, SerializeField] private string musicFarm = "event:/BKM/Farm Music";
+    [FMODUnity.EventRef, SerializeField] private string farmTruckDrive = "event:/SFX_TRUCK/Farm Truck Driving";
+    [FMODUnity.EventRef, SerializeField] private string farmTruckTransit = "event:/SFX_TRUCK/Farm Truck Transit";
+    
+    [FMODUnity.EventRef, SerializeField] private string musicFactory = "event:/BKM/Factory Music";
     private FMOD.Studio.EventInstance _instanceSong;
     private FMOD.Studio.EventInstance _instanceTransitionFx;
-    
+
     private void Start()
     {
+        
         FarmMusic();
     }
 
-    /*
-     Debugging if functions work properly
+    
+    //Debugging if functions work properly
     private void Update()
     {
+    /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TruckDriving();
@@ -32,24 +35,24 @@ public class BKM : MonoBehaviour
         {
             TruckTransition();
         }
+        */
     }
-    */
-    
-    private void FarmMusic()
-    {
-        _instanceSong = FMODUnity.RuntimeManager.CreateInstance(_musicFarm);
+
+    private void FarmMusic() 
+    { 
+        _instanceSong = FMODUnity.RuntimeManager.CreateInstance(musicFarm);
         _instanceSong.start();
     }
     public void TruckDriving()
     {
-        _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(_truckDrive);
+        _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(farmTruckDrive);
         _instanceTransitionFx.start();
         StartCoroutine(WaitForEnd(13.42f));
     }
 
     public void TruckTransition()
     {
-        _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(_truckIdle);
+        _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(farmTruckTransit);
         _instanceTransitionFx.start();
         _instanceTransitionFx.release();
     }
