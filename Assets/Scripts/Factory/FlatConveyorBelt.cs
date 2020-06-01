@@ -91,7 +91,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     private void Update()
     {
-        SetConveyorSpeed();
+        // SetConveyorSpeed();
     }
 
     private void SetConveyorSpeed()
@@ -133,12 +133,14 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     private void ChangeSpecialBeltSpeed()
     {
         if (Speed != _heldSpeed)
-            DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime);
+            DOTween.Sequence().Append(DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime))
+                .AppendCallback(SetConveyorSpeed);
     }
 
     private void ResetSpecialBeltSpeed()
     {
-        DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime);
+        DOTween.Sequence().Append(DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime))
+            .AppendCallback(SetConveyorSpeed);
     }
 
     public virtual void OnClick(Vector3 hitPoint)

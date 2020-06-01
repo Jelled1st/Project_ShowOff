@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 53d52ca1844dc8a4d9c44f09756de481
+guid: 42b64f7a4811dc94a961e6f5942e0b59
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,23 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_bushstem
-    second: {fileID: 2100000, guid: 33cef757d72f69849b1bcdd5a832bacc, type: 2}
+      name: mat_applemeat
+    second: {fileID: 2100000, guid: 7a93f80568783aa4785968bc2efd6e90, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_leafs_var01
-    second: {fileID: 2100000, guid: 3c69d86721d6daa4898f04c057fd21f7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat_leafs_var02
-    second: {fileID: 2100000, guid: 008ac4d7141367a498449943c610b8d3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat_leafs_var03
-    second: {fileID: 2100000, guid: 7a01d2d3a808d40449d180f45ea5f103, type: 2}
+      name: mat_applepeel
+    second: {fileID: 2100000, guid: f6f73a9bbc351c24299c3de544d9283b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -54,7 +44,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -100,7 +90,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1.5
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

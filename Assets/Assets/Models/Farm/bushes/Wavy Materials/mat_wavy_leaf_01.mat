@@ -31,5 +31,5 @@ Material:
     - _Wavy_Wind_Density: 0.46
     - _Wavy_Wind_Strength: 0.1
     m_Colors:
-    - _Colour1_Plant: {r: 0.2509804, g: 1, b: 0, a: 0}
+    - _Colour1_Plant: {r: 0.10792156, g: 0.43, b: 0, a: 0}
     - _Colour2_Plant: {r: 0.049722526, g: 0.1981132, b: 0, a: 0}
