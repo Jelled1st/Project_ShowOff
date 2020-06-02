@@ -10,6 +10,7 @@ public enum IngredientType
     Patty,
     Fries,
     Buns,
+    Apple,
 }
 
 public interface IIngredient

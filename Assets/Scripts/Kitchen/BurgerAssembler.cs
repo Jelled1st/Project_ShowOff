@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class BurgerAssembler : MonoBehaviour, IControllable
+public class BurgerAssembler : MonoBehaviour, IControllable, ISubject
 {
     [SerializeField] private GameObject _ingredientPosition;
     [SerializeField] private List<IngredientType> _requiredIngredients;
     [SerializeField] private List<IngredientType> _optionalIngredients;
     private List<IngredientType> _addedIngredients = new List<IngredientType>();
     private Dictionary<IngredientType, GameObject> _addedIngredientObjects = new Dictionary<IngredientType, GameObject>();
+
+    private List<IDishObserver> _observers = new List<IDishObserver>();
 
     bool _debugLog = false;
 
@@ -42,6 +44,7 @@ public class BurgerAssembler : MonoBehaviour, IControllable
                 //required ingredient
                 _requiredIngredients.RemoveAt(i); //remove ingredient from the list
                 AddIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight());
+                OnIngredientAdd(ingredient);
                 return true;
             }
         }
@@ -53,6 +56,7 @@ public class BurgerAssembler : MonoBehaviour, IControllable
                 //required ingredient
                 _optionalIngredients.RemoveAt(i); //remove ingredient from the list
                 AddIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight());
+                OnIngredientAdd(ingredient);
                 return true;
             }
         }
@@ -118,4 +122,37 @@ public class BurgerAssembler : MonoBehaviour, IControllable
     {
     }
 
+    private void OnIngredientAdd(IIngredient ingredient)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnIngredientAdd(this, ingredient);
+        }
+    }
+
+    private void OnFinishDish()
+    {
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnFinishDish(this);
+        }
+    }
+
+    #region ISubject
+    public void Register(IObserver observer)
+    {
+        if(observer is IDishObserver)
+        {
+            _observers.Add(observer as IDishObserver);
+        }
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        if (observer is IDishObserver)
+        {
+            _observers.Remove(observer as IDishObserver);
+        }
+    }
+    #endregion
 }

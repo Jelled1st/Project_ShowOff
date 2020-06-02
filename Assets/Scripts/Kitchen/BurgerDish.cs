@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class BurgerDish : MonoBehaviour, IControllable
+public class BurgerDish : MonoBehaviour, IControllable, ISubject, IDishObserver
 {
     [Header("Required Ingredients")]
     [SerializeField] private List<IngredientType> _requiredIngredients;
@@ -24,6 +24,9 @@ public class BurgerDish : MonoBehaviour, IControllable
     private List<IngredientType> _addedIngredients = new List<IngredientType>();
     private Dictionary<IngredientType, GameObject> _addedIngredientObjects = new Dictionary<IngredientType, GameObject>();
 
+
+    private List<IDishObserver> _observers = new List<IDishObserver>();
+
     private bool _debugLog = false;
 
     // Start is called before the first frame update
@@ -33,6 +36,7 @@ public class BurgerDish : MonoBehaviour, IControllable
             Debug.LogWarning("Burgerdish warning: Amount of required ingredients does not match placement options");
         if (_optionalIngredients.Count != _optionalIngredients.Count)
             Debug.LogWarning("Burgerdish warning: Amount of optional ingredients does not match placement options");
+        Subscribe(_burgerAssembler);
     }
 
     // Update is called once per frame
@@ -157,6 +161,42 @@ public class BurgerDish : MonoBehaviour, IControllable
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
+    }
+
+    #region ISubject
+    public void Register(IObserver observer)
+    {
+        if (observer is IDishObserver)
+        {
+            _observers.Add(observer as IDishObserver);
+        }
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        if (observer is IDishObserver)
+        {
+            _observers.Remove(observer as IDishObserver);
+        }
+    }
+    #endregion
+
+    public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
+    {
+    }
+
+    public void OnFinishDish(ISubject subject)
+    {
+    }
+
+    public void Subscribe(ISubject subject)
+    {
+        subject.Register(this);
+    }
+
+    public void UnSubscribe(ISubject subject)
+    {
+        subject.UnRegister(this);
     }
     #endregion
 }
