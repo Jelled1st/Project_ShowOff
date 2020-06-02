@@ -2,23 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))] 
-public class CuttableFood : MonoBehaviour, IControllable, IIngredient
+[RequireComponent(typeof(Collider))]
+public class CookableFood : MonoBehaviour, IControllable, IIngredient
 {
     [SerializeField] private IngredientType _ingredientType;
     [SerializeField] private float _ingredientHeight;
-    [SerializeField] private GameObject _currentState;
-    [SerializeField] private List<GameObject> _cutStates;
-    public CuttingBoard cuttingBoard = null;
-    int _currentStateIndex = 0;
+    [HideInInspector] public CookingPan cookingPan;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(_cutStates != null && (_cutStates.Count == 0 || _cutStates[0] !=_currentState))
-        {
-            _cutStates.Insert(0, _currentState);
-        }
+        
     }
 
     // Update is called once per frame
@@ -27,17 +21,11 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
         
     }
 
-    public bool Cut()
+    public void Cook()
     {
-        if (_currentStateIndex < _cutStates.Count - 1)
-        {
-            Destroy(_currentState);
-            _currentState = Instantiate(_cutStates[++_currentStateIndex], this.transform);
-            _currentState.transform.localPosition = new Vector3(0, 0, 0);
-            return true;
-        }
-        else return false;
+
     }
+
 
     #region IIngredient
     public IngredientType GetIngredientType()
@@ -47,12 +35,11 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
 
     public bool ReadyForDish()
     {
-        return _currentStateIndex >= _cutStates.Count - 1;
+        return false;
     }
 
     public void AddedToDish()
     {
-
         Destroy(this.gameObject);
     }
 
@@ -63,7 +50,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
 
     public GameObject GetDishMesh()
     {
-        if(ReadyForDish())
+        if (ReadyForDish())
         {
             GameObject copy = Instantiate(this.gameObject);
             Destroy(copy.GetComponent<CuttableFood>());
@@ -71,7 +58,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
             copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             return copy;
         }
-        return _cutStates[_cutStates.Count-1];
+        return null;
     }
 
     #endregion
@@ -103,9 +90,9 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if(!(droppedOn is CuttingBoard))
+        if (!(droppedOn is CuttingBoard))
         {
-            cuttingBoard?.RequestRemoveSelected(this);
+            cookingPan?.RemoveFood(this);
         }
     }
 
@@ -120,7 +107,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
     public GameObject GetDragCopy()
     {
         GameObject copy = Instantiate(this.gameObject);
-        Destroy(copy.GetComponent<CuttableFood>());
+        Destroy(copy.GetComponent<CookableFood>());
         Destroy(copy.GetComponent<Collider>());
         copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         return copy;
