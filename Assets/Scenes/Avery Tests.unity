@@ -21214,7 +21214,8 @@ MonoBehaviour:
   musicFarm: event:/BKM/Farm Music
   farmTruckDrive: event:/SFX_TRUCK/Farm Truck Driving
   farmTruckTransit: event:/SFX_TRUCK/Farm Truck Transit
-  musicFactory: event:/BKM/Farm Music
+  musicFactory: event:/BKM/Factory Music
+  debugLevelTest: 1
 --- !u!4 &1826009601
 Transform:
   m_ObjectHideFlags: 0

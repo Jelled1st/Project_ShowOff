@@ -15,10 +15,14 @@ public class BKM : MonoBehaviour
     private FMOD.Studio.EventInstance _instanceSong;
     private FMOD.Studio.EventInstance _instanceTransitionFx;
 
+    public int debugLevelTest;
     private void Start()
     {
+        if (debugLevelTest == 0)
+            FarmMusic();
         
-        FarmMusic();
+        if (debugLevelTest == 1)
+            FactoryMusic();
     }
 
     
@@ -57,6 +61,11 @@ public class BKM : MonoBehaviour
         _instanceTransitionFx.release();
     }
 
+    private void FactoryMusic()
+    {
+        _instanceSong = FMODUnity.RuntimeManager.CreateInstance(musicFactory);
+        _instanceSong.start();
+    }
     private IEnumerator WaitForEnd(float length)
     {
         yield return new WaitForSeconds(length);
