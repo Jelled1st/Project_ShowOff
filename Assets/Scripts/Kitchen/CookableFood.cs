@@ -35,7 +35,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public bool ReadyForDish()
     {
-        return false;
+        return true;
     }
 
     public void AddedToDish()
@@ -53,7 +53,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
         if (ReadyForDish())
         {
             GameObject copy = Instantiate(this.gameObject);
-            Destroy(copy.GetComponent<CuttableFood>());
+            Destroy(copy.GetComponent<CookableFood>());
             Destroy(copy.GetComponent<Collider>());
             copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             return copy;
