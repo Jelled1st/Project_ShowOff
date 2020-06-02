@@ -5,43 +5,61 @@ using UnityEngine;
 
 namespace Factory
 {
+    [RequireComponent(typeof(Collider))]
     [SelectionBase]
     public abstract class Machine : MonoBehaviour, IControllable
     {
-        [Header("Processing settings")] [SerializeField]
+        [BoxGroup("Processing settings")]
+        [SerializeField]
+        [Required]
         private Collider _inputFunnelTrigger;
 
-        [SerializeField] private Transform _output;
-        [SerializeField] private float _outputPushForce;
-        [SerializeField] private ParticleSystem _particleSystem;
+        [BoxGroup("Processing settings")]
+        [SerializeField]
+        [Required]
+        private Transform _output;
 
-        [Tooltip("Time before output spits")] [SerializeField]
+        [BoxGroup("Processing settings")]
+        [SerializeField]
+        private float _outputPushForce;
+
+        [BoxGroup("Processing settings")]
+        [SerializeField]
+        private ParticleSystem _particleSystem;
+
+        [BoxGroup("Processing settings")]
+        [Tooltip("Time before output spits")]
+        [SerializeField]
         private float _delay;
 
-        [Header("Clogging settings")] [SerializeField]
+        [BoxGroup("Clogging settings")]
+        [SerializeField]
         private float _baseFixTime = 1f;
 
-        [SerializeField] private ParticleSystem _clogVisual;
+        [BoxGroup("Clogging settings")]
+        [SerializeField]
+        private ParticleSystem _clogVisual;
 
-        [SerializeField] private GameObject _repairVisuals;
+        [BoxGroup("Clogging settings")]
+        [SerializeField]
+        private GameObject _repairVisuals;
 
+        [BoxGroup("Clogging settings")]
+        [Range(0f, 1f)]
+        [SerializeField]
+        private float _slowPerStage = 1f / _stagesToBreak;
 
-        [Range(0f, 1f)] [SerializeField] private float _slowPerStage = 1 / 3f;
+        [BoxGroup("Clogging settings")]
+        [MinMaxSlider(1f, 10f)]
+        [SerializeField]
+        private Vector2 _breakEverySeconds = new Vector2(4, 8);
 
         private const int _stagesToBreak = 3;
 
-        [MinMaxSlider(1f, 10f)] [SerializeField]
-        private Vector2 _breakEverySeconds = new Vector2(4, 8);
-
-        private float _delayPrivate;
         private int _currentClogStage;
         private bool _isRepairing;
 
-        private float Delay
-        {
-            get { return _delayPrivate; }
-            set { _delayPrivate = value; }
-        }
+        private float Delay { get; set; }
 
         private bool IsClogged => _currentClogStage == _stagesToBreak;
 
@@ -57,27 +75,24 @@ namespace Factory
         private void Start()
         {
             // Initial reset
-            _delayPrivate = _delay;
+            Delay = _delay;
             _currentClogStage = 0;
             _isRepairing = false;
 
             // Set input trigger callback
-            var collider = _inputFunnelTrigger.gameObject.GetComponent<CollisionCallback>();
+            if (!TryGetComponent(out CollisionCallback collisionCallback))
+            {
+                Debug.LogWarning(
+                    $"[{gameObject.name}] lacks {nameof(CollisionCallback)} script! Edit the prefab! Trying to add it...");
+            }
 
-            if (collider == null)
-                collider = _inputFunnelTrigger.gameObject.AddComponent<CollisionCallback>();
+            collisionCallback = _inputFunnelTrigger.gameObject.AddComponent<CollisionCallback>();
+            collisionCallback.onTriggerEnter += OnTriggerEnterCallback;
 
-            collider.onTriggerEnter += OnTriggerEnterCallback;
-
-            // Trick to allow usage of ? for particleSystem
-            if (_particleSystem.Equals(null))
-                _particleSystem = null;
-
+            _particleSystem = _particleSystem.NullIfEqualsNull();
             _particleSystem?.Stop();
 
-            if (_repairVisuals.Equals(null))
-                _repairVisuals = null;
-
+            _repairVisuals = _repairVisuals.NullIfEqualsNull();
             _repairVisuals?.SetActive(false);
 
             WaitAndClog();
@@ -85,12 +100,12 @@ namespace Factory
 
         private void Clog()
         {
-            if (_isRepairing || _currentClogStage == _stagesToBreak)
+            if (_isRepairing || IsClogged)
                 return;
 
             _currentClogStage++;
 
-            if (_currentClogStage == _stagesToBreak)
+            if (IsClogged)
             {
                 Scores.AddScore(Scores.MachineCompleteBreakage);
             }
@@ -143,7 +158,7 @@ namespace Factory
 
         private IEnumerator WaitAndExecute(GameObject otherGameObject, float delay)
         {
-            if (_currentClogStage == _stagesToBreak)
+            if (IsClogged)
                 yield break;
 
             var check = otherGameObject.layer == LayerMask.NameToLayer("ConveyorBelt");
@@ -164,13 +179,14 @@ namespace Factory
             spitItem.AddForce(_outputPushForce * _output.right);
         }
 
-        public void OnClick(Vector3 hitPoint)
-        {
-        }
 
         public void OnPress(Vector3 hitPoint)
         {
             Repair();
+        }
+
+        public void OnClick(Vector3 hitPoint)
+        {
         }
 
         public void OnHold(float holdTime, Vector3 hitPoint)
