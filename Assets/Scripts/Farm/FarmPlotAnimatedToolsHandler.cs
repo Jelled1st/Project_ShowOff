@@ -6,6 +6,7 @@ public class FarmPlotAnimatedToolsHandler : MonoBehaviour, IFarmPlotObserver
 {
     [SerializeField] private List<GameObject> _farmTools;
     [SerializeField] private List<FarmPlot.State> _farmToolState;
+    [SerializeField] private List<Vector3> _spawnOffset;
 
     private Dictionary<FarmPlot, GameObject> _farmPlotAnimatedTools = new Dictionary<FarmPlot, GameObject>();
         
@@ -37,8 +38,8 @@ public class FarmPlotAnimatedToolsHandler : MonoBehaviour, IFarmPlotObserver
             {
                 GameObject farmTool = Instantiate(_farmTools[i]);
                 _farmPlotAnimatedTools.Add(plot, farmTool);
-                //farmTool.GetComponent<>().Play();
-                farmTool.transform.position = plot.transform.position;
+                farmTool.GetComponent<Animator>().SetBool("isPlaying", true);
+                farmTool.transform.position = plot.transform.position + _spawnOffset[i];
                 break;
             }
         }
