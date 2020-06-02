@@ -89,11 +89,6 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         }
     }
 
-    private void Update()
-    {
-        // SetConveyorSpeed();
-    }
-
     private void SetConveyorSpeed()
     {
         if (_scrollingMaterials.Count == 0 || _previousSpeed == Speed)
@@ -127,6 +122,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
             _rotateTween = this.gameObject.transform.DORotate(
                 this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0),
                 0.2f);
+            _rotateTween.onComplete += delegate { _rotateTween = null; };
         }
     }
 
