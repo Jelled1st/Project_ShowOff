@@ -88,6 +88,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2277985760226669349}
+  - component: {fileID: 4421798470432136809}
+  - component: {fileID: 308089695733219509}
   m_Layer: 0
   m_Name: prefab_potatoPeeler
   m_TagString: Untagged
@@ -103,7 +105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2282253914593268494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.012019807, y: 0.9291543, z: 0.03285447}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1661277119844210092}
@@ -113,6 +115,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4421798470432136809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282253914593268494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac167388121a4b4b9a2fa69748490cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputFunnelTrigger: {fileID: 4623661280566845890}
+  _output: {fileID: 8336029630978991595}
+  _outputPushForce: 500
+  _particleSystem: {fileID: 0}
+  _delay: 2
+  _baseFixTime: 1
+  _clogVisual: {fileID: 599671467087972985}
+  _repairVisuals: {fileID: 0}
+  _slowPerStage: 0.33333334
+  _breakEverySeconds: {x: 4.2110996, y: 7.243805}
+  _shaderName: Shader Graphs/shdr_potatoes
+  _propertyToDisable: _enableClean
+  _propertyToEnable: _enablePeeled
+--- !u!65 &308089695733219509
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282253914593268494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.02, y: 1.91, z: 1.39}
+  m_Center: {x: 0, y: -0.03, z: -0.03}
 --- !u!1 &2401917673661966271
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,8 +165,6 @@ GameObject:
   - component: {fileID: 7662043544022118298}
   - component: {fileID: 4136984419871789923}
   - component: {fileID: 5941583212094815912}
-  - component: {fileID: 5884198291795280360}
-  - component: {fileID: 3469060275077365649}
   m_Layer: 8
   m_Name: mesh_potatoPeeler
   m_TagString: Untagged
@@ -219,44 +257,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5884198291795280360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2401917673661966271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac167388121a4b4b9a2fa69748490cf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputFunnelTrigger: {fileID: 4623661280566845890}
-  _output: {fileID: 8336029630978991595}
-  _outputPushForce: 500
-  _particleSystem: {fileID: 0}
-  _delay: 2
-  _baseFixTime: 1
-  _clogVisual: {fileID: 599671467087972985}
-  _repairVisuals: {fileID: 0}
-  _slowPerStage: 0.33333334
-  _breakEverySeconds: {x: 4.2110996, y: 7.243805}
-  _shaderName: Shader Graphs/shdr_potatoes
-  _propertyToDisable: _enableClean
-  _propertyToEnable: _enablePeeled
---- !u!65 &3469060275077365649
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2401917673661966271}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.02, y: 1.91, z: 1.39}
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &3889106962385470864
 GameObject:
   m_ObjectHideFlags: 0
