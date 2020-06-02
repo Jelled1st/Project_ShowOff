@@ -1,4 +1,5 @@
 using System;
+using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,7 +7,9 @@ namespace Factory
 {
     public class SubstitutingMachine : Machine
     {
-        [SerializeField] private GameObject[] _substitute;
+        [BoxGroup("Substitution settings")]
+        [SerializeField]
+        private GameObject[] _substitute;
 
         private void Awake()
         {
