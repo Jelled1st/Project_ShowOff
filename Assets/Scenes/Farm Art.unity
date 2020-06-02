@@ -3934,6 +3934,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: mesh_wateringCan_dynamic
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 587489fa9a8a5274ea92093630272bc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 587489fa9a8a5274ea92093630272bc8, type: 3}
 --- !u!1001 &979282173
@@ -6149,6 +6154,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: mesh_shovel_dynamic
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 68fa24c2b5622694680b95ecc5831d25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68fa24c2b5622694680b95ecc5831d25, type: 3}

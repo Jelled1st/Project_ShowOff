@@ -173,6 +173,10 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         if (_swarmUnits.Count == 0 && !_continueSpawning) Destroy(this.gameObject);
     }
 
+    public void OnPlotStartStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
+    {
+    }
+
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
         if (state != FarmPlot.State.Growing)
