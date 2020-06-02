@@ -85,30 +85,22 @@ namespace Factory
 
         private void Clog()
         {
-            if (_isRepairing)
+            if (_isRepairing || _currentClogStage == _stagesToBreak)
                 return;
 
             _currentClogStage++;
-
-            // Just restart timer if already at the last stage
-            if (_currentClogStage > _stagesToBreak)
-            {
-                _currentClogStage = _stagesToBreak;
-            }
-            else
-            {
-                // Increase delay by slowPerStage %
-                Delay *= 1 + _slowPerStage;
-
-                _clogVisual.Play(true);
-
-                // Debug.Log($"Clog [{_currentClogStage}] {gameObject.name}");
-            }
 
             if (_currentClogStage == _stagesToBreak)
             {
                 Scores.AddScore(Scores.MachineCompleteBreakage);
             }
+
+            // Increase delay by slowPerStage %
+            Delay *= 1 + _slowPerStage;
+
+            _clogVisual.Play(true);
+
+            // Debug.Log($"Clog [{_currentClogStage}] {gameObject.name}");
 
             WaitAndClog();
         }
