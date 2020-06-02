@@ -80,14 +80,14 @@ namespace Factory
             _isRepairing = false;
 
             // Set input trigger callback
-            if (TryGetComponent(out CollisionCallback collisionCallback))
+            if (!TryGetComponent(out CollisionCallback collisionCallback))
             {
-                collisionCallback = _inputFunnelTrigger.gameObject.AddComponent<CollisionCallback>();
                 Debug.LogWarning(
-                    $"[{gameObject.name}] lacks {nameof(CollisionCallback)} script! Edit the prefab! Trying to add it!");
-
-                collisionCallback.onTriggerEnter += OnTriggerEnterCallback;
+                    $"[{gameObject.name}] lacks {nameof(CollisionCallback)} script! Edit the prefab! Trying to add it...");
             }
+
+            collisionCallback = _inputFunnelTrigger.gameObject.AddComponent<CollisionCallback>();
+            collisionCallback.onTriggerEnter += OnTriggerEnterCallback;
 
             _particleSystem = _particleSystem.NullIfEqualsNull();
             _particleSystem?.Stop();
