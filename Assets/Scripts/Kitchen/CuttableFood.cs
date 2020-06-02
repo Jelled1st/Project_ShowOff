@@ -15,7 +15,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
     // Start is called before the first frame update
     void Start()
     {
-        if(_cutStates != null && _cutStates[0] !=_currentState)
+        if(_cutStates != null && (_cutStates.Count == 0 || _cutStates[0] !=_currentState))
         {
             _cutStates.Insert(0, _currentState);
         }

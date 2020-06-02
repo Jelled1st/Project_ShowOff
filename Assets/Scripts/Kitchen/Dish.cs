@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class BurgerDish : MonoBehaviour, IControllable
+public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 {
     [Header("Required Ingredients")]
     [SerializeField] private List<IngredientType> _requiredIngredients;
@@ -20,19 +20,42 @@ public class BurgerDish : MonoBehaviour, IControllable
     [SerializeField] private bool _placeOptionalInOrder;
 
     [Header("Misc")]
-    [SerializeField] private BurgerAssembler _burgerAssembler;
+    [Tooltip("the dishes this dish is dependent on. All dependent dishes must be done before completing this")]
+        [SerializeField] List<Dish> _sideDishesLeft = new List<Dish>();
+    [Tooltip("Stack all ingredients from the using the required placements index 0")]
+        [SerializeField] private bool _stackAllIngredients = false;
     private List<IngredientType> _addedIngredients = new List<IngredientType>();
     private Dictionary<IngredientType, GameObject> _addedIngredientObjects = new Dictionary<IngredientType, GameObject>();
+
+    private List<IDishObserver> _observers = new List<IDishObserver>();
 
     private bool _debugLog = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (_requiredIngredients.Count != _requiredPlacements.Count)
-            Debug.LogWarning("Burgerdish warning: Amount of required ingredients does not match placement options");
-        if (_optionalIngredients.Count != _optionalIngredients.Count)
-            Debug.LogWarning("Burgerdish warning: Amount of optional ingredients does not match placement options");
+        if (_stackAllIngredients)
+        {
+            if(_requiredPlacements.Count > 0)
+            {
+                GameObject placement = _requiredPlacements[0];
+                _requiredPlacements = new List<GameObject>();
+                _requiredPlacements.Add(placement);
+                _optionalPlacements = null;
+            }
+        }
+        else
+        {
+            if (_requiredIngredients.Count != _requiredPlacements.Count)
+                Debug.Log("Burgerdish warning: Amount of required ingredients does not match placement options");
+            if (_optionalIngredients.Count != _optionalIngredients.Count)
+                Debug.Log("Burgerdish warning: Amount of optional ingredients does not match placement options");
+        }
+
+        for(int i = 0; i < _sideDishesLeft.Count; ++i)
+        {
+            Subscribe(_sideDishesLeft[i]);
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +76,11 @@ public class BurgerDish : MonoBehaviour, IControllable
                 //required ingredient
                 AddIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight(), true, i);
                 _requiredIngredients.RemoveAt(i); //remove ingredient from the list
+                InformObserversAddIngredient(ingredient);
+                if (_requiredIngredients.Count == 0)
+                {
+                    if(_sideDishesLeft.Count == 0) InformObserversFinish();
+                }
                 return true;
             }
         }
@@ -64,6 +92,7 @@ public class BurgerDish : MonoBehaviour, IControllable
                 //required ingredient
                 AddIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight(), false, i);
                 _optionalIngredients.RemoveAt(i); //remove ingredient from the list
+                InformObserversAddIngredient(ingredient);
                 return true;
             }
         }
@@ -84,29 +113,39 @@ public class BurgerDish : MonoBehaviour, IControllable
         Quaternion rot = new Quaternion();
         List<GameObject> placementList;
         bool inOrder = false;
-        if (requiredIngredient)
+        if (_stackAllIngredients)
         {
-            placementList = _requiredPlacements;
-            if (_placeRequiredInOrder) inOrder = true;
+            pos = _requiredPlacements[0].transform.position;
+            rot = _requiredPlacements[0].transform.rotation;
+            _requiredPlacements[0].transform.position += new Vector3(0, ingredientHeight, 0);
         }
         else
         {
-            placementList = _optionalPlacements;
-            if (_placeOptionalInOrder) inOrder = true;
-        }
+            if (requiredIngredient)
+            {
+                placementList = _requiredPlacements;
+                if (_placeRequiredInOrder) inOrder = true;
+            }
+            else
+            {
+                placementList = _optionalPlacements;
+                if (_placeOptionalInOrder) inOrder = true;
+            }
 
-        if (inOrder)
-        {
-            pos = placementList[indexInList].transform.position;
-            rot = placementList[indexInList].transform.rotation;
-            _requiredPlacements.RemoveAt(indexInList);
-        }
-        else
-        {
-            int rand = Random.Range(0, _requiredPlacements.Count);
-            pos = placementList[rand].transform.position;
-            rot = placementList[rand].transform.rotation;
-            _requiredPlacements.RemoveAt(rand);
+
+            if (inOrder)
+            {
+                pos = placementList[indexInList].transform.position;
+                rot = placementList[indexInList].transform.rotation;
+                _requiredPlacements.RemoveAt(indexInList);
+            }
+            else
+            {
+                int rand = Random.Range(0, _requiredPlacements.Count);
+                pos = placementList[rand].transform.position;
+                rot = placementList[rand].transform.rotation;
+                _requiredPlacements.RemoveAt(rand);
+            }
         }
         ingredientGO.transform.position = pos;
         ingredientGO.transform.rotation = rot;
@@ -153,10 +192,68 @@ public class BurgerDish : MonoBehaviour, IControllable
 
     public void OnPress(Vector3 hitPoint)
     {
+        Debug.Log("Finished: " + (_requiredIngredients.Count == 0 && _sideDishesLeft.Count == 0));
     }
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
+    }
+    #endregion
+
+    #region ISubject
+    public void Register(IObserver observer)
+    {
+        if (observer is IDishObserver)
+        {
+            _observers.Add(observer as IDishObserver);
+        }
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        if (observer is IDishObserver)
+        {
+            //_observers.Remove(observer as IDishObserver);
+        }
+    }
+    #endregion
+
+    #region IDishObserver
+    private void InformObserversAddIngredient(IIngredient ingredient)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnIngredientAdd(this, ingredient);
+        }
+    }
+
+    private void InformObserversFinish()
+    {
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnFinishDish(this);
+        }
+    }
+
+    public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
+    {
+    }
+
+    public void OnFinishDish(ISubject subject)
+    {
+        Dish dish = subject as Dish;
+        if (dish != null) _sideDishesLeft.Remove(dish);
+        if (_requiredIngredients.Count == 0 && _sideDishesLeft.Count == 0) InformObserversFinish();
+    }
+
+    public void Subscribe(ISubject subject)
+    {
+        subject.Register(this);
+    }
+
+    public void UnSubscribe(ISubject subject)
+    {
+        subject.UnRegister(this);
     }
     #endregion
 }
