@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 681301635491024767}
-  m_Layer: 0
+  - component: {fileID: 1840553814066342472}
+  - component: {fileID: 2446795205540483132}
+  m_Layer: 8
   m_Name: prefab_fryCutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2784494134077412720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21200657, y: 1.0842748, z: -0.40771163}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 107684207363211256}
@@ -34,6 +36,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1840553814066342472
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784494134077412720}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.15, y: 2.07, z: 1.59}
+  m_Center: {x: 0.01, y: -0.11, z: 0.35}
+--- !u!114 &2446795205540483132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784494134077412720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e036144506a5497dae09b1c070253b6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputFunnelTrigger: {fileID: 1739639591574660747}
+  _output: {fileID: 1725769364230458257}
+  _outputPushForce: 100
+  _particleSystem: {fileID: 0}
+  _delay: 0.5
+  _baseFixTime: 1
+  _clogVisual: {fileID: 6943138190647494220}
+  _repairVisuals: {fileID: 0}
+  _slowPerStage: 0.33333334
+  _breakEverySeconds: {x: 4.7928004, y: 8.901668}
+  _substitute:
+  - {fileID: 4628057192833825956, guid: a7cfa98c0972a024ebb2fe388436b0d7, type: 3}
+  - {fileID: 7123373888999861644, guid: 5c55b868e1f7e834b906f105518b8850, type: 3}
 --- !u!1 &3280114042240580870
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,9 +116,7 @@ GameObject:
   - component: {fileID: 8945719548171158990}
   - component: {fileID: 3393776655360686391}
   - component: {fileID: 4901085148836271328}
-  - component: {fileID: 4330086831773460441}
-  - component: {fileID: 1030187068623614223}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: mesh_fryCutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,44 +206,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4330086831773460441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3973806476272291307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e036144506a5497dae09b1c070253b6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputFunnelTrigger: {fileID: 1739639591574660747}
-  _output: {fileID: 1725769364230458257}
-  _outputPushForce: 100
-  _particleSystem: {fileID: 0}
-  _delay: 0.5
-  _baseFixTime: 1
-  _clogVisual: {fileID: 6943138190647494220}
-  _repairVisuals: {fileID: 0}
-  _slowPerStage: 0.33333334
-  _breakEverySeconds: {x: 4.7928004, y: 8.901668}
-  _substitute:
-  - {fileID: 4628057192833825956, guid: a7cfa98c0972a024ebb2fe388436b0d7, type: 3}
-  - {fileID: 7123373888999861644, guid: 5c55b868e1f7e834b906f105518b8850, type: 3}
---- !u!65 &1030187068623614223
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3973806476272291307}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.15, y: 2.07, z: 1.59}
-  m_Center: {x: -0.21, y: 0.97, z: 0}
 --- !u!1 &6390259885781758995
 GameObject:
   m_ObjectHideFlags: 0

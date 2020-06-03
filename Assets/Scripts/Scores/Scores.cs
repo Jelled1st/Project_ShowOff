@@ -94,7 +94,7 @@ public static class Scores
 
         _currentUser.score -= score;
         NotifySubScore(score);
-       // Debug.Log(_currentUser.score);
+        // Debug.Log(_currentUser.score);
     }
 
     public static void AdjustScore(float score)

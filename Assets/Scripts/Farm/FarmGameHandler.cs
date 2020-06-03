@@ -250,6 +250,10 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     }
 
     #region IFarmPlotObserver
+    public void OnPlotStartStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
+    {
+    }
+
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
         if(state == FarmPlot.State.Decay)

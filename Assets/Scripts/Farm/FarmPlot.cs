@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,6 +53,10 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     List<IFarmPlotObserver> _observers;
 
     private bool _updateHasBeenCalled = false;
+    private bool _cultivateAfterCooldown = false;
+    private State _cultivateStateAfterCooldown;
+    private bool _isOnCooldown = false;
+    private float _cooldownTimer = 0.0f;
 
     private const bool _debugLog = false;
 
@@ -88,6 +93,15 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (_paused) return;
         _updateHasBeenCalled = true;
         _timeSinceLastCultivation += Time.deltaTime;
+        if (_isOnCooldown) _cooldownTimer += Time.deltaTime;
+        if(_cooldownTimer >= _cooldown && _isOnCooldown)
+        {
+            _isOnCooldown = false;
+            if (_cultivateAfterCooldown)
+            {
+                CultivateToState(_cultivateStateAfterCooldown);
+            }
+        }
         if(_state == State.Growing)
         {
             _growTime += Time.deltaTime;
@@ -121,11 +135,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                 _progressBar.SetActive(true);
                 _progressBar.SetPercentage(1 - _timeSinceLastCultivation / _timeTillWithered);
             }
-            else if (_timeSinceLastCultivation <= _cooldown && !_neglectCooldown)
+            else if (_cooldownTimer <= _cooldown && !_neglectCooldown && _isOnCooldown)
             {
                 _progressBar.SetFillColor(new Color(30/255.0f, 30/255.0f, 200/255.0f));
                 _progressBar.SetActive(true);
-                _progressBar.SetPercentage(_timeSinceLastCultivation / _cooldown);
+                _progressBar.SetPercentage(_cooldownTimer / _cooldown);
             }
             else _progressBar.SetActive(false);
         }
@@ -155,8 +169,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         if (ReadyForState(State.Dug))
         {
-            CultivateToState(State.Dug);
             soundEffectManager.SoundDig();
+
+            CultivateAfterCooldown(State.Dug);
             return true;
         }
         else
@@ -170,7 +185,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         if (ReadyForState(State.Planted))
         {
-            CultivateToState(State.Planted);
+            CultivateAfterCooldown(State.Planted);
             return true;
         }
         else
@@ -184,8 +199,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         if (ReadyForState(State.Growing) && _state == State.Planted)
         {
-            CultivateToState(State.Growing);
             soundEffectManager.SoundWater();
+            
+            CultivateAfterCooldown(State.Growing);
             return true;
         }
         else
@@ -199,8 +215,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         if(ReadyForState(State.Growing) && _state == State.Decay)
         {
-            CultivateToState(State.Growing);
             soundEffectManager.SoundPesticide();
+
+            CultivateAfterCooldown(State.Growing);
             return true;
         }
         else
@@ -212,7 +229,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     private bool ReadyForState(State state)
     {
-        if (_timeSinceLastCultivation >= _cooldown || _neglectCooldown)
+        if (_cooldownTimer >= _cooldown || _neglectCooldown)
         {
             switch(state)
             {
@@ -247,6 +264,16 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         else return false;
     }
 
+    private void CultivateAfterCooldown(State state)
+    {
+        InformObserversOfStartStateSwitch(state, _state);
+        _isOnCooldown = true;
+        _cultivateAfterCooldown = true;
+        _cultivateStateAfterCooldown = state;
+        _cooldownTimer = 0.0f;
+        _neglectCooldown = false;
+    }
+
     private void CultivateToState(State state)
     {
         InformObserversOfStateSwitch(state, _state);
@@ -254,6 +281,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         _state = state;
         ClearPlants();
         _neglectCooldown = false;
+        _cultivateAfterCooldown = false;
         switch (_state)
         {
             case State.Withered:
@@ -310,7 +338,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             default:
                 break;
         }
-        _timeSinceLastCultivation = 0.0f;
+        _timeSinceLastCultivation = 0;
     }
 
     private void ClearPlants()
@@ -326,7 +354,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (plantMeshes == null || plantMeshes.Count == 0) return;
         for(int i = 0; i < _plantPositions.Length; ++i)
         {
-            GameObject plant = Instantiate(plantMeshes[Random.Range(0, plantMeshes.Count)]);
+            GameObject plant = Instantiate(plantMeshes[UnityEngine.Random.Range(0, plantMeshes.Count)]);
             plant.transform.SetParent(_plantPositions[i].transform);
             plant.transform.localPosition = new Vector3(0, 0, 0);
         }
@@ -422,6 +450,15 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     #endregion
 
     #region Inform Observers
+    private void InformObserversOfStartStateSwitch(State next, State current)
+    {
+        if (_observers == null) return;
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnPlotStartStateSwitch(next, current, this);
+        }
+    }
+
     private void InformObserversOfStateSwitch(State current, State previous)
     {
         if (_observers == null) return;
