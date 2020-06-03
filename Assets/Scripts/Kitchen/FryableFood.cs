@@ -9,7 +9,6 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
     [SerializeField] private float _ingredientHeight;
     [SerializeField] private float _timeToFry;
     public FryFryer fryer;
-    private bool _isFrying = false;
     private float _friedTime = 0.0f; 
 
     // Start is called before the first frame update
@@ -26,7 +25,6 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
 
     public void Fry()
     {
-        _isFrying = true;
         _friedTime += Time.deltaTime;
     }
 

@@ -1273,7 +1273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientType: 4
   _ingredientHeight: 0.1
-  _timeToFry: 0
+  _timeToFry: 3
   fryer: {fileID: 0}
 --- !u!4 &194375907 stripped
 Transform:
@@ -3273,7 +3273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientType: 4
   _ingredientHeight: 0.1
-  _timeToFry: 0
+  _timeToFry: 3
   fryer: {fileID: 0}
 --- !u!65 &621253303
 BoxCollider:
@@ -6130,7 +6130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientType: 4
   _ingredientHeight: 0.1
-  _timeToFry: 0
+  _timeToFry: 3
   fryer: {fileID: 0}
 --- !u!65 &1341000562
 BoxCollider:
@@ -7817,7 +7817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientType: 4
   _ingredientHeight: 0.1
-  _timeToFry: 0
+  _timeToFry: 3
   fryer: {fileID: 0}
 --- !u!65 &1799202463
 BoxCollider:
@@ -9485,7 +9485,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ingredientType: 7
-  _ingredientHeight: 0.025
+  _ingredientHeight: 0.2
+  _timeToCook: 2
   cookingPan: {fileID: 0}
 --- !u!1 &2173730113609317155
 GameObject:

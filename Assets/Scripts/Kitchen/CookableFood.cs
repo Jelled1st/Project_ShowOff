@@ -7,7 +7,10 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 {
     [SerializeField] private IngredientType _ingredientType;
     [SerializeField] private float _ingredientHeight;
+    [SerializeField] private float _timeToCook = 2.0f;
     [HideInInspector] public CookingPan cookingPan;
+    private float _cookedTime = 0.0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +26,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public void Cook()
     {
-
+        _cookedTime += Time.deltaTime;
     }
 
 
@@ -35,7 +38,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public bool ReadyForDish()
     {
-        return true;
+        return _cookedTime >= _timeToCook;
     }
 
     public void AddedToDish()
