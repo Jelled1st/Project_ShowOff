@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{31ee7c42-9da8-469a-948a-19e30e2464d9}">
+		<property name="assetPath">
+			<value>BKG/Funktory.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>89.182040816326534</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{cf4ed741-5b91-4e4f-a93b-39a04b6066c0}</destination>
+		</relationship>
+	</object>
+</objects>

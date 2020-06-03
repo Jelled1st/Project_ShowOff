@@ -25,7 +25,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     private bool gameFinished = false;
     private bool _debugLog = false;
 
-    private bool _plantsStartAtGrown = true;
+    private bool _plantsStartAtGrown = false;
 
     void Awake()
     {
