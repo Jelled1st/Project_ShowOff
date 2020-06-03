@@ -10,7 +10,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         Withered = -1,
 
-        Rough = 0,
+        Undifined = 0,
+        Rough = 1,
         Dug,
         Planted,
         Growing,

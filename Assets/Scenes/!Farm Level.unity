@@ -2082,7 +2082,8 @@ MonoBehaviour:
   _farmTools:
   - {fileID: 1392252265176764850, guid: a6c882ae4b49d804ea6dbf4c70325b61, type: 3}
   - {fileID: 269788042246791878, guid: cd2cc9f2db457eb4a888d4f071e5b5ff, type: 3}
-  _farmToolState: 0100000003000000
+  _playStates: 0200000004000000
+  _playAfterStates: 0000000003000000
   _spawnOffset:
   - {x: 0, y: 0.1, z: -0.8}
   - {x: 0, y: 0.4, z: 1}
