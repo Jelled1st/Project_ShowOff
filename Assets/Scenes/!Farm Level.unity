@@ -11363,6 +11363,7 @@ GameObject:
   - component: {fileID: 1532028057}
   - component: {fileID: 1532028059}
   - component: {fileID: 1532028058}
+  - component: {fileID: 1532028060}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -11392,7 +11393,7 @@ TerrainCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532028056}
   m_Material: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_TerrainData: {fileID: 15600000, guid: 37fcf8713d9c11944a921c35e41d8697, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &1532028059
@@ -11428,6 +11429,19 @@ Terrain:
   m_GroupingID: 0
   m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
+--- !u!65 &1532028060
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532028056}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50.29274, y: 0.01, z: 50.874416}
+  m_Center: {x: 24.99118, y: 0, z: 25.341024}
 --- !u!1001 &1535627350
 PrefabInstance:
   m_ObjectHideFlags: 0
