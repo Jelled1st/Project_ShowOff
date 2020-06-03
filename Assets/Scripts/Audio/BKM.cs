@@ -69,7 +69,7 @@ public class BKM : MonoBehaviour
     private IEnumerator WaitForEnd(float length)
     {
         yield return new WaitForSeconds(length);
-        _instanceSong.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        _instanceSong.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         _instanceTransitionFx.release();
         _instanceSong.release();
     }
