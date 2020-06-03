@@ -32,6 +32,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     private static bool _paused = false;
     private bool _hasBeenPoisened = false;
     
+    [SerializeField] private SFX soundEffectManager;
 
     [SerializeField] private GameObject _harvestPotatoPrefab;
 
@@ -167,6 +168,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         if (ReadyForState(State.Dug))
         {
+            soundEffectManager.SoundDig();
+
             CultivateAfterCooldown(State.Dug);
             return true;
         }
@@ -194,7 +197,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     public bool Water()
     {
         if (ReadyForState(State.Growing) && _state == State.Planted)
-        {            
+        {   
+            soundEffectManager.SoundWater();
+            
             CultivateAfterCooldown(State.Growing);
             return true;
         }
@@ -209,6 +214,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         if(ReadyForState(State.Growing) && _state == State.Decay)
         {
+            soundEffectManager.SoundPesticide();
+
             CultivateAfterCooldown(State.Growing);
             return true;
         }
@@ -316,6 +323,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                 if (_debugLog) Debug.Log("Grown!");
                 _growTime = 0.0f;
 
+                soundEffectManager.SoundPlantGrowth();
+
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrownMeshes);
                 _neglectCooldown = true;
@@ -413,6 +422,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (_state == State.Grown)
         {
             GameObject copy = Instantiate(_harvestPotatoPrefab);
+            soundEffectManager.SoundUproot();
             return copy;
         }
         else return null;

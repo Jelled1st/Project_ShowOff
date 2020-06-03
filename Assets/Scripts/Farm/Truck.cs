@@ -12,6 +12,8 @@ public class Truck : MonoBehaviour, IGameHandlerObserver
     private bool _drive = false;
     private float _timeSinceDrive = 0.0f;
     
+    [SerializeField] private BKM musicManager;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +51,7 @@ public class Truck : MonoBehaviour, IGameHandlerObserver
 
     public void OnFinish()
     {
+        musicManager.TruckDriving();
         _drive = true;
     }
 
