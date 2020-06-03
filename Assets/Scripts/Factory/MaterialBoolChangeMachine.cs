@@ -1,16 +1,25 @@
 using System.Linq;
+using DG.Tweening;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Factory
 {
     public class MaterialBoolChangeMachine : Machine
     {
-        [SerializeField] private string _shaderName = "Shader Graphs/shdr_potatoes";
+        [BoxGroup("Shader settings")]
+        [SerializeField]
+        private string _shaderName = "Shader Graphs/shdr_potatoes";
 
-        [Header("See the debug inspector of shader")] [SerializeField]
+
+        [BoxGroup("Shader settings")]
+        [Header("See the debug inspector of shader")]
+        [SerializeField]
         private string _propertyToDisable = "_enableDirty";
 
-        [SerializeField] private string _propertyToEnable = "_enableClean";
+        [BoxGroup("Shader settings")]
+        [SerializeField]
+        private string _propertyToEnable = "_enableClean";
 
 
         protected override GameObject PreDelayProcess(GameObject o)
