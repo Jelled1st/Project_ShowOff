@@ -7,22 +7,31 @@ using NaughtyAttributes;
 [SelectionBase]
 public class FlatConveyorBelt : MonoBehaviour, IControllable
 {
-    [Header("Conveyor settings")] [SerializeField]
+    [Header("Conveyor settings")]
+    [SerializeField]
     private float _speed = 1;
 
-    [SerializeField] private bool _reverseShaderDirection;
-    [SerializeField] private bool _runtimeUseInspectorSpeed;
-    [SerializeField] private bool _isSpecialConveyor;
+    [SerializeField]
+    private bool _reverseShaderDirection;
 
-    [ShowIf(nameof(_isSpecialConveyor))] [SerializeField]
+    [SerializeField]
+    private bool _runtimeUseInspectorSpeed;
+
+    [SerializeField]
+    private bool _isSpecialConveyor;
+
+    [ShowIf(nameof(_isSpecialConveyor))]
+    [SerializeField]
     private bool _isTurnedOn = true;
 
-    [ShowIf(nameof(_isSpecialConveyor))] [SerializeField]
+    [ShowIf(nameof(_isSpecialConveyor))]
+    [SerializeField]
     private float _speedChangeTime = 0.5f;
 
-    [Tooltip("Speed of belt when held")] [ShowIf(nameof(_isSpecialConveyor))] [SerializeField]
+    [Tooltip("Speed of belt when held")]
+    [ShowIf(nameof(_isSpecialConveyor))]
+    [SerializeField]
     private float _heldSpeed = 2f;
-
 
     private static readonly int ScrollingSpeedShader = Shader.PropertyToID("_scrollingSpeed");
 
@@ -126,12 +135,48 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         }
     }
 
+    private bool _isChangingBeltSpeed = false;
+
     private void ChangeSpecialBeltSpeed()
     {
-        if (Speed != _heldSpeed)
+        if (Speed != _heldSpeed && !_isChangingBeltSpeed)
+        {
+            _isChangingBeltSpeed = true;
             DOTween.Sequence().Append(DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime))
-                .AppendCallback(SetConveyorSpeed);
+                .AppendCallback(() =>
+                {
+                    SetConveyorSpeed();
+                    _isChangingBeltSpeed = false;
+                });
+        }
     }
+
+    protected virtual void OnCollisionStay(Collision other)
+    {
+        var beltPosition = transform.position;
+        var objectPosition = other.transform.position;
+        var transformRight = transform.right;
+
+        var a = beltPosition - transformRight * 2f;
+        a.y = objectPosition.y;
+
+        var b = beltPosition + transformRight * 4f;
+        b.y = objectPosition.y;
+
+        var c = objectPosition;
+
+        Debug.DrawLine(a, b);
+        Debug.DrawLine(b, c);
+        Debug.DrawLine(a, c);
+        var triangleHeightPoint = GeometryUtils.TriangleHeightPoint(a, b, c);
+        Debug.DrawLine(objectPosition, triangleHeightPoint);
+
+        if ((triangleHeightPoint - other.transform.position).sqrMagnitude > 0.1f)
+            other.rigidbody.MovePosition(objectPosition +
+                                         (triangleHeightPoint - objectPosition).normalized * Time.fixedDeltaTime *
+                                         0.5f);
+    }
+
 
     private void ResetSpecialBeltSpeed()
     {

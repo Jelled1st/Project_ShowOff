@@ -18,6 +18,10 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
         _rBody.MoveRotation(rot);
     }
 
+    protected override void OnCollisionStay(Collision other)
+    {
+    }
+
     public override void Turn()
     {
         if (_rotateTween == null || !_rotateTween.IsPlaying())
