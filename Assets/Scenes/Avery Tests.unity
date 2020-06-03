@@ -7525,10 +7525,13 @@ MonoBehaviour:
   _farmTools:
   - {fileID: 1392252265176764850, guid: a6c882ae4b49d804ea6dbf4c70325b61, type: 3}
   - {fileID: 269788042246791878, guid: cd2cc9f2db457eb4a888d4f071e5b5ff, type: 3}
-  _farmToolState: 0100000003000000
+  - {fileID: 2063825355490346219, guid: 77d40813d0b2bbc48af45bfcb4e23efd, type: 3}
+  _playStates: 020000000400000006000000
+  _playAfterStates: 000000000300000005000000
   _spawnOffset:
-  - {x: 0, y: 0.1, z: -1}
+  - {x: 0, y: 0.1, z: -0.8}
   - {x: 0, y: 0.4, z: 1}
+  - {x: 0, y: 0, z: 0}
 --- !u!1001 &209672167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13624,6 +13627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _functionality: 1
   _cooldown: 3
+  _farmPlotCooldown: 3
   _cooldownBar: {fileID: 1828479046}
 --- !u!114 &651597581
 MonoBehaviour:
@@ -14411,7 +14415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 726638722}
   m_Layer: 0
-  m_Name: Environment
+  m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16137,7 +16141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _functionality: 0
-  _cooldown: 2.3
+  _cooldown: 2.5
+  _farmPlotCooldown: 2.5
   _cooldownBar: {fileID: 1918213854}
 --- !u!114 &862826473
 MonoBehaviour:
@@ -22495,6 +22500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _functionality: 2
   _cooldown: 3
+  _farmPlotCooldown: 3
   _cooldownBar: {fileID: 137701763}
 --- !u!114 &1417942538
 MonoBehaviour:
@@ -24992,6 +24998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _functionality: 3
   _cooldown: 3
+  _farmPlotCooldown: 3
   _cooldownBar: {fileID: 606247307}
 --- !u!114 &1582138753
 MonoBehaviour:
