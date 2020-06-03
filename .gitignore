@@ -68,6 +68,7 @@ Assets/Demigiant.meta
 # FMOD
 /Assets/FMODStudioCache.asset
 /Assets/FMODStudioCache.asset.meta
+/Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
 fmod.log
 fmod_editor.log
 
