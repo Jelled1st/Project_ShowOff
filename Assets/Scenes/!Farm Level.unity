@@ -1054,6 +1054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _functionality: 1
   _cooldown: 3
+  _farmPlotCooldown: 3
   _cooldownBar: {fileID: 1689926384}
 --- !u!114 &85618119
 MonoBehaviour:
@@ -1790,6 +1791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _functionality: 2
   _cooldown: 3
+  _farmPlotCooldown: 3
   _cooldownBar: {fileID: 418755602}
 --- !u!114 &149003912
 MonoBehaviour:
@@ -1973,6 +1975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _functionality: 0
   _cooldown: 3
+  _farmPlotCooldown: 2.3
   _cooldownBar: {fileID: 1610657820}
 --- !u!114 &196098114
 MonoBehaviour:
@@ -3222,6 +3225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _functionality: 3
   _cooldown: 3
+  _farmPlotCooldown: 3
   _cooldownBar: {fileID: 369154062}
 --- !u!114 &420467803
 MonoBehaviour:

@@ -23,7 +23,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     [SerializeField] private State _state = State.Rough;
 
-    [SerializeField] private float _cooldown = 3.0f;
     [SerializeField] private float _timeTillGrown = 10.0f;
     [Tooltip("Higher slowness means growing takes longer")] [SerializeField] private float _decayGrowSlowness = 2.0f;
     [SerializeField] private float _timeTillWithered = 10.0f;
@@ -33,7 +32,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     private bool _neglectCooldown = true;
     private static bool _paused = false;
     private bool _hasBeenPoisened = false;
-    
+    private float _cooldown = 3.0f;
+
     [SerializeField] private SFX soundEffectManager;
 
     [SerializeField] private GameObject _harvestPotatoPrefab;
@@ -147,33 +147,33 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     }
 
     #region Outside Actions (Dig/Plant/etc)
-
-    public static bool Dig(FarmPlot plot)
+    public static bool Dig(FarmPlot plot, float cooldown)
     {
-        return plot.Dig();
+        return plot.Dig(cooldown);
     }
 
-    public static bool Plant(FarmPlot plot)
+    public static bool Plant(FarmPlot plot, float cooldown)
     {
-        return plot.Plant();
+        return plot.Plant(cooldown);
     }
 
-    public static bool Water(FarmPlot plot)
+    public static bool Water(FarmPlot plot, float cooldown)
     {
-        return plot.Water();
+        return plot.Water(cooldown);
     }
 
-    public static bool Heal(FarmPlot plot)
+    public static bool Heal(FarmPlot plot, float cooldown)
     {
-        return plot.Heal();
+        return plot.Heal(cooldown);
     }
 
-    public bool Dig()
+    public bool Dig(float cooldown)
     {
         if (ReadyForState(State.Dug))
         {
             soundEffectManager.SoundDig();
 
+            _cooldown = cooldown;
             CultivateAfterCooldown(State.Dug);
             return true;
         }
@@ -184,10 +184,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    public bool Plant()
+    public bool Plant(float cooldown)
     {
         if (ReadyForState(State.Planted))
         {
+            _cooldown = cooldown;
             CultivateAfterCooldown(State.Planted);
             return true;
         }
@@ -198,12 +199,13 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    public bool Water()
+    public bool Water(float cooldown)
     {
         if (ReadyForState(State.Growing) && _state == State.Planted)
         {   
             soundEffectManager.SoundWater();
-            
+
+            _cooldown = cooldown;
             CultivateAfterCooldown(State.Growing);
             return true;
         }
@@ -214,12 +216,13 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    public bool Heal()
+    public bool Heal(float cooldown)
     {
         if(ReadyForState(State.Growing) && _state == State.Decay)
         {
             soundEffectManager.SoundPesticide();
 
+            _cooldown = cooldown;
             CultivateToState(State.Healing);
             return true;
         }
