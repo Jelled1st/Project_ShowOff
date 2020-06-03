@@ -13,7 +13,7 @@ public class FarmPlotAnimatedToolsHandler : MonoBehaviour, IFarmPlotObserver
     // Start is called before the first frame update
     void Start()
     {
-        if (_farmTools.Count != _farmToolState.Count) Debug.Log("WARNING: farm tools not equal to play states");
+        if (_farmTools.Count != _farmToolState.Count || _farmTools.Count != _spawnOffset.Count) Debug.Log("WARNING: farm tools not equal to animation states or spawn offsets!");
 
         //subscribe to all farm plots
         GameObject[] farmPlotsGOs = GameObject.FindGameObjectsWithTag("FarmPlot");
