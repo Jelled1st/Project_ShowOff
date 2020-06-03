@@ -31,6 +31,11 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     private bool _debugLog = false;
 
+    public void Awake()
+    {
+        this.gameObject.tag = "Dish"; 
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -216,6 +221,10 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             //_observers.Remove(observer as IDishObserver);
         }
     }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+    }
     #endregion
 
     #region IDishObserver
@@ -254,6 +263,10 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
+    }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
     }
     #endregion
 }

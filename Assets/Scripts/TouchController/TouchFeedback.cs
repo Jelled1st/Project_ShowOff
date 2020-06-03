@@ -154,4 +154,8 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
     {
         subject.UnRegister(this);
     }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+    }
 }

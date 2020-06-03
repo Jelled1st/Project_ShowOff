@@ -84,6 +84,7 @@ public static class Scores
 
         _currentUser.score += score;
         NotifyAddScore(score);
+        //Debug.Log(_currentUser.score);
     }
 
     public static void SubScore(float score)
@@ -93,6 +94,7 @@ public static class Scores
 
         _currentUser.score -= score;
         NotifySubScore(score);
+        // Debug.Log(_currentUser.score);
     }
 
     public static void AdjustScore(float score)
@@ -102,6 +104,7 @@ public static class Scores
 
         _currentUser.score += score;
         NotifyAdjustScore(score);
+        //Debug.Log(_currentUser.score);
     }
 
     public static void AppendScoreToLeaderboard(string username)

@@ -5,10 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
 public class Truck : MonoBehaviour, IGameHandlerObserver
 {
-    [SerializeField] private float _acceleration = 1.0f;
+    [SerializeField] private float _acceleration = 0.4f;
+    [SerializeField] private float _maxSpeed = 10.0f;
+    [SerializeField] private float _startupTime = 1.3f;
     private Rigidbody _rigidbody;
     private bool _drive = false;
-
+    private float _timeSinceDrive = 0.0f;
+    
+    [SerializeField] private BKM musicManager;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +32,12 @@ public class Truck : MonoBehaviour, IGameHandlerObserver
     {
         if(_drive)
         {
-            _rigidbody.velocity += this.transform.right * _acceleration * Time.deltaTime;
+            _timeSinceDrive += Time.deltaTime;
+            if (_timeSinceDrive > _startupTime)
+            {
+                _rigidbody.velocity += this.transform.right * _acceleration;
+                _rigidbody.velocity = _rigidbody.velocity.normalized * Mathf.Min(_rigidbody.velocity.magnitude, _maxSpeed);
+            }
         }
     }
 
@@ -41,6 +51,7 @@ public class Truck : MonoBehaviour, IGameHandlerObserver
 
     public void OnFinish()
     {
+        musicManager.TruckDriving();
         _drive = true;
     }
 
@@ -52,5 +63,9 @@ public class Truck : MonoBehaviour, IGameHandlerObserver
     public void UnSubscribe(ISubject subject)
     {
         subject.Register(this);
+    }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
     }
 }

@@ -25,8 +25,11 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     bool _ignoreSpawnTimer = true;
     Vector3 _destination;
     private static bool _paused;
+    
+    [SerializeField] private SFX soundEffectManager;
 
     private List<ISwarmObserver> _observers = new List<ISwarmObserver>();
+    private static List<IObserver> _staticObservers;
 
     public void Init(FarmPlot plot)
     {
@@ -42,6 +45,8 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         Subscribe(_farmPlot);
         initAngleList();
         _destination = _farmPlot.transform.position + new Vector3(0, 0.5f, 0);
+
+        NotifyStaticObservers(new SwarmSpawnEvent(this, this));
     }
 
     private void initAngleList()
@@ -56,6 +61,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     void Start()
     {
         if (!_initCalled) Debug.LogWarning("Init not called before Start on Swarm");
+        soundEffectManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<SFX>();
     }
 
     // Update is called once per frame
@@ -120,6 +126,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     private void OnSpawnUnit(SwarmUnit unit)
     {
+        soundEffectManager.SoundSwarm();
         _timeSinceLastSpawn = 0.0f;
         _ignoreSpawnTimer = false;
 
@@ -144,6 +151,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     {
         for(int i = 0; i < _observers.Count; ++i)
         {
+            soundEffectManager.SoundSwarmStop();
             _observers[i].OnFlee();
         }
     }
@@ -169,6 +177,9 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     private void RemoveUnit(SwarmUnit unit)
     {
         _swarmUnits.Remove(unit.gameObject);
+        
+        soundEffectManager.SoundSwarmStop();
+        
         Destroy(unit.gameObject);
         if (_swarmUnits.Count == 0 && !_continueSpawning) Destroy(this.gameObject);
     }
@@ -216,6 +227,11 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         if (!_paused) _paused = true;
     }
 
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+
+    }
+
     #region ISubject
     public void Register(IObserver observer)
     {
@@ -225,11 +241,39 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         }
     }
 
+    public static void RegisterStatic(IObserver observer)
+    {
+        if (_staticObservers == null) _staticObservers = new List<IObserver>();
+        _staticObservers.Add(observer);
+    }
+
     public void UnRegister(IObserver observer)
     {
         if (observer is ISwarmObserver)
         {
             _observers.Remove(observer as ISwarmObserver);
+        }
+    }
+
+    public static void UnRegisterStatic(IObserver observer)
+    {
+        _staticObservers?.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
+    }
+
+    private static void NotifyStaticObservers(AObserverEvent observerEvent)
+    {
+        if (_staticObservers == null) return;
+        for (int i = 0; i < _staticObservers.Count; ++i)
+        {
+            _staticObservers[i].OnNotify(observerEvent);
         }
     }
     #endregion

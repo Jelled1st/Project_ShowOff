@@ -10,18 +10,19 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         Withered = -1,
 
-        Rough = 0,
+        Undifined = 0,
+        Rough = 1,
         Dug,
         Planted,
         Growing,
         Decay,
+        Healing,
         Grown,
         Harvested,
     };
 
     [SerializeField] private State _state = State.Rough;
 
-    [SerializeField] private float _cooldown = 3.0f;
     [SerializeField] private float _timeTillGrown = 10.0f;
     [Tooltip("Higher slowness means growing takes longer")] [SerializeField] private float _decayGrowSlowness = 2.0f;
     [SerializeField] private float _timeTillWithered = 10.0f;
@@ -31,6 +32,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     private bool _neglectCooldown = true;
     private static bool _paused = false;
     private bool _hasBeenPoisened = false;
+    private float _cooldown = 3.0f;
+
+    [SerializeField] private SFX soundEffectManager;
 
     [SerializeField] private GameObject _harvestPotatoPrefab;
 
@@ -142,30 +146,34 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    public static bool Dig(FarmPlot plot)
+    #region Outside Actions (Dig/Plant/etc)
+    public static bool Dig(FarmPlot plot, float cooldown)
     {
-        return plot.Dig();
+        return plot.Dig(cooldown);
     }
 
-    public static bool Plant(FarmPlot plot)
+    public static bool Plant(FarmPlot plot, float cooldown)
     {
-        return plot.Plant();
+        return plot.Plant(cooldown);
     }
 
-    public static bool Water(FarmPlot plot)
+    public static bool Water(FarmPlot plot, float cooldown)
     {
-        return plot.Water();
+        return plot.Water(cooldown);
     }
 
-    public static bool Heal(FarmPlot plot)
+    public static bool Heal(FarmPlot plot, float cooldown)
     {
-        return plot.Heal();
+        return plot.Heal(cooldown);
     }
 
-    public bool Dig()
+    public bool Dig(float cooldown)
     {
         if (ReadyForState(State.Dug))
         {
+            soundEffectManager.SoundDig();
+
+            _cooldown = cooldown;
             CultivateAfterCooldown(State.Dug);
             return true;
         }
@@ -176,10 +184,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    public bool Plant()
+    public bool Plant(float cooldown)
     {
         if (ReadyForState(State.Planted))
         {
+            _cooldown = cooldown;
             CultivateAfterCooldown(State.Planted);
             return true;
         }
@@ -190,10 +199,13 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    public bool Water()
+    public bool Water(float cooldown)
     {
         if (ReadyForState(State.Growing) && _state == State.Planted)
-        {
+        {   
+            soundEffectManager.SoundWater();
+
+            _cooldown = cooldown;
             CultivateAfterCooldown(State.Growing);
             return true;
         }
@@ -204,11 +216,14 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    public bool Heal()
+    public bool Heal(float cooldown)
     {
         if(ReadyForState(State.Growing) && _state == State.Decay)
         {
-            CultivateAfterCooldown(State.Growing);
+            soundEffectManager.SoundPesticide();
+
+            _cooldown = cooldown;
+            CultivateToState(State.Healing);
             return true;
         }
         else
@@ -217,6 +232,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             return false;
         }
     }
+    #endregion
 
     private bool ReadyForState(State state)
     {
@@ -231,7 +247,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                     if (_state == State.Grown) return true;
                     return false;
                 case State.Dug:
-                    if (_state == State.Rough || _state == State.Withered || _state == State.Harvested) return true;
+                    if (_state == State.Rough || _state == State.Withered || _state == State.Harvested || _state == State.Undifined) return true;
                     else return false;
                 case State.Planted:
                     if (_state == State.Dug) return true;
@@ -241,6 +257,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                     else return false;
                 case State.Decay:
                     if (_state == State.Growing) return true;
+                    else return false;
+                case State.Healing:
+                    if (_state == State.Decay) return true;
                     else return false;
                 case State.Grown:
                     if (_state == State.Growing && _growTime >= _timeTillGrown) return true;
@@ -311,9 +330,18 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                 SetPlants(_plantDecayingMeshes);
                 _neglectCooldown = true;
                 break;
+            case State.Healing:
+                if (_debugLog) Debug.Log("Healing!");
+                _dirtMound.SetActive(true);
+                SetPlants(_plantDecayingMeshes);
+                CultivateAfterCooldown(State.Growing);
+                break;
             case State.Grown:
                 if (_debugLog) Debug.Log("Grown!");
                 _growTime = 0.0f;
+
+                soundEffectManager.SoundPlantGrowth();
+
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrownMeshes);
                 _neglectCooldown = true;
@@ -411,6 +439,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (_state == State.Grown)
         {
             GameObject copy = Instantiate(_harvestPotatoPrefab);
+            soundEffectManager.SoundUproot();
             return copy;
         }
         else return null;
@@ -433,6 +462,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         {
             _observers.Remove(observer as IFarmPlotObserver);
         }
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+
     }
     #endregion
 
@@ -489,6 +523,10 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
+    }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
     }
     #endregion
 }

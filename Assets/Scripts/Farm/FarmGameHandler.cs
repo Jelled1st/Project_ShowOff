@@ -23,8 +23,9 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     private List<IGameHandlerObserver> _gameHandlerObservers;
     private bool _paused = false;
     private bool gameFinished = false;
+    private bool _debugLog = false;
 
-    bool _debugLog = false;
+    private bool _plantsStartAtGrown = false;
 
     void Awake()
     {
@@ -50,11 +51,19 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         GameObject[] farmPlotsGOs = GameObject.FindGameObjectsWithTag("FarmPlot");
         //Set states before substribing
         FarmPlot[] farmPlots = new FarmPlot[farmPlotsGOs.Length];
-        for(int i = 0; i < farmPlotsGOs.Length; ++i)
+        for (int i = 0; i < farmPlotsGOs.Length; ++i)
         {
             farmPlots[i] = farmPlotsGOs[i].GetComponent<FarmPlot>();
         }
-        SetFarmPlotStates(farmPlots);
+
+        if (_plantsStartAtGrown)
+        {
+            for (int i = 0; i < farmPlots.Length; ++i)
+            {
+                farmPlots[i].SetStartState(FarmPlot.State.Grown);
+            }
+        }
+        else SetFarmPlotStates(farmPlots);
 
         for (int i = 0; i < farmPlots.Length; ++i)
         {
@@ -191,7 +200,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         Truck truck;
         if(other.TryGetComponent<Truck>(out truck) && gameFinished)
         {
-            //Game trully finished
+            //Game truly finished
             SceneManager.LoadScene(_nextScene);
         }
     }
@@ -238,6 +247,10 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
+    }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
     }
 
     #region IFarmPlotObserver
@@ -291,6 +304,11 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         {
             _gameHandlerObservers.Remove(observer as IGameHandlerObserver);
         }
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+
     }
 
     #region ISwarmObserver

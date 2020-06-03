@@ -16,8 +16,9 @@ public class FarmTool : MonoBehaviour, IControllable
 
     [SerializeField] Functionalities _functionality;
     [SerializeField] float _cooldown = 3.0f;
+    [SerializeField] float _farmPlotCooldown = 3.0f;
     [SerializeField] ProgressBar _cooldownBar;
-    private delegate bool FunctionalityFunctions(FarmPlot plot);
+    private delegate bool FunctionalityFunctions(FarmPlot plot, float cooldown);
     private FunctionalityFunctions _functionaliesHandler;
     private float _timeSinceLastUse = 0.0f;
     private RawImage _image;
@@ -109,7 +110,7 @@ public class FarmTool : MonoBehaviour, IControllable
             FarmPlot plot;
             if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
             {
-                if (_functionaliesHandler(plot))
+                if (_functionaliesHandler(plot, _farmPlotCooldown))
                 {
                     OnUse();
                 }

@@ -1273,7 +1273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientType: 4
   _ingredientHeight: 0.1
-  _timeToFry: 0
+  _timeToFry: 3
   fryer: {fileID: 0}
 --- !u!4 &194375907 stripped
 Transform:
@@ -3273,7 +3273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientType: 4
   _ingredientHeight: 0.1
-  _timeToFry: 0
+  _timeToFry: 3
   fryer: {fileID: 0}
 --- !u!65 &621253303
 BoxCollider:
@@ -6130,7 +6130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientType: 4
   _ingredientHeight: 0.1
-  _timeToFry: 0
+  _timeToFry: 3
   fryer: {fileID: 0}
 --- !u!65 &1341000562
 BoxCollider:
@@ -7817,7 +7817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientType: 4
   _ingredientHeight: 0.1
-  _timeToFry: 0
+  _timeToFry: 3
   fryer: {fileID: 0}
 --- !u!65 &1799202463
 BoxCollider:
@@ -9192,6 +9192,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1458415689702892828, guid: ce500e75d4a6f8840ba94706022f8e99,
+        type: 3}
+      propertyPath: m_TagString
+      value: Controller
+      objectReference: {fileID: 0}
     - target: {fileID: 1458415689702892829, guid: ce500e75d4a6f8840ba94706022f8e99,
         type: 3}
       propertyPath: m_Enabled
@@ -9485,7 +9490,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ingredientType: 7
-  _ingredientHeight: 0.025
+  _ingredientHeight: 0.2
+  _timeToCook: 2
   cookingPan: {fileID: 0}
 --- !u!1 &2173730113609317155
 GameObject:
@@ -9681,6 +9687,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceleration: 1
+  _maxSpeed: 10
+  _startupTime: 1.3
 --- !u!54 &4398665250334799984
 Rigidbody:
   m_ObjectHideFlags: 0
