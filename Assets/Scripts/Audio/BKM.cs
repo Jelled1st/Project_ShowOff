@@ -51,7 +51,7 @@ public class BKM : MonoBehaviour
     {
         _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(farmTruckDrive);
         _instanceTransitionFx.start();
-        StartCoroutine(WaitForEnd(13.42f));
+        StartCoroutine(WaitForEnd(6.0f));
     }
 
     public void TruckTransition()
@@ -69,7 +69,7 @@ public class BKM : MonoBehaviour
     private IEnumerator WaitForEnd(float length)
     {
         yield return new WaitForSeconds(length);
-        _instanceSong.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        _instanceSong.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         _instanceTransitionFx.release();
         _instanceSong.release();
     }
