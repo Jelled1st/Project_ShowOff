@@ -104,6 +104,9 @@
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
+		<relationship name="modulators">
+			<destination>{b6bdb565-d899-4ab1-ac80-0fc2dafeceef}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{ff866f90-bb7e-4526-ae6b-ea64d4d858d9}</destination>
 		</relationship>
@@ -121,12 +124,52 @@
 	</object>
 	<object class="MixerBusPanner" id="{50111305-24a0-4e9d-b1a8-cbf70a9f2929}" />
 	<object class="MixerBusFader" id="{c7d9fa79-4c04-4dbe-bcb8-6055afee1822}" />
+	<object class="RandomizerModulator" id="{b6bdb565-d899-4ab1-ac80-0fc2dafeceef}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>8</value>
+		</property>
+	</object>
 	<object class="MixerBusEffectChain" id="{ff866f90-bb7e-4526-ae6b-ea64d4d858d9}">
 		<relationship name="effects">
 			<destination>{ec1cb98c-7cf1-49cd-96e2-dfd01e030576}</destination>
+			<destination>{db091f84-a570-49d4-8334-0e89f5ff3f86}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{d5f807a9-d7b3-411b-b39d-b31037e220ba}" />
 	<object class="MixerBusFader" id="{6b5c50e3-900c-4934-aab9-61b7ee9e3058}" />
 	<object class="MixerBusFader" id="{ec1cb98c-7cf1-49cd-96e2-dfd01e030576}" />
+	<object class="ThreeEQEffect" id="{db091f84-a570-49d4-8334-0e89f5ff3f86}">
+		<property name="lowGain">
+			<value>6.5</value>
+		</property>
+		<property name="highGain">
+			<value>4</value>
+		</property>
+		<property name="crossoverSlope">
+			<value>0</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{f4ddbc1e-c398-46fa-b7ae-9176e2f2b9f1}</destination>
+			<destination>{0158ce62-bed3-4510-8d58-05dfbe1612e0}</destination>
+		</relationship>
+	</object>
+	<object class="RandomizerModulator" id="{f4ddbc1e-c398-46fa-b7ae-9176e2f2b9f1}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>lowGain</value>
+		</property>
+		<property name="amount">
+			<value>21</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{0158ce62-bed3-4510-8d58-05dfbe1612e0}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>highGain</value>
+		</property>
+		<property name="amount">
+			<value>7.5</value>
+		</property>
+	</object>
 </objects>
