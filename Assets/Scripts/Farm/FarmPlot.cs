@@ -447,6 +447,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             _observers.Remove(observer as IFarmPlotObserver);
         }
     }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+
+    }
     #endregion
 
     #region Inform Observers
@@ -502,6 +507,10 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
+    }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
     }
     #endregion
 }

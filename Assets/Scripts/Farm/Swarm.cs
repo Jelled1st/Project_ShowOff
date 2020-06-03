@@ -29,6 +29,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     [SerializeField] private SFX soundEffectManager;
 
     private List<ISwarmObserver> _observers = new List<ISwarmObserver>();
+    private static List<IObserver> _staticObservers;
 
     public void Init(FarmPlot plot)
     {
@@ -44,6 +45,8 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         Subscribe(_farmPlot);
         initAngleList();
         _destination = _farmPlot.transform.position + new Vector3(0, 0.5f, 0);
+
+        NotifyStaticObservers(new SwarmSpawnEvent(this, this));
     }
 
     private void initAngleList()
@@ -224,6 +227,11 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         if (!_paused) _paused = true;
     }
 
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+
+    }
+
     #region ISubject
     public void Register(IObserver observer)
     {
@@ -233,11 +241,39 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         }
     }
 
+    public static void RegisterStatic(IObserver observer)
+    {
+        if (_staticObservers == null) _staticObservers = new List<IObserver>();
+        _staticObservers.Add(observer);
+    }
+
     public void UnRegister(IObserver observer)
     {
         if (observer is ISwarmObserver)
         {
             _observers.Remove(observer as ISwarmObserver);
+        }
+    }
+
+    public static void UnRegisterStatic(IObserver observer)
+    {
+        _staticObservers?.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
+    }
+
+    private static void NotifyStaticObservers(AObserverEvent observerEvent)
+    {
+        if (_staticObservers == null) return;
+        for (int i = 0; i < _staticObservers.Count; ++i)
+        {
+            _staticObservers[i].OnNotify(observerEvent);
         }
     }
     #endregion

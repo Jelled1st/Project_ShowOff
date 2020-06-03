@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum IngredientType
 {
+    Undefined,
     Pickle,
     Cheese,
     Lettuce,

@@ -340,6 +340,11 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         if (observer is IControlsObserver) _observers.Remove((IControlsObserver)observer);
     }
 
+    public void Notify(AObserverEvent observerEvent)
+    {
+
+    }
+
     public void OnClick(IControllable pressed, ControllerHitInfo hitInfo)
     {
         pressed.OnClick(hitInfo.point);
@@ -435,5 +440,9 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
+    }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
     }
 }

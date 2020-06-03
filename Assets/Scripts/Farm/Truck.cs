@@ -64,4 +64,8 @@ public class Truck : MonoBehaviour, IGameHandlerObserver
     {
         subject.Register(this);
     }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+    }
 }

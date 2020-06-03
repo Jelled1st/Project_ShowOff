@@ -79,5 +79,9 @@ public class FarmPlotAnimatedToolsHandler : MonoBehaviour, IFarmPlotObserver
     {
         subject.UnRegister(this);
     }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+    }
     #endregion
 }

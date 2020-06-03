@@ -249,6 +249,10 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         subject.UnRegister(this);
     }
 
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+    }
+
     #region IFarmPlotObserver
     public void OnPlotStartStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
@@ -300,6 +304,11 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         {
             _gameHandlerObservers.Remove(observer as IGameHandlerObserver);
         }
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+
     }
 
     #region ISwarmObserver

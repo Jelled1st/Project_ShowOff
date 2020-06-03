@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Grow
   guid: c4a817ca81cd94408bc97618b127ac87
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -252,7 +252,7 @@ MonoBehaviour:
   Path: event:/BKM/Farm Music
   guid: ef67f50d4ca32d48aaec2535ee173fdd
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Dig
   guid: 00a2da533470c84292c311676c72ee8f
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -316,7 +316,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Water
   guid: 96a3d5cbdf95554ebc2a8a37fb039f9b
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -339,7 +339,7 @@ MonoBehaviour:
   Path: event:/SFX_KITCHEN/Cutting Hard Vegs
   guid: 0c23ffd882c0c941bf28e1310a2d0d47
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -380,7 +380,7 @@ MonoBehaviour:
   Path: event:/SFX_KITCHEN/Meat Burning
   guid: 48469befaf71a043952ea34bd6ec040c
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -421,7 +421,7 @@ MonoBehaviour:
   Path: event:/BKM/Factory Music
   guid: 9baa8cdc7418c547abae0a7c307c824d
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -556,7 +556,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Conveyor Hum
   guid: dcc0e4272c9a854ca0e1ce4e98b9591e
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -597,7 +597,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Machine Fixing
   guid: e2bdf28b4b19f143a05cf226737ecbd7
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -642,7 +642,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Fry Chopping
   guid: a1991a665a8a0349879247f8f178fcf1
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -701,7 +701,7 @@ MonoBehaviour:
   Path: event:/SFX_KITCHEN/Fry Done
   guid: 24509f2b78380a41a30c104c0aa873bd
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -760,7 +760,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Machine Broken
   guid: 31fb7a46ebef5841a0705415b67641da
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -837,7 +837,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Speedup
   guid: 9ce37dbb576b3748a69616c9bb2838b0
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -976,7 +976,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Slowdown
   guid: 6d1fb399859acb4b97ca4521f2acdef8
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1035,7 +1035,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Pesticide
   guid: 325d7286a9702d4095cb7002a0de1e32
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1079,6 +1079,24 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &-7194605477966475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637267887313800528
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,7 +1111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 7246374577463575359}
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   EditorEvents:
   - {fileID: 4842912547013922698}
   - {fileID: -7301463348470895070}
@@ -1127,10 +1145,10 @@ MonoBehaviour:
   - {fileID: 8469760043199464310}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   StringsBanks:
   - {fileID: 7246374577463575359}
-  stringsBankWriteTime: 637267854020553074
+  stringsBankWriteTime: 637267887313820476
   cacheVersion: 3
 --- !u!114 &221036536916897391
 MonoBehaviour:
@@ -1187,7 +1205,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Potato Washing
   guid: 20a410cfaa63fa428523a2264a498658
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1210,7 +1228,7 @@ MonoBehaviour:
   Path: event:/SFX_KITCHEN/Cutting Squishy Vegs
   guid: b84b461c2f10404483c83bb06805bf0b
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1305,7 +1323,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Uproot
   guid: e8b377a96b9fef45bb4026ad7be7f7d5
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1348,7 +1366,7 @@ MonoBehaviour:
   lastModified: 637267854020533072
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &2419355681518732325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1426,7 +1444,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Machine Breaking
   guid: 87f3aa4b64aa2e4d8cdad90494eb71fd
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1525,7 +1543,7 @@ MonoBehaviour:
   Path: event:/SFX_KITCHEN/Meat Searing
   guid: 002b5ed44f60854ba898314b7604e844
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1548,7 +1566,7 @@ MonoBehaviour:
   Path: event:/SFX_FARM/Swarm
   guid: 4d0c533f2fb3c94b85601b705226101c
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1589,7 +1607,7 @@ MonoBehaviour:
   Path: event:/SFX_KITCHEN/Meal Boiling
   guid: 7f9ddfa12eb7784ba4c5229e73e5de31
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1630,7 +1648,7 @@ MonoBehaviour:
   Path: event:/SFX_TRUCK/Farm Truck Driving
   guid: b557982010243843beab3ae103d43b3b
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1747,7 +1765,7 @@ MonoBehaviour:
   Path: event:/SFX_KITCHEN/Meal Stirring
   guid: 6bf99bd5ba3c6745ad5bda7ade372ccf
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1864,7 +1882,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Potato Peeling
   guid: 480b1c0de1251e4fa2aa32f2b922665e
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1886,7 +1904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/Assets/Audio/voyeur_off/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637267854020553074
+  lastModified: 637267887313820476
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -1907,7 +1925,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Fry Packing
   guid: 29564af36725e946b4a77fb42e3aed37
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1948,7 +1966,7 @@ MonoBehaviour:
   Path: event:/SFX_FACTORY/Conveyor Rotate
   guid: 0aab2219dc174f42b3ddd2bd43d52857
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1989,7 +2007,7 @@ MonoBehaviour:
   Path: event:/SFX_KITCHEN/Fry Frying
   guid: 8cbacde9bae918449b4ac871a549a1f6
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2012,7 +2030,7 @@ MonoBehaviour:
   Path: event:/SFX_KITCHEN/Cutting Cheese
   guid: cc6481fc52c97f47b8467c4a700ccd76
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2035,7 +2053,7 @@ MonoBehaviour:
   Path: event:/SFX_TRUCK/Farm Truck Transit
   guid: d34a0ead9812bc47b47e001880bfd15b
   Banks:
-  - {fileID: 2243313049968436799}
+  - {fileID: -7194605477966475}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1

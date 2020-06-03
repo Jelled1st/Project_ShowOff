@@ -216,6 +216,10 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             //_observers.Remove(observer as IDishObserver);
         }
     }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+    }
     #endregion
 
     #region IDishObserver
@@ -254,6 +258,10 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
+    }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
     }
     #endregion
 }
