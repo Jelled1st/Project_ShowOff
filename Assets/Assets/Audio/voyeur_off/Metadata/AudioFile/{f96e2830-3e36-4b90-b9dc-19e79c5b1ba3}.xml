@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{f96e2830-3e36-4b90-b9dc-19e79c5b1ba3}">
+		<property name="assetPath">
+			<value>SFX/Factory/Machine Broken 2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>32</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.6905937499999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{cf4ed741-5b91-4e4f-a93b-39a04b6066c0}</destination>
+		</relationship>
+	</object>
+</objects>
