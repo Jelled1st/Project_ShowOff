@@ -31,6 +31,11 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     private bool _debugLog = false;
 
+    public void Awake()
+    {
+        this.gameObject.tag = "Dish"; 
+    }
+
     // Start is called before the first frame update
     void Start()
     {
