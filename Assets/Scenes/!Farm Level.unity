@@ -493,6 +493,11 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -688,6 +693,11 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -5751,6 +5761,11 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -6210,6 +6225,11 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -6656,6 +6676,11 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -8094,6 +8119,11 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -9699,6 +9729,11 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -10735,6 +10770,11 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -12608,6 +12648,11 @@ PrefabInstance:
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name

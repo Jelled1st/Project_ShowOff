@@ -16,6 +16,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         Planted,
         Growing,
         Decay,
+        Healing,
         Grown,
         Harvested,
     };
@@ -145,6 +146,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
+    #region Outside Actions (Dig/Plant/etc)
+
     public static bool Dig(FarmPlot plot)
     {
         return plot.Dig();
@@ -217,7 +220,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         {
             soundEffectManager.SoundPesticide();
 
-            CultivateAfterCooldown(State.Growing);
+            CultivateToState(State.Healing);
             return true;
         }
         else
@@ -226,6 +229,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             return false;
         }
     }
+    #endregion
 
     private bool ReadyForState(State state)
     {
@@ -240,7 +244,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                     if (_state == State.Grown) return true;
                     return false;
                 case State.Dug:
-                    if (_state == State.Rough || _state == State.Withered || _state == State.Harvested) return true;
+                    if (_state == State.Rough || _state == State.Withered || _state == State.Harvested || _state == State.Undifined) return true;
                     else return false;
                 case State.Planted:
                     if (_state == State.Dug) return true;
@@ -250,6 +254,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                     else return false;
                 case State.Decay:
                     if (_state == State.Growing) return true;
+                    else return false;
+                case State.Healing:
+                    if (_state == State.Decay) return true;
                     else return false;
                 case State.Grown:
                     if (_state == State.Growing && _growTime >= _timeTillGrown) return true;
@@ -319,6 +326,12 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                 _dirtMound.SetActive(true);
                 SetPlants(_plantDecayingMeshes);
                 _neglectCooldown = true;
+                break;
+            case State.Healing:
+                if (_debugLog) Debug.Log("Healing!");
+                _dirtMound.SetActive(true);
+                SetPlants(_plantDecayingMeshes);
+                CultivateAfterCooldown(State.Growing);
                 break;
             case State.Grown:
                 if (_debugLog) Debug.Log("Grown!");
