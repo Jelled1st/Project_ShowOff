@@ -12,6 +12,8 @@ public class BKM : MonoBehaviour
     [FMODUnity.EventRef, SerializeField] private string farmTruckTransit = "event:/SFX_TRUCK/Farm Truck Transit";
     
     [FMODUnity.EventRef, SerializeField] private string musicFactory = "event:/BKM/Factory Music";
+    [FMODUnity.EventRef, SerializeField] private string factoryHum = "event:/SFX_FACTORY/Conveyor Hum";
+    
     private FMOD.Studio.EventInstance _instanceSong;
     private FMOD.Studio.EventInstance _instanceTransitionFx;
 
@@ -19,10 +21,15 @@ public class BKM : MonoBehaviour
     private void Start()
     {
         if (debugLevelTest == 0)
+        {
             FarmMusic();
-        
+        }
+
         if (debugLevelTest == 1)
+        {
             FactoryMusic();
+            ConveyorHum();
+        }
     }
 
     
@@ -42,6 +49,8 @@ public class BKM : MonoBehaviour
         */
     }
 
+    #region Farm
+
     private void FarmMusic() 
     { 
         _instanceSong = FMODUnity.RuntimeManager.CreateInstance(musicFarm);
@@ -54,6 +63,26 @@ public class BKM : MonoBehaviour
         StartCoroutine(WaitForEnd(6.0f));
     }
 
+    #endregion
+
+    #region Factory
+
+    private void FactoryMusic()
+    {
+        _instanceSong = FMODUnity.RuntimeManager.CreateInstance(musicFactory);
+        _instanceSong.start();
+    }
+
+    private void ConveyorHum()
+    {
+        _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(factoryHum);
+        _instanceTransitionFx.start();
+    }
+
+    #endregion
+
+    #region Transit
+
     public void TruckTransition()
     {
         _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(farmTruckTransit);
@@ -61,11 +90,8 @@ public class BKM : MonoBehaviour
         _instanceTransitionFx.release();
     }
 
-    private void FactoryMusic()
-    {
-        _instanceSong = FMODUnity.RuntimeManager.CreateInstance(musicFactory);
-        _instanceSong.start();
-    }
+    #endregion
+
     private IEnumerator WaitForEnd(float length)
     {
         yield return new WaitForSeconds(length);

@@ -5,7 +5,7 @@
 			<value>Meat Burning</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{9706dc86-d84e-40cd-baa0-b55760da03c2}</destination>
@@ -63,11 +63,18 @@
 	</object>
 	<object class="MarkerTrack" id="{1ae81ad6-3a4f-42d7-91b5-9c25eee5fe39}" />
 	<object class="GroupTrack" id="{573227e9-ebd7-43a8-8fc0-0ac2dc8f4aae}">
+		<relationship name="modules">
+			<destination>{99e4b8fe-49c7-43f3-afd5-1f1cb34a3e32}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{4a9d18e9-389c-4517-b3fa-dac83420e542}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{5f2b7479-32bd-46d2-a4ac-6f6472a36d74}" />
+	<object class="Timeline" id="{5f2b7479-32bd-46d2-a4ac-6f6472a36d74}">
+		<relationship name="modules">
+			<destination>{99e4b8fe-49c7-43f3-afd5-1f1cb34a3e32}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{a7e2242c-0b96-4446-85cb-625bf9264356}">
 		<relationship name="effectChain">
 			<destination>{3df9f3d7-a851-4157-a0aa-26a166c0f93a}</destination>
@@ -85,6 +92,14 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{a5bb2451-84b9-415c-8e42-131ec3ca07d3}" />
+	<object class="SingleSound" id="{99e4b8fe-49c7-43f3-afd5-1f1cb34a3e32}">
+		<property name="length">
+			<value>2.4908390022675735</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{64db67a3-a4da-4d63-842a-69470f16f104}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{4a9d18e9-389c-4517-b3fa-dac83420e542}">
 		<property name="name">
 			<value>Audio 1</value>
