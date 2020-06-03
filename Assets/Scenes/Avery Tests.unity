@@ -7531,7 +7531,7 @@ MonoBehaviour:
   _spawnOffset:
   - {x: 0, y: 0.1, z: -0.8}
   - {x: 0, y: 0.4, z: 1}
-  - {x: 0, y: 0.4, z: 0}
+  - {x: -1.5, y: 0.8, z: 0}
 --- !u!1001 &209672167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24997,8 +24997,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _functionality: 3
-  _cooldown: 3
-  _farmPlotCooldown: 3
+  _cooldown: 2.5
+  _farmPlotCooldown: 2.5
   _cooldownBar: {fileID: 606247307}
 --- !u!114 &1582138753
 MonoBehaviour:
