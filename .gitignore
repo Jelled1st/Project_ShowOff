@@ -64,3 +64,15 @@ Demigiant/
 ### Rider ###
 .idea/
 Assets/Demigiant.meta
+
+# FMOD
+/Assets/FMODStudioCache.asset
+/Assets/FMODStudioCache.asset.meta
+fmod.log
+fmod_editor.log
+
+# FMOD studio (In folder FMOD)
+/FMOD/**.user
+/FMOD/**.unsaved
+/FMOD/**.cache
+/FMOD/**.restore
