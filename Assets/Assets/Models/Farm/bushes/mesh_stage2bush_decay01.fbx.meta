@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 239b4a94a8bc4354fae550e47d3b9939
+guid: 7d89c821e21277549a353606429bd34f
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,22 +7,32 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_decaybushstem
+      name: mat_bushstem.002
     second: {fileID: 2100000, guid: cbf273e523bb93b428bf594b6615fc15, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_decayleafs_var01
+      name: mat_flowerpetals.001
+    second: {fileID: 2100000, guid: d26a84bb958541d499c9daf8a063ff49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_flowerstem.001
+    second: {fileID: 2100000, guid: 11519af5e3838cc49bc63e6de1a45863, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_leafs_var01.002
     second: {fileID: 2100000, guid: f4a6494cdf640f9479e89492bcefcdb4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_decayleafs_var02
+      name: mat_leafs_var02.002
     second: {fileID: 2100000, guid: 59b45bd6788e23547a43fa584470379f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_decayleafs_var03
+      name: mat_leafs_var03.002
     second: {fileID: 2100000, guid: fade3676b1265994d9bdc243fda3dc10, type: 2}
   materials:
     materialImportMode: 1
