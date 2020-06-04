@@ -14,6 +14,10 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         SpeedDown
     }
 
+    // [ShowIf(nameof(_canRotate))]
+    // [SerializeField]
+    public const float RotateInterval = 0.35f;
+
     public static event Action ConveyorTurned = delegate { };
     public static event Action<SpecialBeltType, bool> SpecialConveyorHeld = delegate { };
 
@@ -29,6 +33,10 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     [SerializeField]
     private bool _isSpecialConveyor;
+
+    [HideIf(nameof(_isSpecialConveyor))]
+    [SerializeField]
+    private bool _canRotate = true;
 
     [ShowIf(nameof(_isSpecialConveyor))]
     [SerializeField]
@@ -47,12 +55,11 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     [SerializeField]
     private SpecialBeltType _specialBeltType = SpecialBeltType.SpeedDown;
 
-
     private static readonly int ScrollingSpeedShader = Shader.PropertyToID("_scrollingSpeed");
 
     private readonly List<Material> _scrollingMaterials = new List<Material>();
     protected Rigidbody _rBody;
-    private Tween _rotateTween;
+    protected Tween _rotateTween;
     private float _previousSpeed;
     private float _nonSerializedSpeed;
 
@@ -139,24 +146,29 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         _rBody.MovePosition(pos);
     }
 
-    public virtual void Turn()
+    private void TurnInternal()
     {
         if (_rotateTween == null || !_rotateTween.IsPlaying())
         {
             ConveyorTurned();
 
-            _rotateTween = this.gameObject.transform.DORotate(
-                this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0),
-                0.2f);
-            _rotateTween.onComplete += delegate { _rotateTween = null; };
+            Turn();
         }
+    }
+
+    public virtual void Turn()
+    {
+        _rotateTween = this.gameObject.transform.DORotate(
+            this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0),
+            RotateInterval);
+        _rotateTween.onComplete += delegate { _rotateTween = null; };
     }
 
     private bool _isChangingBeltSpeed = false;
 
     private void ChangeSpecialBeltSpeed()
     {
-        if (!_isChangingBeltSpeed)
+        if (!_isChangingBeltSpeed && Speed != _heldSpeed)
         {
             SpecialConveyorHeld(_specialBeltType, true);
 
@@ -211,8 +223,8 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public virtual void OnPress(Vector3 hitPoint)
     {
-        if (!_isSpecialConveyor)
-            Turn();
+        if (!_isSpecialConveyor || (_canRotate && _isSpecialConveyor))
+            TurnInternal();
     }
 
     public virtual void OnHold(float holdTime, Vector3 hitPoint)

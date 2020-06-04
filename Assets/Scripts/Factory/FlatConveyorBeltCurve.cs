@@ -7,8 +7,6 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
 {
     //magic number so that the speed of the moving package matches the speed of the moving texture - eye candy
     private float _eyeCandySpeedMultiplier = 0.7f;
-    private Tween _rotateTween;
-
 
     // Update is called once per frame
     protected override void FixedUpdate()
@@ -24,11 +22,10 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
 
     public override void Turn()
     {
-        if (_rotateTween == null || !_rotateTween.IsPlaying())
-        {
-            _rotateTween =
+        _rotateTween = DOTween.Sequence().Append(
                 this.gameObject.transform.parent.DORotate(
-                    this.gameObject.transform.parent.rotation.eulerAngles + new Vector3(0, 90, 0), 0.2f);
-        }
+                    this.gameObject.transform.parent.rotation.eulerAngles + new Vector3(0, 90, 0), RotateInterval))
+            .AppendCallback(
+                () => { _rotateTween = null; });
     }
 }
