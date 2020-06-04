@@ -196,6 +196,10 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
             _flee = true;
             OnFlee();
         }
+        if(state == FarmPlot.State.Healing)
+        {
+
+        }
     }
 
     public void OnPlotHarvest(FarmPlot plot)
