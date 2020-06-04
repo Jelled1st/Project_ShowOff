@@ -25,7 +25,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     bool _ignoreSpawnTimer = true;
     Vector3 _destination;
     private static bool _paused;
-    
+
     [SerializeField] private SFX soundEffectManager;
 
     private List<IObserver> _observers = new List<IObserver>();
@@ -127,7 +127,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     private void OnSpawnUnit(SwarmUnit unit)
     {
-        soundEffectManager.SoundSwarm();
+        //soundEffectManager.SoundSwarm();
         _timeSinceLastSpawn = 0.0f;
         _ignoreSpawnTimer = false;
 
@@ -152,7 +152,6 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     {
         for(int i = 0; i < _observers.Count; ++i)
         {
-            soundEffectManager.SoundSwarmStop();
             if (_observers[i] is ISwarmObserver) (_observers[i] as ISwarmObserver).OnFlee();
         }
     }
@@ -178,9 +177,9 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     private void RemoveUnit(SwarmUnit unit)
     {
         _swarmUnits.Remove(unit.gameObject);
-        
-        soundEffectManager.SoundSwarmStop();
-        
+
+        //soundEffectManager.SoundSwarmStop();
+
         Destroy(unit.gameObject);
         if (_swarmUnits.Count == 0 && !_continueSpawning) Destroy(this.gameObject);
     }

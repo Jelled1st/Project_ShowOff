@@ -23,6 +23,10 @@ namespace Factory
 
         public static event Action<MachineType> ItemEnteredMachine = delegate { };
         public static event Action<MachineType> ItemLeftMachine = delegate { };
+        public static event Action MachineStartedRepairing = delegate { };
+        public static event Action MachineBreaking = delegate { };
+        public static event Action MachineBroke = delegate { };
+
 
         [BoxGroup("Machine settings")]
         [SerializeField]
@@ -65,6 +69,10 @@ namespace Factory
         private GameObject _repairVisuals;
 
         [BoxGroup("Clogging settings")]
+        [SerializeField]
+        private GameObject _breakVisuals;
+
+        [BoxGroup("Clogging settings")]
         [Range(0f, 1f)]
         [SerializeField]
         private float _slowPerStage = 1f / _stagesToBreak;
@@ -77,12 +85,44 @@ namespace Factory
         private const int _stagesToBreak = 3;
 
         private int _currentClogStage;
+
+        private int CurrentClogStage
+        {
+            get => _currentClogStage;
+            set
+            {
+                if (value == _stagesToBreak)
+                {
+                    Scores.AddScore(Scores.MachineCompleteBreakage);
+                    MachineBroke();
+                }
+
+                // If WAS broken, then release items
+                if (value == _stagesToBreak - 1)
+                {
+                    ReleaseBufferedItems();
+                }
+
+                if (value > 1)
+                {
+                    _breakVisuals?.SetActive(true);
+                }
+
+                if (value == 1)
+                {
+                    _breakVisuals.SetActive(false);
+                }
+
+                _currentClogStage = value;
+            }
+        }
+
         private bool _isRepairing;
         private Queue<GameObject> _itemBuffer = new Queue<GameObject>();
 
         private float Delay { get; set; }
 
-        private bool IsClogged => _currentClogStage == _stagesToBreak;
+        private bool IsClogged => CurrentClogStage == _stagesToBreak;
 
         // If we later need it - it's the filtration by tag
         // [SerializeField] private string _allowedInputTag;
@@ -97,7 +137,7 @@ namespace Factory
         {
             // Initial reset
             Delay = _delay;
-            _currentClogStage = 0;
+            CurrentClogStage = 0;
             _isRepairing = false;
 
             // Set input trigger callback
@@ -116,6 +156,9 @@ namespace Factory
             _repairVisuals = _repairVisuals.NullIfEqualsNull();
             _repairVisuals?.SetActive(false);
 
+            _breakVisuals = _breakVisuals.NullIfEqualsNull();
+            _breakVisuals?.SetActive(false);
+
             WaitAndClog();
         }
 
@@ -124,48 +167,39 @@ namespace Factory
             if (_isRepairing || IsClogged)
                 return;
 
-            _currentClogStage++;
-
-            if (IsClogged)
-            {
-                Scores.AddScore(Scores.MachineCompleteBreakage);
-            }
+            CurrentClogStage++;
 
             // Increase delay by slowPerStage %
             Delay *= 1 + _slowPerStage;
 
             _clogVisual.Play(true);
+            MachineBreaking();
 
-            // Debug.Log($"Clog [{_currentClogStage}] {gameObject.name}");
+            // Debug.Log($"Clog [{CurrentClogStage}] {gameObject.name}");
 
             WaitAndClog();
         }
 
         private void Repair()
         {
-            if (_currentClogStage <= 0 || _isRepairing)
+            if (CurrentClogStage <= 0 || _isRepairing)
                 return;
 
             _repairVisuals?.SetActive(true);
             _isRepairing = true;
+            MachineStartedRepairing();
 
             // Debug.Log($"Started repairing {gameObject.name}");
-            DOTween.Sequence().AppendInterval(_baseFixTime * _currentClogStage)
+            DOTween.Sequence().AppendInterval(_baseFixTime * CurrentClogStage)
                 .AppendCallback(() =>
                 {
                     // Debug.Log($"Finished repairing {gameObject.name}");
-                    _currentClogStage--;
+                    CurrentClogStage--;
                     _repairVisuals?.SetActive(false);
                     _isRepairing = false;
 
                     // Decrease delay by slowPerStage %
                     Delay /= 1 + _slowPerStage;
-
-                    // If WAS broken, then release items
-                    if (_currentClogStage == _stagesToBreak - 1)
-                    {
-                        ReleaseBufferedItems();
-                    }
 
                     WaitAndClog();
                 });
