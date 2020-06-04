@@ -56,12 +56,6 @@ public class BKM : MonoBehaviour
         _instanceSong = FMODUnity.RuntimeManager.CreateInstance(musicFarm);
         _instanceSong.start();
     }
-    public void TruckDriving()
-    {
-        _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(farmTruckDrive);
-        _instanceTransitionFx.start();
-        StartCoroutine(WaitForEnd(6.0f));
-    }
 
     #endregion
 
@@ -83,6 +77,13 @@ public class BKM : MonoBehaviour
 
     #region Transit
 
+    public void TruckDriving()
+    {
+        _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(farmTruckDrive);
+        _instanceTransitionFx.start();
+        StartCoroutine(WaitForEnd(6.0f));
+    }
+    
     public void TruckTransition()
     {
         _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(farmTruckTransit);
