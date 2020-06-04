@@ -1,7 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Factory
 {
@@ -9,6 +13,21 @@ namespace Factory
     [SelectionBase]
     public abstract class Machine : MonoBehaviour, IControllable
     {
+        public enum MachineType
+        {
+            PotatoWasher,
+            PotatoPeeler,
+            FryPacker,
+            FryCutter
+        }
+
+        public static event Action<MachineType> ItemEnteredMachine = delegate { };
+        public static event Action<MachineType> ItemLeftMachine = delegate { };
+
+        [BoxGroup("Machine settings")]
+        [SerializeField]
+        private MachineType _machineType;
+
         [BoxGroup("Processing settings")]
         [SerializeField]
         [Required]
@@ -23,9 +42,10 @@ namespace Factory
         [SerializeField]
         private float _outputPushForce;
 
+        [FormerlySerializedAs("_particleSystem")]
         [BoxGroup("Processing settings")]
         [SerializeField]
-        private ParticleSystem _particleSystem;
+        private ParticleSystem _processParticles;
 
         [BoxGroup("Processing settings")]
         [Tooltip("Time before output spits")]
@@ -58,6 +78,7 @@ namespace Factory
 
         private int _currentClogStage;
         private bool _isRepairing;
+        private Queue<GameObject> _itemBuffer = new Queue<GameObject>();
 
         private float Delay { get; set; }
 
@@ -69,8 +90,8 @@ namespace Factory
         // protected string AllowedInputTag => _allowedInputTag;
         // protected string OutputTag => _outputTag;
 
-        protected abstract GameObject PreDelayProcess(GameObject o);
-        protected abstract GameObject PostDelayProcess(GameObject o);
+        protected abstract GameObject PreDelayProcess(GameObject inputGameObject);
+        protected abstract GameObject PostDelayProcess(GameObject outputGameObject);
 
         private void Start()
         {
@@ -89,8 +110,8 @@ namespace Factory
             collisionCallback = _inputFunnelTrigger.gameObject.AddComponent<CollisionCallback>();
             collisionCallback.onTriggerEnter += OnTriggerEnterCallback;
 
-            _particleSystem = _particleSystem.NullIfEqualsNull();
-            _particleSystem?.Stop();
+            _processParticles = _processParticles.NullIfEqualsNull();
+            _processParticles?.Stop();
 
             _repairVisuals = _repairVisuals.NullIfEqualsNull();
             _repairVisuals?.SetActive(false);
@@ -140,8 +161,23 @@ namespace Factory
                     // Decrease delay by slowPerStage %
                     Delay /= 1 + _slowPerStage;
 
+                    // If WAS broken, then release items
+                    if (_currentClogStage == _stagesToBreak - 1)
+                    {
+                        ReleaseBufferedItems();
+                    }
+
                     WaitAndClog();
                 });
+        }
+
+        private void ReleaseBufferedItems()
+        {
+            if (_itemBuffer.Count > 0)
+            {
+                DOTween.Sequence().AppendCallback(() => { PostDelayProcessInternal(_itemBuffer.Dequeue()); })
+                    .AppendInterval(_delay).SetLoops(_itemBuffer.Count);
+            }
         }
 
         private void WaitAndClog()
@@ -152,11 +188,11 @@ namespace Factory
 
         private void OnTriggerEnterCallback(Collider other)
         {
-            StartCoroutine(WaitAndExecute(other.gameObject, Delay));
+            StartCoroutine(Process(other.gameObject, Delay));
         }
 
 
-        private IEnumerator WaitAndExecute(GameObject otherGameObject, float delay)
+        private IEnumerator Process(GameObject otherGameObject, float delay)
         {
             if (IsClogged)
                 yield break;
@@ -165,18 +201,34 @@ namespace Factory
             if (check)
                 yield break;
 
-            var processedObject = PreDelayProcess(otherGameObject);
+            var processedObject = PreDelayProcessInternal(otherGameObject);
 
-            _particleSystem?.Play();
+            _processParticles?.Play();
             yield return new WaitForSeconds(delay);
-            _particleSystem?.Stop();
+            _processParticles?.Stop();
 
+            PostDelayProcessInternal(processedObject);
+        }
+
+        private GameObject PreDelayProcessInternal(GameObject inputGameObject)
+        {
+            ItemEnteredMachine(_machineType);
+            return PreDelayProcess(inputGameObject);
+        }
+
+        private void PostDelayProcessInternal(GameObject processedObject)
+        {
+            ItemLeftMachine(_machineType);
             // Reset and spit the rigidbody
-            var spitItem = PostDelayProcess(processedObject)?.GetComponent<Rigidbody>();
-            spitItem.velocity = Vector3.zero;
-            spitItem.angularVelocity = Vector3.zero;
-            spitItem.transform.position = _output.position;
-            spitItem.AddForce(_outputPushForce * _output.right);
+            var processedItem = PostDelayProcess(processedObject);
+
+            if (processedItem.TryGetComponent(out Rigidbody spitItem))
+            {
+                spitItem.velocity = Vector3.zero;
+                spitItem.angularVelocity = Vector3.zero;
+                spitItem.transform.position = _output.position;
+                spitItem.AddForce(_outputPushForce * _output.right);
+            }
         }
 
 
