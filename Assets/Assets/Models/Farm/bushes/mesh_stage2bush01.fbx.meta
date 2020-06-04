@@ -7,32 +7,22 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_bushstem.001
+      name: mat_bushstem
     second: {fileID: 2100000, guid: 33cef757d72f69849b1bcdd5a832bacc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_flowerpetals
-    second: {fileID: 2100000, guid: 8fc5a56d534ca96408a6f3348817ff62, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat_flowerstem
-    second: {fileID: 2100000, guid: 11519af5e3838cc49bc63e6de1a45863, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat_leafs_var01.001
+      name: mat_leafs_var01
     second: {fileID: 2100000, guid: 3c69d86721d6daa4898f04c057fd21f7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_leafs_var02.001
+      name: mat_leafs_var02
     second: {fileID: 2100000, guid: 008ac4d7141367a498449943c610b8d3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_leafs_var03.001
+      name: mat_leafs_var03
     second: {fileID: 2100000, guid: 7a01d2d3a808d40449d180f45ea5f103, type: 2}
   materials:
     materialImportMode: 1
@@ -110,7 +100,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.015
+    globalScale: 1.5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
