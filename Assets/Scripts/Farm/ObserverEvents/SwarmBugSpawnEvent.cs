@@ -5,8 +5,10 @@ using UnityEngine;
 public class SwarmBugSpawnEvent : AObserverEvent
 {
     public readonly SwarmUnit bug;
-    public SwarmBugSpawnEvent(ISubject invoker, SwarmUnit bug) : base(invoker)
+    public readonly Swarm swarm;
+    public SwarmBugSpawnEvent(Swarm swarm, SwarmUnit bug) : base(swarm)
     {
+        this.swarm = swarm;
         this.bug = bug;
     }
 }

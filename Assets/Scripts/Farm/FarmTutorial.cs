@@ -42,6 +42,10 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver
     #region IFarmPlotObserver
     public void OnNotify(AObserverEvent observerEvent)
     {
+        if(observerEvent is SwarmSpawnEvent)
+        {
+            Subscribe((observerEvent as SwarmSpawnEvent).swarm);
+        }
         if(observerEvent is SwarmBugSpawnEvent)
         {
             if(_firstBug)
