@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using DG.Tweening;
@@ -7,6 +8,15 @@ using NaughtyAttributes;
 [SelectionBase]
 public class FlatConveyorBelt : MonoBehaviour, IControllable
 {
+    public enum SpecialBeltType
+    {
+        SpeedUp,
+        SpeedDown
+    }
+
+    public event Action ConveyorTurned = delegate { };
+    public event Action<SpecialBeltType, bool> SpecialConveyorHeld = delegate { };
+
     [Header("Conveyor settings")]
     [SerializeField]
     private float _speed = 1;
@@ -32,6 +42,11 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     [ShowIf(nameof(_isSpecialConveyor))]
     [SerializeField]
     private float _heldSpeed = 2f;
+
+    [ShowIf(nameof(_isSpecialConveyor))]
+    [SerializeField]
+    private SpecialBeltType _specialBeltType = SpecialBeltType.SpeedDown;
+
 
     private static readonly int ScrollingSpeedShader = Shader.PropertyToID("_scrollingSpeed");
 
@@ -128,6 +143,8 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     {
         if (_rotateTween == null || !_rotateTween.IsPlaying())
         {
+            ConveyorTurned();
+
             _rotateTween = this.gameObject.transform.DORotate(
                 this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0),
                 0.2f);
@@ -139,8 +156,10 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     private void ChangeSpecialBeltSpeed()
     {
-        if (Speed != _heldSpeed && !_isChangingBeltSpeed)
+        if (!_isChangingBeltSpeed)
         {
+            SpecialConveyorHeld(_specialBeltType, true);
+
             _isChangingBeltSpeed = true;
             DOTween.Sequence().Append(DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime))
                 .AppendCallback(() =>
@@ -149,6 +168,14 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
                     _isChangingBeltSpeed = false;
                 });
         }
+    }
+
+    private void ResetSpecialBeltSpeed()
+    {
+        SpecialConveyorHeld(_specialBeltType, false);
+
+        DOTween.Sequence().Append(DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime))
+            .AppendCallback(SetConveyorSpeed);
     }
 
     protected virtual void OnCollisionStay(Collision other)
@@ -177,12 +204,6 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
                                          0.5f);
     }
 
-
-    private void ResetSpecialBeltSpeed()
-    {
-        DOTween.Sequence().Append(DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime))
-            .AppendCallback(SetConveyorSpeed);
-    }
 
     public virtual void OnClick(Vector3 hitPoint)
     {
