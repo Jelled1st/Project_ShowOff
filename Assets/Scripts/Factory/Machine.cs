@@ -82,8 +82,8 @@ namespace Factory
             // Set input trigger callback
             if (!TryGetComponent(out CollisionCallback collisionCallback))
             {
-                Debug.LogWarning(
-                    $"[{gameObject.name}] lacks {nameof(CollisionCallback)} script! Edit the prefab! Trying to add it...");
+                // Debug.LogWarning(
+                //     $"[{gameObject.name}] lacks {nameof(CollisionCallback)} script! Edit the prefab! Trying to add it...");
             }
 
             collisionCallback = _inputFunnelTrigger.gameObject.AddComponent<CollisionCallback>();

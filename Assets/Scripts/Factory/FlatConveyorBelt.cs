@@ -168,7 +168,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         Debug.DrawLine(a, b);
         Debug.DrawLine(b, c);
         Debug.DrawLine(a, c);
-        var triangleHeightPoint = GeometryUtils.TriangleHeightPoint(a, b, c);
+        var triangleHeightPoint = GeometryUtils.TriangleHeightPoint(ref a, ref b, ref c);
         Debug.DrawLine(objectPosition, triangleHeightPoint);
 
         if ((triangleHeightPoint - other.transform.position).sqrMagnitude > 0.1f)
