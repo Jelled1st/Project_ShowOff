@@ -34,7 +34,6 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     [SerializeField]
     private bool _isSpecialConveyor;
 
-    [HideIf(nameof(_isSpecialConveyor))]
     [SerializeField]
     private bool _canRotate = true;
 
@@ -223,7 +222,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public virtual void OnPress(Vector3 hitPoint)
     {
-        if (!_isSpecialConveyor || (_canRotate && _isSpecialConveyor))
+        if (_canRotate)
             TurnInternal();
     }
 
