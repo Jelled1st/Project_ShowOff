@@ -551,12 +551,17 @@ PrefabInstance:
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
@@ -574,11 +579,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -932,6 +941,11 @@ PrefabInstance:
       propertyPath: _heldSpeed
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1144,6 +1158,11 @@ PrefabInstance:
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _specialBeltType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
@@ -1647,6 +1666,11 @@ PrefabInstance:
       propertyPath: _specialBeltType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1736,12 +1760,17 @@ PrefabInstance:
     - target: {fileID: 6720719522924256926, guid: 1eaca35fa2c9efa4d92d253956d060b6,
         type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6720719522924256926, guid: 1eaca35fa2c9efa4d92d253956d060b6,
         type: 3}
       propertyPath: _heldSpeed
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720719522924256926, guid: 1eaca35fa2c9efa4d92d253956d060b6,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1eaca35fa2c9efa4d92d253956d060b6, type: 3}
@@ -6602,12 +6631,17 @@ PrefabInstance:
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
@@ -6640,6 +6674,14 @@ PrefabInstance:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _specialBeltType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -6743,11 +6785,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -7085,6 +7131,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _specialBeltType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
@@ -7438,6 +7488,14 @@ PrefabInstance:
       propertyPath: _heldSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _specialBeltType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7620,12 +7678,17 @@ PrefabInstance:
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _heldSpeed
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
@@ -8066,11 +8129,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -8498,12 +8565,17 @@ PrefabInstance:
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _heldSpeed
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
@@ -8526,11 +8598,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -8844,6 +8920,11 @@ PrefabInstance:
       propertyPath: _heldSpeed
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -9064,12 +9145,17 @@ PrefabInstance:
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
@@ -9342,6 +9428,10 @@ PrefabInstance:
       propertyPath: _specialBeltType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9438,11 +9528,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -9943,11 +10037,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -10162,11 +10260,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -10346,11 +10448,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -10837,11 +10943,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -11433,11 +11543,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -11554,11 +11668,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -11761,12 +11879,17 @@ PrefabInstance:
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
@@ -12138,11 +12261,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -12473,6 +12600,11 @@ PrefabInstance:
       propertyPath: _heldSpeed
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -12584,11 +12716,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -12681,11 +12817,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -12980,11 +13120,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -13077,11 +13221,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -14661,11 +14809,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -15163,6 +15315,11 @@ PrefabInstance:
       propertyPath: _heldSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -15347,6 +15504,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
@@ -15820,6 +15982,11 @@ PrefabInstance:
       propertyPath: _heldSpeed
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -15836,11 +16003,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -16165,11 +16336,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -16385,6 +16560,10 @@ PrefabInstance:
       propertyPath: _specialBeltType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16589,6 +16768,16 @@ PrefabInstance:
       propertyPath: _heldSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _specialBeltType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -16734,12 +16923,17 @@ PrefabInstance:
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _heldSpeed
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
@@ -16775,6 +16969,10 @@ PrefabInstance:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _specialBeltType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -17819,6 +18017,11 @@ PrefabInstance:
       propertyPath: _specialBeltType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -17835,11 +18038,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
@@ -18026,6 +18233,11 @@ PrefabInstance:
       propertyPath: _specialBeltType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -18144,6 +18356,11 @@ PrefabInstance:
     - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
         type: 3}
       propertyPath: _specialBeltType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425456584887366533, guid: c6bc17b4493e57341a7176c98275646e,
+        type: 3}
+      propertyPath: _canRotate
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8425456584887366534, guid: c6bc17b4493e57341a7176c98275646e,
@@ -18336,11 +18553,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
+      propertyPath: _canRotate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 922788479171679139, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
