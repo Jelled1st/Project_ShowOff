@@ -101,7 +101,6 @@ namespace Factory
                 if (value == _stagesToBreak - 1)
                 {
                     ReleaseBufferedItems();
-                    MachineBreaking();
                 }
 
                 if (value > 1)
@@ -174,6 +173,7 @@ namespace Factory
             Delay *= 1 + _slowPerStage;
 
             _clogVisual.Play(true);
+            MachineBreaking();
 
             // Debug.Log($"Clog [{CurrentClogStage}] {gameObject.name}");
 
