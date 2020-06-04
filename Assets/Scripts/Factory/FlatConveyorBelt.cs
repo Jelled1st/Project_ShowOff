@@ -14,8 +14,8 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         SpeedDown
     }
 
-    public event Action ConveyorTurned = delegate { };
-    public event Action<SpecialBeltType, bool> SpecialConveyorHeld = delegate { };
+    public static event Action ConveyorTurned = delegate { };
+    public static event Action<SpecialBeltType, bool> SpecialConveyorHeld = delegate { };
 
     [Header("Conveyor settings")]
     [SerializeField]
