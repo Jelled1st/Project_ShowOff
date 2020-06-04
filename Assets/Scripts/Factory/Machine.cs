@@ -23,9 +23,9 @@ namespace Factory
 
         public static event Action<MachineType> ItemEnteredMachine = delegate { };
         public static event Action<MachineType> ItemLeftMachine = delegate { };
-        public static event Action<MachineType> MachineStartedRepairing = delegate { };
-        public static event Action<MachineType> MachineBreaking = delegate { };
-        public static event Action<MachineType> MachineBroke = delegate { };
+        public static event Action MachineStartedRepairing = delegate { };
+        public static event Action MachineBreaking = delegate { };
+        public static event Action MachineBroke = delegate { };
 
 
         [BoxGroup("Machine settings")]
@@ -94,14 +94,14 @@ namespace Factory
                 if (value == _stagesToBreak)
                 {
                     Scores.AddScore(Scores.MachineCompleteBreakage);
-                    MachineBroke(_machineType);
+                    MachineBroke();
                 }
 
                 // If WAS broken, then release items
                 if (value == _stagesToBreak - 1)
                 {
                     ReleaseBufferedItems();
-                    MachineBreaking(_machineType);
+                    MachineBreaking();
                 }
 
                 if (value > 1)
@@ -187,7 +187,7 @@ namespace Factory
 
             _repairVisuals?.SetActive(true);
             _isRepairing = true;
-            MachineStartedRepairing(_machineType);
+            MachineStartedRepairing();
 
             // Debug.Log($"Started repairing {gameObject.name}");
             DOTween.Sequence().AppendInterval(_baseFixTime * CurrentClogStage)
