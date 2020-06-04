@@ -132,43 +132,7 @@ public class SFX : MonoBehaviour
         clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
-
-    // Sound for slowing down a conveyor belt
-    public void SoundSlowdown()
-    {
-        Play("SFX_FACTORY/Slowdown");
-
-        clipLength = 0.1f;
-        StartCoroutine(WaitForEnd(clipLength));
-    }
-
-    // Sound Speeding up a conveyor belt
-    public void SoundSpeedup()
-    {
-        Play("SFX_FACTORY/Speedup");
-
-        clipLength = 0.1f;
-        StartCoroutine(WaitForEnd(clipLength));
-    }
-
-    // Sound when a potato gets washed in the machine
-    public void SoundWashing()
-    {
-        Play("SFX_FACTORY/Potato Washing");
-
-        clipLength = 0.1f;
-        StartCoroutine(WaitForEnd(clipLength));
-    }
-
-    // Sound when peeling a potato in the machine
-    public void SoundPeeling()
-    {
-        Play("SFX_FACTORY/Potato Peeling");
-
-        clipLength = 0.1f;
-        StartCoroutine(WaitForEnd(clipLength));
-    }
-
+    
     // Sound when chopping potatoes into fries in the machine
     public void SoundChopping()
     {
@@ -177,7 +141,7 @@ public class SFX : MonoBehaviour
         clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
-
+    
     // Sound when packing the potatoes in the machine
     public void SoundPacking()
     {
@@ -186,7 +150,7 @@ public class SFX : MonoBehaviour
         clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
-
+    
     // Sound when machine starts breaking down
     public void SoundBreaking()
     {
@@ -205,9 +169,46 @@ public class SFX : MonoBehaviour
         StartCoroutine(WaitForEnd(clipLength));
     }
     
+    // Sound when repairing a machine
     public void SoundRepair()
     {
         Play("SFX_FACTORY/Machine Fixing");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+    
+    // Sound when peeling a potato in the machine
+    public void SoundPeeling()
+    {
+        Play("SFX_FACTORY/Potato Peeling");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    // Sound when a potato gets washed in the machine
+    public void SoundWashing()
+    {
+        Play("SFX_FACTORY/Potato Washing");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    // Sound for slowing down a conveyor belt
+    public void SoundSlowdown()
+    {
+        Play("SFX_FACTORY/Slowdown");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    // Sound Speeding up a conveyor belt
+    public void SoundSpeedup()
+    {
+        Play("SFX_FACTORY/Speedup");
 
         clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
