@@ -27,6 +27,11 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     private bool _plantsStartAtGrown = false;
 
+    [Header("Tutorial")]
+    [SerializeField] private bool _doTutorial = true;
+    private bool _firstSwarmHasSpawned = false;
+    private bool _pausedForTutorial = false;
+
     void Awake()
     {
         this.gameObject.tag = "GameHandler";
@@ -35,6 +40,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
             _nextScene = SceneManager.GetActiveScene().name;
             Debug.LogWarning("Next scene not set, reloading this scene assumed");
         }
+        Swarm.RegisterStatic(this);
     }
 
     // Start is called before the first frame update
@@ -148,6 +154,10 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     // Update is called once per frame
     void Update()
     {
+        if(_pausedForTutorial && Input.GetMouseButtonDown(0))
+        {
+            UnPause();
+        }
         if(Input.GetKeyDown(KeyCode.Space))
         {
             FinishGame();
@@ -159,10 +169,11 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         FinishGame();
     }
 
-    public void Pause()
+    public void Pause(bool tutorialPause = false)
     {
         if (!_paused)
         {
+            _pausedForTutorial = tutorialPause;
             _paused = true;
             for (int i = 0; i < _gameHandlerObservers.Count; ++i)
             {
@@ -175,6 +186,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     {
         if (_paused)
         {
+            _pausedForTutorial = false;
             _paused = false;
             for (int i = 0; i < _gameHandlerObservers.Count; ++i)
             {
@@ -251,6 +263,9 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void OnNotify(AObserverEvent observerEvent)
     {
+        if(observerEvent is SwarmSpawnEvent)
+        {
+        }
     }
 
     #region IFarmPlotObserver
@@ -328,6 +343,11 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void OnBugSpawn(SwarmUnit unit)
     {
+        if (!_firstSwarmHasSpawned)
+        {
+            _firstSwarmHasSpawned = true;
+            Pause(true);
+        }
     }
 
     public void OnBugspawnFail()
