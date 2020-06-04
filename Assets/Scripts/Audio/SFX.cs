@@ -39,6 +39,9 @@ public class SFX : MonoBehaviour
         FlatConveyorBelt.SpecialConveyorHeld += SoundSpecialConveyor;
         Machine.ItemEnteredMachine += SoundItemEnteredMachine;
         Machine.ItemLeftMachine += SoundItemLeftMachine;
+        Machine.MachineBreaking += SoundBreaking;
+        Machine.MachineBroke += SoundBroken;
+        Machine.MachineStartedRepairing += SoundRepair;
     }
 
     private void OnDisable()
@@ -47,6 +50,9 @@ public class SFX : MonoBehaviour
         FlatConveyorBelt.SpecialConveyorHeld -= SoundSpecialConveyor;
         Machine.ItemEnteredMachine -= SoundItemEnteredMachine;
         Machine.ItemLeftMachine -= SoundItemLeftMachine;
+        Machine.MachineBreaking -= SoundBreaking;
+        Machine.MachineBroke -= SoundBroken;
+        Machine.MachineStartedRepairing -= SoundRepair;
     }
 
     #endregion
