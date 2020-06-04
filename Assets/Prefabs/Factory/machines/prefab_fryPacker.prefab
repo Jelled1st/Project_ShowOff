@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e036144506a5497dae09b1c070253b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _machineType: 2
   _inputFunnelTrigger: {fileID: 1064042827766033556}
   _output: {fileID: 8413351585495675543}
   _outputPushForce: 100
@@ -256,6 +257,7 @@ MonoBehaviour:
   _isTurnedOn: 1
   _speedChangeTime: 0.5
   _heldSpeed: 2
+  _specialBeltType: 1
 --- !u!54 &3510084337844083929
 Rigidbody:
   m_ObjectHideFlags: 0

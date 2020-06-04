@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac167388121a4b4b9a2fa69748490cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _machineType: 1
   _inputFunnelTrigger: {fileID: 4623661280566845890}
   _output: {fileID: 8336029630978991595}
   _outputPushForce: 500
