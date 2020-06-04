@@ -18,6 +18,8 @@ public class FarmTool : MonoBehaviour, IControllable
     [SerializeField] float _cooldown = 3.0f;
     [SerializeField] float _farmPlotCooldown = 3.0f;
     [SerializeField] ProgressBar _cooldownBar;
+    [SerializeField] Canvas _parentCanvas;
+    [SerializeField] Vector3 _dragScale = new Vector3(1.0f, 1.0f, 1.0f);
     private delegate bool FunctionalityFunctions(FarmPlot plot, float cooldown);
     private FunctionalityFunctions _functionaliesHandler;
     private float _timeSinceLastUse = 0.0f;
@@ -131,8 +133,9 @@ public class FarmTool : MonoBehaviour, IControllable
     {
         GameObject copy = Instantiate(this.gameObject);
         Destroy(copy.GetComponent<FarmTool>());
+        copy.transform.localScale = _dragScale;
         copy.layer = 0;
-        copy.transform.SetParent(this.transform.parent.transform.parent);
+        copy.transform.SetParent(_parentCanvas.transform);
         return copy;
     }
 }

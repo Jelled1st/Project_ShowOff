@@ -1056,6 +1056,7 @@ MonoBehaviour:
   _cooldown: 3
   _farmPlotCooldown: 3
   _cooldownBar: {fileID: 1689926384}
+  _parentCanvas: {fileID: 573103580}
 --- !u!114 &85618119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1949,6 +1950,7 @@ MonoBehaviour:
   _cooldown: 3
   _farmPlotCooldown: 3
   _cooldownBar: {fileID: 418755602}
+  _parentCanvas: {fileID: 573103580}
 --- !u!114 &149003912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2133,6 +2135,7 @@ MonoBehaviour:
   _cooldown: 3
   _farmPlotCooldown: 2.3
   _cooldownBar: {fileID: 1610657820}
+  _parentCanvas: {fileID: 573103580}
 --- !u!114 &196098114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3517,6 +3520,7 @@ MonoBehaviour:
   _cooldown: 3
   _farmPlotCooldown: 3
   _cooldownBar: {fileID: 369154062}
+  _parentCanvas: {fileID: 573103580}
 --- !u!114 &420467803
 MonoBehaviour:
   m_ObjectHideFlags: 0
