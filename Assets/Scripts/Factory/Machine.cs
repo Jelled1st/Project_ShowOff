@@ -21,7 +21,7 @@ namespace Factory
             FryCutter
         }
 
-        public static event Action<MachineType> ItemEnteredMachine = delegate { };
+        public static event Action<MachineType, GameObject> ItemEnteredMachine = delegate { };
         public static event Action<MachineType> ItemLeftMachine = delegate { };
         public static event Action MachineStartedRepairing = delegate { };
         public static event Action MachineBreaking = delegate { };
@@ -78,7 +78,7 @@ namespace Factory
         private float _slowPerStage = 1f / _stagesToBreak;
 
         [BoxGroup("Clogging settings")]
-        [MinMaxSlider(1f, 10f)]
+        [MinMaxSlider(1f, 20f)]
         [SerializeField]
         private Vector2 _breakEverySeconds = new Vector2(4, 8);
 
@@ -125,9 +125,12 @@ namespace Factory
         private bool IsClogged => CurrentClogStage == _stagesToBreak;
 
         // If we later need it - it's the filtration by tag
-        // [SerializeField] private string _allowedInputTag;
-        // [SerializeField] private string _outputTag;
-        // protected string AllowedInputTag => _allowedInputTag;
+        [SerializeField]
+        private string _expectedInputTag;
+
+        [SerializeField]
+        private string _outputTag;
+        // protected string AllowedInputTag => _expectedInputTag;
         // protected string OutputTag => _outputTag;
 
         protected abstract GameObject PreDelayProcess(GameObject inputGameObject);
@@ -246,7 +249,7 @@ namespace Factory
 
         private GameObject PreDelayProcessInternal(GameObject inputGameObject)
         {
-            ItemEnteredMachine(_machineType);
+            ItemEnteredMachine(_machineType, inputGameObject);
             return PreDelayProcess(inputGameObject);
         }
 

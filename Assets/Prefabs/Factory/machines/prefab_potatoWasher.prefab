@@ -331,7 +331,7 @@ MonoBehaviour:
   _repairVisuals: {fileID: 9136129223628558166}
   _breakVisuals: {fileID: 1804844746564439611}
   _slowPerStage: 0.33333334
-  _breakEverySeconds: {x: 4.397717, y: 7.8744507}
+  _breakEverySeconds: {x: 10, y: 15}
   _shaderName: Shader Graphs/shdr_potatoes
   _propertyToDisable: _enableDirty
   _propertyToEnable: _enableClean

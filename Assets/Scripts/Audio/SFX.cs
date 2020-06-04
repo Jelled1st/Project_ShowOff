@@ -156,7 +156,7 @@ public class SFX : MonoBehaviour
         }
     }
 
-    private void SoundItemEnteredMachine(Machine.MachineType machineType)
+    private void SoundItemEnteredMachine(Machine.MachineType machineType, GameObject o)
     {
         switch (machineType)
         {

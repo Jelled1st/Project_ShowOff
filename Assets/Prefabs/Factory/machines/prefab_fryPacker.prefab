@@ -93,7 +93,7 @@ MonoBehaviour:
   _repairVisuals: {fileID: 2090828890761769254}
   _breakVisuals: {fileID: 3726418210832195761}
   _slowPerStage: 0.33333334
-  _breakEverySeconds: {x: 3.497522, y: 8.135777}
+  _breakEverySeconds: {x: 10, y: 15}
   _substitute:
   - {fileID: 6075627235216453774, guid: cf12fe4f3b6008d4699e4d4a05253d6d, type: 3}
 --- !u!33 &8386177170476143663
