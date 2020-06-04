@@ -2,25 +2,23 @@ using UnityEngine;
 
 public static class GeometryUtils
 {
-    public static Vector3 TriangleHeightPoint(Vector3 linePointA, Vector3 linePointB, Vector3 heightPoint)
+    public static Vector3 TriangleHeightPoint(ref Vector3 linePointA, ref Vector3 linePointB,
+        ref Vector3 heightPoint)
     {
-        var p1 = linePointA;
-        var p2 = linePointB;
-        var p3 = heightPoint;
-
         float lambda =
-            (p1.x * p1.x + p2.x * p3.x - p1.x * (p2.x + p3.x) + p1.y * p1.y - p1.y * p2.y - p1.y * p3.y +
-                p2.y * p3.y +
-                p1.z * p1.z - p1.z * p2.z - p1.z * p3.z + p2.z * p3.z) /
-            (p1.x * p1.x - 2 * p1.x * p2.x + p2.x * p2.x + p1.y * p1.y - 2 * p1.y * p2.y + p2.y * p2.y +
-                p1.z * p1.z -
-                2 * p1.z * p2.z + p2.z * p2.z);
+            (linePointA.x * linePointA.x + linePointB.x * heightPoint.x -
+             linePointA.x * (linePointB.x + heightPoint.x) + linePointA.y * linePointA.y -
+             linePointA.y * linePointB.y - linePointA.y * heightPoint.y +
+             linePointB.y * heightPoint.y +
+             linePointA.z * linePointA.z - linePointA.z * linePointB.z - linePointA.z * heightPoint.z +
+             linePointB.z * heightPoint.z) /
+            (linePointA.x * linePointA.x - 2 * linePointA.x * linePointB.x + linePointB.x * linePointB.x +
+                linePointA.y * linePointA.y - 2 * linePointA.y * linePointB.y + linePointB.y * linePointB.y +
+                linePointA.z * linePointA.z -
+                2 * linePointA.z * linePointB.z + linePointB.z * linePointB.z);
 
-        float PointCoordinate(float point1, float point2)
-        {
-            return point1 + (point2 - point1) * lambda;
-        }
-
-        return new Vector3(PointCoordinate(p1.x, p2.x), PointCoordinate(p1.y, p2.y), PointCoordinate(p1.z, p2.z));
+        return new Vector3(linePointA.x + (linePointB.x - linePointA.x) * lambda,
+            linePointA.y + (linePointB.y - linePointA.y) * lambda,
+            linePointA.z + (linePointB.z - linePointA.z) * lambda);
     }
 }
