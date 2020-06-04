@@ -18,6 +18,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         public UnityEvent onSwarmSpawn;
         public UnityEvent onSwarmDestroy;
         public UnityEvent onBugSpawn;
+        public UnityEvent onFirstBugSpawn;
         public UnityEvent onBugSpawnFail;
         public UnityEvent onBugKill;
         public UnityEvent onSwarmFlee;
@@ -61,6 +62,8 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     [SerializeField] private ControlsEventFucntions _controllerEvents;
     [SerializeField] private FarmEventsFunctions _farmEvents;
     [SerializeField] private DishEventFunctions _dishEvents;
+
+    private bool _bugHasSpawned = false;
 
     public void Start()
     {
@@ -139,6 +142,11 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnBugSpawn(SwarmUnit unit)
     {
+        if(!_bugHasSpawned)
+        {
+            _bugHasSpawned = true;
+            _farmEvents.onFirstBugSpawn.Invoke();
+        }
         _farmEvents.onBugSpawn.Invoke();
     }
 

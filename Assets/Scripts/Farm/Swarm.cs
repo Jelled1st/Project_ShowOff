@@ -126,7 +126,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     private void OnSpawnUnit(SwarmUnit unit)
     {
-        soundEffectManager.SoundSwarm();
+        //soundEffectManager.SoundSwarm();
         _timeSinceLastSpawn = 0.0f;
         _ignoreSpawnTimer = false;
 
@@ -151,7 +151,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     {
         for(int i = 0; i < _observers.Count; ++i)
         {
-            soundEffectManager.SoundSwarmStop();
+            //soundEffectManager.SoundSwarmStop();
             _observers[i].OnFlee();
         }
     }
@@ -178,7 +178,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     {
         _swarmUnits.Remove(unit.gameObject);
         
-        soundEffectManager.SoundSwarmStop();
+        //soundEffectManager.SoundSwarmStop();
         
         Destroy(unit.gameObject);
         if (_swarmUnits.Count == 0 && !_continueSpawning) Destroy(this.gameObject);
@@ -195,6 +195,10 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
             _continueSpawning = false;
             _flee = true;
             OnFlee();
+        }
+        if(state == FarmPlot.State.Healing)
+        {
+
         }
     }
 

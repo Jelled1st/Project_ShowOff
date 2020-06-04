@@ -29,7 +29,6 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     [Header("Tutorial")]
     [SerializeField] private bool _doTutorial = true;
-    private bool _firstSwarmHasSpawned = false;
     private bool _pausedForTutorial = false;
 
     void Awake()
@@ -171,9 +170,9 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void Pause(bool tutorialPause = false)
     {
+        _pausedForTutorial = tutorialPause;
         if (!_paused)
         {
-            _pausedForTutorial = tutorialPause;
             _paused = true;
             for (int i = 0; i < _gameHandlerObservers.Count; ++i)
             {
@@ -343,11 +342,6 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void OnBugSpawn(SwarmUnit unit)
     {
-        if (!_firstSwarmHasSpawned)
-        {
-            _firstSwarmHasSpawned = true;
-            Pause(true);
-        }
     }
 
     public void OnBugspawnFail()
