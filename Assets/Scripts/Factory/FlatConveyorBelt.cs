@@ -44,7 +44,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     [ShowIf(nameof(_isSpecialConveyor))]
     [SerializeField]
-    private float _speedChangeTime = 0.5f;
+    private float _speedChangeTime = 0f;
 
     [Tooltip("Speed of belt when held")]
     [ShowIf(nameof(_isSpecialConveyor))]

@@ -5,19 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/Factory Scene.unity
-    guid: 64e5b7a2b240e894b98f8fd79aee2653
   - enabled: 1
-    path: Assets/Scenes/Brandon Level Design.unity
-    guid: 7f0e32e53d1802b40bd54086fa637549
+    path: Assets/Scenes/!Farm Level.unity
+    guid: 6ad203b227cee3b44a7c110859086726
+  - enabled: 1
+    path: Assets/Scenes/!Factory Level.unity
+    guid: fccf835ed89fd284e827d4f54a8b46b5
   m_configObjects: {}

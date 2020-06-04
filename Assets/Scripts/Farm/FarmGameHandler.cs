@@ -208,6 +208,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void OnTriggerEnter(Collider other)
     {
+        Debug.Log("crossed");
         Truck truck;
         if(other.TryGetComponent<Truck>(out truck) && gameFinished)
         {
