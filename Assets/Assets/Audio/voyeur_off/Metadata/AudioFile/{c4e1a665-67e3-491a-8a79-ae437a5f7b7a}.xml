@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{c4e1a665-67e3-491a-8a79-ae437a5f7b7a}">
+		<property name="assetPath">
+			<value>SFX/Factory/Potato Peeling.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>8.9320000000000004</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{cf4ed741-5b91-4e4f-a93b-39a04b6066c0}</destination>
+		</relationship>
+	</object>
+</objects>
