@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/!Factory Level.unity
     guid: fccf835ed89fd284e827d4f54a8b46b5
+  - enabled: 1
+    path: Assets/Scenes/Jelle Tests.unity
+    guid: ce2bc9ae081e8864689fef13bb363729
   m_configObjects: {}
