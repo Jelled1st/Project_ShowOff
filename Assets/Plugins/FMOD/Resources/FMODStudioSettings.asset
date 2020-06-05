@@ -75,7 +75,8 @@ MonoBehaviour:
     Value: 32
   - Platform: 20
     Value: 32
-  Plugins: []
+  Plugins:
+  - Assets\Plugins\FMOD\lib\html5\libfmodstudiounityplugin.bc
   MasterBanks:
   - Master
   Banks: []
