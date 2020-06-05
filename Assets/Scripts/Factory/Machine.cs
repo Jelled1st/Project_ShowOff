@@ -136,9 +136,20 @@ namespace Factory
         protected abstract GameObject PreDelayProcess(GameObject inputGameObject);
         protected abstract GameObject PostDelayProcess(GameObject outputGameObject);
 
-        private void Start()
+        private void OnEnable()
+        {
+            Enable();
+        }
+
+        private void OnDisable()
+        {
+            Disable();
+        }
+
+        public void Enable()
         {
             // Initial reset
+            enabled = true;
             Delay = _delay;
             CurrentClogStage = 0;
             _isRepairing = false;
@@ -165,9 +176,22 @@ namespace Factory
             WaitAndClog();
         }
 
+        public void Disable()
+        {
+            _processParticles?.Stop();
+            _repairVisuals.SetActive(false);
+            _breakVisuals.SetActive(false);
+            _isRepairing = false;
+
+            _waitAndClogTween.Kill();
+            _waitAndClogTween = null;
+
+            enabled = false;
+        }
+
         private void Clog()
         {
-            if (_isRepairing || IsClogged)
+            if (!enabled || _isRepairing || IsClogged)
                 return;
 
             CurrentClogStage++;
@@ -183,9 +207,18 @@ namespace Factory
             WaitAndClog();
         }
 
+        private Tween _waitAndClogTween;
+
+        private void WaitAndClog()
+        {
+            _waitAndClogTween = DOTween.Sequence()
+                .AppendInterval(Random.Range(_breakEverySeconds.x, _breakEverySeconds.y))
+                .AppendCallback(Clog);
+        }
+
         private void Repair()
         {
-            if (CurrentClogStage <= 0 || _isRepairing)
+            if (CurrentClogStage <= 0 || _isRepairing || !enabled)
                 return;
 
             _repairVisuals?.SetActive(true);
@@ -217,11 +250,6 @@ namespace Factory
             }
         }
 
-        private void WaitAndClog()
-        {
-            DOTween.Sequence().AppendInterval(Random.Range(_breakEverySeconds.x, _breakEverySeconds.y))
-                .AppendCallback(Clog);
-        }
 
         private void OnTriggerEnterCallback(Collider other)
         {
