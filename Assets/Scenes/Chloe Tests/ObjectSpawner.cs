@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -53,6 +54,11 @@ public class ObjectSpawner : MonoBehaviour
     public void StopSpawning()
     {
         _spawnTween.Kill();
+    }
+
+    private void OnDisable()
+    {
+        StopSpawning();
     }
 
     private void Spawn()
