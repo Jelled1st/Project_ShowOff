@@ -94,6 +94,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             if(hitUI)
             {
                 controllable = hitInfo.gameObject.GetComponent<IControllable>();
+                _selected = controllable;
             }
             else //if UI wasn't hit, try on world objects
             {
@@ -108,6 +109,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                     }
                     else
                     {
+                        //ResetPressAndHold();
                         HitNonControllable(new ControllerHitInfo(null, hit));
                     }
                 }
@@ -153,6 +155,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     private void StartDrag()
     {
+        Debug.Log("Start drag on " + _selected);
         _dragSelected = _selected;
         _dragStartInfo = _hitInfo;
         _isDragging = true;
@@ -220,15 +223,32 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     private void HitNonControllable(ControllerHitInfo hitInfo)
     {
-        _hitInfo = hitInfo;
         OnClick(null, hitInfo);
-        if (_swipeStarted)
+
+        if (!_isDragging) // Not dragging nor swiping
         {
-            OnSwipe(GetLastSwipeDirection(), _lastMousePosition, null, hitInfo);
-        }
-        else if (!_isDragging)// Not dragging nor swiping
-        {
-            _selected = null;
+            if (_selected != null)
+            {
+                StartDrag();
+            }
+            else _selected = null;
+
+            //if (_selected != null)
+            //{
+            //    StartDrag();
+            //    if (_timeHeld >= _holdTime)
+            //    {
+            //        OnHoldRelease(_timeHeld, _selected);
+            //    }
+            //    else
+            //    {
+            //        if (!_swipeStarted && !_isDragging) OnPress(_selected, hitInfo);
+            //    }
+
+            //    _timeHeld = 0;
+            //}
+
+            _hitInfo = hitInfo;
             _selectedGameObject = hitInfo.gameObject;
             _timeHeld += Time.deltaTime;
             if (_timeHeld >= _holdTime)
