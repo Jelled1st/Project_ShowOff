@@ -42,22 +42,33 @@ namespace Factory
                 _level1Passed = true;
                 Camera.main.transform.DOMove(_tempFactoryController.level2CameraPosition.position, 2f);
                 Camera.main.transform.DORotate(_tempFactoryController.level2CameraPosition.rotation.eulerAngles, 2f);
-                _tempFactoryController.level1Machines.SetActive(false);
-                _tempFactoryController.level2Machines.SetActive(true);
+
+                foreach (var machine in _tempFactoryController.level1Machines.transform
+                    .GetComponentsInChildren<Machine>())
+                {
+                    machine.Disable();
+                }
+
+                foreach (var machine in _tempFactoryController.level2Machines.transform
+                    .GetComponentsInChildren<Machine>())
+                {
+                    machine.Enable();
+                }
+
                 _tempFactoryController.bufferBelts[0].Speed = -1f;
                 _tempFactoryController.bufferBelts[1].Speed = 1f;
                 foreach (var flatConveyorBelt in _tempFactoryController.level1Belts)
                 {
                     flatConveyorBelt.Speed = 0f;
                 }
+
                 _tempFactoryController.spawner.GetComponent<ObjectSpawner>().StopSpawning();
                 Object.Destroy(_tempFactoryController.spawner);
                 _potatoesInput = 0;
                 _tempFactoryController.finishTriggerLevel1.SetActive(false);
-                
             }
 
-            if (_level1Passed)
+            if (_level1Passed && _potatoesInput > 0)
             {
                 SceneManager.LoadScene(2);
             }
