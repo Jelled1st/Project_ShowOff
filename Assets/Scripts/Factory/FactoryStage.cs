@@ -50,11 +50,17 @@ namespace Factory
                 {
                     flatConveyorBelt.Speed = 0f;
                 }
+                _tempFactoryController.spawner.GetComponent<ObjectSpawner>().StopSpawning();
                 Object.Destroy(_tempFactoryController.spawner);
                 _potatoesInput = 0;
                 _tempFactoryController.finishTriggerLevel1.SetActive(false);
+                
             }
-            
+
+            if (_level1Passed)
+            {
+                SceneManager.LoadScene(2);
+            }
         }
 
         private void LevelFinished()
