@@ -14,6 +14,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     // General
     private IControllable _selected = null;
+    private GameObject _selectedGameObject = null;
     private IControllable _previousSelected = null;
     private bool _paused = false;
     
@@ -43,7 +44,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     private EventSystem _eventSystem;
 
     // DEBUG
-    private bool _debugOutput = false;
+    private bool _debugLog = false;
 
     void Awake()
     {
@@ -99,6 +100,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {
+                    if(_debugLog) Debug.Log("Hitcast hit: " + hit.transform.gameObject);
                     if (hit.transform.gameObject.TryGetComponent<IControllable>(out controllable))
                     {
                         hitInfo = new ControllerHitInfo(controllable, hit);
@@ -106,7 +108,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                     }
                     else
                     {
-                        ResetPressAndHold();
+                        HitNonControllable(new ControllerHitInfo(null, hit));
                     }
                 }
                 else ResetPressAndHold();
@@ -122,9 +124,9 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     private void ResetPressAndHold()
     {
-        if (_selected != null)
+        if (_selectedGameObject != null)
         {
-            if(Input.GetMouseButton(0)) //mouse is still down
+            if(Input.GetMouseButton(0) && _selected != null) //mouse is still down
             {
                 if (!_isDragging)
                 {
@@ -140,8 +142,9 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             {
                 if (!_swipeStarted && !_isDragging) OnPress(_selected, _hitInfo);
             }
-
+            
             _selected = null;
+            _selectedGameObject = null;
             _timeHeld = 0;
         }
         _wasDraggingLastFrame = _isDragging;
@@ -206,6 +209,27 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                 _timeHeld = 0;
             }
             _selected = controllable;
+            _selectedGameObject = hitInfo.gameObject;
+            _timeHeld += Time.deltaTime;
+            if (_timeHeld >= _holdTime)
+            {
+                OnHold(_timeHeld, _selected, hitInfo);
+            }
+        }
+    }
+
+    private void HitNonControllable(ControllerHitInfo hitInfo)
+    {
+        _hitInfo = hitInfo;
+        OnClick(null, hitInfo);
+        if (_swipeStarted)
+        {
+            OnSwipe(GetLastSwipeDirection(), _lastMousePosition, null, hitInfo);
+        }
+        else if (!_isDragging)// Not dragging nor swiping
+        {
+            _selected = null;
+            _selectedGameObject = hitInfo.gameObject;
             _timeHeld += Time.deltaTime;
             if (_timeHeld >= _holdTime)
             {
@@ -271,7 +295,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                     if (GetFullLengthOfSwipe() > _swipeDistance)
                     {
                         _currentlySwiping = true;
-                        if (_debugOutput) Debug.Log("Started swiping");
+                        if (_debugLog) Debug.Log("Started swiping");
                     }
                 }
             }
@@ -347,7 +371,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     public void OnClick(IControllable pressed, ControllerHitInfo hitInfo)
     {
-        pressed.OnClick(hitInfo.point);
+        pressed?.OnClick(hitInfo.point);
         for (int i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnClick(hitInfo);
@@ -356,7 +380,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     public void OnPress(IControllable pressed, ControllerHitInfo hitInfo)
     {
-        pressed.OnPress(hitInfo.point);
+        pressed?.OnPress(hitInfo.point);
         for (int i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnPress(hitInfo);
@@ -365,7 +389,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     public void OnHold(float holdTime, IControllable held, ControllerHitInfo hitInfo)
     {
-        held.OnHold(holdTime, hitInfo.point);
+        held?.OnHold(holdTime, hitInfo.point);
         for (int i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnHold(holdTime, hitInfo);
@@ -374,7 +398,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     public void OnHoldRelease(float timeHeld, IControllable released)
     {
-        released.OnHoldRelease(timeHeld);
+        released?.OnHoldRelease(timeHeld);
         for(int i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnHoldRelease(timeHeld, released);
@@ -383,7 +407,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint, IControllable swiped, ControllerHitInfo hitInfo)
     {
-        if(swiped != null) swiped.OnSwipe(direction, lastPoint);
+        swiped?.OnSwipe(direction, lastPoint);
         for (int i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnSwipe(direction, lastPoint, hitInfo);
