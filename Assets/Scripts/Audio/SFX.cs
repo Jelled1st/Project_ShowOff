@@ -142,16 +142,16 @@ public class SFX : MonoBehaviour
         switch (machineType)
         {
             case Machine.MachineType.PotatoWasher:
-
+                SoundComingOut();
                 break;
             case Machine.MachineType.PotatoPeeler:
-
+                SoundComingOut();
                 break;
             case Machine.MachineType.FryPacker:
-
+                SoundComingOut();
                 break;
             case Machine.MachineType.FryCutter:
-
+                SoundComingOut();
                 break;
         }
     }
@@ -242,6 +242,14 @@ public class SFX : MonoBehaviour
         StartCoroutine(WaitForEnd(clipLength));
     }
 
+    // Sound when an item comes out of any machine
+    public void SoundComingOut()
+    {
+        Play("SFX_FACTORY/Item Coming Out");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
     // Sound when machine starts breaking down
     public void SoundBreaking()
     {
