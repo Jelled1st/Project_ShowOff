@@ -69,6 +69,17 @@ Assets/Demigiant.meta
 /Assets/FMODStudioCache.asset
 /Assets/FMODStudioCache.asset.meta
 /Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
+/Assets/Assets/Audio/voyeur_off/Metadata/DataFile.meta
+/Assets/Assets/Audio/voyeur_off/Metadata/DAWAsset.meta
+/Assets/Assets/Audio/voyeur_off/Metadata/DAWProject.meta
+/Assets/Assets/Audio/voyeur_off/Metadata/EffectPreset.meta
+/Assets/Assets/Audio/voyeur_off/Metadata/Group.meta
+/Assets/Assets/Audio/voyeur_off/Metadata/Locale.meta
+/Assets/Assets/Audio/voyeur_off/Metadata/MixerView.meta
+/Assets/Assets/Audio/voyeur_off/Metadata/ParameterPreset.meta
+/Assets/Assets/Audio/voyeur_off/Metadata/Snapshot.meta
+/Assets/Assets/Audio/voyeur_off/Metadata/VCA.meta
+
 fmod.log
 fmod_editor.log
 
