@@ -10,7 +10,9 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     [SerializeField] TextMeshProUGUI _plantQuest;
     [SerializeField] TextMeshProUGUI _waterQuest;
     [SerializeField] UnityEvent _completeShovelQuestEvent;
+    [SerializeField] UnityEvent _startPlantQuestEvent;
     [SerializeField] UnityEvent _completePlantQuestEvent;
+    [SerializeField] UnityEvent _startWaterQuestEvent;
     [SerializeField] UnityEvent _completeWaterQuestEvent;
     [SerializeField] UnityEvent _firstBugSpawnEvent;
     [SerializeField] UnityEvent _completeBugKillEvent;
@@ -131,6 +133,17 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
+        if (state == FarmPlot.State.Dug)
+        {
+            _startPlantQuestEvent.Invoke();
+        }
+        else if (state == FarmPlot.State.Planted)
+        {
+            _startWaterQuestEvent.Invoke();
+        }
+        else if (state == FarmPlot.State.Growing)
+        {
+        }
     }
 
     public void Subscribe(ISubject subject)
