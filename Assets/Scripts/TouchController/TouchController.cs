@@ -82,7 +82,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     // Update is called once per frame
     void Update()
     {
-        if (_paused) return;
+        //if (_paused) return;
         bool mousePressed = Input.GetMouseButton(0);
         IControllable controllable = null;
         ControllerHitInfo hitInfo = new ControllerHitInfo(true);
@@ -224,7 +224,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     {
         OnClick(null, hitInfo);
 
-        if (!_isDragging) // Not dragging nor swiping
+        if (!_isDragging && !_swipeStarted) // Not dragging nor swiping
         {
             if (_selected != null)
             {
