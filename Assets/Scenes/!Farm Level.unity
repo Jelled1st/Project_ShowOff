@@ -1057,6 +1057,7 @@ MonoBehaviour:
   _farmPlotCooldown: 3
   _cooldownBar: {fileID: 1689926384}
   _parentCanvas: {fileID: 573103580}
+  _dragScale: {x: 1, y: 1, z: 1}
 --- !u!114 &85618119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1951,6 +1952,7 @@ MonoBehaviour:
   _farmPlotCooldown: 3
   _cooldownBar: {fileID: 418755602}
   _parentCanvas: {fileID: 573103580}
+  _dragScale: {x: 1, y: 1, z: 1}
 --- !u!114 &149003912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2136,6 +2138,7 @@ MonoBehaviour:
   _farmPlotCooldown: 2.3
   _cooldownBar: {fileID: 1610657820}
   _parentCanvas: {fileID: 573103580}
+  _dragScale: {x: 1, y: 1, z: 1}
 --- !u!114 &196098114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2296,7 +2299,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 309.6, y: 28.2}
+  m_AnchoredPosition: {x: 309.6001, y: 28.199951}
   m_SizeDelta: {x: 129, y: 129}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &213575880
@@ -3521,6 +3524,7 @@ MonoBehaviour:
   _farmPlotCooldown: 3
   _cooldownBar: {fileID: 369154062}
   _parentCanvas: {fileID: 573103580}
+  _dragScale: {x: 1, y: 1, z: 1}
 --- !u!114 &420467803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3779,7 +3783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 454, y: 28.2}
+  m_AnchoredPosition: {x: 454, y: 28.199951}
   m_SizeDelta: {x: 129, y: 129}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &507257784
@@ -9142,7 +9146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 636.2999, y: -57.000122}
+  m_AnchoredPosition: {x: 636.2998, y: -57}
   m_SizeDelta: {x: 102, y: 101}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1022037582
@@ -10239,6 +10243,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee4297568ba6ab4e9a452e9f671874a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1183261847 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+    type: 3}
+  m_PrefabInstance: {fileID: 802288029}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305c86d0ac612a74681cb75d03b7a9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1190024727
 GameObject:
   m_ObjectHideFlags: 0
@@ -10991,7 +11007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 55.599976, y: -57.000122}
+  m_AnchoredPosition: {x: 55.600098, y: -57}
   m_SizeDelta: {x: 102, y: 101}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1254178337
@@ -12957,11 +12973,20 @@ MonoBehaviour:
   _shovelQuest: {fileID: 950290786}
   _plantQuest: {fileID: 1737087751}
   _waterQuest: {fileID: 90035840}
-  _firstBugSpawnEvents:
+  _completeShovelQuestEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _completePlantQuestEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _completeWaterQuestEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _firstBugSpawnEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 204829730}
-        m_MethodName: Pause
+        m_MethodName: RepeatPause
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12971,6 +12996,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  _completeBugKillEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 204829730}
+        m_MethodName: RepeatUnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _tutorialPlot: {fileID: 1183261847}
 --- !u!1 &1526145683
 GameObject:
   m_ObjectHideFlags: 0

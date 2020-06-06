@@ -46,6 +46,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     [SerializeField] List<GameObject> _plantWitheredMeshes;
     [SerializeField] List<GameObject> _plantGrownMeshes;
     private bool useMeshSwitching = false;
+    public bool _interActable = true;
 
     [Header("Plant positions")]
     [SerializeField] GameObject[] _plantPositions = new GameObject[4];
@@ -79,6 +80,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
         CultivateToState(_state);
         _neglectCooldown = true;
+    }
+
+    public void SetInteractable(bool set)
+    {
+        _interActable = set;
     }
 
     public void SetStartState(State state)
@@ -169,7 +175,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public bool Dig(float cooldown)
     {
-        if (ReadyForState(State.Dug))
+        if (ReadyForState(State.Dug) && _interActable)
         {
             soundEffectManager.SoundDig();
 
@@ -186,7 +192,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public bool Plant(float cooldown)
     {
-        if (ReadyForState(State.Planted))
+        if (ReadyForState(State.Planted) && _interActable)
         {
             _cooldown = cooldown;
             CultivateAfterCooldown(State.Planted);
@@ -201,7 +207,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public bool Water(float cooldown)
     {
-        if (ReadyForState(State.Growing) && _state == State.Planted)
+        if (ReadyForState(State.Growing) && _state == State.Planted && _interActable)
         {   
             soundEffectManager.SoundWater();
 
@@ -218,7 +224,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public bool Heal(float cooldown)
     {
-        if(ReadyForState(State.Growing) && _state == State.Decay)
+        if(ReadyForState(State.Growing) && _state == State.Decay && _interActable)
         {
             soundEffectManager.SoundPesticide();
 
@@ -464,7 +470,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    public void Notify(AObserverEvent observerEvent)
+    public void OnNotify(AObserverEvent observerEvent)
     {
 
     }
@@ -525,7 +531,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         subject.UnRegister(this);
     }
 
-    public void OnNotify(AObserverEvent observerEvent)
+    public void Notify(AObserverEvent observerEvent)
     {
     }
     #endregion

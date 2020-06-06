@@ -155,7 +155,6 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     private void StartDrag()
     {
-        Debug.Log("Start drag on " + _selected);
         _dragSelected = _selected;
         _dragStartInfo = _hitInfo;
         _isDragging = true;
@@ -384,7 +383,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         if (observer is IControlsObserver) _observers.Remove((IControlsObserver)observer);
     }
 
-    public void Notify(AObserverEvent observerEvent)
+    public void OnNotify(AObserverEvent observerEvent)
     {
 
     }
@@ -486,7 +485,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         subject.UnRegister(this);
     }
 
-    public void OnNotify(AObserverEvent observerEvent)
+    public void Notify(AObserverEvent observerEvent)
     {
     }
 }
