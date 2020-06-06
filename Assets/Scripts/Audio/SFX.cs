@@ -311,6 +311,76 @@ public class SFX : MonoBehaviour
 
     #endregion
 
+    #region KitchenSounds
+
+    // Sound when cutting stuff like carrots, onions, apples
+    public void SoundHardCut()
+    {
+        Play("SFX_KITCHEN/Cutting Hard Vegs");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    // Sound when cutting tomatoes, pickles, cheese, etc
+    public void SoundSoftCut()
+    {
+        Play("SFX_KITCHEN/Cutting Soft Vegs");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundFriesDone()
+    {
+        Play("SFX_KITCHEN/Fry Done");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundFryFrying()
+    {
+        Play("SFX_KITCHEN/Fry Frying");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundBoiling()
+    {
+        Play("SFX_KITCHEN/Meal Boiling");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundStirring()
+    {
+        Play("SFX_KITCHEN/Meal Stirring");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundBurning()
+    {
+        Play("SFX_KITCHEN/Meat Burning");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundSearing()
+    {
+        Play("SFX_KITCHEN/Meat Searing");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    #endregion
+    
     #region playRules
 
     private void Play(string fmodEvent)
