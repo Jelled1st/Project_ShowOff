@@ -25,12 +25,7 @@ public class SFX : MonoBehaviour
 
     [HideInInspector]
     public bool conveyorHumInstancePlaying = false;
-
-    /* Wherever the sound needs to play
-     [In the area where it needs to play]
-     _soundScript.Sound[Name]();     
-    */
-
+    
     #region Event Subscriptions
 
     private void OnEnable()
@@ -138,7 +133,6 @@ public class SFX : MonoBehaviour
 
     private void SoundItemLeftMachine(Machine.MachineType machineType)
     {
-        // TODO: Add sounds
         switch (machineType)
         {
             case Machine.MachineType.PotatoWasher:
@@ -191,6 +185,7 @@ public class SFX : MonoBehaviour
         }
     }
 
+    /*
     // Constant humming noise of the conveyors
     public void SoundConveyor()
     {
@@ -214,7 +209,8 @@ public class SFX : MonoBehaviour
         _conveyorHumInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         _conveyorHumInstance.release();
     }
-
+    */
+    
     // Sound when rotating conveyor belts
     public void SoundRotate()
     {
@@ -317,9 +313,9 @@ public class SFX : MonoBehaviour
 
     #region playRules
 
-    public void Play(string fmodEvent)
+    private void Play(string fmodEvent)
     {
-        Debug.Log("Audio is playing: " + fmodEvent);
+        // Debug.Log("Audio is playing: " + fmodEvent);
         if (_isPlaying == false)
         {
             _sfxEvent = "event:/" + fmodEvent;

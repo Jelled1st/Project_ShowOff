@@ -28,7 +28,6 @@ public class BKM : MonoBehaviour
         if (debugLevelTest == 1)
         {
             FactoryMusic();
-            ConveyorHum();
         }
     }
 
@@ -65,12 +64,6 @@ public class BKM : MonoBehaviour
     {
         _instanceSong = FMODUnity.RuntimeManager.CreateInstance(musicFactory);
         _instanceSong.start();
-    }
-
-    private void ConveyorHum()
-    {
-        _instanceTransitionFx = FMODUnity.RuntimeManager.CreateInstance(factoryHum);
-        _instanceTransitionFx.start();
     }
 
     #endregion
