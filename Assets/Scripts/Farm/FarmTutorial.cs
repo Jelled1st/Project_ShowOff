@@ -9,6 +9,9 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     [SerializeField] TextMeshProUGUI _shovelQuest;
     [SerializeField] TextMeshProUGUI _plantQuest;
     [SerializeField] TextMeshProUGUI _waterQuest;
+    [SerializeField] GameObject _bugSwipeAnimation;
+    [SerializeField] Canvas _bugSwipeAnimationCanvas;
+    [Header("Events")]
     [SerializeField] UnityEvent _completeShovelQuestEvent;
     [SerializeField] UnityEvent _startPlantQuestEvent;
     [SerializeField] UnityEvent _completePlantQuestEvent;
@@ -19,7 +22,9 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     [SerializeField] FarmPlot _tutorialPlot;
 
     private bool _shovelComplete = false;
+    private bool _plantQuestStarted = false;
     private bool _plantComplete = false;
+    private bool _waterQuestStarted = false;
     private bool _waterComplete = false;
     private bool _killBugsCompelte = false;
     private bool _firstBug = true;
@@ -41,7 +46,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
         {
             FarmPlot farmPlot = farmPlotsGOs[i].GetComponent<FarmPlot>();
             Subscribe(farmPlot);
-            if (farmPlot != _tutorialPlot) farmPlot.SetInteractable(false);
+            if (farmPlot != _tutorialPlot) farmPlot.SetInteractable(true);
             else
             {
                 farmPlot.SetInteractable(true);
@@ -65,6 +70,19 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
 
     }
 
+    //private Vector2 CalcCanvasBugPosition(SwarmUnit bug, )
+    //{
+
+    //}
+
+    private void CheckCompletion()
+    {
+        if (_shovelComplete && _plantComplete && _waterComplete && _killBugsCompelte)
+        {
+            Notify(new FarmTutorialCompleteEvent(this));
+        }
+    }
+
     #region IFarmPlotObserver
     public void OnNotify(AObserverEvent observerEvent)
     {
@@ -78,6 +96,10 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
             {
                 _firstBug = false;
                 _firstBugSpawnEvent.Invoke();
+                _bugSwipeAnimation.SetActive(true);
+                Vector3 bugPoint = Camera.main.WorldToScreenPoint((observerEvent as SwarmBugSpawnEvent).bug.transform.position);
+                Debug.Log(bugPoint);
+                _bugSwipeAnimation.transform.position = new Vector3(bugPoint.x, bugPoint.y, 0);
             }
         }
         if(observerEvent is SwarmBugKillEvent)
@@ -85,14 +107,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
             _killBugsCompelte = true;
             _completeBugKillEvent.Invoke();
             CheckCompletion();
-        }
-    }
-
-    private void CheckCompletion()
-    {
-        if (_shovelComplete && _plantComplete && _waterComplete && _killBugsCompelte)
-        {
-            Notify(new FarmTutorialCompleteEvent(this));
+            _bugSwipeAnimation.SetActive(false);
         }
     }
 
@@ -102,21 +117,21 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
 
     public void OnPlotStartStateSwitch(FarmPlot.State switchState, FarmPlot.State currentState, FarmPlot plot)
     {
-        if(switchState == FarmPlot.State.Dug)
+        if(switchState == FarmPlot.State.Dug && !_shovelComplete)
         {
             _shovelComplete = true;
             _shovelQuest.fontStyle = FontStyles.Strikethrough;
             _completeShovelQuestEvent.Invoke();
             CheckCompletion();
         }
-        else if (switchState == FarmPlot.State.Planted)
+        else if (switchState == FarmPlot.State.Planted && !_plantComplete)
         {
             _plantComplete = true;
             _plantQuest.fontStyle = FontStyles.Strikethrough;
             _completePlantQuestEvent.Invoke();
             CheckCompletion();
         }
-        else if (switchState == FarmPlot.State.Growing)
+        else if (switchState == FarmPlot.State.Growing && !_waterComplete)
         {
             _waterComplete = true;
             _waterQuest.fontStyle = FontStyles.Strikethrough;
@@ -133,12 +148,14 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
-        if (state == FarmPlot.State.Dug)
+        if (state == FarmPlot.State.Dug && !_plantQuestStarted)
         {
+            _plantQuestStarted = true;
             _startPlantQuestEvent.Invoke();
         }
-        else if (state == FarmPlot.State.Planted)
+        else if (state == FarmPlot.State.Planted && !_waterQuestStarted)
         {
+            _waterQuestStarted = true;
             _startWaterQuestEvent.Invoke();
         }
         else if (state == FarmPlot.State.Growing)
