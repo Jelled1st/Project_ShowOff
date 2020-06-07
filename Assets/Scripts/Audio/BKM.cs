@@ -86,6 +86,11 @@ public class BKM : MonoBehaviour
 
     #endregion
 
+    public void MainMenuTransition()
+    {
+        _instanceSong.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+    
     private IEnumerator WaitForEnd(float length)
     {
         yield return new WaitForSeconds(length);
