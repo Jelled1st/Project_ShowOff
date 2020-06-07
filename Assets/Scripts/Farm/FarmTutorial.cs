@@ -12,6 +12,9 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     [SerializeField] TextMeshProUGUI _waterQuest;
     [Header("First bug kill")]
     [SerializeField] GameObject _bugSwipeAnimation;
+    [Header("First spray")]
+    [SerializeField] GameObject _sprayHand;
+    [SerializeField] Vector2 _sprayPosition = new Vector2(0,0);
     [Header("FirstHarvest")]
     [SerializeField] GameObject _harvestHand;
     [SerializeField] Vector2 _truckPosition = new Vector2(270, 220);
@@ -34,8 +37,12 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     private bool _firstBug = true;
 
     private bool _firstHarvest = true;
-    private bool _completedFirstHarvest = false;
+    private bool _firstHarvestCompleted = false;
     private Vector2 _harvestTweenStart;
+
+    private bool _firstSpray = true;
+    private bool _firstSprayCompleted = false;
+    private Vector2 _sprayTweenEnd;
 
     private List<IObserver> _observers = new List<IObserver>();
     private List<FarmPlot> _farmPlots = new List<FarmPlot>();
@@ -43,6 +50,10 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     // Start is called before the first frame update
     void Start()
     {
+        if(_sprayPosition == new Vector2(0,0))
+        {
+            _sprayPosition = _sprayHand.transform.position;
+        }
         SubscribeAndDisableFarmPlots();
         Swarm.RegisterStatic(this);
     }
@@ -75,12 +86,20 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     // Update is called once per frame
     void Update()
     {
-        if(!_firstHarvest && !_completedFirstHarvest)
+        if(!_firstHarvest && !_firstHarvestCompleted)
         {
             if(!DOTween.IsTweening(_harvestHand.transform))
             {
                 _harvestHand.transform.position = _harvestTweenStart;
                 _harvestHand.transform.DOMove(_truckPosition, 1.5f);
+            }
+        }
+        if (!_firstSpray && !_firstSprayCompleted)
+        {
+            if (!DOTween.IsTweening(_sprayHand.transform))
+            {
+                _sprayHand.transform.position = _sprayPosition;
+                _sprayHand.transform.DOMove(_sprayTweenEnd, 1.5f);
             }
         }
     }
@@ -152,9 +171,6 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
             _completeWaterQuestEvent.Invoke();
             CheckCompletion();
         }
-        else if (switchState == FarmPlot.State.Grown)
-        {
-        }
 
 
 
@@ -188,16 +204,36 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
                 _harvestHand.SetActive(true);
                 _harvestTweenStart = Camera.main.WorldToScreenPoint(plot.transform.position);
                 _harvestHand.transform.position = _harvestTweenStart;
-                _harvestHand.transform.DOMove(new Vector3(_truckPosition.x, _truckPosition.y, 0), 1.5f);
+                _harvestHand.transform.DOMove(_truckPosition, 1.5f);
             }
         }
         else if (state == FarmPlot.State.Harvested)
         {
-            if (!_completedFirstHarvest)
+            if (!_firstHarvestCompleted)
             {
-                _completedFirstHarvest = true;
+                _firstHarvestCompleted = true;
                 DOTween.Kill(_harvestHand.transform);
                 _harvestHand.SetActive(false);
+            }
+        }
+        else if (state == FarmPlot.State.Decay)
+        {
+            if (_firstSpray)
+            {
+                _firstSpray = false;
+                _sprayHand.SetActive(true);
+                _sprayTweenEnd = Camera.main.WorldToScreenPoint(plot.transform.position);
+                _sprayHand.transform.position = _sprayPosition;
+                _sprayHand.transform.DOMove(_sprayTweenEnd, 1.5f);
+            }
+        }
+        else if (state == FarmPlot.State.Healing)
+        {
+            if (!_firstSprayCompleted)
+            {
+                _firstSprayCompleted = true;
+                DOTween.Kill(_sprayHand.transform);
+                _sprayHand.SetActive(false);
             }
         }
     }

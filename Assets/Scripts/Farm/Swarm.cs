@@ -115,7 +115,6 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
             Notify(new SwarmBugSpawnEvent(this, script));
 
             --spawnCount;
-            spawnCount = -1;
         }
     }
 
