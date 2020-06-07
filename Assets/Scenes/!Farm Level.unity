@@ -12626,7 +12626,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: -280}
+  m_AnchoredPosition: {x: 270, y: 220}
   m_SizeDelta: {x: 83, y: 91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1375026426
@@ -12637,7 +12637,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375026424}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 869c3f9f25a6afa41871048c62bc5ca9, type: 2}
   m_CullingMode: 0
@@ -14153,7 +14153,8 @@ MonoBehaviour:
   _plantQuest: {fileID: 1906043484}
   _waterQuest: {fileID: 1539048442}
   _bugSwipeAnimation: {fileID: 1325324293}
-  _bugSwipeAnimationCanvas: {fileID: 0}
+  _harvestHand: {fileID: 1375026424}
+  _truckPosition: {x: 730, y: 450}
   _completeShovelQuestEvent:
     m_PersistentCalls:
       m_Calls:

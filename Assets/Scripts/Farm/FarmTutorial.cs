@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
 {
     [SerializeField] TextMeshProUGUI _shovelQuest;
     [SerializeField] TextMeshProUGUI _plantQuest;
     [SerializeField] TextMeshProUGUI _waterQuest;
+    [Header("First bug kill")]
     [SerializeField] GameObject _bugSwipeAnimation;
-    [SerializeField] Canvas _bugSwipeAnimationCanvas;
+    [Header("FirstHarvest")]
+    [SerializeField] GameObject _harvestHand;
+    [SerializeField] Vector2 _truckPosition = new Vector2(270, 220);
     [Header("Events")]
     [SerializeField] UnityEvent _completeShovelQuestEvent;
     [SerializeField] UnityEvent _startPlantQuestEvent;
@@ -29,6 +33,10 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     private bool _killBugsCompelte = false;
     private bool _firstBug = true;
 
+    private bool _firstHarvest = true;
+    private bool _completedFirstHarvest = false;
+    private Vector2 _harvestTweenStart;
+
     private List<IObserver> _observers = new List<IObserver>();
     private List<FarmPlot> _farmPlots = new List<FarmPlot>();
 
@@ -46,7 +54,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
         {
             FarmPlot farmPlot = farmPlotsGOs[i].GetComponent<FarmPlot>();
             Subscribe(farmPlot);
-            if (farmPlot != _tutorialPlot) farmPlot.SetInteractable(true);
+            if (farmPlot != _tutorialPlot) farmPlot.SetInteractable(false);
             else
             {
                 farmPlot.SetInteractable(true);
@@ -67,7 +75,14 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     // Update is called once per frame
     void Update()
     {
-
+        if(!_firstHarvest && !_completedFirstHarvest)
+        {
+            if(!DOTween.IsTweening(_harvestHand.transform))
+            {
+                _harvestHand.transform.position = _harvestTweenStart;
+                _harvestHand.transform.DOMove(_truckPosition, 1.5f);
+            }
+        }
     }
 
     //private Vector2 CalcCanvasBugPosition(SwarmUnit bug, )
@@ -98,7 +113,6 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
                 _firstBugSpawnEvent.Invoke();
                 _bugSwipeAnimation.SetActive(true);
                 Vector3 bugPoint = Camera.main.WorldToScreenPoint((observerEvent as SwarmBugSpawnEvent).bug.transform.position);
-                Debug.Log(bugPoint);
                 _bugSwipeAnimation.transform.position = new Vector3(bugPoint.x, bugPoint.y, 0);
             }
         }
@@ -138,6 +152,11 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
             _completeWaterQuestEvent.Invoke();
             CheckCompletion();
         }
+        else if (switchState == FarmPlot.State.Grown)
+        {
+        }
+
+
 
         if (_shovelComplete && _plantComplete && _waterComplete)
         {
@@ -160,6 +179,26 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
         }
         else if (state == FarmPlot.State.Growing)
         {
+        }
+        else if (state == FarmPlot.State.Grown)
+        {
+            if (_firstHarvest)
+            {
+                _firstHarvest = false;
+                _harvestHand.SetActive(true);
+                _harvestTweenStart = Camera.main.WorldToScreenPoint(plot.transform.position);
+                _harvestHand.transform.position = _harvestTweenStart;
+                _harvestHand.transform.DOMove(new Vector3(_truckPosition.x, _truckPosition.y, 0), 1.5f);
+            }
+        }
+        else if (state == FarmPlot.State.Harvested)
+        {
+            if (!_completedFirstHarvest)
+            {
+                _completedFirstHarvest = true;
+                DOTween.Kill(_harvestHand.transform);
+                _harvestHand.SetActive(false);
+            }
         }
     }
 
