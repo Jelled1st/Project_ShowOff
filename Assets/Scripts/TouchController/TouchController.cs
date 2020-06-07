@@ -224,7 +224,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     {
         OnClick(null, hitInfo);
 
-        if (!_isDragging && !_swipeStarted) // Not dragging nor swiping
+        if (!_isDragging) // Not dragging nor swiping
         {
             if (_selected != null)
             {
@@ -250,7 +250,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             _hitInfo = hitInfo;
             _selectedGameObject = hitInfo.gameObject;
             _timeHeld += Time.deltaTime;
-            if (_timeHeld >= _holdTime)
+            if (_timeHeld >= _holdTime && !_swipeStarted)
             {
                 OnHold(_timeHeld, _selected, hitInfo);
             }
