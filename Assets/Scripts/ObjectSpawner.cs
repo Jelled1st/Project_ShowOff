@@ -6,10 +6,11 @@ using Random = UnityEngine.Random;
 
 public class ObjectSpawner : MonoBehaviour
 {
+    public event Action<GameObject> ObjectSpawned = delegate { };
+
     [Header("Green axis (Y) is the throw direction")]
     [SerializeField]
     private GameObject[] _objects;
-
 
     [MinMaxSlider(0, 2000)]
     [SerializeField]
@@ -66,6 +67,8 @@ public class ObjectSpawner : MonoBehaviour
         var newObject = Instantiate(_objects[Random.Range(0, _objects.Length)], transform.position, transform.rotation);
 
         newObject.TryGetComponent(out Rigidbody rBody);
+
+        ObjectSpawned(newObject);
 
         if (!rBody.Equals(null))
             rBody.AddForce(transform.up * Random.Range(_pushForce.x, _pushForce.y));
