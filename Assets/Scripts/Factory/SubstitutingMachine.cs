@@ -20,12 +20,12 @@ namespace Factory
         protected override GameObject PreDelayProcess(GameObject inputGameObject)
         {
             Destroy(inputGameObject);
-            return null;
+            return Instantiate(_substitute[Random.Range(0, _substitute.Length)]);
         }
 
         protected override GameObject PostDelayProcess(GameObject outputGameObject)
         {
-            return Instantiate(_substitute[Random.Range(0, _substitute.Length)]);
+            return outputGameObject;
         }
     }
 }

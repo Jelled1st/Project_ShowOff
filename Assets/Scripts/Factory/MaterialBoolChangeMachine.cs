@@ -24,24 +24,23 @@ namespace Factory
 
         protected override GameObject PreDelayProcess(GameObject inputGameObject)
         {
-            inputGameObject.SetActive(false);
-            return inputGameObject;
-        }
+            inputGameObject.SetActive(true);
+            var inputRenderer = inputGameObject.GetComponent<Renderer>();
 
-        protected override GameObject PostDelayProcess(GameObject outputGameObject)
-        {
-            outputGameObject.SetActive(true);
-            var renderer = outputGameObject.GetComponent<Renderer>();
-
-            if (renderer != null)
+            if (inputRenderer != null)
             {
-                foreach (var material in renderer.materials.Where(m => m.shader.name == _shaderName))
+                foreach (var material in inputRenderer.materials.Where(m => m.shader.name == _shaderName))
                 {
                     material.SetFloat(_propertyToDisable, 0f);
                     material.SetFloat(_propertyToEnable, 1f);
                 }
             }
 
+            return inputGameObject;
+        }
+
+        protected override GameObject PostDelayProcess(GameObject outputGameObject)
+        {
             return outputGameObject;
         }
     }
