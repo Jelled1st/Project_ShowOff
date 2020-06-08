@@ -6,7 +6,7 @@ using DG.Tweening;
 using NaughtyAttributes;
 
 [SelectionBase]
-public class FlatConveyorBelt : MonoBehaviour, IControllable
+public class FlatConveyorBelt : MonoBehaviour, IControllable, IToggleable
 {
     public enum SpecialBeltType
     {
@@ -134,12 +134,14 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     }
 
     // Update is called once per frame
-    protected virtual void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (_isSpecialConveyor)
-            if (!_isTurnedOn)
-                return;
+        if (_isTurnedOn)
+            FixedUpdateMovement();
+    }
 
+    protected virtual void FixedUpdateMovement()
+    {
         Vector3 pos = _rBody.position;
         _rBody.position += _rBody.transform.right * -Speed * Time.fixedDeltaTime;
         _rBody.MovePosition(pos);
@@ -155,7 +157,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         }
     }
 
-    public virtual void Turn()
+    protected virtual void Turn()
     {
         _rotateTween = this.gameObject.transform.DORotate(
             this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0),
@@ -209,12 +211,21 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         var triangleHeightPoint = GeometryUtils.TriangleHeightPoint(ref a, ref b, ref c);
         Debug.DrawLine(objectPosition, triangleHeightPoint);
 
-        if ((triangleHeightPoint - other.transform.position).sqrMagnitude > 0.1f)
+        if ((triangleHeightPoint - other.transform.position).sqrMagnitude > 0.05f)
             other.rigidbody.MovePosition(objectPosition +
                                          (triangleHeightPoint - objectPosition).normalized * Time.fixedDeltaTime *
                                          0.5f);
     }
 
+    public void Enable()
+    {
+        _isTurnedOn = true;
+    }
+
+    public void Disable()
+    {
+        _isTurnedOn = false;
+    }
 
     public virtual void OnClick(Vector3 hitPoint)
     {
