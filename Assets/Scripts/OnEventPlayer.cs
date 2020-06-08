@@ -10,9 +10,9 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     public struct FarmEventsFunctions
     {
         [Tooltip("Plot changed")]
-        public PlotChangeUnityEvent onPlotChange;
+        public List<PlotChangeUnityEvent> onPlotChange;
         [Tooltip("Cooldown has to play before change, newState is the state that it will be after the cooldown")]
-        public PlotChangeUnityEvent onPlotChangeStart;
+        public List<PlotChangeUnityEvent> onPlotChangeStart;
         public UnityEvent onPlotHarvest;
 
         public UnityEvent onSwarmSpawn;
@@ -28,7 +28,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     public struct DishEventFunctions
     {
         public UnityEvent onDishFinish;
-        public DishIngredientAddUnityEvent onDishAddIngredient;
+        public List<DishIngredientAddUnityEvent> onDishAddIngredient;
     }
 
     [System.Serializable]
@@ -233,12 +233,18 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnPlotStartStateSwitch(FarmPlot.State switchState, FarmPlot.State currentState, FarmPlot plot)
     {
-        _farmEvents.onPlotChangeStart.TryInvoke(switchState, currentState);
+        for (int i = 0; i < _farmEvents.onPlotChangeStart.Count; ++i)
+        {
+            _farmEvents.onPlotChangeStart[i].TryInvoke(switchState, currentState);
+        }
     }
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
-        _farmEvents.onPlotChangeStart.TryInvoke(state, previousState);
+        for (int i = 0; i < _farmEvents.onPlotChange.Count; ++i)
+        {
+            _farmEvents.onPlotChange[i].TryInvoke(state, previousState);
+        }
     }
     #endregion
 
@@ -250,7 +256,10 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
-        _dishEvents.onDishAddIngredient.TryInvoke(ingredient.GetIngredientType());
+        for (int i = 0; i < _dishEvents.onDishAddIngredient.Count; ++i)
+        {
+            _dishEvents.onDishAddIngredient[i].TryInvoke(ingredient.GetIngredientType());
+        }
     }
     #endregion
 
