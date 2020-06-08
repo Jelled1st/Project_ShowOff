@@ -14,10 +14,10 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     [SerializeField] GameObject _bugSwipeAnimation;
     [Header("First spray")]
     [SerializeField] GameObject _sprayHand;
-    [SerializeField] Vector2 _sprayPosition = new Vector2(0,0);
+    [SerializeField] GameObject _sprayTool;
     [Header("FirstHarvest")]
     [SerializeField] GameObject _harvestHand;
-    [SerializeField] Vector2 _truckPosition = new Vector2(270, 220);
+    [SerializeField] GameObject _truck;
     [Header("Events")]
     [SerializeField] UnityEvent _completeShovelQuestEvent;
     [SerializeField] UnityEvent _startPlantQuestEvent;
@@ -26,6 +26,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     [SerializeField] UnityEvent _completeWaterQuestEvent;
     [SerializeField] UnityEvent _firstBugSpawnEvent;
     [SerializeField] UnityEvent _completeBugKillEvent;
+    [SerializeField] UnityEvent _failBugKillEvent;
     [SerializeField] FarmPlot _tutorialPlot;
 
     private bool _shovelComplete = false;
@@ -50,10 +51,6 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     // Start is called before the first frame update
     void Start()
     {
-        if(_sprayPosition == new Vector2(0,0))
-        {
-            _sprayPosition = _sprayHand.transform.position;
-        }
         SubscribeAndDisableFarmPlots();
         Swarm.RegisterStatic(this);
     }
@@ -91,14 +88,15 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
             if(!DOTween.IsTweening(_harvestHand.transform))
             {
                 _harvestHand.transform.position = _harvestTweenStart;
-                _harvestHand.transform.DOMove(_truckPosition, 1.5f);
+                Vector2 truckPos = Camera.main.WorldToScreenPoint(_truck.transform.position);
+                _harvestHand.transform.DOMove(truckPos, 1.5f);
             }
         }
         if (!_firstSpray && !_firstSprayCompleted)
         {
             if (!DOTween.IsTweening(_sprayHand.transform))
             {
-                _sprayHand.transform.position = _sprayPosition;
+                _sprayHand.transform.position = _sprayTool.transform.position;
                 _sprayHand.transform.DOMove(_sprayTweenEnd, 1.5f);
             }
         }
@@ -203,8 +201,9 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
                 _firstHarvest = false;
                 _harvestHand.SetActive(true);
                 _harvestTweenStart = Camera.main.WorldToScreenPoint(plot.transform.position);
+                Vector2 truckPos = Camera.main.WorldToScreenPoint(_truck.transform.position);
                 _harvestHand.transform.position = _harvestTweenStart;
-                _harvestHand.transform.DOMove(_truckPosition, 1.5f);
+                _harvestHand.transform.DOMove(truckPos, 1.5f);
             }
         }
         else if (state == FarmPlot.State.Harvested)
@@ -223,7 +222,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
                 _firstSpray = false;
                 _sprayHand.SetActive(true);
                 _sprayTweenEnd = Camera.main.WorldToScreenPoint(plot.transform.position);
-                _sprayHand.transform.position = _sprayPosition;
+                _sprayHand.transform.position = _sprayTool.transform.position;
                 _sprayHand.transform.DOMove(_sprayTweenEnd, 1.5f);
             }
         }
@@ -234,6 +233,16 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
                 _firstSprayCompleted = true;
                 DOTween.Kill(_sprayHand.transform);
                 _sprayHand.SetActive(false);
+            }
+        }
+        else if(state == FarmPlot.State.Withered)
+        {
+            if (!_firstSprayCompleted)
+            {
+                _firstSprayCompleted = true;
+                DOTween.Kill(_sprayHand.transform);
+                _sprayHand.SetActive(false);
+                _failBugKillEvent.Invoke();
             }
         }
     }

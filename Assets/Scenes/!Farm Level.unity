@@ -490,6 +490,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
+      propertyPath: _plantDecayingMeshes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
@@ -498,6 +503,48 @@ PrefabInstance:
       propertyPath: _state
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantPlantedMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 5954207393749863206, guid: e5ab4a08037eccf4c8878a493b14a34c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1072305486813643256, guid: fe5c8036caedc9742ae6d2737fac6e78,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5013203460863163337, guid: 2178117508014ea4bbd821be72df526e,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7364580853276841700, guid: bbb77a081cd704848aed64b1d836a40c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 7918266810199535898, guid: bd14173c83c9a1c45a8820b9423aa37b,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1746713379901414806, guid: 9fdf73174adc212438e057cdde095eae,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrownMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7943062233547100168, guid: 99d926cec2dd6624bba546b4636df543,
+        type: 3}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -690,6 +737,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
+      propertyPath: _plantDecayingMeshes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
@@ -698,6 +750,48 @@ PrefabInstance:
       propertyPath: _state
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantPlantedMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 5954207393749863206, guid: e5ab4a08037eccf4c8878a493b14a34c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1072305486813643256, guid: fe5c8036caedc9742ae6d2737fac6e78,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5013203460863163337, guid: 2178117508014ea4bbd821be72df526e,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7364580853276841700, guid: bbb77a081cd704848aed64b1d836a40c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 7918266810199535898, guid: bd14173c83c9a1c45a8820b9423aa37b,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1746713379901414806, guid: 9fdf73174adc212438e057cdde095eae,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrownMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7943062233547100168, guid: 99d926cec2dd6624bba546b4636df543,
+        type: 3}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -6683,6 +6777,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
+      propertyPath: _plantDecayingMeshes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
@@ -6691,6 +6790,48 @@ PrefabInstance:
       propertyPath: _state
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantPlantedMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 5954207393749863206, guid: e5ab4a08037eccf4c8878a493b14a34c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1072305486813643256, guid: fe5c8036caedc9742ae6d2737fac6e78,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5013203460863163337, guid: 2178117508014ea4bbd821be72df526e,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7364580853276841700, guid: bbb77a081cd704848aed64b1d836a40c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 7918266810199535898, guid: bd14173c83c9a1c45a8820b9423aa37b,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1746713379901414806, guid: 9fdf73174adc212438e057cdde095eae,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrownMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7943062233547100168, guid: 99d926cec2dd6624bba546b4636df543,
+        type: 3}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -7147,6 +7288,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
+      propertyPath: _plantDecayingMeshes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
@@ -7155,6 +7301,48 @@ PrefabInstance:
       propertyPath: _state
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantPlantedMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 5954207393749863206, guid: e5ab4a08037eccf4c8878a493b14a34c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1072305486813643256, guid: fe5c8036caedc9742ae6d2737fac6e78,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5013203460863163337, guid: 2178117508014ea4bbd821be72df526e,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7364580853276841700, guid: bbb77a081cd704848aed64b1d836a40c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 7918266810199535898, guid: bd14173c83c9a1c45a8820b9423aa37b,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1746713379901414806, guid: 9fdf73174adc212438e057cdde095eae,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrownMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7943062233547100168, guid: 99d926cec2dd6624bba546b4636df543,
+        type: 3}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -7678,6 +7866,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
+      propertyPath: _plantDecayingMeshes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
@@ -7686,6 +7879,48 @@ PrefabInstance:
       propertyPath: _state
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantPlantedMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 5954207393749863206, guid: e5ab4a08037eccf4c8878a493b14a34c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1072305486813643256, guid: fe5c8036caedc9742ae6d2737fac6e78,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5013203460863163337, guid: 2178117508014ea4bbd821be72df526e,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7364580853276841700, guid: bbb77a081cd704848aed64b1d836a40c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 7918266810199535898, guid: bd14173c83c9a1c45a8820b9423aa37b,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1746713379901414806, guid: 9fdf73174adc212438e057cdde095eae,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrownMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7943062233547100168, guid: 99d926cec2dd6624bba546b4636df543,
+        type: 3}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -9546,6 +9781,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
+      propertyPath: _plantDecayingMeshes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
@@ -9554,6 +9794,48 @@ PrefabInstance:
       propertyPath: _state
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantPlantedMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 5954207393749863206, guid: e5ab4a08037eccf4c8878a493b14a34c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1072305486813643256, guid: fe5c8036caedc9742ae6d2737fac6e78,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5013203460863163337, guid: 2178117508014ea4bbd821be72df526e,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7364580853276841700, guid: bbb77a081cd704848aed64b1d836a40c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 7918266810199535898, guid: bd14173c83c9a1c45a8820b9423aa37b,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1746713379901414806, guid: 9fdf73174adc212438e057cdde095eae,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrownMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7943062233547100168, guid: 99d926cec2dd6624bba546b4636df543,
+        type: 3}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -10644,6 +10926,9 @@ MonoBehaviour:
             m_StringArgument: Tool is not available on plot
             m_BoolArgument: 0
           m_CallState: 2
+    onFarmPlotInactive:
+      m_PersistentCalls:
+        m_Calls: []
   _dishEvents:
     onDishFinish:
       m_PersistentCalls:
@@ -12011,6 +12296,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
+      propertyPath: _plantDecayingMeshes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
@@ -12019,6 +12309,48 @@ PrefabInstance:
       propertyPath: _state
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantPlantedMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 5954207393749863206, guid: e5ab4a08037eccf4c8878a493b14a34c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1072305486813643256, guid: fe5c8036caedc9742ae6d2737fac6e78,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5013203460863163337, guid: 2178117508014ea4bbd821be72df526e,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7364580853276841700, guid: bbb77a081cd704848aed64b1d836a40c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 7918266810199535898, guid: bd14173c83c9a1c45a8820b9423aa37b,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1746713379901414806, guid: 9fdf73174adc212438e057cdde095eae,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrownMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7943062233547100168, guid: 99d926cec2dd6624bba546b4636df543,
+        type: 3}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -12674,17 +13006,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375026424}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.9999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1793321114}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 270, y: 220}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 83, y: 91}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!95 &1375026426
 Animator:
   serializedVersion: 3
@@ -13324,6 +13656,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
+      propertyPath: _plantDecayingMeshes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
@@ -13332,6 +13669,48 @@ PrefabInstance:
       propertyPath: _state
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantPlantedMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 5954207393749863206, guid: e5ab4a08037eccf4c8878a493b14a34c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1072305486813643256, guid: fe5c8036caedc9742ae6d2737fac6e78,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5013203460863163337, guid: 2178117508014ea4bbd821be72df526e,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7364580853276841700, guid: bbb77a081cd704848aed64b1d836a40c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 7918266810199535898, guid: bd14173c83c9a1c45a8820b9423aa37b,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1746713379901414806, guid: 9fdf73174adc212438e057cdde095eae,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrownMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7943062233547100168, guid: 99d926cec2dd6624bba546b4636df543,
+        type: 3}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
@@ -14210,9 +14589,9 @@ MonoBehaviour:
   _waterQuest: {fileID: 1539048442}
   _bugSwipeAnimation: {fileID: 1325324293}
   _sprayHand: {fileID: 219097825}
-  _sprayPosition: {x: 0, y: 0}
+  _sprayTool: {fileID: 420467800}
   _harvestHand: {fileID: 1375026424}
-  _truckPosition: {x: 730, y: 450}
+  _truck: {fileID: 131309389}
   _completeShovelQuestEvent:
     m_PersistentCalls:
       m_Calls:
@@ -14333,6 +14712,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _failBugKillEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _tutorialPlot: {fileID: 1183261847}
 --- !u!1 &1526145683
 GameObject:
@@ -15540,6 +15922,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
+      propertyPath: _plantDecayingMeshes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
       propertyPath: soundEffectManager
       value: 
       objectReference: {fileID: 1173698931}
@@ -15548,6 +15935,48 @@ PrefabInstance:
       propertyPath: _state
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantPlantedMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 5954207393749863206, guid: e5ab4a08037eccf4c8878a493b14a34c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1072305486813643256, guid: fe5c8036caedc9742ae6d2737fac6e78,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrowingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5013203460863163337, guid: 2178117508014ea4bbd821be72df526e,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7364580853276841700, guid: bbb77a081cd704848aed64b1d836a40c,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[1]
+      value: 
+      objectReference: {fileID: 7918266810199535898, guid: bd14173c83c9a1c45a8820b9423aa37b,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantDecayingMeshes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1746713379901414806, guid: 9fdf73174adc212438e057cdde095eae,
+        type: 3}
+    - target: {fileID: 806900370649418246, guid: e4e2129c42fe91940996ffefcf9cbb28,
+        type: 3}
+      propertyPath: _plantGrownMeshes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7943062233547100168, guid: 99d926cec2dd6624bba546b4636df543,
+        type: 3}
     - target: {fileID: 806900370649418247, guid: e4e2129c42fe91940996ffefcf9cbb28,
         type: 3}
       propertyPath: m_Name
