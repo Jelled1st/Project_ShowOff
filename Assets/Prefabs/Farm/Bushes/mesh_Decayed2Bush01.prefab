@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2854036698228983140}
   - component: {fileID: 8405715998159010205}
   m_Layer: 0
-  m_Name: mesh_stage2bush_decayed02
+  m_Name: mesh_Decayed2Bush01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

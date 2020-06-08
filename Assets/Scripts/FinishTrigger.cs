@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 public class FinishTrigger : MonoBehaviour
 {
-    public static event Action<GameObject> FinishTriggerHit = delegate { };
+    public event Action<GameObject> FinishTriggerHit = delegate { };
 
     private void OnTriggerEnter(Collider other)
     {

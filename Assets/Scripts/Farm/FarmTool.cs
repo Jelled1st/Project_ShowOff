@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class FarmTool : MonoBehaviour, IControllable, ISubject
 {
@@ -70,6 +71,11 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
         }
     }
 
+    private void Wiggle()
+    {
+        this.transform.DOPunchRotation(new Vector3(0, 0, 20), 0.3f, 50);
+    }
+
     private void OnUse()
     {
         _timeSinceLastUse = 0;
@@ -124,6 +130,7 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
         else
         {
             Notify(new ToolOnCooldownWarningEvent(this));
+            Wiggle();
             Debug.Log("Use is on cooldown");
         }
     }

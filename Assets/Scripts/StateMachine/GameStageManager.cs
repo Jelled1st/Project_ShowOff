@@ -29,7 +29,7 @@ namespace StateMachine
             switch (_initialStage)
             {
                 case GameStages.Factory:
-                    ChangeStage<FactoryStage>();
+                    // ChangeStage<FactoryStage>();
                     break;
                 default:
                     throw new Exception(
