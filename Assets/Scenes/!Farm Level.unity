@@ -1015,7 +1015,7 @@ GameObject:
   - component: {fileID: 85618118}
   m_Layer: 5
   m_Name: Seeds
-  m_TagString: Untagged
+  m_TagString: FarmTool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2001,7 +2001,7 @@ GameObject:
   - component: {fileID: 149003911}
   m_Layer: 5
   m_Name: WateringCan
-  m_TagString: Untagged
+  m_TagString: FarmTool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2261,7 +2261,7 @@ GameObject:
   - component: {fileID: 196098113}
   m_Layer: 5
   m_Name: Shovel
-  m_TagString: Untagged
+  m_TagString: FarmTool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3895,7 +3895,7 @@ GameObject:
   - component: {fileID: 420467802}
   m_Layer: 5
   m_Name: BugSpray
-  m_TagString: Untagged
+  m_TagString: FarmTool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10502,28 +10502,37 @@ MonoBehaviour:
         m_Calls: []
   _farmEvents:
     onPlotChange:
-      newState: 2
+    - newState: 0
+      previousState: 0
+      events:
+        m_PersistentCalls:
+          m_Calls: []
+    - newState: 0
+      previousState: 0
+      events:
+        m_PersistentCalls:
+          m_Calls: []
+    - newState: 0
       previousState: 0
       events:
         m_PersistentCalls:
           m_Calls: []
     onPlotChangeStart:
-      newState: 2
-      previousState: 1
+    - newState: 0
+      previousState: 0
       events:
         m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 0}
-            m_MethodName: SoundDig
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
+          m_Calls: []
+    - newState: 0
+      previousState: 0
+      events:
+        m_PersistentCalls:
+          m_Calls: []
+    - newState: 0
+      previousState: 0
+      events:
+        m_PersistentCalls:
+          m_Calls: []
     onPlotHarvest:
       m_PersistentCalls:
         m_Calls: []
@@ -10592,12 +10601,44 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    onToolCooldownUse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2034276723}
+          m_MethodName: Write
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tool is on Cooldown
+            m_BoolArgument: 0
+          m_CallState: 2
+    onPlotCooldownUse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2034276723}
+          m_MethodName: Write
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Plot is on Cooldown
+            m_BoolArgument: 0
+          m_CallState: 2
   _dishEvents:
     onDishFinish:
       m_PersistentCalls:
         m_Calls: []
     onDishAddIngredient:
-      ingredientType: 0
+    - ingredientType: 0
+      events:
+        m_PersistentCalls:
+          m_Calls: []
+    - ingredientType: 0
       events:
         m_PersistentCalls:
           m_Calls: []
@@ -18627,6 +18668,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028025376}
   m_CullTransparentMesh: 0
+--- !u!1 &2034276722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2034276724}
+  - component: {fileID: 2034276723}
+  m_Layer: 0
+  m_Name: DebugLog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2034276723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034276722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8b1b1f09b04a46aa2a2ab13985a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2034276724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034276722}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.137994, y: 9.077459, z: -4.301076}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2044919352
 GameObject:
   m_ObjectHideFlags: 0

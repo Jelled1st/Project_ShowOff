@@ -21,6 +21,14 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         Harvested,
     };
 
+    private enum StateReady
+    {
+        OnCooldown = -1,
+        InvalidAdvancement = -2,
+
+        Ready = 1,
+    }
+
     [SerializeField] private State _state = State.Rough;
 
     [SerializeField] private float _timeTillGrown = 10.0f;
@@ -52,7 +60,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     [SerializeField] GameObject[] _plantPositions = new GameObject[4];
 
     // Observers
-    List<IFarmPlotObserver> _observers;
+    List<IObserver> _observers = new List<IObserver>();
 
     private bool _updateHasBeenCalled = false;
     private bool _cultivateAfterCooldown = false;
@@ -118,11 +126,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         {
             _growTime += Time.deltaTime / _decayGrowSlowness;
         }
-        if (ReadyForState(State.Grown))
+        if (ReadyForState(State.Grown) == StateReady.Ready)
         {
             CultivateToState(State.Grown);
         }
-        else if(ReadyForState(State.Withered))
+        else if(ReadyForState(State.Withered) == StateReady.Ready)
         {
             CultivateToState(State.Withered);
         }
@@ -153,29 +161,30 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     }
 
     #region Outside Actions (Dig/Plant/etc)
-    public static bool Dig(FarmPlot plot, float cooldown)
+    public static bool Dig(FarmPlot plot, float cooldown, FarmTool tool)
     {
-        return plot.Dig(cooldown);
+        return plot.Dig(cooldown, tool);
     }
 
-    public static bool Plant(FarmPlot plot, float cooldown)
+    public static bool Plant(FarmPlot plot, float cooldown, FarmTool tool)
     {
-        return plot.Plant(cooldown);
+        return plot.Plant(cooldown, tool);
     }
 
-    public static bool Water(FarmPlot plot, float cooldown)
+    public static bool Water(FarmPlot plot, float cooldown, FarmTool tool)
     {
-        return plot.Water(cooldown);
+        return plot.Water(cooldown, tool);
     }
 
-    public static bool Heal(FarmPlot plot, float cooldown)
+    public static bool Heal(FarmPlot plot, float cooldown, FarmTool tool)
     {
-        return plot.Heal(cooldown);
+        return plot.Heal(cooldown, tool);
     }
 
-    public bool Dig(float cooldown)
+    public bool Dig(float cooldown, FarmTool tool)
     {
-        if (ReadyForState(State.Dug) && _interActable)
+        StateReady readyForState = ReadyForState(State.Dug);
+        if (readyForState == StateReady.Ready && _interActable)
         {
             soundEffectManager.SoundDig();
 
@@ -185,14 +194,16 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
         else
         {
+            if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
         }
     }
 
-    public bool Plant(float cooldown)
+    public bool Plant(float cooldown, FarmTool tool)
     {
-        if (ReadyForState(State.Planted) && _interActable)
+        StateReady readyForState = ReadyForState(State.Planted);
+        if (readyForState == StateReady.Ready && _interActable)
         {
             _cooldown = cooldown;
             CultivateAfterCooldown(State.Planted);
@@ -200,14 +211,16 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
         else
         {
+            if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
         }
     }
 
-    public bool Water(float cooldown)
+    public bool Water(float cooldown, FarmTool tool)
     {
-        if (ReadyForState(State.Growing) && _state == State.Planted && _interActable)
+        StateReady readyForState = ReadyForState(State.Growing);
+        if (readyForState == StateReady.Ready && _state == State.Planted && _interActable)
         {   
             soundEffectManager.SoundWater();
 
@@ -217,14 +230,16 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
         else
         {
+            if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
         }
     }
 
-    public bool Heal(float cooldown)
+    public bool Heal(float cooldown, FarmTool tool)
     {
-        if(ReadyForState(State.Growing) && _state == State.Decay && _interActable)
+        StateReady readyForState = ReadyForState(State.Growing);
+        if (readyForState == StateReady.Ready && _state == State.Decay && _interActable)
         {
             soundEffectManager.SoundPesticide();
 
@@ -234,50 +249,51 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
         else
         {
+            if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
         }
     }
     #endregion
 
-    private bool ReadyForState(State state)
+    private StateReady ReadyForState(State state)
     {
         if (_cooldownTimer >= _cooldown || _neglectCooldown)
         {
             switch(state)
             {
                 case State.Withered:
-                    if (_state == State.Decay && _timeSinceLastCultivation >= _timeTillWithered) return true;
-                    else return false;
+                    if (_state == State.Decay && _timeSinceLastCultivation >= _timeTillWithered) return StateReady.Ready;
+                    else return StateReady.InvalidAdvancement;
                 case State.Rough:
-                    if (_state == State.Grown) return true;
-                    return false;
+                    if (_state == State.Grown) return StateReady.Ready;
+                    return StateReady.InvalidAdvancement; ;
                 case State.Dug:
-                    if (_state == State.Rough || _state == State.Withered || _state == State.Harvested || _state == State.Undifined) return true;
-                    else return false;
+                    if (_state == State.Rough || _state == State.Withered || _state == State.Harvested || _state == State.Undifined) return StateReady.Ready;
+                    else return StateReady.InvalidAdvancement; ;
                 case State.Planted:
-                    if (_state == State.Dug) return true;
-                    else return false;
+                    if (_state == State.Dug) return StateReady.Ready;
+                    else return StateReady.InvalidAdvancement; ;
                 case State.Growing:
-                    if (_state == State.Planted || _state == State.Decay) return true;
-                    else return false;
+                    if (_state == State.Planted || _state == State.Decay) return StateReady.Ready;
+                    else return StateReady.InvalidAdvancement; ;
                 case State.Decay:
-                    if (_state == State.Growing) return true;
-                    else return false;
+                    if (_state == State.Growing) return StateReady.Ready;
+                    else return StateReady.InvalidAdvancement; ;
                 case State.Healing:
-                    if (_state == State.Decay) return true;
-                    else return false;
+                    if (_state == State.Decay) return StateReady.Ready;
+                    else return StateReady.InvalidAdvancement; ;
                 case State.Grown:
-                    if (_state == State.Growing && _growTime >= _timeTillGrown) return true;
-                    else return false;
+                    if (_state == State.Growing && _growTime >= _timeTillGrown) return StateReady.Ready;
+                    else return StateReady.InvalidAdvancement; ;
                 case State.Harvested:
-                    if (_state == State.Grown) return true;
-                    else return false;
+                    if (_state == State.Grown) return StateReady.Ready;
+                    else return StateReady.InvalidAdvancement; ;
                 default:
-                    return false;
+                    return StateReady.InvalidAdvancement; ;
             }
         }
-        else return false;
+        else return StateReady.OnCooldown;
     }
 
     private void CultivateAfterCooldown(State state)
@@ -389,13 +405,13 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public void Decay()
     {
-        if(ReadyForState(State.Decay)) CultivateToState(State.Decay);
+        if(ReadyForState(State.Decay) == StateReady.Ready) CultivateToState(State.Decay);
     }
 
     public bool Harvest()
     {
         InformObserversOfHarvest();
-        if (ReadyForState(State.Harvested))
+        if (ReadyForState(State.Harvested) == StateReady.Ready)
         {
             CultivateToState(State.Harvested);
             return true;
@@ -455,7 +471,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     #region ISubject
     public void Register(IObserver observer)
     {
-        if (_observers == null) _observers = new List<IFarmPlotObserver>();
         if(observer is IFarmPlotObserver)
         {
             _observers.Add(observer as IFarmPlotObserver);
@@ -472,7 +487,10 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public void OnNotify(AObserverEvent observerEvent)
     {
-
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
     }
     #endregion
 
@@ -482,7 +500,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (_observers == null) return;
         for (int i = 0; i < _observers.Count; ++i)
         {
-            _observers[i].OnPlotStartStateSwitch(next, current, this);
+            if(_observers[i] is IFarmPlotObserver) (_observers[i] as IFarmPlotObserver).OnPlotStartStateSwitch(next, current, this);
         }
     }
 
@@ -491,7 +509,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (_observers == null) return;
         for(int i = 0; i < _observers.Count; ++i)
         {
-            _observers[i].OnPlotStateSwitch(current, previous, this);
+            if (_observers[i] is IFarmPlotObserver) (_observers[i] as IFarmPlotObserver).OnPlotStateSwitch(current, previous, this);
         }
     }
 
@@ -500,7 +518,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         if (_observers == null) return;
         for (int i = 0; i < _observers.Count; ++i)
         {
-            _observers[i].OnPlotHarvest(this);
+            if (_observers[i] is IFarmPlotObserver) (_observers[i] as IFarmPlotObserver).OnPlotHarvest(this);
         }
     }
     #endregion
@@ -533,6 +551,10 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public void Notify(AObserverEvent observerEvent)
     {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
     }
     #endregion
 }

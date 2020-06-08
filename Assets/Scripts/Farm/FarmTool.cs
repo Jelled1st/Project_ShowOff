@@ -20,7 +20,7 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
     [SerializeField] ProgressBar _cooldownBar;
     [SerializeField] Canvas _parentCanvas;
     [SerializeField] Vector3 _dragScale = new Vector3(1.0f, 1.0f, 1.0f);
-    private delegate bool FunctionalityFunctions(FarmPlot plot, float cooldown);
+    private delegate bool FunctionalityFunctions(FarmPlot plot, float cooldown, FarmTool tool);
     private FunctionalityFunctions _functionaliesHandler;
     private float _timeSinceLastUse = 0.0f;
     private RawImage _image;
@@ -32,6 +32,7 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
     {
         _image = this.GetComponent<RawImage>();
         _cooldownBar.SetActive(false);
+        this.gameObject.tag = "FarmTool";
     }
 
     // Start is called before the first frame update
@@ -114,7 +115,7 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
             FarmPlot plot;
             if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
             {
-                if (_functionaliesHandler(plot, _farmPlotCooldown))
+                if (_functionaliesHandler(plot, _farmPlotCooldown, this))
                 {
                     OnUse();
                 }
