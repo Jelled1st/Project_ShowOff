@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 665029761637527065}
   - component: {fileID: 2883163727736316449}
+  - component: {fileID: 3708273933523458036}
   - component: {fileID: 8386177170476143663}
   - component: {fileID: 2836466080228272342}
   - component: {fileID: 1974509867584430750}
@@ -94,8 +95,22 @@ MonoBehaviour:
   _breakVisuals: {fileID: 3726418210832195761}
   _slowPerStage: 0.33333334
   _breakEverySeconds: {x: 10, y: 15}
+  _expectedInputTag: 
+  _outputTag: 
   _substitute:
   - {fileID: 6075627235216453774, guid: cf12fe4f3b6008d4699e4d4a05253d6d, type: 3}
+--- !u!114 &3708273933523458036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567196288791174154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec6684d9286d30a4899b027ae2c0b1cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &8386177170476143663
 MeshFilter:
   m_ObjectHideFlags: 0
