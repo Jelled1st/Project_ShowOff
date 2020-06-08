@@ -21,6 +21,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     [SerializeField] private float _witherPenaltyPoints = 25;
 
     private List<IGameHandlerObserver> _gameHandlerObservers;
+    private List<FarmPlot> _farmPlots = new List<FarmPlot>();
     private bool _paused = false;
     private bool gameFinished = false;
     private bool _debugLog = false;
@@ -30,6 +31,8 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     [Header("Tutorial")]
     [SerializeField] private bool _doTutorial = true;
     private bool _pausedForTutorial = false;
+    private bool _repeatPause = false;
+    private bool _repeatPauseForTutorial = false;
 
     void Awake()
     {
@@ -55,32 +58,31 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
         GameObject[] farmPlotsGOs = GameObject.FindGameObjectsWithTag("FarmPlot");
         //Set states before substribing
-        FarmPlot[] farmPlots = new FarmPlot[farmPlotsGOs.Length];
         for (int i = 0; i < farmPlotsGOs.Length; ++i)
         {
-            farmPlots[i] = farmPlotsGOs[i].GetComponent<FarmPlot>();
+            _farmPlots.Add(farmPlotsGOs[i].GetComponent<FarmPlot>());
         }
 
         if (_plantsStartAtGrown)
         {
-            for (int i = 0; i < farmPlots.Length; ++i)
+            for (int i = 0; i < _farmPlots.Count; ++i)
             {
-                farmPlots[i].SetStartState(FarmPlot.State.Grown);
+                _farmPlots[i].SetStartState(FarmPlot.State.Grown);
             }
         }
-        else SetFarmPlotStates(farmPlots);
+        else SetFarmPlotStates(_farmPlots);
 
-        for (int i = 0; i < farmPlots.Length; ++i)
+        for (int i = 0; i < _farmPlots.Count; ++i)
         {
-            Subscribe(farmPlots[i]);
+            Subscribe(_farmPlots[i]);
         }
     }
 
-    private void SetFarmPlotStates(FarmPlot[] farmPlots)
+    private void SetFarmPlotStates(List<FarmPlot> farmPlots)
     {
         if(_stateSpawnRates == null || _stateSpawnRates.Count == 0)
         {
-            for(int i = 0; i < farmPlots.Length; ++i)
+            for(int i = 0; i < farmPlots.Count; ++i)
             {
                 farmPlots[i].SetStartState(FarmPlot.State.Rough);
             }
@@ -88,7 +90,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         }
 
         List<int> farmPlotsToBeSet = new List<int>();
-        for (int i = 0; i < farmPlots.Length; ++i)
+        for (int i = 0; i < farmPlots.Count; ++i)
         {
             farmPlotsToBeSet.Add(i);
         }
@@ -153,7 +155,11 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     // Update is called once per frame
     void Update()
     {
-        if(_pausedForTutorial && Input.GetMouseButtonDown(0))
+        if (_repeatPause)
+        {
+            Pause(_repeatPauseForTutorial);
+        }
+        if (_pausedForTutorial && Input.GetMouseButtonDown(0))
         {
             UnPause();
         }
@@ -168,7 +174,20 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         FinishGame();
     }
 
-    public void Pause(bool tutorialPause = false)
+    public void RepeatPause(bool tutorialPause = false)
+    {
+        _repeatPause = true;
+        _repeatPauseForTutorial = tutorialPause;
+        Pause(tutorialPause);
+    }
+
+    public void RepeatUnPause()
+    {
+        _repeatPause = false;
+        UnPause();
+    }
+
+    public void Pause(bool tutorialPause)
     {
         _pausedForTutorial = tutorialPause;
         if (!_paused)

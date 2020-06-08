@@ -82,7 +82,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     // Update is called once per frame
     void Update()
     {
-        if (_paused) return;
+        //if (_paused) return;
         bool mousePressed = Input.GetMouseButton(0);
         IControllable controllable = null;
         ControllerHitInfo hitInfo = new ControllerHitInfo(true);
@@ -155,7 +155,6 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     private void StartDrag()
     {
-        Debug.Log("Start drag on " + _selected);
         _dragSelected = _selected;
         _dragStartInfo = _hitInfo;
         _isDragging = true;
@@ -251,7 +250,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             _hitInfo = hitInfo;
             _selectedGameObject = hitInfo.gameObject;
             _timeHeld += Time.deltaTime;
-            if (_timeHeld >= _holdTime)
+            if (_timeHeld >= _holdTime && !_swipeStarted)
             {
                 OnHold(_timeHeld, _selected, hitInfo);
             }
@@ -384,7 +383,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         if (observer is IControlsObserver) _observers.Remove((IControlsObserver)observer);
     }
 
-    public void Notify(AObserverEvent observerEvent)
+    public void OnNotify(AObserverEvent observerEvent)
     {
 
     }
@@ -486,7 +485,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         subject.UnRegister(this);
     }
 
-    public void OnNotify(AObserverEvent observerEvent)
+    public void Notify(AObserverEvent observerEvent)
     {
     }
 }

@@ -171,6 +171,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         {
             if (_observers[i] is ISwarmObserver) (_observers[i] as ISwarmObserver).OnBugKill(unit);
         }
+        Notify(new SwarmBugKillEvent(unit, this));
         RemoveUnit(unit);
     }
 

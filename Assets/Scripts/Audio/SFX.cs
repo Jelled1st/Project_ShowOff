@@ -25,12 +25,7 @@ public class SFX : MonoBehaviour
 
     [HideInInspector]
     public bool conveyorHumInstancePlaying = false;
-
-    /* Wherever the sound needs to play
-     [In the area where it needs to play]
-     _soundScript.Sound[Name]();     
-    */
-
+    
     #region Event Subscriptions
 
     private void OnEnable()
@@ -138,20 +133,19 @@ public class SFX : MonoBehaviour
 
     private void SoundItemLeftMachine(Machine.MachineType machineType)
     {
-        // TODO: Add sounds
         switch (machineType)
         {
             case Machine.MachineType.PotatoWasher:
-
+                SoundComingOut();
                 break;
             case Machine.MachineType.PotatoPeeler:
-
+                SoundComingOut();
                 break;
             case Machine.MachineType.FryPacker:
-
+                SoundComingOut();
                 break;
             case Machine.MachineType.FryCutter:
-
+                SoundComingOut();
                 break;
         }
     }
@@ -191,6 +185,7 @@ public class SFX : MonoBehaviour
         }
     }
 
+    /*
     // Constant humming noise of the conveyors
     public void SoundConveyor()
     {
@@ -214,7 +209,8 @@ public class SFX : MonoBehaviour
         _conveyorHumInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         _conveyorHumInstance.release();
     }
-
+    */
+    
     // Sound when rotating conveyor belts
     public void SoundRotate()
     {
@@ -242,6 +238,14 @@ public class SFX : MonoBehaviour
         StartCoroutine(WaitForEnd(clipLength));
     }
 
+    // Sound when an item comes out of any machine
+    public void SoundComingOut()
+    {
+        Play("SFX_FACTORY/Item Coming Out");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
     // Sound when machine starts breaking down
     public void SoundBreaking()
     {
@@ -307,11 +311,81 @@ public class SFX : MonoBehaviour
 
     #endregion
 
+    #region KitchenSounds
+
+    // Sound when cutting stuff like carrots, onions, apples
+    public void SoundHardCut()
+    {
+        Play("SFX_KITCHEN/Cutting Hard Vegs");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    // Sound when cutting tomatoes, pickles, cheese, etc
+    public void SoundSoftCut()
+    {
+        Play("SFX_KITCHEN/Cutting Soft Vegs");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundFriesDone()
+    {
+        Play("SFX_KITCHEN/Fry Done");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundFryFrying()
+    {
+        Play("SFX_KITCHEN/Fry Frying");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundBoiling()
+    {
+        Play("SFX_KITCHEN/Meal Boiling");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundStirring()
+    {
+        Play("SFX_KITCHEN/Meal Stirring");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundBurning()
+    {
+        Play("SFX_KITCHEN/Meat Burning");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    public void SoundSearing()
+    {
+        Play("SFX_KITCHEN/Meat Searing");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+
+    #endregion
+    
     #region playRules
 
-    public void Play(string fmodEvent)
+    private void Play(string fmodEvent)
     {
-        Debug.Log("Audio is playing: " + fmodEvent);
+        // Debug.Log("Audio is playing: " + fmodEvent);
         if (_isPlaying == false)
         {
             _sfxEvent = "event:/" + fmodEvent;
