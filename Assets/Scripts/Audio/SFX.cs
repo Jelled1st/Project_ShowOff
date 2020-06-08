@@ -256,7 +256,7 @@ public class SFX : MonoBehaviour
     }
 
     // Sound when a machine fully breaks
-    public void SoundBroken()
+    public void SoundBroken(Machine machine)
     {
         Play("SFX_FACTORY/Machine Broken");
 
