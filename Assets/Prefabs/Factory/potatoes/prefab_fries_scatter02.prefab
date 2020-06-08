@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8856215156165908816}
   - component: {fileID: 83072438340049388}
   - component: {fileID: 7937064380444125257}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: prefab_fries_scatter02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
