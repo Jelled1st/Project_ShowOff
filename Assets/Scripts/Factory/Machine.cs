@@ -226,6 +226,8 @@ namespace Factory
 
             _repairVisuals?.SetActive(true);
             _isRepairing = true;
+            _waitAndClogTween.Kill();
+            
             MachineStartedRepairing();
 
             // Debug.Log($"Started repairing {gameObject.name}");
