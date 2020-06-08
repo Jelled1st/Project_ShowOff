@@ -26,6 +26,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     [SerializeField] UnityEvent _completeWaterQuestEvent;
     [SerializeField] UnityEvent _firstBugSpawnEvent;
     [SerializeField] UnityEvent _completeBugKillEvent;
+    [SerializeField] UnityEvent _failBugKillEvent;
     [SerializeField] FarmPlot _tutorialPlot;
 
     private bool _shovelComplete = false;
@@ -234,6 +235,16 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
                 _firstSprayCompleted = true;
                 DOTween.Kill(_sprayHand.transform);
                 _sprayHand.SetActive(false);
+            }
+        }
+        else if(state == FarmPlot.State.Withered)
+        {
+            if (!_firstSprayCompleted)
+            {
+                _firstSprayCompleted = true;
+                DOTween.Kill(_sprayHand.transform);
+                _sprayHand.SetActive(false);
+                _failBugKillEvent.Invoke();
             }
         }
     }
