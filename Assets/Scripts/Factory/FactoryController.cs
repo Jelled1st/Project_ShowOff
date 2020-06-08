@@ -34,7 +34,7 @@ namespace Factory
 
         [BoxGroup("Scene objects")]
         [SerializeField]
-        private FlatConveyorBelt[] _bufferBelts;
+        private BufferBelt _bufferBelt;
 
         [BoxGroup("Scene objects")]
         [SerializeField]
@@ -61,8 +61,6 @@ namespace Factory
         {
             _level2Machines.ToggleChildren<Machine>(false);
 
-            _bufferBelts.ToggleAll(false);
-
             _finishTriggerLevel1.FinishTriggerHit += OnLevel1TriggerHit;
             _finishTriggerLevel2.FinishTriggerHit += OnLevel2TriggerHit;
         }
@@ -82,7 +80,7 @@ namespace Factory
                 _level1Machines.ToggleChildren<Machine>(false);
                 _level2Machines.ToggleChildren<Machine>(true);
 
-                _bufferBelts.ToggleAll(true);
+                _bufferBelt.ReleaseObjects();
 
                 _level1Belts.ToggleAll(false);
 
