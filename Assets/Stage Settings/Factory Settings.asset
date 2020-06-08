@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155a45deb45049f499d664c48f859919, type: 3}
   m_Name: Factory Settings
   m_EditorClassIdentifier: Assembly-CSharp::FactoryStageSettings
-  <StageScene>k__BackingField: 1
+  <StageScene>k__BackingField: 2
   <PackagePrefab>k__BackingField: {fileID: 6941339113540420157, guid: 198380ca7f1e8e346a023db19066072d,
     type: 3}
   <GroundLevel>k__BackingField: 0.5
