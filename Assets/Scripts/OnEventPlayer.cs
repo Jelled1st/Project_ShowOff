@@ -25,6 +25,8 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
         public UnityEvent onToolCooldownUse;
         public UnityEvent onPlotCooldownUse;
+        public UnityEvent onWrongToolOnPlot;
+        public UnityEvent onFarmPlotInactive;
     }
 
     [System.Serializable]
@@ -173,6 +175,14 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         else if (observerEvent is PlotOnCooldownWarningEvent)
         {
             _farmEvents.onPlotCooldownUse.Invoke();
+        }
+        else if (observerEvent is WrongToolOnPlotWarningEvent)
+        {
+            _farmEvents.onWrongToolOnPlot.Invoke();
+        }
+        else if (observerEvent is FarmPlotIsInactiveWarningEvent)
+        {
+            _farmEvents.onFarmPlotInactive.Invoke();
         }
     }
 
