@@ -123,7 +123,10 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         }
         if (_dragCopy != null) // else would not call this if _dragCopy had just been set
         {
-            if (hitInfo.uiElement) _dragCopy.transform.position = Input.mousePosition;
+            if (hitInfo.uiElement)
+            {
+                _dragCopy.transform.position = Input.mousePosition;
+            }
             else
             {
                 Vector3 originalPos = position;

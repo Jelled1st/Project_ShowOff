@@ -8,5 +8,5 @@ public interface ISubject
 
     void UnRegister(IObserver observer);
 
-    void Notify(AObserverEvent observerEvent);
+    void OnNotify(AObserverEvent observerEvent);
 }

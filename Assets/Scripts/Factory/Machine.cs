@@ -1,7 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Factory
 {
@@ -9,6 +13,25 @@ namespace Factory
     [SelectionBase]
     public abstract class Machine : MonoBehaviour, IControllable
     {
+        public enum MachineType
+        {
+            PotatoWasher,
+            PotatoPeeler,
+            FryPacker,
+            FryCutter
+        }
+
+        public static event Action<MachineType, GameObject> ItemEnteredMachine = delegate { };
+        public static event Action<MachineType> ItemLeftMachine = delegate { };
+        public static event Action MachineStartedRepairing = delegate { };
+        public static event Action MachineBreaking = delegate { };
+        public static event Action MachineBroke = delegate { };
+
+
+        [BoxGroup("Machine settings")]
+        [SerializeField]
+        private MachineType _machineType;
+
         [BoxGroup("Processing settings")]
         [SerializeField]
         [Required]
@@ -23,9 +46,10 @@ namespace Factory
         [SerializeField]
         private float _outputPushForce;
 
+        [FormerlySerializedAs("_particleSystem")]
         [BoxGroup("Processing settings")]
         [SerializeField]
-        private ParticleSystem _particleSystem;
+        private ParticleSystem _processParticles;
 
         [BoxGroup("Processing settings")]
         [Tooltip("Time before output spits")]
@@ -45,95 +69,168 @@ namespace Factory
         private GameObject _repairVisuals;
 
         [BoxGroup("Clogging settings")]
+        [SerializeField]
+        private GameObject _breakVisuals;
+
+        [BoxGroup("Clogging settings")]
         [Range(0f, 1f)]
         [SerializeField]
         private float _slowPerStage = 1f / _stagesToBreak;
 
         [BoxGroup("Clogging settings")]
-        [MinMaxSlider(1f, 10f)]
+        [MinMaxSlider(1f, 20f)]
         [SerializeField]
         private Vector2 _breakEverySeconds = new Vector2(4, 8);
 
         private const int _stagesToBreak = 3;
 
         private int _currentClogStage;
+
+        private int CurrentClogStage
+        {
+            get => _currentClogStage;
+            set
+            {
+                if (value == _stagesToBreak)
+                {
+                    Scores.AddScore(Scores.MachineCompleteBreakage);
+                    MachineBroke();
+                }
+
+                // If WAS broken, then release items
+                if (value == _stagesToBreak - 1)
+                {
+                    ReleaseBufferedItems();
+                }
+
+                if (value > 1)
+                {
+                    _breakVisuals?.SetActive(true);
+                }
+
+                if (value == 1)
+                {
+                    _breakVisuals.SetActive(false);
+                }
+
+                _currentClogStage = value;
+            }
+        }
+
         private bool _isRepairing;
+        private Queue<GameObject> _itemBuffer = new Queue<GameObject>();
 
         private float Delay { get; set; }
 
-        private bool IsClogged => _currentClogStage == _stagesToBreak;
+        private bool IsClogged => CurrentClogStage == _stagesToBreak;
 
         // If we later need it - it's the filtration by tag
-        // [SerializeField] private string _allowedInputTag;
-        // [SerializeField] private string _outputTag;
-        // protected string AllowedInputTag => _allowedInputTag;
+        [SerializeField]
+        private string _expectedInputTag;
+
+        [SerializeField]
+        private string _outputTag;
+        // protected string AllowedInputTag => _expectedInputTag;
         // protected string OutputTag => _outputTag;
 
-        protected abstract GameObject PreDelayProcess(GameObject o);
-        protected abstract GameObject PostDelayProcess(GameObject o);
+        protected abstract GameObject PreDelayProcess(GameObject inputGameObject);
+        protected abstract GameObject PostDelayProcess(GameObject outputGameObject);
 
-        private void Start()
+        private void OnEnable()
+        {
+            Enable();
+        }
+
+        private void OnDisable()
+        {
+            Disable();
+        }
+
+        public void Enable()
         {
             // Initial reset
+            enabled = true;
             Delay = _delay;
-            _currentClogStage = 0;
+            CurrentClogStage = 0;
             _isRepairing = false;
 
             // Set input trigger callback
             if (!TryGetComponent(out CollisionCallback collisionCallback))
             {
-                Debug.LogWarning(
-                    $"[{gameObject.name}] lacks {nameof(CollisionCallback)} script! Edit the prefab! Trying to add it...");
+                // Debug.LogWarning(
+                //     $"[{gameObject.name}] lacks {nameof(CollisionCallback)} script! Edit the prefab! Trying to add it...");
             }
 
             collisionCallback = _inputFunnelTrigger.gameObject.AddComponent<CollisionCallback>();
             collisionCallback.onTriggerEnter += OnTriggerEnterCallback;
 
-            _particleSystem = _particleSystem.NullIfEqualsNull();
-            _particleSystem?.Stop();
+            _processParticles = _processParticles.NullIfEqualsNull();
+            _processParticles?.Stop();
 
             _repairVisuals = _repairVisuals.NullIfEqualsNull();
             _repairVisuals?.SetActive(false);
 
+            _breakVisuals = _breakVisuals.NullIfEqualsNull();
+            _breakVisuals?.SetActive(false);
+
             WaitAndClog();
+        }
+
+        public void Disable()
+        {
+            _processParticles?.Stop();
+            _repairVisuals.SetActive(false);
+            _breakVisuals.SetActive(false);
+            _isRepairing = false;
+
+            _waitAndClogTween.Kill();
+            _waitAndClogTween = null;
+
+            enabled = false;
         }
 
         private void Clog()
         {
-            if (_isRepairing || IsClogged)
+            if (!enabled || _isRepairing || IsClogged)
                 return;
 
-            _currentClogStage++;
-
-            if (IsClogged)
-            {
-                Scores.AddScore(Scores.MachineCompleteBreakage);
-            }
+            CurrentClogStage++;
 
             // Increase delay by slowPerStage %
             Delay *= 1 + _slowPerStage;
 
             _clogVisual.Play(true);
+            MachineBreaking();
 
-            // Debug.Log($"Clog [{_currentClogStage}] {gameObject.name}");
+            // Debug.Log($"Clog [{CurrentClogStage}] {gameObject.name}");
 
             WaitAndClog();
         }
 
+        private Tween _waitAndClogTween;
+
+        private void WaitAndClog()
+        {
+            _waitAndClogTween = DOTween.Sequence()
+                .AppendInterval(Random.Range(_breakEverySeconds.x, _breakEverySeconds.y))
+                .AppendCallback(Clog);
+        }
+
         private void Repair()
         {
-            if (_currentClogStage <= 0 || _isRepairing)
+            if (CurrentClogStage <= 0 || _isRepairing || !enabled)
                 return;
 
             _repairVisuals?.SetActive(true);
             _isRepairing = true;
+            MachineStartedRepairing();
 
             // Debug.Log($"Started repairing {gameObject.name}");
-            DOTween.Sequence().AppendInterval(_baseFixTime * _currentClogStage)
+            DOTween.Sequence().AppendInterval(_baseFixTime * CurrentClogStage)
                 .AppendCallback(() =>
                 {
                     // Debug.Log($"Finished repairing {gameObject.name}");
-                    _currentClogStage--;
+                    CurrentClogStage--;
                     _repairVisuals?.SetActive(false);
                     _isRepairing = false;
 
@@ -144,19 +241,23 @@ namespace Factory
                 });
         }
 
-        private void WaitAndClog()
+        private void ReleaseBufferedItems()
         {
-            DOTween.Sequence().AppendInterval(Random.Range(_breakEverySeconds.x, _breakEverySeconds.y))
-                .AppendCallback(Clog);
+            if (_itemBuffer.Count > 0)
+            {
+                DOTween.Sequence().AppendCallback(() => { PostDelayProcessInternal(_itemBuffer.Dequeue()); })
+                    .AppendInterval(_delay).SetLoops(_itemBuffer.Count);
+            }
         }
+
 
         private void OnTriggerEnterCallback(Collider other)
         {
-            StartCoroutine(WaitAndExecute(other.gameObject, Delay));
+            StartCoroutine(Process(other.gameObject, Delay));
         }
 
 
-        private IEnumerator WaitAndExecute(GameObject otherGameObject, float delay)
+        private IEnumerator Process(GameObject otherGameObject, float delay)
         {
             if (IsClogged)
                 yield break;
@@ -165,18 +266,34 @@ namespace Factory
             if (check)
                 yield break;
 
-            var processedObject = PreDelayProcess(otherGameObject);
+            var processedObject = PreDelayProcessInternal(otherGameObject);
 
-            _particleSystem?.Play();
+            _processParticles?.Play();
             yield return new WaitForSeconds(delay);
-            _particleSystem?.Stop();
+            _processParticles?.Stop();
 
+            PostDelayProcessInternal(processedObject);
+        }
+
+        private GameObject PreDelayProcessInternal(GameObject inputGameObject)
+        {
+            ItemEnteredMachine(_machineType, inputGameObject);
+            return PreDelayProcess(inputGameObject);
+        }
+
+        private void PostDelayProcessInternal(GameObject processedObject)
+        {
+            ItemLeftMachine(_machineType);
             // Reset and spit the rigidbody
-            var spitItem = PostDelayProcess(processedObject)?.GetComponent<Rigidbody>();
-            spitItem.velocity = Vector3.zero;
-            spitItem.angularVelocity = Vector3.zero;
-            spitItem.transform.position = _output.position;
-            spitItem.AddForce(_outputPushForce * _output.right);
+            var processedItem = PostDelayProcess(processedObject);
+
+            if (processedItem.TryGetComponent(out Rigidbody spitItem))
+            {
+                spitItem.velocity = Vector3.zero;
+                spitItem.angularVelocity = Vector3.zero;
+                spitItem.transform.position = _output.position;
+                spitItem.AddForce(_outputPushForce * _output.right);
+            }
         }
 
 

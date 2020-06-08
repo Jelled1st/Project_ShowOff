@@ -45,9 +45,11 @@ MonoBehaviour:
   _reverseShaderDirection: 0
   _runtimeUseInspectorSpeed: 0
   _isSpecialConveyor: 0
+  _canRotate: 1
   _isTurnedOn: 1
-  _speedChangeTime: 0.5
+  _speedChangeTime: 0
   _heldSpeed: 2
+  _specialBeltType: 1
 --- !u!1001 &5311102910036211897
 PrefabInstance:
   m_ObjectHideFlags: 0

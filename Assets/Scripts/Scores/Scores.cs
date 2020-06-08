@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public static class Scores
@@ -9,6 +10,15 @@ public static class Scores
     public const int StageTwoMachinePassed = 150;
     public const int PerUnusedSpecialConveyor = 250;
     public const int LeftTimeMultiplier = 100;
+
+    public const int MachinePassed = 100;
+
+    public const int LoadedPotatoUnwashed = 100;
+    public const int LoadedPotatoWashed = 200;
+    public const int LoadedPotatoPeeled = 300;
+    public const int LoadedPotatoCut = 400;
+    public const int LoadedPotatoBagged = 500;
+
     private static List<IScoresObserver> _observers = new List<IScoresObserver>();
 
     public class UserScore : IComparable
@@ -152,7 +162,7 @@ public static class Scores
 
     private static void NotifyAddScore(float score)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (int i = 0; i < _observers.Count; ++i)
         {
             _observers[i].AddedScore(score);
         }

@@ -10,24 +10,28 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     public struct FarmEventsFunctions
     {
         [Tooltip("Plot changed")]
-        public PlotChangeUnityEvent onPlotChange;
+        public List<PlotChangeUnityEvent> onPlotChange;
         [Tooltip("Cooldown has to play before change, newState is the state that it will be after the cooldown")]
-        public PlotChangeUnityEvent onPlotChangeStart;
+        public List<PlotChangeUnityEvent> onPlotChangeStart;
         public UnityEvent onPlotHarvest;
 
         public UnityEvent onSwarmSpawn;
         public UnityEvent onSwarmDestroy;
         public UnityEvent onBugSpawn;
+        public UnityEvent onFirstBugSpawn;
         public UnityEvent onBugSpawnFail;
         public UnityEvent onBugKill;
         public UnityEvent onSwarmFlee;
+
+        public UnityEvent onToolCooldownUse;
+        public UnityEvent onPlotCooldownUse;
     }
 
     [System.Serializable]
     public struct DishEventFunctions
     {
         public UnityEvent onDishFinish;
-        public DishIngredientAddUnityEvent onDishAddIngredient;
+        public List<DishIngredientAddUnityEvent> onDishAddIngredient;
     }
 
     [System.Serializable]
@@ -55,6 +59,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     [SerializeField] private GameObject _gameHandler;
     [SerializeField] private TouchController _touchController;
     [SerializeField] private List<FarmPlot> _farmPlots;
+    [SerializeField] private List<FarmTool> _farmTools;
     [SerializeField] private List<Dish> _dishes;
 
     [SerializeField] private GameEventFunctions _gameEvents;
@@ -62,11 +67,14 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     [SerializeField] private FarmEventsFunctions _farmEvents;
     [SerializeField] private DishEventFunctions _dishEvents;
 
+    private bool _bugHasSpawned = false;
+
     public void Start()
     {
         SubscribeToGameHandler();
         SubscribeToTouchController();
         SubscribeToFarmPlots();
+        SubscribeToFarmTools();
         SubscribeToDishes();
         Swarm.RegisterStatic(this);
     }
@@ -109,6 +117,26 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
             }
         }
     }
+    private void SubscribeToFarmTools()
+    {
+        if (_farmTools.Count == 0)
+        {
+            GameObject[] farmToolsGOs = GameObject.FindGameObjectsWithTag("FarmTool");
+            for (int i = 0; i < farmToolsGOs.Length; ++i)
+            {
+                FarmTool farmTool = farmToolsGOs[i].GetComponent<FarmTool>();
+                _farmTools.Add(farmTool);
+                Subscribe(farmTool);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _farmTools.Count; ++i)
+            {
+                Subscribe(_farmTools[i]);
+            }
+        }
+    }
     private void SubscribeToDishes()
     {
         if (_dishes.Count == 0)
@@ -131,6 +159,23 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     }
     #endregion
 
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+        if (observerEvent is SwarmSpawnEvent)
+        {
+            this.Subscribe((observerEvent as SwarmSpawnEvent).swarm);
+            _farmEvents.onSwarmSpawn.Invoke();
+        }
+        else if(observerEvent is ToolOnCooldownWarningEvent)
+        {
+            _farmEvents.onToolCooldownUse.Invoke();
+        }
+        else if (observerEvent is PlotOnCooldownWarningEvent)
+        {
+            _farmEvents.onPlotCooldownUse.Invoke();
+        }
+    }
+
     #region ISwarmObserver
     public void OnBugKill(SwarmUnit unit)
     {
@@ -139,6 +184,11 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnBugSpawn(SwarmUnit unit)
     {
+        if(!_bugHasSpawned)
+        {
+            _bugHasSpawned = true;
+            _farmEvents.onFirstBugSpawn.Invoke();
+        }
         _farmEvents.onBugSpawn.Invoke();
     }
 
@@ -225,12 +275,18 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnPlotStartStateSwitch(FarmPlot.State switchState, FarmPlot.State currentState, FarmPlot plot)
     {
-        _farmEvents.onPlotChangeStart.TryInvoke(switchState, currentState);
+        for (int i = 0; i < _farmEvents.onPlotChangeStart.Count; ++i)
+        {
+            _farmEvents.onPlotChangeStart[i].TryInvoke(switchState, currentState);
+        }
     }
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
-        _farmEvents.onPlotChangeStart.TryInvoke(state, previousState);
+        for (int i = 0; i < _farmEvents.onPlotChange.Count; ++i)
+        {
+            _farmEvents.onPlotChange[i].TryInvoke(state, previousState);
+        }
     }
     #endregion
 
@@ -242,7 +298,10 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
-        _dishEvents.onDishAddIngredient.TryInvoke(ingredient.GetIngredientType());
+        for (int i = 0; i < _dishEvents.onDishAddIngredient.Count; ++i)
+        {
+            _dishEvents.onDishAddIngredient[i].TryInvoke(ingredient.GetIngredientType());
+        }
     }
     #endregion
 
@@ -254,14 +313,5 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
-    }
-
-    public void OnNotify(AObserverEvent observerEvent)
-    {
-        if (observerEvent is SwarmSpawnEvent)
-        {
-            this.Subscribe((observerEvent as SwarmSpawnEvent).swarm);
-            _farmEvents.onSwarmSpawn.Invoke();
-        }
     }
 }

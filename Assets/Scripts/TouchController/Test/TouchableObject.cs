@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TouchableObject : MonoBehaviour, IControllable
 {
+    [SerializeField] UnityEvent _onPress;
     bool _wasSwiped = false;
     bool _swiping = false;
 
@@ -31,6 +33,7 @@ public class TouchableObject : MonoBehaviour, IControllable
     {
         Color color = GetRandomColor();
         this.GetComponent<Renderer>().material.color = color;
+        _onPress.Invoke();
     }
 
     public void OnHold(float holdTime, Vector3 hitPoint)

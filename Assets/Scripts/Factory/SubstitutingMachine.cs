@@ -17,13 +17,13 @@ namespace Factory
                 Debug.LogError($"The substitute prefab for [{gameObject.name}] is not set!");
         }
 
-        protected override GameObject PreDelayProcess(GameObject o)
+        protected override GameObject PreDelayProcess(GameObject inputGameObject)
         {
-            Destroy(o);
+            Destroy(inputGameObject);
             return null;
         }
 
-        protected override GameObject PostDelayProcess(GameObject o)
+        protected override GameObject PostDelayProcess(GameObject outputGameObject)
         {
             return Instantiate(_substitute[Random.Range(0, _substitute.Length)]);
         }

@@ -22,16 +22,16 @@ namespace Factory
         private string _propertyToEnable = "_enableClean";
 
 
-        protected override GameObject PreDelayProcess(GameObject o)
+        protected override GameObject PreDelayProcess(GameObject inputGameObject)
         {
-            o.SetActive(false);
-            return o;
+            inputGameObject.SetActive(false);
+            return inputGameObject;
         }
 
-        protected override GameObject PostDelayProcess(GameObject o)
+        protected override GameObject PostDelayProcess(GameObject outputGameObject)
         {
-            o.SetActive(true);
-            var renderer = o.GetComponent<Renderer>();
+            outputGameObject.SetActive(true);
+            var renderer = outputGameObject.GetComponent<Renderer>();
 
             if (renderer != null)
             {
@@ -42,7 +42,7 @@ namespace Factory
                 }
             }
 
-            return o;
+            return outputGameObject;
         }
     }
 }

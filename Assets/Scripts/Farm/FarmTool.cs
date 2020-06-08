@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class FarmTool : MonoBehaviour, IControllable
+public class FarmTool : MonoBehaviour, IControllable, ISubject
 {
     enum Functionalities
     {
@@ -18,16 +18,21 @@ public class FarmTool : MonoBehaviour, IControllable
     [SerializeField] float _cooldown = 3.0f;
     [SerializeField] float _farmPlotCooldown = 3.0f;
     [SerializeField] ProgressBar _cooldownBar;
-    private delegate bool FunctionalityFunctions(FarmPlot plot, float cooldown);
+    [SerializeField] Canvas _parentCanvas;
+    [SerializeField] Vector3 _dragScale = new Vector3(1.0f, 1.0f, 1.0f);
+    private delegate bool FunctionalityFunctions(FarmPlot plot, float cooldown, FarmTool tool);
     private FunctionalityFunctions _functionaliesHandler;
     private float _timeSinceLastUse = 0.0f;
     private RawImage _image;
     private bool _isOnCooldown = false;
 
+    private List<IObserver> _observers = new List<IObserver>();
+
     void Awake()
     {
         _image = this.GetComponent<RawImage>();
         _cooldownBar.SetActive(false);
+        this.gameObject.tag = "FarmTool";
     }
 
     // Start is called before the first frame update
@@ -110,13 +115,17 @@ public class FarmTool : MonoBehaviour, IControllable
             FarmPlot plot;
             if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
             {
-                if (_functionaliesHandler(plot, _farmPlotCooldown))
+                if (_functionaliesHandler(plot, _farmPlotCooldown, this))
                 {
                     OnUse();
                 }
             }
         }
-        else Debug.Log("Use is on cooldown");
+        else
+        {
+            Notify(new ToolOnCooldownWarningEvent(this));
+            Debug.Log("Use is on cooldown");
+        }
     }
 
     public void OnDragDropFailed(Vector3 position)
@@ -131,8 +140,32 @@ public class FarmTool : MonoBehaviour, IControllable
     {
         GameObject copy = Instantiate(this.gameObject);
         Destroy(copy.GetComponent<FarmTool>());
+        copy.transform.localScale = _dragScale;
         copy.layer = 0;
-        copy.transform.SetParent(this.transform.parent.transform.parent);
+        copy.transform.SetParent(_parentCanvas.transform);
         return copy;
+    }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+
+    }
+
+    public void Register(IObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
     }
 }
