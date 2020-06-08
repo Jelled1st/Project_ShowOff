@@ -195,6 +195,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         else
         {
             if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
+            else Notify(new WrongToolOnPlotWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
         }
@@ -212,6 +213,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         else
         {
             if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
+            else Notify(new WrongToolOnPlotWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
         }
@@ -231,6 +233,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         else
         {
             if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
+            else Notify(new WrongToolOnPlotWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
         }
@@ -250,6 +253,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         else
         {
             if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
+            else Notify(new WrongToolOnPlotWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
         }
