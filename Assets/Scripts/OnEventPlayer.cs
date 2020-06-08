@@ -24,7 +24,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         public UnityEvent onSwarmFlee;
 
         public UnityEvent onToolCooldownUse;
-        public UnityEvent<FarmTool> onToolCooldownUseTool;
+        public UnityEvent onPlotCooldownUse;
     }
 
     [System.Serializable]
@@ -59,6 +59,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     [SerializeField] private GameObject _gameHandler;
     [SerializeField] private TouchController _touchController;
     [SerializeField] private List<FarmPlot> _farmPlots;
+    [SerializeField] private List<FarmTool> _farmTools;
     [SerializeField] private List<Dish> _dishes;
 
     [SerializeField] private GameEventFunctions _gameEvents;
@@ -73,6 +74,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         SubscribeToGameHandler();
         SubscribeToTouchController();
         SubscribeToFarmPlots();
+        SubscribeToFarmTools();
         SubscribeToDishes();
         Swarm.RegisterStatic(this);
     }
@@ -115,6 +117,26 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
             }
         }
     }
+    private void SubscribeToFarmTools()
+    {
+        if (_farmTools.Count == 0)
+        {
+            GameObject[] farmToolsGOs = GameObject.FindGameObjectsWithTag("FarmTool");
+            for (int i = 0; i < farmToolsGOs.Length; ++i)
+            {
+                FarmTool farmTool = farmToolsGOs[i].GetComponent<FarmTool>();
+                _farmTools.Add(farmTool);
+                Subscribe(farmTool);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _farmTools.Count; ++i)
+            {
+                Subscribe(_farmTools[i]);
+            }
+        }
+    }
     private void SubscribeToDishes()
     {
         if (_dishes.Count == 0)
@@ -147,7 +169,10 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         else if(observerEvent is ToolOnCooldownWarningEvent)
         {
             _farmEvents.onToolCooldownUse.Invoke();
-            _farmEvents.onToolCooldownUseTool.Invoke((observerEvent as ToolOnCooldownWarningEvent).farmTool);
+        }
+        else if (observerEvent is PlotOnCooldownWarningEvent)
+        {
+            _farmEvents.onPlotCooldownUse.Invoke();
         }
     }
 

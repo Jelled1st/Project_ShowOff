@@ -17,6 +17,8 @@ TagManager:
   - FxTemporaire
   - GameHandler
   - Dish
+  - AudioManager
+  - FarmTool
   layers:
   - Default
   - TransparentFX
