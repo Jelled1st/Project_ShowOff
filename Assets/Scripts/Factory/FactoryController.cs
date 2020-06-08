@@ -72,12 +72,10 @@ namespace Factory
         {
             _potatoesInput++;
 
-            Debug.Log(_potatoesInput);
-
             if (!_level1Passed && _potatoesInput == _potatoesNeededToPassLevel1)
             {
                 _level1Passed = true;
-                
+
                 Camera.main.transform.DOMove(_level2CameraPosition.position, 2f);
                 Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, 2f);
 
