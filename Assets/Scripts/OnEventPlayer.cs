@@ -22,6 +22,9 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         public UnityEvent onBugSpawnFail;
         public UnityEvent onBugKill;
         public UnityEvent onSwarmFlee;
+
+        public UnityEvent onToolCooldownUse;
+        public UnityEvent<FarmTool> onToolCooldownUseTool;
     }
 
     [System.Serializable]
@@ -133,6 +136,20 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         }
     }
     #endregion
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+        if (observerEvent is SwarmSpawnEvent)
+        {
+            this.Subscribe((observerEvent as SwarmSpawnEvent).swarm);
+            _farmEvents.onSwarmSpawn.Invoke();
+        }
+        else if(observerEvent is ToolOnCooldownWarningEvent)
+        {
+            _farmEvents.onToolCooldownUse.Invoke();
+            _farmEvents.onToolCooldownUseTool.Invoke((observerEvent as ToolOnCooldownWarningEvent).farmTool);
+        }
+    }
 
     #region ISwarmObserver
     public void OnBugKill(SwarmUnit unit)
@@ -271,14 +288,5 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     public void UnSubscribe(ISubject subject)
     {
         subject.UnRegister(this);
-    }
-
-    public void OnNotify(AObserverEvent observerEvent)
-    {
-        if (observerEvent is SwarmSpawnEvent)
-        {
-            this.Subscribe((observerEvent as SwarmSpawnEvent).swarm);
-            _farmEvents.onSwarmSpawn.Invoke();
-        }
     }
 }
