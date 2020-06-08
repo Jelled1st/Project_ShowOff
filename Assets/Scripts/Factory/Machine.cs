@@ -11,7 +11,7 @@ namespace Factory
 {
     [RequireComponent(typeof(Collider))]
     [SelectionBase]
-    public abstract class Machine : MonoBehaviour, IControllable
+    public abstract class Machine : MonoBehaviour, IControllable, IToggleable
     {
         public enum MachineType
         {
@@ -211,9 +211,12 @@ namespace Factory
 
         private void WaitAndClog()
         {
+            print("Started clog timer");
             _waitAndClogTween = DOTween.Sequence()
                 .AppendInterval(Random.Range(_breakEverySeconds.x, _breakEverySeconds.y))
                 .AppendCallback(Clog);
+
+            _waitAndClogTween.OnComplete(() => print("Called clog"));
         }
 
         private void Repair()
