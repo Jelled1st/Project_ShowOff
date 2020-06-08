@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Factory
 {
+    [DisallowMultipleComponent]
     public class CollisionCallback : MonoBehaviour
     {
         public event Action<Collider> onTriggerEnter = delegate { };
@@ -10,7 +11,7 @@ namespace Factory
         private void Awake()
         {
             var collider = GetComponent<Collider>();
-            
+
             if (!collider.isTrigger)
                 collider.isTrigger = true;
         }
