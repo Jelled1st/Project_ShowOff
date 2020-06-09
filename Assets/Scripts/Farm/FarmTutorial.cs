@@ -128,7 +128,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
             {
                 _firstBug = false;
                 _firstBugSpawnEvent.Invoke();
-                _bugSwipeAnimation.SetActive(true);
+                _bugSwipeAnimation?.SetActive(true);
                 Vector3 bugPoint = Camera.main.WorldToScreenPoint((observerEvent as SwarmBugSpawnEvent).bug.transform.position);
                 _bugSwipeAnimation.transform.position = new Vector3(bugPoint.x, bugPoint.y, 0);
             }
@@ -138,7 +138,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
             _killBugsCompelte = true;
             _completeBugKillEvent.Invoke();
             CheckCompletion();
-            _bugSwipeAnimation.SetActive(false);
+            if(_bugSwipeAnimation != null) _bugSwipeAnimation.SetActive(false);
         }
     }
 
