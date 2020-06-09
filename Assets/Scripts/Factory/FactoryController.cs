@@ -101,6 +101,9 @@ namespace Factory
                 Camera.main.transform.DOMove(_level2CameraPosition.position, 2f);
                 Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, 2f);
 
+                _shadowPlane.transform.DOMove(_level2ShadowPlanePosition.position, 2f);
+                _shadowPlane.transform.DORotate(_level2ShadowPlanePosition.rotation.eulerAngles, 2f);
+
                 _level1Machines.ToggleChildren<Machine>(false);
                 _level2Machines.ToggleChildren<Machine>(true);
 
