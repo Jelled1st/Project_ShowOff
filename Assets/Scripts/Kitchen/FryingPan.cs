@@ -6,6 +6,8 @@ using UnityEngine;
 public class FryingPan : MonoBehaviour, IControllable
 {
     [SerializeField] List<GameObject> _foodNodes;
+    [SerializeField] Stove stove;
+    bool _stoveOn = false;
     List<GameObject> _availableNodes;
     List<BakableFood> _food = new List<BakableFood>();
     Dictionary<BakableFood, GameObject> _foodNodePair = new Dictionary<BakableFood, GameObject>();
@@ -19,9 +21,12 @@ public class FryingPan : MonoBehaviour, IControllable
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < _food.Count; ++i)
+        if (stove == null || stove.IsOn())
         {
-            _food[i].Bake();
+            for (int i = 0; i < _food.Count; ++i)
+            {
+                _food[i].Bake();
+            }
         }
     }
 

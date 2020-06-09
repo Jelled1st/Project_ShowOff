@@ -22,6 +22,10 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     public static event Action ConveyorTurned = delegate { };
     public static event Action<SpecialBeltType, bool> SpecialConveyorHeld = delegate { };
 
+    public event Action BeltPressed = delegate { };
+    public event Action<float> BeltHeld = delegate { };
+
+
     [Header("Conveyor settings")]
     [SerializeField]
     private float _speed = 1;
@@ -235,13 +239,19 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     public virtual void OnPress(Vector3 hitPoint)
     {
         if (_canRotate)
+        {
+            BeltPressed?.Invoke();
             TurnInternal();
+        }
     }
 
     public virtual void OnHold(float holdTime, Vector3 hitPoint)
     {
         if (_isSpecialConveyor)
+        {
+            BeltHeld?.Invoke(holdTime);
             ChangeSpecialBeltSpeed();
+        }
     }
 
     public virtual void OnHoldRelease(float timeHeld)

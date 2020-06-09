@@ -247,7 +247,7 @@ public class SFX : MonoBehaviour
         StartCoroutine(WaitForEnd(clipLength));
     }
     // Sound when machine starts breaking down
-    public void SoundBreaking()
+    public void SoundBreaking(Machine machine)
     {
         Play("SFX_FACTORY/Machine Breaking");
 

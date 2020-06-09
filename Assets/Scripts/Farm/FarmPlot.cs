@@ -489,7 +489,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    public void OnNotify(AObserverEvent observerEvent)
+    public void Notify(AObserverEvent observerEvent)
     {
         for(int i = 0; i < _observers.Count; ++i)
         {
@@ -553,12 +553,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         subject.UnRegister(this);
     }
 
-    public void Notify(AObserverEvent observerEvent)
+    public void OnNotify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
-        {
-            _observers[i].OnNotify(observerEvent);
-        }
     }
     #endregion
 }
