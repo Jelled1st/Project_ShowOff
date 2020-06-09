@@ -16,10 +16,11 @@ public class PackerCustomAnimations : MonoBehaviour
     private void Awake()
     {
         _packerBelt = GetComponentInChildren<FlatConveyorBelt>();
+
         _packerMaterials =
             GetComponent<Renderer>()
                 .materials
-                .Where(m => m.shader = Shader.Find(ShaderConstants.ScrollingShaderName))
+                .Where(m => m.shader.name.Equals(ShaderConstants.ScrollingShaderName))
                 .ToList();
 
         _shaderInitialSpeeds =
