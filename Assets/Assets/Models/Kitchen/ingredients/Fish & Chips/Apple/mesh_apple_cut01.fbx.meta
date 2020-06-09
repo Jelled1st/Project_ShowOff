@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fef4997bfb81a184ab61eb76a08627fc
+guid: dec61187b1a55b247a682aeaae213b50
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_applemeat
-    second: {fileID: 2100000, guid: 7a93f80568783aa4785968bc2efd6e90, type: 2}
+    second: {fileID: 2100000, guid: 7b22b93266e857343953cce24e6372b9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_applepeel
-    second: {fileID: 2100000, guid: f6f73a9bbc351c24299c3de544d9283b, type: 2}
+    second: {fileID: 2100000, guid: 1211596ae3cb33c4f955a809a5d88bf7, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

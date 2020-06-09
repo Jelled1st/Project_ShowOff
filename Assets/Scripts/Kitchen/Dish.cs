@@ -278,8 +278,12 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         }
     }
 
-    public void OnNotify(AObserverEvent observerEvent)
+    public void Notify(AObserverEvent observerEvent)
     {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
     }
     #endregion
 
@@ -321,7 +325,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         subject.UnRegister(this);
     }
 
-    public void Notify(AObserverEvent observerEvent)
+    public void OnNotify(AObserverEvent observerEvent)
     {
     }
     #endregion
