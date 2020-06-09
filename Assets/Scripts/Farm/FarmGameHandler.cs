@@ -76,8 +76,6 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         {
             Subscribe(_farmPlots[i]);
         }
-
-        UnPause();
     }
 
     private void SetFarmPlotStates(List<FarmPlot> farmPlots)

@@ -8293,14 +8293,14 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: 0
+  m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 1
-  m_Antialiasing: 1
-  m_AntialiasingQuality: 1
+  m_Antialiasing: 2
+  m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 1
   m_ClearDepth: 1
@@ -8831,18 +8831,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eea3b54acfcebd54ea66ac1406203ba6, type: 3}
---- !u!114 &422199219 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4420835435002856285, guid: eea3b54acfcebd54ea66ac1406203ba6,
-    type: 3}
-  m_PrefabInstance: {fileID: 422199218}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ee4297568ba6ab4e9a452e9f671874a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &433674055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23748,16 +23736,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bb56debbea9de344ebfe726508587645,
         type: 3}
-    - target: {fileID: 3870945346539593771, guid: eb27cc74911707343983a6c41a7156a6,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 422199219}
-    - target: {fileID: 3870945346539593771, guid: eb27cc74911707343983a6c41a7156a6,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: StopMusic
-      objectReference: {fileID: 0}
     - target: {fileID: 3870945346752500306, guid: eb27cc74911707343983a6c41a7156a6,
         type: 3}
       propertyPath: m_LocalPosition.x
