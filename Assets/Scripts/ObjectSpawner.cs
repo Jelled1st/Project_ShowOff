@@ -36,7 +36,7 @@ public class ObjectSpawner : MonoBehaviour
     private Tween _spawnTween;
     private GameObject _clone;
 
-    private void Start()
+    private void OnEnable()
     {
         if (_objects.Length == 0)
             return;
@@ -52,14 +52,9 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    public void StopSpawning()
-    {
-        _spawnTween.Kill();
-    }
-
     private void OnDisable()
     {
-        StopSpawning();
+        _spawnTween.Kill();
     }
 
     private void Spawn()

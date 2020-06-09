@@ -110,6 +110,8 @@ Material:
     - _enableClean: 0
     - _enableDirty: 1
     - _enablePeeled: 0
+    - _metalness: 0
+    - _smoothness: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

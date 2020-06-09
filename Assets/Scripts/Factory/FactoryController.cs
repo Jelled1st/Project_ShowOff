@@ -26,6 +26,11 @@ namespace Factory
         [BoxGroup("Scene objects")]
         [Required]
         [SerializeField]
+        private ObjectSpawner _peeledPotatoSpawner;
+
+        [BoxGroup("Scene objects")]
+        [Required]
+        [SerializeField]
         private Transform _level1Machines;
 
         [BoxGroup("Scene objects")]
@@ -87,6 +92,8 @@ namespace Factory
 
             _finishTriggerLevel1.FinishTriggerHit += OnLevel1TriggerHit;
             _finishTriggerLevel2.FinishTriggerHit += OnLevel2TriggerHit;
+
+            _peeledPotatoSpawner.enabled = false;
         }
 
 
@@ -111,7 +118,8 @@ namespace Factory
 
                 _level1Belts.ToggleAll(false);
 
-                _potatoSpawner.StopSpawning();
+                _potatoSpawner.enabled = false;
+                _peeledPotatoSpawner.enabled = true;
 
                 _potatoesInput = 0;
                 _finishTriggerLevel1.gameObject.SetActive(false);
