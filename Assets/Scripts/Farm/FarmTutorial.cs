@@ -128,7 +128,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
             {
                 _firstBug = false;
                 _firstBugSpawnEvent.Invoke();
-                _bugSwipeAnimation?.SetActive(true);
+                if (_bugSwipeAnimation != null) _bugSwipeAnimation.SetActive(true);
                 Vector3 bugPoint = Camera.main.WorldToScreenPoint((observerEvent as SwarmBugSpawnEvent).bug.transform.position);
                 _bugSwipeAnimation.transform.position = new Vector3(bugPoint.x, bugPoint.y, 0);
             }
