@@ -56,7 +56,7 @@ public class TutorialPart
         if (_passed)
             return;
 
-        Time.timeScale = 0;
+        Time.timeScale = FactoryTutorialController.TimeScaleChange;
         // Object.FindObjectsOfType<FlatConveyorBelt>().ToggleAll(false);
 
         Vector3 initialScale = _visuals.transform.localScale;
@@ -134,6 +134,12 @@ public class FactoryTutorialController : MonoBehaviour
     [BoxGroup("Basic")]
     [SerializeField]
     private float _timeToHold = 1.5f;
+
+    [BoxGroup("Basic")]
+    [SerializeField]
+    private float _timeScaleChange = 0.5f;
+
+    public static float TimeScaleChange => FindObjectOfType<FactoryTutorialController>()._timeScaleChange;
 
     private void OnEnable()
     {
