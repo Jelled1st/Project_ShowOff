@@ -64,7 +64,6 @@ public class TutorialPart
         DOTween.Sequence()
             // .Append(Camera.main.transform.DOMove(_cameraPosition.position, 2f))
             .AppendCallback(() => { _visuals.SetActive(true); })
-            .Append(_visuals.transform.DOPunchScale(initialScale * 2f, 0.5f).SetUpdate(true))
             .AppendCallback(() => CoroutineHandler.StartUniqueCoroutine(WaitForPassed()))
             // .AppendInterval(3f).AppendCallback(() =>
             // {
