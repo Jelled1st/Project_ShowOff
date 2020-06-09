@@ -88,6 +88,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
         CultivateToState(_state);
         _neglectCooldown = true;
+        _paused = false;
     }
 
     public void SetInteractable(bool set)
@@ -105,7 +106,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Before paused");
         if (_paused) return;
+        Debug.Log("after paused");
         _updateHasBeenCalled = true;
         _timeSinceLastCultivation += Time.deltaTime;
         if (_isOnCooldown) _cooldownTimer += Time.deltaTime;
