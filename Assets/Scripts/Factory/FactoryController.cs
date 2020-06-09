@@ -2,6 +2,7 @@
 using NaughtyAttributes;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace Factory
@@ -65,6 +66,10 @@ namespace Factory
         [SerializeField]
         private int _potatoesNeededToPassLevel1 = 9;
 
+        [BoxGroup("Stage settings")]
+        [SerializeField]
+        private int _potatoesNeededToPassLevel2 = 3;
+
         private int _potatoesInput;
         private bool _level1Passed;
 
@@ -75,14 +80,14 @@ namespace Factory
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Camera.main.transform.DOMove(_level2CameraPosition.position, 2f);
-                Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, 2f);
-
-                _shadowPlane.transform.DOMove(_level2ShadowPlanePosition.position, 2f);
-                _shadowPlane.transform.DORotate(_level2ShadowPlanePosition.rotation.eulerAngles, 2f);
-            }
+            // if (Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     Camera.main.transform.DOMove(_level2CameraPosition.position, 2f);
+            //     Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, 2f);
+            //
+            //     _shadowPlane.transform.DOMove(_level2ShadowPlanePosition.position, 2f);
+            //     _shadowPlane.transform.DORotate(_level2ShadowPlanePosition.rotation.eulerAngles, 2f);
+            // }
         }
 
 
@@ -128,6 +133,12 @@ namespace Factory
 
         private void OnLevel2TriggerHit(GameObject obj)
         {
+            _potatoesInput++;
+
+            if (_potatoesInput >= _potatoesNeededToPassLevel2)
+            {
+                SceneManager.LoadScene("!Ending Scene");
+            }
         }
     }
 }
