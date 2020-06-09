@@ -255,6 +255,7 @@ namespace Factory
                     _repairVisuals?.SetActive(false);
                     _isRepairing = false;
                     MachineRepaired(this);
+                    Scores.AddScore(Scores.MachineFixed);
 
                     // Decrease delay by slowPerStage %
                     Delay /= 1 + _slowPerStage;
@@ -309,6 +310,7 @@ namespace Factory
         private void PostDelayProcessInternal(GameObject processedObject)
         {
             ItemLeftMachine(_machineType);
+            Scores.AddScore(Scores.MachinePassed);
 
             var processedItem = PostDelayProcess(processedObject);
 
