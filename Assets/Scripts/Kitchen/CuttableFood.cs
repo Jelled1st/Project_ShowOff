@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))] 
-public class CuttableFood : MonoBehaviour, IControllable, IIngredient
+public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 {
     [SerializeField] private IngredientType _ingredientType;
     [SerializeField] private float _ingredientHeight;
@@ -11,6 +11,8 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
     [SerializeField] private List<GameObject> _cutStates;
     [HideInInspector] public CuttingBoard cuttingBoard = null;
     int _currentStateIndex = 0;
+
+    private List<IObserver> _observers = new List<IObserver>();
 
     // Start is called before the first frame update
     void Start()
@@ -31,9 +33,12 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
     {
         if (_currentStateIndex < _cutStates.Count - 1)
         {
+            Transform current = _currentState.transform;
             Destroy(_currentState);
             _currentState = Instantiate(_cutStates[++_currentStateIndex], this.transform);
             _currentState.transform.localPosition = new Vector3(0, 0, 0);
+            _currentState.transform.position = current.position;
+            Notify(new CuttableCut(this, _currentStateIndex, ReadyForDish()));
             return true;
         }
         else return false;
@@ -126,4 +131,22 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
         return copy;
     }
     #endregion
+
+    public void Register(IObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
+    }
 }
