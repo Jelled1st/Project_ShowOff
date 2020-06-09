@@ -19,6 +19,11 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     [Tooltip("True means that the index in the placement list corrosponds to the index in the ingredient list")]
     [SerializeField] private bool _placeOptionalInOrder;
 
+    [Header("Final ingredient")]
+    [SerializeField] private IngredientType _finishIngredient;
+    [SerializeField] private bool _finishIngredientPlaced = false;
+    [SerializeField] private GameObject _finishIngredientPlacement;
+
     [Header("Misc")]
     [Tooltip("the dishes this dish is dependent on. All dependent dishes must be done before completing this")]
         [SerializeField] List<Dish> _sideDishesLeft = new List<Dish>();
@@ -73,6 +78,20 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     {
         if (_debugLog) Debug.Log("Trying to add");
         IngredientType type = ingredient.GetIngredientType();
+        if(_finishIngredient != IngredientType.Undefined && type == _finishIngredient)
+        {
+            if (IsFinished(false))
+            {
+                if (_debugLog) Debug.Log("Finish ingredient");
+                //required ingredient
+                AddFinalIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight());
+                InformObserversAddIngredient(ingredient);
+                _finishIngredientPlaced = true;
+                InformObserversFinish();
+                return true;
+            }
+        }
+        if (_finishIngredientPlaced) return false;
         for (int i = 0; i < _requiredIngredients.Count; ++i)
         {
             if (type == _requiredIngredients[i])
@@ -82,10 +101,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 AddIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight(), true, i);
                 _requiredIngredients.RemoveAt(i); //remove ingredient from the list
                 InformObserversAddIngredient(ingredient);
-                if (_requiredIngredients.Count == 0)
-                {
-                    if(_sideDishesLeft.Count == 0) InformObserversFinish();
-                }
+                if(IsFinished(true)) InformObserversFinish();
                 return true;
             }
         }
@@ -102,6 +118,20 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             }
         }
         if (_debugLog) Debug.Log("Could not be added");
+        return false;
+    }
+
+    private bool IsFinished(bool includeFinishIngredient)
+    {
+        if (_requiredIngredients.Count == 0)
+        {
+            if (_sideDishesLeft.Count == 0)
+            {
+                if (!includeFinishIngredient) return true;
+                else if (_finishIngredient == null) return true;
+                else if (_finishIngredientPlaced) return true;
+            }
+        }
         return false;
     }
 
@@ -151,6 +181,32 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 rot = placementList[rand].transform.rotation;
                 _requiredPlacements.RemoveAt(rand);
             }
+        }
+        ingredientGO.transform.position = pos;
+        ingredientGO.transform.rotation = rot;
+    }
+
+    private void AddFinalIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight)
+    {
+        if (ingredientMesh == null) return;
+        _addedIngredients.Add(type);
+        GameObject ingredientGO = ingredientMesh;
+        _addedIngredientObjects.Add(type, ingredientGO);
+        ingredientGO.transform.SetParent(this.transform);
+
+        //saving the upcoming 4 vars makes sure the code only requires 2 if-else statements  
+        Vector3 pos = new Vector3();
+        Quaternion rot = new Quaternion();
+        if (_stackAllIngredients)
+        {
+            pos = _requiredPlacements[0].transform.position;
+            rot = _requiredPlacements[0].transform.rotation;
+            _requiredPlacements[0].transform.position += new Vector3(0, ingredientHeight, 0);
+        }
+        else
+        {
+            pos = _finishIngredientPlacement.transform.position;
+            rot = _finishIngredientPlacement.transform.rotation;
         }
         ingredientGO.transform.position = pos;
         ingredientGO.transform.rotation = rot;

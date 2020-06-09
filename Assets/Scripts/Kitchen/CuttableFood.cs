@@ -9,7 +9,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient
     [SerializeField] private float _ingredientHeight;
     [SerializeField] private GameObject _currentState;
     [SerializeField] private List<GameObject> _cutStates;
-    public CuttingBoard cuttingBoard = null;
+    [HideInInspector] public CuttingBoard cuttingBoard = null;
     int _currentStateIndex = 0;
 
     // Start is called before the first frame update

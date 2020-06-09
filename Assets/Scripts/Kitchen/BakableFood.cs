@@ -16,7 +16,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     private int _currentFace = 0;
     private bool _isBaking = false;
     private bool _wasBaking = false;
-    public FryingPan fryingPan;
+    [HideInInspector] public FryingPan fryingPan;
 
     // Start is called before the first frame update
     void Start()
