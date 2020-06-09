@@ -22,7 +22,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     public static event Action ConveyorTurned = delegate { };
     public static event Action<SpecialBeltType, bool> SpecialConveyorHeld = delegate { };
 
-    public event Action BeltPressed = delegate { };
+    public static event Action BeltRotated = delegate { };
     public event Action<float> BeltHeld = delegate { };
 
 
@@ -240,7 +240,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     {
         if (_canRotate)
         {
-            BeltPressed?.Invoke();
+            BeltRotated?.Invoke();
             TurnInternal();
         }
     }

@@ -156,7 +156,7 @@ public class FactoryTutorialController : MonoBehaviour
         {
             if (f > _timeToHold) _speedupPart?.Passed();
         };
-        _rotationBelt.BeltPressed += delegate { _rotationPart?.Passed(); };
+        FlatConveyorBelt.BeltRotated += delegate { _rotationPart?.Passed(); };
 
         Machine.MachineBreaking += OnMachineBreak;
         Machine.MachineStartedRepairing += OnMachineRepair;
