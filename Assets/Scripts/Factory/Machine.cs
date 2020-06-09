@@ -25,7 +25,7 @@ namespace Factory
         public static event Action<MachineType> ItemLeftMachine = delegate { };
         public static event Action MachineStartedRepairing = delegate { };
         public static event Action<Machine> MachineRepaired = delegate { };
-        public static event Action MachineBreaking = delegate { };
+        public static event Action<Machine> MachineBreaking = delegate { };
         public static event Action<Machine> MachineBroke = delegate { };
 
 
@@ -219,7 +219,7 @@ namespace Factory
             Delay *= 1 + _slowPerStage;
 
             _clogVisual.Play(true);
-            MachineBreaking();
+            MachineBreaking(this);
 
             // Debug.Log($"Clog [{CurrentClogStage}] {gameObject.name}");
 

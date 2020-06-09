@@ -212,7 +212,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             }
             _selected = controllable;
             _selectedGameObject = hitInfo.gameObject;
-            _timeHeld += Time.deltaTime;
+            _timeHeld += Time.unscaledDeltaTime;
             if (_timeHeld >= _holdTime)
             {
                 OnHold(_timeHeld, _selected, hitInfo);
