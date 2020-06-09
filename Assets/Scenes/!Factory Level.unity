@@ -10289,7 +10289,7 @@ PrefabInstance:
     - target: {fileID: 3688301754741236900, guid: 0577081b1a97aef4fb8a5900686042a0,
         type: 3}
       propertyPath: _spawnInterval
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3688301754741236900, guid: 0577081b1a97aef4fb8a5900686042a0,
         type: 3}
@@ -13790,6 +13790,7 @@ MonoBehaviour:
   _shadowPlane: {fileID: 249608871}
   _level2ShadowPlanePosition: {fileID: 68405953}
   _potatoesNeededToPassLevel1: 9
+  _potatoesNeededToPassLevel2: 3
 --- !u!4 &929897306
 Transform:
   m_ObjectHideFlags: 0
@@ -14448,6 +14449,9 @@ MonoBehaviour:
   _sprayTool: {fileID: 0}
   _harvestHand: {fileID: 0}
   _truck: {fileID: 0}
+  _onStart:
+    m_PersistentCalls:
+      m_Calls: []
   _completeShovelQuestEvent:
     m_PersistentCalls:
       m_Calls:
@@ -17498,7 +17502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.999878, y: -64}
+  m_AnchoredPosition: {x: 64, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352385681
@@ -20305,7 +20309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.999878, y: -64}
+  m_AnchoredPosition: {x: 64, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1669746551
@@ -22382,8 +22386,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910447926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.74, y: 1.311, z: -0}
-  m_LocalScale: {x: 1.2299863, y: 0.69295, z: 0.69295}
+  m_LocalPosition: {x: -2.19, y: 1.587, z: -0.063}
+  m_LocalScale: {x: 1.9714135, y: 1.3685763, z: 0.9895732}
   m_Children: []
   m_Father: {fileID: 1969808938}
   m_RootOrder: 1
@@ -23710,7 +23714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _output: {fileID: 1977585777}
   _collisionCallback: {fileID: 1910447928}
-  _duration: 10
+  _duration: 1.5
 --- !u!1001 &2053673710
 PrefabInstance:
   m_ObjectHideFlags: 0
