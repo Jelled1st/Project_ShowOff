@@ -33,6 +33,7 @@ public class FryingPan : MonoBehaviour, IControllable
     public void AddFood(BakableFood food)
     {
         if (_availableNodes.Count == 0) return;
+        if (_food.Contains(food)) return;
         _food.Add(food);
         _foodNodePair.Add(food, _availableNodes[0]);
         food.transform.position = _availableNodes[0].transform.position;

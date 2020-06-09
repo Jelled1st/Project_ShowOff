@@ -22,13 +22,19 @@ public class PlaneIngredient : MonoBehaviour, IIngredient, IControllable
     #region IIngredient
     public void AddedToDish()
     {
+        Destroy(this);
     }
 
     public GameObject GetDishMesh()
     {
         GameObject copy = GameObject.Instantiate(this.gameObject);
         Destroy(copy.GetComponent<PlaneIngredient>());
-        Destroy(copy.GetComponent<Collider>());
+        Destroy(copy.GetComponent<Collider>()); 
+        Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
+        for (int i = 0; i < renderers.Length; ++i)
+        {
+            renderers[i].enabled = true;
+        }
         return copy;
     }
 

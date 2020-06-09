@@ -42,6 +42,11 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
             GameObject copy = Instantiate(this.gameObject);
             Destroy(copy.GetComponent<FryableFood>());
             Destroy(copy.GetComponent<Collider>());
+            Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
+            for (int i = 0; i < renderers.Length; ++i)
+            {
+                renderers[i].enabled = true;
+            }
             return copy;
         }
         else return null;

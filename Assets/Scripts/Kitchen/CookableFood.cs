@@ -58,7 +58,11 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
             GameObject copy = Instantiate(this.gameObject);
             Destroy(copy.GetComponent<CookableFood>());
             Destroy(copy.GetComponent<Collider>());
-            copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
+            for (int i = 0; i < renderers.Length; ++i)
+            {
+                renderers[i].enabled = true;
+            }
             return copy;
         }
         return null;

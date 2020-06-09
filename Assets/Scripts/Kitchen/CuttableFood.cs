@@ -73,7 +73,11 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
             GameObject copy = Instantiate(this.gameObject);
             Destroy(copy.GetComponent<CuttableFood>());
             Destroy(copy.GetComponent<Collider>());
-            copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
+            for (int i = 0; i < renderers.Length; ++i)
+            {
+                renderers[i].enabled = true;
+            }
             return copy;
         }
         return _cutStates[_cutStates.Count-1];
