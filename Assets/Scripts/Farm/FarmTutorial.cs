@@ -19,6 +19,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     [SerializeField] GameObject _harvestHand;
     [SerializeField] GameObject _truck;
     [Header("Events")]
+    [SerializeField] UnityEvent _onStart;
     [SerializeField] UnityEvent _completeShovelQuestEvent;
     [SerializeField] UnityEvent _startPlantQuestEvent;
     [SerializeField] UnityEvent _completePlantQuestEvent;
@@ -53,6 +54,8 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     {
         SubscribeAndDisableFarmPlots();
         Swarm.RegisterStatic(this);
+
+        _onStart.Invoke();
     }
 
     private void SubscribeAndDisableFarmPlots()
