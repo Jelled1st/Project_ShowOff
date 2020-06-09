@@ -49,13 +49,14 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     private List<IObserver> _observers = new List<IObserver>();
     private List<FarmPlot> _farmPlots = new List<FarmPlot>();
 
+
+    private bool _firstUpdateCalled = false;
+    
     // Start is called before the first frame update
     void Start()
     {
         SubscribeAndDisableFarmPlots();
         Swarm.RegisterStatic(this);
-
-        _onStart.Invoke();
     }
 
     private void SubscribeAndDisableFarmPlots()
@@ -86,6 +87,12 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     // Update is called once per frame
     void Update()
     {
+        if (!_firstUpdateCalled)
+        {
+            _onStart.Invoke();
+            _firstUpdateCalled = true;
+        }
+        
         if(!_firstHarvest && !_firstHarvestCompleted)
         {
             if(!DOTween.IsTweening(_harvestHand.transform))
