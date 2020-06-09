@@ -12,6 +12,7 @@ public static class Scores
     public const int LeftTimeMultiplier = 100;
 
     public const int MachinePassed = 100;
+    public const int MachineFixed = 200;
 
     public const int LoadedPotatoUnwashed = 100;
     public const int LoadedPotatoWashed = 200;
