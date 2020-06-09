@@ -284,6 +284,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     {
         if(observerEvent is SwarmSpawnEvent)
         {
+            Subscribe((observerEvent as SwarmSpawnEvent).swarm);
         }
     }
 
