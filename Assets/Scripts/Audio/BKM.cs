@@ -29,8 +29,18 @@ public class BKM : MonoBehaviour
         {
             FactoryMusic();
         }
+
+        if (debugLevelTest == 2)
+        {
+            FarmMusic();
+            _instanceSong.setVolume(0.5f);
+        }
     }
 
+    public void StopMusic()
+    {
+        _instanceSong.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
     
     //Debugging if functions work properly
     private void Update()
