@@ -24,14 +24,18 @@ public class TutorialPart
 
     public void Init()
     {
-        _trigger.TriggerEnter += OnTriggerEnter;
+        if (_trigger != null && !_trigger.Equals(null))
+        {
+            _trigger.TriggerEnter += OnTriggerEnter;
+        }
 
         _visuals.SetActive(false);
     }
 
     public void Cleanup()
     {
-        _trigger.TriggerEnter -= OnTriggerEnter;
+        if (_trigger != null && !_trigger.Equals(null))
+            _trigger.TriggerEnter -= OnTriggerEnter;
 
         DOTween.Sequence()
             // .Append(Camera.main.transform.DOMove(FactoryTutorialController.CameraInitialPosition, 2f))
@@ -44,6 +48,14 @@ public class TutorialPart
 
     private void OnTriggerEnter(Collider collider)
     {
+        ForceInvokeTrigger();
+    }
+
+    public void ForceInvokeTrigger()
+    {
+        if (_passed)
+            return;
+
         Time.timeScale = 0;
         // Object.FindObjectsOfType<FlatConveyorBelt>().ToggleAll(false);
 
@@ -114,6 +126,13 @@ public class FactoryTutorialController : MonoBehaviour
     [SerializeField]
     private FlatConveyorBelt _rotationBelt;
 
+    [BoxGroup("Machine breaking")]
+    [Label("Ignore trigger")]
+    [SerializeField]
+    private TutorialPart _machineBreakPart;
+
+
+    [BoxGroup("Basic")]
     [SerializeField]
     private float _timeToHold = 1.5f;
 
@@ -122,6 +141,7 @@ public class FactoryTutorialController : MonoBehaviour
         _slowdownPart.Init();
         _speedupPart.Init();
         _rotationPart.Init();
+        _machineBreakPart.Init();
 
         _slowdownBelt.BeltHeld += delegate(float f)
         {
@@ -132,5 +152,24 @@ public class FactoryTutorialController : MonoBehaviour
             if (f > _timeToHold) _speedupPart?.Passed();
         };
         _rotationBelt.BeltPressed += delegate { _rotationPart?.Passed(); };
+
+        Machine.MachineBreaking += OnMachineBreak;
+        Machine.MachineStartedRepairing += OnMachineRepair;
+    }
+
+    private void OnMachineRepair()
+    {
+        _machineBreakPart.Passed();
+        Machine.MachineStartedRepairing -= OnMachineRepair;
+    }
+
+    private void OnMachineBreak(Machine machine)
+    {
+        var visualPosition = Camera.main.WorldToScreenPoint(machine.transform.position);
+
+        _machineBreakPart._visuals.transform.position = visualPosition;
+        _machineBreakPart.ForceInvokeTrigger();
+
+        Machine.MachineBreaking -= OnMachineBreak;
     }
 }
