@@ -37,6 +37,11 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         _isSwiping = false;
     }
 
+    public GameObject GetCurrentDragCopy()
+    {
+        return _dragCopy;
+    }
+
     public void OnClick(ControllerHitInfo hitInfo)
     {
 
