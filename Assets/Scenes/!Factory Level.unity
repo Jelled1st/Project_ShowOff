@@ -240,7 +240,12 @@ PrefabInstance:
     - target: {fileID: 4421798470432136809, guid: 90d79494e548daa47bc1012255692df2,
         type: 3}
       propertyPath: _outputPushForce
-      value: 5
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4421798470432136809, guid: 90d79494e548daa47bc1012255692df2,
+        type: 3}
+      propertyPath: _breakEverySeconds.x
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5884198291795280360, guid: 90d79494e548daa47bc1012255692df2,
         type: 3}
@@ -10483,6 +10488,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_potatoWasher (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8949409736317556262, guid: ccdcda0f3bd7e494a9dd4a781c2de8ea,
+        type: 3}
+      propertyPath: _breakEverySeconds.x
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8949409736317556263, guid: ccdcda0f3bd7e494a9dd4a781c2de8ea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19012,7 +19022,7 @@ MonoBehaviour:
   _machineBreakPart:
     _trigger: {fileID: 0}
     _visuals: {fileID: 1516258581}
-  _timeToHold: 1.5
+  _timeToHold: 0.75
   _timeScaleChange: 0.5
 --- !u!4 &1498116793
 Transform:
@@ -24206,7 +24216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _output: {fileID: 1977585777}
   _collisionCallback: {fileID: 1910447928}
-  _duration: 1.5
+  _duration: 10
 --- !u!1 &2057921641
 GameObject:
   m_ObjectHideFlags: 0
