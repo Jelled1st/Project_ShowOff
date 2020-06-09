@@ -4,9 +4,10 @@ using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 using NaughtyAttributes;
+using UnityTemplateProjects;
 
 [SelectionBase]
-public class FlatConveyorBelt : MonoBehaviour, IControllable, IToggleable
+public class FlatConveyorBelt : MonoBehaviour, IControllable
 {
     public enum SpecialBeltType
     {
@@ -54,8 +55,6 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable, IToggleable
     [SerializeField]
     private SpecialBeltType _specialBeltType = SpecialBeltType.SpeedDown;
 
-    private static readonly int ScrollingSpeedShader = Shader.PropertyToID("_scrollingSpeed");
-
     private readonly List<Material> _scrollingMaterials = new List<Material>();
     protected Rigidbody _rBody;
     protected Tween _rotateTween;
@@ -84,9 +83,9 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable, IToggleable
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        if (!TryGetComponent<Rigidbody>(out _rBody))
+        if (!TryGetComponent(out _rBody))
         {
-            _rBody = this.gameObject.AddComponent<Rigidbody>();
+            _rBody = gameObject.AddComponent<Rigidbody>();
         }
 
         _rBody.useGravity = true;
@@ -95,6 +94,25 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable, IToggleable
         _nonSerializedSpeed = _speed;
 
         LoadScrollingMaterials();
+        SetConveyorSpeed();
+    }
+
+    private void OnEnable()
+    {
+        _isTurnedOn = true;
+        Speed = _speed;
+        SetConveyorSpeed();
+    }
+
+    private void OnDisable()
+    {
+        _isTurnedOn = false;
+
+        var speed = 1e-7f;
+        if (_reverseShaderDirection)
+            speed *= -1f;
+
+        Speed = speed;
         SetConveyorSpeed();
     }
 
@@ -109,7 +127,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable, IToggleable
             {
                 for (var i = 0; i < meshRenderer.materials.Length; i++)
                 {
-                    if (meshRenderer.materials[i].shader.name.Equals("Shader Graphs/shdr_textureScroll"))
+                    if (meshRenderer.materials[i].shader.name.Equals(ShaderConstants.ScrollingShaderName))
                     {
                         meshRenderer.materials[i] = new Material(meshRenderer.materials[i]);
                         _scrollingMaterials.Add(meshRenderer.materials[i]);
@@ -121,16 +139,9 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable, IToggleable
 
     private void SetConveyorSpeed()
     {
-        if (_scrollingMaterials.Count == 0 || _previousSpeed == Speed)
-            return;
+        var mul = _reverseShaderDirection ? -1 : 1;
 
-        var mul = 1;
-        if (_reverseShaderDirection)
-            mul *= -1;
-
-        _scrollingMaterials.ForEach(t => t.SetFloat(ScrollingSpeedShader, Speed * mul));
-
-        _previousSpeed = Speed;
+        _scrollingMaterials.ForEach(t => t.SetFloat(ShaderConstants.ScrollingShaderSpeedFloat, Speed * mul));
     }
 
     // Update is called once per frame
@@ -215,16 +226,6 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable, IToggleable
             other.rigidbody.MovePosition(objectPosition +
                                          (triangleHeightPoint - objectPosition).normalized * Time.fixedDeltaTime *
                                          0.5f);
-    }
-
-    public void Enable()
-    {
-        _isTurnedOn = true;
-    }
-
-    public void Disable()
-    {
-        _isTurnedOn = false;
     }
 
     public virtual void OnClick(Vector3 hitPoint)

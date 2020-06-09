@@ -3,21 +3,22 @@ using UnityEngine;
 
 namespace Factory
 {
+    [DisallowMultipleComponent]
     public class CollisionCallback : MonoBehaviour
     {
-        public event Action<Collider> onTriggerEnter = delegate { };
+        public event Action<Collider> TriggerEnter = delegate { };
 
         private void Awake()
         {
             var collider = GetComponent<Collider>();
-            
+
             if (!collider.isTrigger)
                 collider.isTrigger = true;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            onTriggerEnter?.Invoke(other);
+            TriggerEnter?.Invoke(other);
         }
     }
 }

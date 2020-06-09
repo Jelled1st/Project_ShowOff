@@ -332,6 +332,8 @@ MonoBehaviour:
   _breakVisuals: {fileID: 1804844746564439611}
   _slowPerStage: 0.33333334
   _breakEverySeconds: {x: 10, y: 15}
+  _expectedInputTag: 
+  _outputTag: 
   _shaderName: Shader Graphs/shdr_potatoes
   _propertyToDisable: _enableDirty
   _propertyToEnable: _enableClean
@@ -348,6 +350,75 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.38, y: 1.66, z: 1.39}
   m_Center: {x: 0, y: 0.82, z: 0}
+--- !u!1001 &1219905393393014392
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 9141579136068323552}
+    m_Modifications:
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.6264908
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.32970235
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.32891592
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6249961
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 34.487003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90.16601
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985947130351156266, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90.094
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302503830140194361, guid: 8cfe31250c50d0c43ad5fc9c81661edf,
+        type: 3}
+      propertyPath: m_Name
+      value: prefab_wrench
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8cfe31250c50d0c43ad5fc9c81661edf, type: 3}
 --- !u!1001 &1803833437589876049
 PrefabInstance:
   m_ObjectHideFlags: 0
