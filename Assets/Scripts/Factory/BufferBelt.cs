@@ -21,7 +21,7 @@ namespace Factory
 
         private Tween _releaseTween;
         private bool _allowedToRelease = false;
-        private Queue<GameObject> _storedObjects = new Queue<GameObject>();
+        private readonly Queue<GameObject> _storedObjects = new Queue<GameObject>();
 
         private void OnEnable()
         {
@@ -38,7 +38,7 @@ namespace Factory
             if (!_storedObjects.Contains(other.gameObject))
                 _storedObjects.Enqueue(other.gameObject);
 
-            if (_releaseTween == null && _allowedToRelease)
+            if (_allowedToRelease)
                 ReleaseObjects();
         }
 
@@ -55,7 +55,7 @@ namespace Factory
                     if (_storedObjects.Count > 0)
                         SpitItem(_storedObjects.Dequeue());
                 })
-                .AppendInterval(2f)
+                .AppendInterval(_duration)
                 .SetLoops(_storedObjects.Count);
             _releaseTween.OnComplete(() =>
             {
