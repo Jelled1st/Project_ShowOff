@@ -33,7 +33,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
             ingredients[i].SetActive(false);
         }
 
-        ChooseDish(Dish.DishTypes.BurgerAndFries);
+        //ChooseDish(_dishes[0]);
     }
 
     // Update is called once per frame
@@ -45,11 +45,11 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         }
     }
 
-    public void ChooseDish(Dish.DishTypes dishType)
+    public void ChooseDish(Dish dish)
     {
         for(int i = 0; i < _dishes.Count; ++i)
         {
-            if (_dishes[i].GetDishType() == dishType)
+            if (_dishes[i] == dish)
             {
                 _choosenDish = _dishes[i];
                 EnableDishIngredients(_choosenDish);
