@@ -11,7 +11,10 @@ public class LanguageText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string text = LanguageHandler.instance.RequestText(_fieldName);
+        if (_textMeshProUgui == null) this.TryGetComponent<TextMeshProUGUI>(out _textMeshProUgui);
+
+        if (_textMeshProUgui == null) return;
+        string text = LanguageHandler.instance.Register(this, _fieldName);
         _textMeshProUgui.text = text;
     }
 
@@ -19,5 +22,16 @@ public class LanguageText : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetText(string text)
+    {
+        if (_textMeshProUgui == null) return;
+        _textMeshProUgui.text = text;
+    }
+
+    public string GetFieldName()
+    {
+        return _fieldName;
     }
 }

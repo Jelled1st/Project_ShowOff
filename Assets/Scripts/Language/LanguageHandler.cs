@@ -7,6 +7,7 @@ public class LanguageHandler : MonoBehaviour
     [SerializeField] LanguagePack _languagePack;
 
     public static LanguageHandler instance = null;
+    private static List<LanguageText> _texts; 
 
     #region text structs
     public struct MainSceneText
@@ -44,13 +45,41 @@ public class LanguageHandler : MonoBehaviour
     void Awake()
     {
         if (instance != null) Destroy(this.gameObject);
+        _texts = new List<LanguageText>();
         instance = this;
         DontDestroyOnLoad(this.gameObject);
         _languagePack.UnPack(this);
     }
 
-    public string RequestText(string field)
+    public void SwitchTo(LanguagePack languagePack)
     {
+        if (languagePack == _languagePack) return;
+        _languagePack = languagePack;
+        languagePack.UnPack(this);
+        for(int i = 0; i < _texts.Count; ++i)
+        {
+            string text = GetTextForField(_texts[i].GetFieldName());
+            _texts[i].SetText(text);
+        }
+    }
+
+    private void OnDisable()
+    {
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        _texts = new List<LanguageText>();
+    }
+
+    public string Register(LanguageText text, string field)
+    {
+        _texts.Add(text);
+        return GetTextForField(field);
+    }
+
+    private string GetTextForField(string field)
+    { 
         if (field.StartsWith("main.start"))
         {
             return main.start;
