@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KitchenGameHandler : MonoBehaviour, ISubject
+public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 {
     [SerializeField] List<Dish> _dishes;
     private Dish _choosenDish;
@@ -53,6 +53,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject
             {
                 _choosenDish = _dishes[i];
                 EnableDishIngredients(_choosenDish);
+                Subscribe(_choosenDish);
                 break;
             }
             else Destroy(_dishes[i].gameObject);
@@ -133,4 +134,29 @@ public class KitchenGameHandler : MonoBehaviour, ISubject
             _observers[i].OnNotify(observerEvent);
         }
     }
+
+    public void OnNotify(AObserverEvent observerEvent)
+    {
+    }
+
+    #region IDishObserver
+    public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
+    {
+    }
+
+    public void OnFinishDish(ISubject subject)
+    {
+        FinishGame();
+    }
+
+    public void Subscribe(ISubject subject)
+    {
+        subject.Register(this);
+    }
+
+    public void UnSubscribe(ISubject subject)
+    {
+        subject.UnRegister(this);
+    }
+    #endregion
 }

@@ -329,7 +329,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     {
         if (observer is IDishObserver)
         {
-            //_observers.Remove(observer as IDishObserver);
+            _observers.Remove(observer as IDishObserver);
         }
     }
 
