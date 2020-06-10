@@ -1,0 +1,9 @@
+main.start: Start
+main.exit: Afsluiten
+score.score: Score
+farm.mainQuest: Oogst 9 aardappelplanten
+farm.shovelQuest: Gebruik de schep
+farm.plantQuest: Plant aardappelen
+farm.waterQuest: Geef de planten water
+kitchen.fryFries: Doe de frietjes in de frietpan
+kitchen.cookPatty: Bak een hamburger
