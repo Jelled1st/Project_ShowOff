@@ -8,6 +8,7 @@ public class LanguageHandler : MonoBehaviour
 
     public static LanguageHandler instance = null;
 
+    #region text structs
     public struct MainSceneText
     {
         public string start;
@@ -32,6 +33,7 @@ public class LanguageHandler : MonoBehaviour
     {
         public string score;
     }
+    #endregion
 
     public MainSceneText main;
     public FarmSceneText farm;
@@ -49,16 +51,41 @@ public class LanguageHandler : MonoBehaviour
 
     public string RequestText(string field)
     {
-        if(field.StartsWith("main"))
+        if (field.StartsWith("main.start"))
         {
-            if (field.StartsWith("main.start"))
-            { 
-                return main.start;
-            }
-            else if (field.StartsWith("main.exit"))
-            {
-                return main.exit;
-            }
+            return main.start;
+        }
+        else if (field.StartsWith("main.exit"))
+        {
+            return main.exit;
+        }
+        else if (field.StartsWith("farm.mainQuest"))
+        {
+            return farm.mainQuest;
+        }
+        else if (field.StartsWith("farm.shovelQuest"))
+        {
+            return farm.shovelQuest;
+        }
+        else if (field.StartsWith("farm.plantQuest"))
+        {
+            return farm.plantQuest;
+        }
+        else if (field.StartsWith("farm.waterQuest"))
+        {
+            return farm.waterQuest;
+        }
+        else if (field.StartsWith("kitchen.fryFries"))
+        {
+            return kitchen.fryFries;
+        }
+        else if (field.StartsWith("kitchen.cookPatty"))
+        {
+            return kitchen.cookPatty;
+        }
+        else if (field.StartsWith("misc.score"))
+        {
+            return misc.score;
         }
         return "";
     }
