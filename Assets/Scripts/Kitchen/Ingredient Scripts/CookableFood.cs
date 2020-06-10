@@ -11,6 +11,10 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     [HideInInspector] public CookingPan cookingPan;
     private float _cookedTime = 0.0f;
 
+    void Awake()
+    {
+        this.gameObject.tag = "Ingredient";
+    }
 
     // Start is called before the first frame update
     void Start()

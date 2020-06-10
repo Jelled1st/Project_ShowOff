@@ -18,6 +18,11 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     private bool _wasBaking = false;
     [HideInInspector] public FryingPan fryingPan;
 
+    void Awake()
+    {
+        this.gameObject.tag = "Ingredient";
+    }
+
     // Start is called before the first frame update
     void Start()
     {

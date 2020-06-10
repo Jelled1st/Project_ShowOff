@@ -14,6 +14,11 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 
     private List<IObserver> _observers = new List<IObserver>();
 
+    void Awake()
+    {
+        this.gameObject.tag = "Ingredient";
+    }
+
     // Start is called before the first frame update
     void Start()
     {

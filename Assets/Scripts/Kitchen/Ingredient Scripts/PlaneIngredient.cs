@@ -7,6 +7,12 @@ public class PlaneIngredient : MonoBehaviour, IIngredient, IControllable
 {
     [SerializeField] IngredientType _ingredientType;
     [SerializeField] float _ingredientHeight;
+
+    void Awake()
+    {
+        this.gameObject.tag = "Ingredient";
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -23,7 +23,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     private List<IGameHandlerObserver> _gameHandlerObservers;
     private List<FarmPlot> _farmPlots = new List<FarmPlot>();
     private bool _paused = false;
-    private bool gameFinished = false;
+    private bool _gameFinished = false;
     private bool _debugLog = false;
 
     private bool _plantsStartAtGrown = false;
@@ -215,9 +215,9 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void FinishGame()
     {
-        if (!gameFinished)
+        if (!_gameFinished)
         {
-            gameFinished = true;
+            _gameFinished = true;
             for (int i = 0; i < _gameHandlerObservers.Count; ++i)
             {
                 _gameHandlerObservers[i].OnFinish();
@@ -229,7 +229,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     {
         Debug.Log("crossed");
         Truck truck;
-        if(other.TryGetComponent<Truck>(out truck) && gameFinished)
+        if(other.TryGetComponent<Truck>(out truck) && _gameFinished)
         {
             //Game truly finished
             SceneManager.LoadScene(_nextScene);
@@ -343,7 +343,6 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void Notify(AObserverEvent observerEvent)
     {
-
     }
 
     #region ISwarmObserver

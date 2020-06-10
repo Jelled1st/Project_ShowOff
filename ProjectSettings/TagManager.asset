@@ -19,6 +19,7 @@ TagManager:
   - Dish
   - AudioManager
   - FarmTool
+  - Ingredient
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,17 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 {
+    public enum DishTypes
+    {
+        Undifined = -1,
+        BurgerAndFries = 0,
+        ChiliCheeseFries,
+        FishAndChips,
+        SideDish,
+    }
+
+    [SerializeField] DishTypes _dishType;
+
     [Header("Required Ingredients")]
     [SerializeField] private List<IngredientType> _requiredIngredients;
     [Tooltip("The placements of the required ingredients")]
@@ -72,6 +83,50 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     void Update()
     {
 
+    }
+
+    public DishTypes GetDishType()
+    {
+        return _dishType;
+    }
+
+    public List<IngredientType> GetRequiredIngredients()
+    {
+        return _requiredIngredients;
+    }
+
+    public List<IngredientType> GetOptionalIngredients()
+    {
+        return _optionalIngredients;
+    }
+
+    public IngredientType GetFinishIngredient()
+    {
+        return _finishIngredient;
+    }
+
+    public List<Dish> GetSideDishesLeft()
+    {
+        return _sideDishesLeft;
+    }
+
+    public List<IngredientType> GetAllPossibleIngredients()
+    {
+        List<IngredientType> allIngredients = new List<IngredientType>(_requiredIngredients);
+        for(int i = 0; i < _optionalIngredients.Count; ++i)
+        {
+            allIngredients.Add(_optionalIngredients[i]);
+        }
+        if (_finishIngredient != IngredientType.Undefined) allIngredients.Add(_finishIngredient);
+        for(int i = 0; i < _sideDishesLeft.Count; ++i)
+        {
+            List<IngredientType> ingredientTypes = _sideDishesLeft[i].GetAllPossibleIngredients();
+            for (int j = 0; j < ingredientTypes.Count; ++j)
+            {
+                allIngredients.Add(ingredientTypes[j]);
+            }
+        }
+        return allIngredients;
     }
 
     private bool TryAddIngredient(IIngredient ingredient)

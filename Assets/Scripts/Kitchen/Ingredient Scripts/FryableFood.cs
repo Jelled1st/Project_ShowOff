@@ -11,6 +11,11 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
     public FryFryer fryer;
     private float _friedTime = 0.0f; 
 
+    void Awake()
+    {
+        this.gameObject.tag = "Ingredient";
+    }
+
     // Start is called before the first frame update
     void Start()
     {
