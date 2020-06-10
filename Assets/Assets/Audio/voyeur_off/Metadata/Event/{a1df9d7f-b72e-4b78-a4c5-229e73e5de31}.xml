@@ -5,7 +5,7 @@
 			<value>Meal Boiling</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{9706dc86-d84e-40cd-baa0-b55760da03c2}</destination>
@@ -63,11 +63,18 @@
 	</object>
 	<object class="MarkerTrack" id="{a25e396c-8a6a-4cdc-a8a7-97ebe4bc34ab}" />
 	<object class="GroupTrack" id="{93c6a4da-11e8-421b-9cda-6d7ae7882074}">
+		<relationship name="modules">
+			<destination>{f8f6e6e3-4cb1-4f61-9498-b55a820006f3}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{0877d6c6-3823-49bb-89a6-19a9a47e2ba5}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{4b0f1b0e-7287-40a3-b31d-c36911ffa6e0}" />
+	<object class="Timeline" id="{4b0f1b0e-7287-40a3-b31d-c36911ffa6e0}">
+		<relationship name="modules">
+			<destination>{f8f6e6e3-4cb1-4f61-9498-b55a820006f3}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{08db34df-cf98-4fcf-b7b8-c746cd0d17aa}">
 		<relationship name="effectChain">
 			<destination>{0eee5a54-51ea-4075-abef-0a5750afd668}</destination>
@@ -85,7 +92,18 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{14c8d1e7-364c-40c9-9e7b-7a9c2ba3a818}" />
+	<object class="SingleSound" id="{f8f6e6e3-4cb1-4f61-9498-b55a820006f3}">
+		<property name="length">
+			<value>30.743937500000001</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{ee8ee1a4-2c3c-4ab7-a12c-f18c9077ab7e}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{0877d6c6-3823-49bb-89a6-19a9a47e2ba5}">
+		<property name="volume">
+			<value>-12.5</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -109,9 +127,15 @@
 	<object class="MixerBusEffectChain" id="{8719f76d-87bf-45f9-afc1-cd93c516d243}">
 		<relationship name="effects">
 			<destination>{c2756839-3f04-4635-ab44-5647e397fdd4}</destination>
+			<destination>{9635e7e2-1ecc-41b8-9758-d96d4e17fa51}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{980ecdd4-60a0-4400-a1d8-9f3f1f04663f}" />
 	<object class="MixerBusFader" id="{d3ec604f-2344-4826-9a5c-f7776938a977}" />
 	<object class="MixerBusFader" id="{c2756839-3f04-4635-ab44-5647e397fdd4}" />
+	<object class="LowpassEffect" id="{9635e7e2-1ecc-41b8-9758-d96d4e17fa51}">
+		<property name="cutoff">
+			<value>13000</value>
+		</property>
+	</object>
 </objects>
