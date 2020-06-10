@@ -18,6 +18,7 @@ public class LanguagePack : ScriptableObject
         string[] lines = file.Split('\n');
         for(int i = 0; i < lines.Length; ++i)
         {
+            if (lines[i] == "") continue;
             string line = lines[i];
             if(line.StartsWith("main."))
             {
@@ -25,7 +26,15 @@ public class LanguagePack : ScriptableObject
             }
             else if(line.StartsWith("farm."))
             {
-
+                ParseLineFarm(line);
+            }
+            else if (line.StartsWith("kitchen."))
+            {
+                ParseLineKitchen(line);
+            }
+            else if (line.StartsWith("misc."))
+            {
+                ParseLineMisc(line);
             }
         }
     }
@@ -44,6 +53,41 @@ public class LanguagePack : ScriptableObject
 
     private void ParseLineFarm(string line)
     {
+        if (line.StartsWith("farm.mainQuest: "))
+        {
+            _languageHandler.farm.mainQuest = line.Remove(0, 16);
+        }
+        else if (line.StartsWith("farm.shovelQuest: "))
+        {
+            _languageHandler.farm.shovelQuest = line.Remove(0, 18);
+        }
+        else if (line.StartsWith("farm.plantQuest: "))
+        {
+            _languageHandler.farm.plantQuest = line.Remove(0, 17);
+        }
+        else if (line.StartsWith("farm.waterQuest: "))
+        {
+            _languageHandler.farm.waterQuest = line.Remove(0, 17);
+        }
+    }
 
+    private void ParseLineKitchen(string line)
+    {
+        if (line.StartsWith("kitchen.fryFries: "))
+        {
+            _languageHandler.kitchen.fryFries = line.Remove(0, 18);
+        }
+        else if (line.StartsWith("kitchen.cookPatty: "))
+        {
+            _languageHandler.kitchen.cookPatty = line.Remove(0, 19);
+        }
+    }
+
+    private void ParseLineMisc(string line)
+    {
+        if (line.StartsWith("misc.score: "))
+        {
+            _languageHandler.misc.score = line.Remove(0, 18);
+        }
     }
 }

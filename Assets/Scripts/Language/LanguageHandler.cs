@@ -8,13 +8,35 @@ public class LanguageHandler : MonoBehaviour
 
     public static LanguageHandler instance = null;
 
-    public struct Main
+    public struct MainSceneText
     {
         public string start;
         public string exit;
     }
 
-    public Main main;
+    public struct FarmSceneText
+    {
+        public string mainQuest;
+        public string shovelQuest;
+        public string plantQuest;
+        public string waterQuest;
+    }
+
+    public struct KitchenSceneText
+    {
+        public string fryFries;
+        public string cookPatty;
+    }
+
+    public struct MiscText
+    {
+        public string score;
+    }
+
+    public MainSceneText main;
+    public FarmSceneText farm;
+    public KitchenSceneText kitchen;
+    public MiscText misc;
 
 
     void Awake()
