@@ -14,27 +14,27 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 
     private List<IObserver> _observers = new List<IObserver>();
 
-    void Awake()
+    protected void Awake()
     {
         this.gameObject.tag = "Ingredient";
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        if(_cutStates != null && (_cutStates.Count == 0 || _cutStates[0] !=_currentState))
+        if (_cutStates != null && (_cutStates.Count == 0 || _cutStates[0] !=_currentState))
         {
             _cutStates.Insert(0, _currentState);
         }
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         
     }
 
-    public bool Cut()
+    public virtual bool Cut()
     {
         if (_currentStateIndex < _cutStates.Count - 1)
         {
@@ -131,7 +131,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     {
     }
 
-    public GameObject GetDragCopy()
+    public virtual GameObject GetDragCopy()
     {
         GameObject copy = Instantiate(this.gameObject);
         Destroy(copy.GetComponent<CuttableFood>());

@@ -19,6 +19,11 @@ public class CuttingBoard : MonoBehaviour, IControllable
 
     }
 
+    public Vector3 GetCutPosition()
+    {
+        return _cutPosition.transform.position;
+    }
+
     public void RequestRemoveSelected(CuttableFood food)
     {
         if (_selected == food) _selected = null;

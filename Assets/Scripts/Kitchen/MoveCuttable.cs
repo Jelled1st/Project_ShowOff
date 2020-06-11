@@ -27,7 +27,7 @@ public class MoveCuttable : MonoBehaviour, IObserver
             CuttableCut oEvent = observerEvent as CuttableCut;
             if (_moves.Count >= oEvent.state)
             {
-                _cuttable.gameObject.transform.DOMove(_moves[oEvent.state-1], 0.3f);
+                _cuttable.gameObject.transform.DOMove(this.transform.position + _moves[oEvent.state-1], 0.3f);
             }
         }
     }
