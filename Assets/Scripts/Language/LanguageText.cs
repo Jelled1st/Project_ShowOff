@@ -5,8 +5,8 @@ using TMPro;
 
 public class LanguageText : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _textMeshProUgui;
-    [SerializeField] string _fieldName;
+    [SerializeField] protected TextMeshProUGUI _textMeshProUgui;
+    [SerializeField] protected string _fieldName;
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +24,13 @@ public class LanguageText : MonoBehaviour
         
     }
 
-    public void SetText(string text)
+    public virtual void SetText(string text)
     {
         if (_textMeshProUgui == null) return;
         _textMeshProUgui.text = text;
     }
 
-    public string GetFieldName()
+    public virtual string GetFieldName()
     {
         return _fieldName;
     }

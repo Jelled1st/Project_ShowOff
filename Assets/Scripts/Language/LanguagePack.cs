@@ -43,11 +43,11 @@ public class LanguagePack : ScriptableObject
     {
         if (line.StartsWith("main.start: "))
         {
-            _languageHandler.main.start = line.Remove(0, 12);
+            _languageHandler.main.start = line.Substring(11, line.Length - 12);
         }
         else if(line.StartsWith("main.exit: "))
         {
-            _languageHandler.main.exit = line.Remove(0, 11);
+            _languageHandler.main.exit = line.Remove(10, line.Length - 11);
         }
     }
 
@@ -55,19 +55,19 @@ public class LanguagePack : ScriptableObject
     {
         if (line.StartsWith("farm.mainQuest: "))
         {
-            _languageHandler.farm.mainQuest = line.Remove(0, 16);
+            _languageHandler.farm.mainQuest = line.Substring(15, line.Length - 16);
         }
         else if (line.StartsWith("farm.shovelQuest: "))
         {
-            _languageHandler.farm.shovelQuest = line.Remove(0, 18);
+            _languageHandler.farm.shovelQuest = line.Substring(17, line.Length - 18);
         }
         else if (line.StartsWith("farm.plantQuest: "))
         {
-            _languageHandler.farm.plantQuest = line.Remove(0, 17);
+            _languageHandler.farm.plantQuest = line.Substring(16, line.Length - 17);
         }
         else if (line.StartsWith("farm.waterQuest: "))
         {
-            _languageHandler.farm.waterQuest = line.Remove(0, 17);
+            _languageHandler.farm.waterQuest = line.Substring(16, line.Length-17);
         }
     }
 
@@ -75,11 +75,11 @@ public class LanguagePack : ScriptableObject
     {
         if (line.StartsWith("kitchen.fryFries: "))
         {
-            _languageHandler.kitchen.fryFries = line.Remove(0, 18);
+            _languageHandler.kitchen.fryFries = line.Substring(17, line.Length-18);
         }
         else if (line.StartsWith("kitchen.cookPatty: "))
         {
-            _languageHandler.kitchen.cookPatty = line.Remove(0, 19);
+            _languageHandler.kitchen.cookPatty = line.Substring(18, line.Length-19);
         }
     }
 
@@ -87,7 +87,7 @@ public class LanguagePack : ScriptableObject
     {
         if (line.StartsWith("misc.score: "))
         {
-            _languageHandler.misc.score = line.Remove(0, 18);
+            _languageHandler.misc.score = line.Substring(11, line.Length-12);
         }
     }
 }

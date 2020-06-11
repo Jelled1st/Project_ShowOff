@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ScoreDisplay : MonoBehaviour, IScoresObserver
+public class ScoreDisplay : LanguageText, IScoresObserver
 {
-    [SerializeField] TextMeshProUGUI _text;
     [SerializeField] float _scoreAddSpeed = 2.0f;
-    [SerializeField] string preText = "Score: ";
-    [SerializeField] string postText = "!";
-    private float _displayScore;
+    private float _displayScore = 0;
     private float _unAddedScore;
+    private string _preText = "nope: ";
 
     // Start is called before the first frame update
     void Start()
     {
         Subscribe();
+        _preText = LanguageHandler.instance.Register(this, _fieldName) + ": ";
+        _textMeshProUgui.text = _preText + _displayScore + "!";
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class ScoreDisplay : MonoBehaviour, IScoresObserver
 
             _displayScore += amount;
             _unAddedScore -= amount;
-            _text.text = preText + _displayScore + postText;
+            _textMeshProUgui.text = _preText + _displayScore + "!";
         }
     }
 
@@ -63,4 +63,16 @@ public class ScoreDisplay : MonoBehaviour, IScoresObserver
     {
         Scores.UnRegister(this);
     }
+
+    #region LanguageText
+    public override void SetText(string text)
+    {
+        _preText = text + ": ";
+    }
+
+    public override string GetFieldName()
+    {
+        return _fieldName;
+    }
+    #endregion
 }
