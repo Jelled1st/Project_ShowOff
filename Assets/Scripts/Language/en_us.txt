@@ -1,0 +1,12 @@
+main.start: Start
+main.exit: Exit
+
+misc.score: Score
+
+farm.mainQuest: Harvest 9 potato plants
+farm.shovelQuest: Use the shovel
+farm.plantQuest: Plant potato's
+farm.waterQuest: Water the potato plants
+
+kitchen.fryFries: Put fries in the fryer
+kitchen.cookPatty: Cook a patty
