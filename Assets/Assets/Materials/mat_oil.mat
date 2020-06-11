@@ -29,19 +29,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _OilDepth: 0.2
+    - _OilDepth: 0.25
     - _OilDepthStrength: 0.2
-    - _OilFoamDist: 1
+    - _OilFoamDist: 0.05
     - _OilFoamTiling: 1
     - _OilLIquidWave: 5
     - _OilLiquidSpeed: -2
     - _OilLiquidWave: 5
-    - _OilNormalSpeed: 6.88
-    - _OilNormalStrength: 1
+    - _OilNormalSpeed: 6.5
+    - _OilNormalStrength: 0.3
     - _OilNormalTiling: 0.2
     - _OilSmoothness: 0
-    - _OilWaveStrength: 0.25
+    - _OilWaveStrength: 1
     m_Colors:
-    - _OilColA: {r: 0.9433962, g: 0.7075472, b: 0, a: 0}
-    - _OilColB: {r: 0.95283014, g: 0.8184144, b: 0.33708617, a: 0}
+    - _OilColA: {r: 0.9433962, g: 0.7075471, b: 0, a: 1}
+    - _OilColB: {r: 0.95283014, g: 0.8184144, b: 0.33708614, a: 1}
     - _OilDepthCol: {r: 0, g: 0, b: 0, a: 0}
