@@ -11301,10 +11301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c522c069a248f85449c7005a0e16e370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 651205410}
+  _textMeshProUgui: {fileID: 651205410}
+  _fieldName: misc.score
   _scoreAddSpeed: 2
-  preText: 'Score: '
-  postText: 
 --- !u!222 &651205412
 CanvasRenderer:
   m_ObjectHideFlags: 0
