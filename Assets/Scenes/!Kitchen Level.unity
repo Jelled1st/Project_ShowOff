@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 844276042}
-  m_IndirectSpecularColor: {r: 0.28514454, g: 0.37028253, b: 0.4861341, a: 1}
+  m_IndirectSpecularColor: {r: 0.28345883, g: 0.36992934, b: 0.5010715, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2774,7 +2774,6 @@ GameObject:
   - component: {fileID: 748580541}
   - component: {fileID: 748580543}
   - component: {fileID: 748580542}
-  - component: {fileID: 748580544}
   m_Layer: 0
   m_Name: Quest 1 Text
   m_TagString: Untagged
@@ -2798,8 +2797,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -17.025011}
-  m_SizeDelta: {x: -32, y: -66.04997}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -32, y: -32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &748580542
 MonoBehaviour:
@@ -2921,20 +2920,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748580540}
   m_CullTransparentMesh: 0
---- !u!114 &748580544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748580540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abd81ade537301b46b5f3490b679ba8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _textMeshProUgui: {fileID: 0}
-  _fieldName: kitchen.fryFries
 --- !u!1 &761840621
 GameObject:
   m_ObjectHideFlags: 0
@@ -3630,7 +3615,6 @@ GameObject:
   - component: {fileID: 921995360}
   - component: {fileID: 921995362}
   - component: {fileID: 921995361}
-  - component: {fileID: 921995363}
   m_Layer: 0
   m_Name: Quest 2 Text
   m_TagString: Untagged
@@ -3777,20 +3761,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921995359}
   m_CullTransparentMesh: 0
---- !u!114 &921995363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921995359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abd81ade537301b46b5f3490b679ba8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _textMeshProUgui: {fileID: 0}
-  _fieldName: kitchen.cookPatty
 --- !u!1 &969176991
 GameObject:
   m_ObjectHideFlags: 0
@@ -6275,50 +6245,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1559038271e62e8428b5ae6a3a4c232f, type: 3}
---- !u!1 &1776063411
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1776063412}
-  - component: {fileID: 1776063413}
-  m_Layer: 0
-  m_Name: LanguageManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1776063412
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776063411}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1038.7999, y: 589.1704, z: 0.069146484}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1776063413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776063411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a93b69deb89d1d240862373ea798686c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _languagePack: {fileID: 11400000, guid: 5b5814c3a1e226e429b7c4a0c58abcc4, type: 2}
 --- !u!1 &1799202460 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 170616889699225955, guid: 1559038271e62e8428b5ae6a3a4c232f,
