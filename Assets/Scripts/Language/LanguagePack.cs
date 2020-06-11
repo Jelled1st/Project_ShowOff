@@ -47,7 +47,7 @@ public class LanguagePack : ScriptableObject
         }
         else if(line.StartsWith("main.exit: "))
         {
-            _languageHandler.main.exit = line.Remove(10, line.Length - 11);
+            _languageHandler.main.exit = line.Substring(10, line.Length - 11);
         }
     }
 
