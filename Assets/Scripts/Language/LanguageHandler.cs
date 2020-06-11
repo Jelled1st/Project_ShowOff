@@ -44,14 +44,14 @@ public class LanguageHandler : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null) Destroy(this.gameObject);
+        if (instance != null) Destroy(this);
         _texts = new List<LanguageText>();
         instance = this;
         DontDestroyOnLoad(this.gameObject);
         _languagePack.UnPack(this);
     }
 
-    public void SwitchTo(LanguagePack languagePack)
+    public void SwitchToLanguagePack(LanguagePack languagePack)
     {
         if (languagePack == _languagePack) return;
         _languagePack = languagePack;
