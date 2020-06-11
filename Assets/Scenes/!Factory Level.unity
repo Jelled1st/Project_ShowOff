@@ -8062,11 +8062,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _speed
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
@@ -8149,12 +8149,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 3074b0aca09f44a4fb2217558ce119af, type: 2}
+      objectReference: {fileID: 2100000, guid: 1155328f31e0cd545893482e382470ff, type: 2}
     - target: {fileID: 2497783585136514412, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_ReceiveGI
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2497783585136514412, guid: ef0bee140a316924fa42b31e05675d0d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9f2f4a0c889066744b27ec5edab36e75, type: 2}
     - target: {fileID: 4221349372024005040, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_Name
@@ -17502,7 +17507,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 64, y: -64}
+  m_AnchoredPosition: {x: 63.999878, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352385681
@@ -20309,7 +20314,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 64, y: -64}
+  m_AnchoredPosition: {x: 63.999878, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1669746551
@@ -20536,11 +20541,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _isSpecialConveyor
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _speed
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1198797087, guid: ef0bee140a316924fa42b31e05675d0d, type: 3}
       propertyPath: _heldSpeed
@@ -20623,12 +20628,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 3074b0aca09f44a4fb2217558ce119af, type: 2}
+      objectReference: {fileID: 2100000, guid: 1155328f31e0cd545893482e382470ff, type: 2}
     - target: {fileID: 2497783585136514412, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_ReceiveGI
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2497783585136514412, guid: ef0bee140a316924fa42b31e05675d0d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9f2f4a0c889066744b27ec5edab36e75, type: 2}
     - target: {fileID: 4221349372024005040, guid: ef0bee140a316924fa42b31e05675d0d,
         type: 3}
       propertyPath: m_Name
