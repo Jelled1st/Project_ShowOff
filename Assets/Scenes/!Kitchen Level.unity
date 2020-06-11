@@ -3425,9 +3425,9 @@ MonoBehaviour:
   - {fileID: 1334618282410881212, guid: 8b53e59ef7174f343bf6c610bd72b05b, type: 3}
   - {fileID: 2737023671094111450, guid: 69aea14148b57aa4eab4ac16f6aa1082, type: 3}
   cuttingBoard: {fileID: 0}
-  _fallOffPiece: {fileID: 1578476855191738585, guid: 0067dc10b39bfa64b9000ff4d402eaca,
-    type: 3}
-  _fallOffPiecesLength: 0.05
+  _fallOffOptionForState:
+  - {fileID: 11400000, guid: 748fd6799f551df49ad10cd9da0cb502, type: 2}
+  - {fileID: 11400000, guid: 067347ee74e44c0479b3713d298af3f1, type: 2}
 --- !u!114 &820149444
 MonoBehaviour:
   m_ObjectHideFlags: 0

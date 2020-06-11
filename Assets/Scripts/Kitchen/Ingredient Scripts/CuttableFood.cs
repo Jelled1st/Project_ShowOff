@@ -10,7 +10,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     [SerializeField] private GameObject _currentState;
     [SerializeField] private List<GameObject> _cutStates;
     [HideInInspector] public CuttingBoard cuttingBoard = null;
-    int _currentStateIndex = 0;
+    protected int _currentStateIndex = 0;
 
     private List<IObserver> _observers = new List<IObserver>();
 
@@ -135,7 +135,11 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     {
         GameObject copy = Instantiate(this.gameObject);
         Destroy(copy.GetComponent<CuttableFood>());
-        Destroy(copy.GetComponent<Collider>());
+        Collider[] colliders = copy.GetComponentsInChildren<Collider>();
+        for(int i = 0; i < colliders.Length; ++i)
+        {
+            Destroy(colliders[i]);
+        }
         copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         return copy;
     }

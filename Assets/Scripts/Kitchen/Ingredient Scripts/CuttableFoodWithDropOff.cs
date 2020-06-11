@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class CuttableFoodPhysics : CuttableFood
+public class CuttableFoodWithDropOff : CuttableFood
 {
-    [SerializeField] GameObject _fallOffPiece;
-    [SerializeField] float _fallOffPiecesLength;
+    [SerializeField] List<CuttableFallOffOptions> _fallOffOptionForState;
     List<GameObject> _fallOffPieces = new List<GameObject>();
 
     new void Awake()
@@ -30,12 +29,14 @@ public class CuttableFoodPhysics : CuttableFood
     {
         if(base.Cut())
         {
-            GameObject fallOff = GameObject.Instantiate(_fallOffPiece, cuttingBoard.GetCutPosition(), Quaternion.identity);
+            int fallOffIndex = _currentStateIndex - 1;
+            if (_fallOffOptionForState.Count < _currentStateIndex) fallOffIndex = _fallOffOptionForState.Count-1;
+            GameObject fallOff = GameObject.Instantiate(_fallOffOptionForState[fallOffIndex].GetFallOffPiece(), cuttingBoard.GetCutPosition(), Quaternion.identity);
             fallOff.gameObject.transform.SetParent(this.gameObject.transform);
             Rigidbody rb = fallOff.AddComponent<Rigidbody>();
             for(int i = 0; i < _fallOffPieces.Count; ++i)
             {
-                _fallOffPieces[i].gameObject.transform.DOMove(_fallOffPieces[i].transform.position - new Vector3(_fallOffPiecesLength/2, 0, 0), 0.1f);
+                _fallOffPieces[i].gameObject.transform.DOMove(_fallOffPieces[i].transform.position - new Vector3(_fallOffOptionForState[fallOffIndex].GetFallOffPieceLength()/2, 0, 0), 0.1f);
             }
             _fallOffPieces.Add(fallOff);
             return true;
