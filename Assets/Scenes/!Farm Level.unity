@@ -3629,6 +3629,7 @@ GameObject:
   - component: {fileID: 407106028}
   - component: {fileID: 407106030}
   - component: {fileID: 407106029}
+  - component: {fileID: 407106031}
   m_Layer: 0
   m_Name: ShovelQuest
   m_TagString: Untagged
@@ -3775,6 +3776,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407106027}
   m_CullTransparentMesh: 0
+--- !u!114 &407106031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407106027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd81ade537301b46b5f3490b679ba8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textMeshProUgui: {fileID: 0}
+  _fieldName: farm.shovelQuest
 --- !u!1001 &416712658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15055,6 +15070,7 @@ GameObject:
   - component: {fileID: 1539048441}
   - component: {fileID: 1539048443}
   - component: {fileID: 1539048442}
+  - component: {fileID: 1539048444}
   m_Layer: 0
   m_Name: WaterQuest
   m_TagString: Untagged
@@ -15201,6 +15217,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539048440}
   m_CullTransparentMesh: 0
+--- !u!114 &1539048444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539048440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd81ade537301b46b5f3490b679ba8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textMeshProUgui: {fileID: 0}
+  _fieldName: farm.waterQuest
 --- !u!1001 &1546132363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18425,6 +18455,7 @@ GameObject:
   - component: {fileID: 1906043483}
   - component: {fileID: 1906043485}
   - component: {fileID: 1906043484}
+  - component: {fileID: 1906043486}
   m_Layer: 0
   m_Name: PlantQuest
   m_TagString: Untagged
@@ -18571,6 +18602,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1906043482}
   m_CullTransparentMesh: 0
+--- !u!114 &1906043486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906043482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd81ade537301b46b5f3490b679ba8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textMeshProUgui: {fileID: 0}
+  _fieldName: farm.plantQuest
 --- !u!1001 &1926659771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18866,6 +18911,7 @@ GameObject:
   - component: {fileID: 2009377837}
   - component: {fileID: 2009377839}
   - component: {fileID: 2009377838}
+  - component: {fileID: 2009377840}
   m_Layer: 0
   m_Name: TitleQuest
   m_TagString: Untagged
@@ -19012,6 +19058,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009377836}
   m_CullTransparentMesh: 0
+--- !u!114 &2009377840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009377836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd81ade537301b46b5f3490b679ba8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textMeshProUgui: {fileID: 0}
+  _fieldName: farm.mainQuest
 --- !u!1001 &2023939662
 PrefabInstance:
   m_ObjectHideFlags: 0
