@@ -74,6 +74,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         _progressBar?.SetActive(false);
         this.gameObject.tag = "FarmPlot";
+        _paused = false;
     }
 
     // Start is called before the first frame update
