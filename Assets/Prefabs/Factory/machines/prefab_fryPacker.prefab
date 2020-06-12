@@ -272,10 +272,11 @@ MonoBehaviour:
   _reverseShaderDirection: 0
   _runtimeUseInspectorSpeed: 0
   _isSpecialConveyor: 0
-  _canRotate: 1
+  _canRotate: 0
   _isTurnedOn: 1
   _speedChangeTime: 0.5
   _heldSpeed: 2
+  _speedHoldTime: 3
   _specialBeltType: 1
 --- !u!54 &3510084337844083929
 Rigidbody:
