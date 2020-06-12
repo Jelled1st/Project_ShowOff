@@ -15,6 +15,13 @@ namespace Factory
         [SerializeField]
         private Transform _output;
 
+        [Tag]
+        [SerializeField]
+        private string _allowInputItemTag;
+
+        [SerializeField]
+        private Transform _throwPosition;
+
         [SerializeField]
         private CollisionCallback _collisionCallback;
 
@@ -37,6 +44,11 @@ namespace Factory
 
         private void TriggerEnter(Collider other)
         {
+            if (!other.CompareTag(_allowInputItemTag))
+            {
+                other.transform.DOJump(_throwPosition.position, 2f, 1, 0.5f);
+            }
+
             if (!_storedObjects.Contains(other.gameObject))
                 _storedObjects.Enqueue(other.gameObject);
 
@@ -63,7 +75,7 @@ namespace Factory
             {
                 _releaseTween.Kill();
                 _releaseTween = null;
-                
+
                 if (_storedObjects.Count > 0)
                     ReleaseObjects();
                 else
