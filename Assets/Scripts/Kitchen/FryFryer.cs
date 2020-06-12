@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 [RequireComponent(typeof(Collider))]
-public class FryFryer : MonoBehaviour, IControllable
+public class FryFryer : MonoBehaviour, IControllable, ISubject
 {
     [SerializeField] private GameObject _basket;
     [SerializeField] GameObject _foodNode;
@@ -12,6 +12,8 @@ public class FryFryer : MonoBehaviour, IControllable
     [SerializeField] ProgressBar _progressBar;
     FryableFood _food;
     private bool _basketIsUp = true;
+
+    private List<IObserver> _observers = new List<IObserver>();
 
     // Start is called before the first frame update
     void Start()
@@ -27,9 +29,12 @@ public class FryFryer : MonoBehaviour, IControllable
             _food.Fry();
             float value = _food.GetTimeFried() / _food.GetFryTime();
             _progressBar.SetPercentage(value);
-            Debug.Log(value);
             _progressBar.SetFillColor(new Color(1-value, value, 0, 1));
-            if (_food.IsFried()) MoveBasketUp();
+            if (_food.IsFried())
+            {
+                Notify(new FryerStopEvent(this, _food));
+                MoveBasketUp();
+            }
         }
     }
 
@@ -78,6 +83,7 @@ public class FryFryer : MonoBehaviour, IControllable
         _food = food;
         food.transform.position = _foodNode.transform.position;
         food.fryer = this;
+        Notify(new FryerStartEvent(this, food));
         MoveBasketDown();
     }
 
@@ -142,4 +148,22 @@ public class FryFryer : MonoBehaviour, IControllable
     {
     }
     #endregion
+
+    public void Register(IObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
+    }
 }

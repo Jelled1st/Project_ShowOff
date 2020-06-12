@@ -4,13 +4,16 @@ using UnityEngine;
 using DG.Tweening;
 
 [RequireComponent(typeof(Collider))]
-public class CookingPan : MonoBehaviour, IControllable
+public class CookingPan : MonoBehaviour, IControllable, ISubject
 {
     [SerializeField] GameObject _foodNode;
     [SerializeField] Stove stove;
     [SerializeField] GameObject _stirringDevice;
     [SerializeField] float _stirBonusModifier = 0.5f;
     CookableFood _food;
+    private bool _foodIsCooked = false;
+
+    List<IObserver> _observers = new List<IObserver>();
 
 
     // Start is called before the first frame update
@@ -24,6 +27,11 @@ public class CookingPan : MonoBehaviour, IControllable
         if (stove == null || stove.IsOn())
         {
             _food?.Cook();
+            if(_food.IsCooked() && !_foodIsCooked)
+            {
+                _foodIsCooked = true;
+                Notify(new CookingDoneEvent(this, _food));
+            }
         }
     }
 
@@ -33,13 +41,16 @@ public class CookingPan : MonoBehaviour, IControllable
         _food = food;
         food.transform.position = _foodNode.transform.position;
         food.cookingPan = this;
+        Notify(new CookingStartEvent(this, _food));
+        _foodIsCooked = false;
     }
 
-    public void RemoveFood(CookableFood food)
+    public void RemoveFood()
     {
-        if (food == null) return;
+        if (_food == null) return;
+        Notify(new CookingStopEvent(this, _food));
         _food = null;
-        food.cookingPan = null;
+        _food.cookingPan = null;
     }
 
     #region IControllable
@@ -90,6 +101,7 @@ public class CookingPan : MonoBehaviour, IControllable
     {
         if(!DOTween.IsTweening(_stirringDevice.transform))_stirringDevice.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
         _food?.Cook(_stirBonusModifier);
+        Notify(new StirEvent(this, _food));
     }
 
     public void OnHoldRelease(float timeHeld)
@@ -102,6 +114,24 @@ public class CookingPan : MonoBehaviour, IControllable
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
+    }
+
+    public void Register(IObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
     }
     #endregion
 }
