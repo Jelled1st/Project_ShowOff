@@ -28,9 +28,9 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
         
     }
 
-    public void Cook()
+    public void Cook(float modifier = 1.0f)
     {
-        _cookedTime += Time.deltaTime;
+        _cookedTime += Time.deltaTime *  modifier;
     }
 
     public bool IsCooked()

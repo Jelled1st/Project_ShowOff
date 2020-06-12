@@ -9,7 +9,7 @@ public class CookingPan : MonoBehaviour, IControllable
     [SerializeField] GameObject _foodNode;
     [SerializeField] Stove stove;
     [SerializeField] GameObject _stirringDevice;
-    [SerializeField] float _stirBonusTime = 0.5f;
+    [SerializeField] float _stirBonusModifier = 0.5f;
     CookableFood _food;
 
 
@@ -45,9 +45,13 @@ public class CookingPan : MonoBehaviour, IControllable
     #region IControllable
     public GameObject GetDragCopy()
     {
-        if (_food == null || !_food.IsCooked()) return null;
+        if (_food == null || !_food.IsCooked())
+        {
+            return null;
+        }
         GameObject copy = Instantiate(_stirringDevice);
         GameObject foodCopy = _food.GetDragCopy();
+        foodCopy.transform.SetParent(copy.transform);
         Destroy(copy.GetComponent<CookingPan>());
         Collider[] colliders = copy.GetComponentsInChildren<Collider>();
         for (int i = 0; i < colliders.Length; ++i)
@@ -84,8 +88,8 @@ public class CookingPan : MonoBehaviour, IControllable
 
     public void OnHold(float holdTime, Vector3 hitPoint)
     {
-        Debug.Log("Hold");
         if(!DOTween.IsTweening(_stirringDevice.transform))_stirringDevice.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
+        _food?.Cook(_stirBonusModifier);
     }
 
     public void OnHoldRelease(float timeHeld)
