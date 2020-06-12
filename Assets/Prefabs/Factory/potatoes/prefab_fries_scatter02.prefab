@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7937064380444125257}
   m_Layer: 2
   m_Name: prefab_fries_scatter02
-  m_TagString: Untagged
+  m_TagString: Factory/Potato_Cut
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

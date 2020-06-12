@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7107326852789492144}
   m_Layer: 2
   m_Name: prefab_potato01
-  m_TagString: Untagged
+  m_TagString: Factory/Potato_Dirty
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
