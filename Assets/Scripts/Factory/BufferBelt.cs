@@ -9,6 +9,8 @@ namespace Factory
 {
     public class BufferBelt : MonoBehaviour
     {
+        public event Action FinishedOutputting = delegate { };
+
         [Required]
         [SerializeField]
         private Transform _output;
@@ -59,9 +61,15 @@ namespace Factory
                 .SetLoops(_storedObjects.Count);
             _releaseTween.OnComplete(() =>
             {
+                _releaseTween.Kill();
                 _releaseTween = null;
+                
                 if (_storedObjects.Count > 0)
                     ReleaseObjects();
+                else
+                {
+                    FinishedOutputting();
+                }
             });
         }
 

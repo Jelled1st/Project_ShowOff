@@ -44,10 +44,6 @@ namespace Factory
         private BufferBelt _bufferBelt;
 
         [BoxGroup("Scene objects")]
-        [SerializeField]
-        private FlatConveyorBelt[] _level1Belts;
-
-        [BoxGroup("Scene objects")]
         [Required]
         [SerializeField]
         private Transform _level2CameraPosition;
@@ -119,16 +115,22 @@ namespace Factory
                 _level1Machines.ToggleChildren<Machine>(false);
                 _level2Machines.ToggleChildren<Machine>(true);
 
+                _potatoSpawner.enabled = false;
+
                 _bufferBelt.ReleaseObjects();
 
-                _level1Belts.ToggleAll(false);
-
-                _potatoSpawner.enabled = false;
-                _peeledPotatoSpawner.enabled = true;
+                _bufferBelt.FinishedOutputting += OnBufferBeltFinishedSpawning;
 
                 _potatoesInput = 0;
                 _finishTriggerLevel1.gameObject.SetActive(false);
             }
+        }
+
+
+        private void OnBufferBeltFinishedSpawning()
+        {
+            _peeledPotatoSpawner.enabled = true;
+            _bufferBelt.FinishedOutputting -= OnBufferBeltFinishedSpawning;
         }
 
         private void OnLevel2TriggerHit(GameObject obj)
