@@ -19,7 +19,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     // [SerializeField]
     public const float RotateInterval = 0.35f;
 
-    private static readonly Color GrayArrowColor = new Color32(60, 59, 59, 0);
+    public static readonly Color GrayArrowColor = new Color32(60, 59, 59, 0);
 
     public static event Action ConveyorTurned = delegate { };
     public static event Action<SpecialBeltType, bool> SpecialConveyorHeld = delegate { };
@@ -41,12 +41,9 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     [SerializeField]
     private bool _isSpecialConveyor;
 
+    [HideIf(nameof(_isSpecialConveyor))]
     [SerializeField]
     private bool _canRotate = true;
-
-    [ShowIf(nameof(_isSpecialConveyor))]
-    [SerializeField]
-    private bool _isTurnedOn = true;
 
     [ShowIf(nameof(_isSpecialConveyor))]
     [SerializeField]
@@ -91,6 +88,35 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         }
     }
 
+    private void OnValidate()
+    {
+        if (_isSpecialConveyor)
+        {
+            switch (_specialBeltType)
+            {
+                case SpecialBeltType.SpeedUp:
+                    if (_heldSpeed.Abs() <= _speed.Abs())
+                    {
+                        Debug.LogWarning("Speed-up belt's held speed is lower than initial speed!", this);
+                    }
+
+                    break;
+                case SpecialBeltType.SpeedDown:
+                    if (_heldSpeed.Abs() >= _speed.Abs())
+                    {
+                        Debug.LogWarning("Slow-down belt's held speed is higher than initial speed!", this);
+                    }
+
+                    break;
+            }
+
+            if (_heldSpeed > 0 && _speed < 0 || _heldSpeed < 0 && _speed > 0)
+            {
+                Debug.LogWarning("Special belt's held speed will reverse the belt's direction!");
+            }
+        }
+    }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -121,15 +147,12 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     private void OnEnable()
     {
-        _isTurnedOn = true;
         Speed = _speed;
         SetConveyorSpeed();
     }
 
     private void OnDisable()
     {
-        _isTurnedOn = false;
-
         var speed = 1e-7f;
         if (_reverseShaderDirection)
             speed *= -1f;
@@ -169,7 +192,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (_isTurnedOn)
+        if (enabled)
             FixedUpdateMovement();
     }
 
@@ -270,6 +293,9 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public virtual void OnPress(Vector3 hitPoint)
     {
+        if (!enabled)
+            return;
+
         if (_canRotate && !_isSpecialConveyor)
         {
             BeltRotated?.Invoke();
