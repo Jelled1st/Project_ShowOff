@@ -1,18 +1,15 @@
-using System;
 using System.Linq;
-using System.Timers;
 using DG.Tweening;
 using StateMachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Timer = System.Timers.Timer;
 
 
 namespace Timeout
 {
     public class TimeoutController : LazySingleton<TimeoutController>
     {
-        public const float TimeoutInterval = 3f;
+        public const float TimeoutInterval = 30f;
 
         private static Sequence _timer;
 
