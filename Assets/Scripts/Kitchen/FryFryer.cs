@@ -9,12 +9,14 @@ public class FryFryer : MonoBehaviour, IControllable
     [SerializeField] private GameObject _basket;
     [SerializeField] GameObject _foodNode;
     [SerializeField] GameObject _basketDownNode;
+    [SerializeField] ProgressBar _progressBar;
     FryableFood _food;
     private bool _basketIsUp = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        _progressBar.SetActive(false);
     }
 
     // Update is called once per frame
@@ -23,6 +25,10 @@ public class FryFryer : MonoBehaviour, IControllable
         if(_food != null && !_basketIsUp)
         {
             _food.Fry();
+            float value = _food.GetTimeFried() / _food.GetFryTime();
+            _progressBar.SetPercentage(value);
+            Debug.Log(value);
+            _progressBar.SetFillColor(new Color(1-value, value, 0, 1));
             if (_food.IsFried()) MoveBasketUp();
         }
     }
@@ -43,6 +49,7 @@ public class FryFryer : MonoBehaviour, IControllable
         _basket.transform.DOMove(pos, 0.3f);
         _basket.transform.DORotate(rot, 0.3f);
         _basketIsUp = true;
+        _progressBar.SetActive(false);
     }
 
     private void MoveBasketDown()
@@ -62,7 +69,7 @@ public class FryFryer : MonoBehaviour, IControllable
         _basket.transform.DORotate(rot, 0.3f);
 
         _basketIsUp = false;
-
+        _progressBar.SetActive(true);
     }
 
     public void TrySetFood(FryableFood food)
