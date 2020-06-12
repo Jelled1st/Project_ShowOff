@@ -1266,7 +1266,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 876894592}
-        m_MethodName: MainMenuTransition
+        m_MethodName: StopMusicFade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1383,7 +1383,7 @@ PrefabInstance:
     - target: {fileID: 4420835435002856285, guid: eea3b54acfcebd54ea66ac1406203ba6,
         type: 3}
       propertyPath: debugLevelTest
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eea3b54acfcebd54ea66ac1406203ba6, type: 3}

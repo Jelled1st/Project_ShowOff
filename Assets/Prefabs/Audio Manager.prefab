@@ -44,11 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee4297568ba6ab4e9a452e9f671874a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicMenu: event:/BKM/Menu Music
   musicFarm: event:/BKM/Farm Music
   farmTruckDrive: event:/SFX_TRUCK/Farm Truck Driving
-  farmTruckTransit: event:/SFX_TRUCK/Farm Truck Transit
   musicFactory: event:/BKM/Factory Music
   factoryHum: event:/SFX_FACTORY/Conveyor Hum
+  musicHome: event:/BKM/Kitchen Music
+  farmTruckTransit: event:/SFX_TRUCK/Farm Truck Transit
   debugLevelTest: 0
 --- !u!114 &4420835435002856287
 MonoBehaviour:
