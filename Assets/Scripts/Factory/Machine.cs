@@ -33,6 +33,16 @@ namespace Factory
         [SerializeField]
         private MachineType _machineType;
 
+        [BoxGroup("Machine settings")]
+        [Tag]
+        [SerializeField]
+        private string _expectedInputTag;
+
+        [BoxGroup("Machine settings")]
+        [Tag]
+        [SerializeField]
+        private string _outputTag;
+
         [BoxGroup("Processing settings")]
         [SerializeField]
         [Required]
@@ -149,11 +159,7 @@ namespace Factory
         private bool IsClogged => CurrentClogStage == StagesToBreak;
 
         // If we later need it - it's the filtration by tag
-        [SerializeField]
-        private string _expectedInputTag;
 
-        [SerializeField]
-        private string _outputTag;
         // protected string AllowedInputTag => _expectedInputTag;
         // protected string OutputTag => _outputTag;
 
