@@ -4334,10 +4334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c522c069a248f85449c7005a0e16e370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 339649855}
+  _textMeshProUgui: {fileID: 0}
+  _fieldName: 
   _scoreAddSpeed: 2
-  preText: 'Score: '
-  postText: 
 --- !u!222 &339649857
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13970,7 +13969,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 1d1d57b22c66b334cba2d391f7a90927, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
