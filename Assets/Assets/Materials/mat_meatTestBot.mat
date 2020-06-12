@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_meatTest
+  m_Name: mat_meatTestBot
   m_Shader: {fileID: -6465566751694194690, guid: e8552c332d79ba446882f78fa9e41494,
     type: 3}
   m_ShaderKeywords: 
@@ -21,8 +21,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _MeatBurningBool: 0
-    - _MeatBurnt: 0
+    - _MeatBurningBool: 1
+    - _MeatBurnt: 1
     - _MeatCooked: 0
     - _MeatSmoothness: 0
     m_Colors:
