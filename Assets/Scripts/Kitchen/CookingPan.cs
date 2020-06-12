@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(Collider))]
 public class CookingPan : MonoBehaviour, IControllable
 {
-    [SerializeField] List<GameObject> _foodNodes;
+    [SerializeField] GameObject _foodNode;
     [SerializeField] Stove stove;
-    List<GameObject> _availableNodes;
-    List<CookableFood> _food = new List<CookableFood>();
-    Dictionary<CookableFood, GameObject> _foodNodePair = new Dictionary<CookableFood, GameObject>();
+    [SerializeField] GameObject _stirringDevice;
+    [SerializeField] float _stirBonusTime = 0.5f;
+    CookableFood _food;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        _availableNodes = new List<GameObject>(_foodNodes);
     }
 
     // Update is called once per frame
@@ -21,42 +23,31 @@ public class CookingPan : MonoBehaviour, IControllable
     {
         if (stove == null || stove.IsOn())
         {
-            for (int i = 0; i < _food.Count; ++i)
-            {
-                _food[i].Cook();
-            }
+            _food?.Cook();
         }
     }
 
-    public void AddFood(CookableFood food)
+    public void TrySetfood(CookableFood food)
     {
-        if (_availableNodes.Count == 0) return;
-        _food.Add(food);
-        _foodNodePair.Add(food, _availableNodes[0]);
-        food.transform.position = _availableNodes[0].transform.position;
-        _availableNodes.RemoveAt(0);
+        if (_food != null) return;
+        _food = food;
+        food.transform.position = _foodNode.transform.position;
         food.cookingPan = this;
     }
 
     public void RemoveFood(CookableFood food)
     {
         if (food == null) return;
-        _availableNodes.Add(_foodNodePair[food]);
-        _foodNodePair.Remove(food);
-        _food.Remove(food);
+        _food = null;
         food.cookingPan = null;
     }
 
     #region IControllable
     public GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(this.gameObject);
-        for (int i = 0; i < _food.Count; ++i)
-        {
-            GameObject foodCopy = _food[i].GetDragCopy();
-            foodCopy.transform.SetParent(copy.transform);
-            //foodCopy.transform.localPosition = new Vector3(0, 0.1f, 0);
-        }
+        if (_food == null || !_food.IsCooked()) return null;
+        GameObject copy = Instantiate(_stirringDevice);
+        GameObject foodCopy = _food.GetDragCopy();
         Destroy(copy.GetComponent<CookingPan>());
         Collider[] colliders = copy.GetComponentsInChildren<Collider>();
         for (int i = 0; i < colliders.Length; ++i)
@@ -76,11 +67,7 @@ public class CookingPan : MonoBehaviour, IControllable
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        // call the ondrop function on the droppedon with every food 
-        for (int i = 0; i < _food.Count; ++i)
-        {
-            droppedOn.OnDrop(_food[i].GetComponent<IControllable>(), hitInfo);
-        }
+        if(_food != null) droppedOn.OnDrop(_food.GetComponent<IControllable>(), hitInfo);
     }
 
     public void OnDragDropFailed(Vector3 position)
@@ -91,12 +78,14 @@ public class CookingPan : MonoBehaviour, IControllable
     {
         if (dropped is CookableFood)
         {
-            AddFood(dropped as CookableFood);
+            TrySetfood(dropped as CookableFood);
         }
     }
 
     public void OnHold(float holdTime, Vector3 hitPoint)
     {
+        Debug.Log("Hold");
+        if(!DOTween.IsTweening(_stirringDevice.transform))_stirringDevice.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
     }
 
     public void OnHoldRelease(float timeHeld)
