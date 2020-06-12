@@ -19,11 +19,13 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     // [SerializeField]
     public const float RotateInterval = 0.35f;
 
+    private static readonly Color GrayArrowColor = new Color32(60, 59, 59, 0);
+
     public static event Action ConveyorTurned = delegate { };
     public static event Action<SpecialBeltType, bool> SpecialConveyorHeld = delegate { };
 
     public static event Action BeltRotated = delegate { };
-    public event Action<float> BeltHeld = delegate { };
+    public static event Action SpecialBeltPressed = delegate { };
 
 
     [Header("Conveyor settings")]
@@ -57,6 +59,10 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     [ShowIf(nameof(_isSpecialConveyor))]
     [SerializeField]
+    private float _speedHoldTime = 3f;
+
+    [ShowIf(nameof(_isSpecialConveyor))]
+    [SerializeField]
     private SpecialBeltType _specialBeltType = SpecialBeltType.SpeedDown;
 
     private readonly List<Material> _scrollingMaterials = new List<Material>();
@@ -64,6 +70,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     protected Tween _rotateTween;
     private float _previousSpeed;
     private float _nonSerializedSpeed;
+    private Color _specialBeltInitialColor;
 
     public float Speed
     {
@@ -98,6 +105,17 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         _nonSerializedSpeed = _speed;
 
         LoadScrollingMaterials();
+
+        if (_scrollingMaterials.Count > 0)
+        {
+            _specialBeltInitialColor =
+                _scrollingMaterials.First().GetColor(ShaderConstants.ScrollingShaderArrowColorName);
+        }
+        else
+        {
+            Debug.LogWarning("No scrolling materials found!", this);
+        }
+
         SetConveyorSpeed();
     }
 
@@ -189,12 +207,15 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
             SpecialConveyorHeld(_specialBeltType, true);
 
             _isChangingBeltSpeed = true;
-            DOTween.Sequence().Append(DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime))
-                .AppendCallback(() =>
-                {
-                    SetConveyorSpeed();
-                    _isChangingBeltSpeed = false;
-                });
+            DOTween.Sequence()
+                .Append(DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime))
+                .Join(DOTween.To(
+                    () => _scrollingMaterials.First().GetColor(ShaderConstants.ScrollingShaderArrowColorName),
+                    c => _scrollingMaterials.First().SetColor(ShaderConstants.ScrollingShaderArrowColorName, c),
+                    GrayArrowColor,
+                    _speedChangeTime))
+                .AppendInterval(_speedHoldTime)
+                .AppendCallback(ResetSpecialBeltSpeed);
         }
     }
 
@@ -202,8 +223,18 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     {
         SpecialConveyorHeld(_specialBeltType, false);
 
-        DOTween.Sequence().Append(DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime))
-            .AppendCallback(SetConveyorSpeed);
+        DOTween.Sequence()
+            .Append(DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime))
+            .Join(DOTween.To(
+                () => _scrollingMaterials.First().GetColor(ShaderConstants.ScrollingShaderArrowColorName),
+                c => _scrollingMaterials.First().SetColor(ShaderConstants.ScrollingShaderArrowColorName, c),
+                _specialBeltInitialColor,
+                _speedChangeTime))
+            .AppendCallback(() =>
+            {
+                SetConveyorSpeed();
+                _isChangingBeltSpeed = false;
+            });
     }
 
     protected virtual void OnCollisionStay(Collision other)
@@ -220,11 +251,12 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
         var c = objectPosition;
 
-        Debug.DrawLine(a, b);
-        Debug.DrawLine(b, c);
-        Debug.DrawLine(a, c);
         var triangleHeightPoint = GeometryUtils.TriangleHeightPoint(ref a, ref b, ref c);
-        Debug.DrawLine(objectPosition, triangleHeightPoint);
+
+        // Debug.DrawLine(a, b);
+        // Debug.DrawLine(b, c);
+        // Debug.DrawLine(a, c);
+        // Debug.DrawLine(objectPosition, triangleHeightPoint);
 
         if ((triangleHeightPoint - other.transform.position).sqrMagnitude > 0.05f)
             other.rigidbody.MovePosition(objectPosition +
@@ -238,26 +270,25 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public virtual void OnPress(Vector3 hitPoint)
     {
-        if (_canRotate)
+        if (_canRotate && !_isSpecialConveyor)
         {
             BeltRotated?.Invoke();
             TurnInternal();
+        }
+
+        if (_isSpecialConveyor)
+        {
+            SpecialBeltPressed();
+            ChangeSpecialBeltSpeed();
         }
     }
 
     public virtual void OnHold(float holdTime, Vector3 hitPoint)
     {
-        if (_isSpecialConveyor)
-        {
-            BeltHeld?.Invoke(holdTime);
-            ChangeSpecialBeltSpeed();
-        }
     }
 
     public virtual void OnHoldRelease(float timeHeld)
     {
-        if (_isSpecialConveyor)
-            ResetSpecialBeltSpeed();
     }
 
     public void OnSwipe(Vector3 direction, Vector3 lastPosition)
