@@ -33,6 +33,11 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
         _cookedTime += Time.deltaTime;
     }
 
+    public bool IsCooked()
+    {
+        return _cookedTime >= _timeToCook;
+    }
+
 
     #region IIngredient
     public IngredientType GetIngredientType()

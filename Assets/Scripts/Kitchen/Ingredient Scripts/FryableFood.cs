@@ -33,6 +33,21 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
         _friedTime += Time.deltaTime;
     }
 
+    public float GetTimeFried()
+    {
+        return _friedTime;
+    }
+
+    public float GetFryTime()
+    {
+        return _timeToFry;
+    }
+
+    public bool IsFried()
+    {
+        return _friedTime >= _timeToFry;
+    }
+
     #region IIngredient
     public void AddedToDish()
     {
@@ -59,7 +74,7 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
 
     public float GetHeight()
     {
-        return 0.1f;
+        return _ingredientHeight;
     }
 
     public IngredientType GetIngredientType()
