@@ -125,6 +125,10 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
                 {
                     OnUse();
                 }
+                else
+                {
+                    Wiggle();
+                }
             }
         }
         else
