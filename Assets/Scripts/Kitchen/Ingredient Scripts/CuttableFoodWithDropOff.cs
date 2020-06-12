@@ -48,11 +48,6 @@ public class CuttableFoodWithDropOff : CuttableFood
     {
         GameObject copy = base.GetDragCopy();
         if (copy == null) return null;
-        Rigidbody[] rbs = copy.GetComponentsInChildren<Rigidbody>();
-        for(int i = 0; i < rbs.Length; ++i)
-        {
-            Destroy(rbs[i]);
-        }
         return copy;
     }
 }
