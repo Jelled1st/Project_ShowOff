@@ -388,7 +388,13 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         for(int i = 0; i < _plantPositions.Length; ++i)
         {
-            if(_plantPositions[i].transform.childCount > 0) Destroy(_plantPositions[i].transform.GetChild(0).gameObject);
+            int loopCount = _plantPositions[i].transform.childCount;
+            while (loopCount != 0)
+            {
+                Debug.Log("Has " + _plantPositions[i].transform.childCount + " children");
+                Destroy(_plantPositions[i].transform.GetChild(0).gameObject);
+                --loopCount;
+            }
         }
     }
 
