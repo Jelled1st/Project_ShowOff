@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    [CreateAssetMenu]
     public class StageSettingsContainer : ScriptableObject
     {
         [SerializeField] private StageSettings[] _stageSettings;
