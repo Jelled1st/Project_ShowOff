@@ -108,7 +108,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     {
         if (!(droppedOn is CuttingBoard))
         {
-            cookingPan?.RemoveFood(this);
+            cookingPan?.RemoveFood();
         }
     }
 

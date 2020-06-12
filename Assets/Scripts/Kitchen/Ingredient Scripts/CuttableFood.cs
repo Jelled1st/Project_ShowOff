@@ -10,6 +10,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     [SerializeField] private GameObject _currentState;
     [SerializeField] private List<GameObject> _cutStates;
     [HideInInspector] public CuttingBoard cuttingBoard = null;
+    [SerializeField] private bool _isHard = false;
     protected int _currentStateIndex = 0;
 
     private List<IObserver> _observers = new List<IObserver>();
@@ -43,7 +44,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
             _currentState = Instantiate(_cutStates[++_currentStateIndex], this.transform);
             _currentState.transform.localPosition = new Vector3(0, 0, 0);
             _currentState.transform.position = current.position;
-            Notify(new CuttableCut(this, _currentStateIndex, ReadyForDish()));
+            Notify(new CuttableCut(this, _isHard, _currentStateIndex, ReadyForDish()));
             return true;
         }
         else return false;
