@@ -84,8 +84,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _machineType: 2
+  _expectedInputTag: Factory/Potato_Cut
+  _outputTag: Factory/Potato_Packed
   _inputFunnelTrigger: {fileID: 1064042827766033556}
   _output: {fileID: 8413351585495675543}
+  _progressBarPrefab: {fileID: 0}
   _outputPushForce: 100
   _processParticles: {fileID: 0}
   _delay: 1
@@ -95,8 +98,6 @@ MonoBehaviour:
   _breakVisuals: {fileID: 3726418210832195761}
   _slowPerStage: 0.33333334
   _breakEverySeconds: {x: 10, y: 15}
-  _expectedInputTag: 
-  _outputTag: 
   _substitute:
   - {fileID: 6075627235216453774, guid: cf12fe4f3b6008d4699e4d4a05253d6d, type: 3}
 --- !u!114 &3708273933523458036
@@ -273,7 +274,6 @@ MonoBehaviour:
   _runtimeUseInspectorSpeed: 0
   _isSpecialConveyor: 0
   _canRotate: 0
-  _isTurnedOn: 1
   _speedChangeTime: 0.5
   _heldSpeed: 2
   _speedHoldTime: 3

@@ -130,8 +130,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _machineType: 1
+  _expectedInputTag: Factory/Potato_Washed
+  _outputTag: Factory/Potato_Peeled
   _inputFunnelTrigger: {fileID: 4623661280566845890}
   _output: {fileID: 8336029630978991595}
+  _progressBarPrefab: {fileID: 0}
   _outputPushForce: 500
   _processParticles: {fileID: 0}
   _delay: 2
@@ -141,8 +144,6 @@ MonoBehaviour:
   _breakVisuals: {fileID: 8924480705118399027}
   _slowPerStage: 0.33333334
   _breakEverySeconds: {x: 10, y: 15}
-  _expectedInputTag: 
-  _outputTag: 
   _shaderName: Shader Graphs/shdr_potatoes
   _propertyToDisable: _enableClean
   _propertyToEnable: _enablePeeled
