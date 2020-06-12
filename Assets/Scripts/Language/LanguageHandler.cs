@@ -66,15 +66,15 @@ public class LanguageHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnLevelWasLoaded;
+        SceneManager.sceneLoaded += OnLevelLoaded;
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnLevelWasLoaded;
+        SceneManager.sceneLoaded -= OnLevelLoaded;
     }
 
-    private void OnLevelWasLoaded(Scene arg0, LoadSceneMode loadSceneMode)
+    private void OnLevelLoaded(Scene arg0, LoadSceneMode loadSceneMode)
     {
         _texts = new List<LanguageText>();
     }
