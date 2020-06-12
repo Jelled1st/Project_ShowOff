@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3058c0e89db9b284ea9b5beadc676236
+guid: 1d55a03c3c791084c899ac598ee7639f
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_Carrot
-    second: {fileID: 2100000, guid: 89c1a10580cca3940a53c4f89f039ef9, type: 2}
+      name: mat_Carrot_CarrotInternal
+    second: {fileID: 2100000, guid: 1afaff70eb7a3f744bc3f82d92c9a158, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_CarrotPeel
-    second: {fileID: 2100000, guid: 8d3c2d4ca16b63d46ac8be4d7f695e7f, type: 2}
+      name: mat_Carrot_CarrotPeel
+    second: {fileID: 2100000, guid: 798f12008d654dc41bc0d2926ef9d8cd, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
