@@ -1,66 +1,96 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(Collider))]
 public class FryFryer : MonoBehaviour, IControllable
 {
     [SerializeField] private GameObject _basket;
-    [SerializeField] List<GameObject> _foodNodes;
-    List<GameObject> _availableNodes;
-    List<FryableFood> _food = new List<FryableFood>();
-    Dictionary<FryableFood, GameObject> _foodNodePair = new Dictionary<FryableFood, GameObject>();
+    [SerializeField] GameObject _foodNode;
+    [SerializeField] GameObject _basketDownNode;
+    FryableFood _food;
+    private bool _basketIsUp = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        _availableNodes = new List<GameObject>(_foodNodes);
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < _food.Count; ++i)
+        if(_food != null && !_basketIsUp)
         {
-            _food[i].Fry();
+            _food.Fry();
+            if (_food.IsFried()) MoveBasketUp();
         }
     }
 
-
-    public void AddFood(FryableFood food)
+    private void MoveBasketUp()
     {
-        if (_availableNodes.Count == 0) return;
-        _food.Add(food);
-        _foodNodePair.Add(food, _availableNodes[0]);
-        food.transform.position = _availableNodes[0].transform.position;
-        _availableNodes.RemoveAt(0);
+        Vector3 pos = _basketDownNode.transform.position;
+        Vector3 rot = _basketDownNode.transform.rotation.eulerAngles;
+        if (_food != null)
+        {
+            Vector3 foodPos = _food.transform.position + pos - _basket.transform.position;
+            Vector3 foodRotation = (Quaternion.FromToRotation(_basket.transform.rotation.eulerAngles, _basketDownNode.transform.rotation.eulerAngles) * _food.transform.rotation).eulerAngles;
+            _food.transform.DOMove(foodPos, 0.3f);
+            _food.transform.DORotate(foodRotation, 0.3f);
+        }
+        _basketDownNode.transform.position = _basket.transform.position;
+        _basketDownNode.transform.rotation = _basket.transform.rotation;
+        _basket.transform.DOMove(pos, 0.3f);
+        _basket.transform.DORotate(rot, 0.3f);
+        _basketIsUp = true;
+    }
+
+    private void MoveBasketDown()
+    {
+        Vector3 pos = _basketDownNode.transform.position;
+        Vector3 rot = _basketDownNode.transform.rotation.eulerAngles;
+        if (_food != null)
+        {
+            Vector3 foodPos = _food.transform.position + pos - _basket.transform.position;
+            Vector3 foodRotation = (Quaternion.FromToRotation(_basket.transform.rotation.eulerAngles, _basketDownNode.transform.rotation.eulerAngles) * _food.transform.rotation).eulerAngles;
+            _food.transform.DOMove(foodPos, 0.3f);
+            _food.transform.DORotate(foodRotation, 0.3f);
+        }
+        _basketDownNode.transform.position = _basket.transform.position;
+        _basketDownNode.transform.rotation = _basket.transform.rotation;
+        _basket.transform.DOMove(pos, 0.3f);
+        _basket.transform.DORotate(rot, 0.3f);
+
+        _basketIsUp = false;
+
+    }
+
+    public void TrySetFood(FryableFood food)
+    {
+        if (_food != null) return;
+        _food = food;
+        food.transform.position = _foodNode.transform.position;
         food.fryer = this;
+        MoveBasketDown();
     }
 
     public void RemoveFood(FryableFood food)
     {
         if (food == null) return;
-        _availableNodes.Add(_foodNodePair[food]);
-        _foodNodePair.Remove(food);
-        _food.Remove(food);
+        _food = null;
         food.fryer = null;
     }
 
     #region IControllable
     public GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(_basket);
-        for(int i = 0; i < _food.Count; ++i)
+        if (_food == null || !_basketIsUp)
         {
-            GameObject foodCopy = _food[i].GetDragCopy();
-            foodCopy.transform.SetParent(copy.transform);
-            foodCopy.transform.localPosition = new Vector3(0, 0.1f, 0);
+            Debug.Log("Returning null");
+            return null;
         }
-        Collider[] colliders = copy.GetComponentsInChildren<Collider>();
-        for(int i = 0; i < colliders.Length; ++i)
-        {
-            Destroy(colliders[i]);
-        }
+        GameObject copy = _food.GetDragCopy();
+        copy.transform.SetParent(null);
         return copy;
     }
 
@@ -74,11 +104,7 @@ public class FryFryer : MonoBehaviour, IControllable
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        // call the ondrop function on the droppedon with every food 
-        for(int i = 0; i < _food.Count; ++i)
-        {
-            droppedOn.OnDrop(_food[i].GetComponent<IControllable>(), hitInfo);
-        }
+        if(_food != null) droppedOn.OnDrop(_food.GetComponent<IControllable>(), hitInfo);
     }
 
     public void OnDragDropFailed(Vector3 position)
@@ -89,7 +115,7 @@ public class FryFryer : MonoBehaviour, IControllable
     {
         if (dropped is FryableFood)
         {
-            AddFood(dropped as FryableFood);
+            TrySetFood(dropped as FryableFood);
         }
     }
 
