@@ -7766,7 +7766,7 @@ GameObject:
   - component: {fileID: 328693121}
   - component: {fileID: 328693120}
   - component: {fileID: 328693119}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Speed Down Tutorial Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -11334,7 +11334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 654698630}
   - component: {fileID: 654698629}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -15889,7 +15889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1293786520}
   - component: {fileID: 1293786519}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -17518,7 +17518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.999756, y: -64}
+  m_AnchoredPosition: {x: 63.999817, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352385681
@@ -20325,7 +20325,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.999756, y: -64}
+  m_AnchoredPosition: {x: 63.999817, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1669746551
@@ -21698,7 +21698,7 @@ GameObject:
   - component: {fileID: 1851063599}
   - component: {fileID: 1851063598}
   - component: {fileID: 1851063597}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Speed Up Tutorial Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -22392,7 +22392,7 @@ GameObject:
   - component: {fileID: 1910447927}
   - component: {fileID: 1910447929}
   - component: {fileID: 1910447928}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -23498,7 +23498,7 @@ GameObject:
   - component: {fileID: 2034863529}
   - component: {fileID: 2034863528}
   - component: {fileID: 2034863527}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Rotation Tutorial Trigger
   m_TagString: Untagged
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
