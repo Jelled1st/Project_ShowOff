@@ -62,6 +62,10 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     [SerializeField]
     private SpecialBeltType _specialBeltType = SpecialBeltType.SpeedDown;
 
+    public bool IsSpecialConveyor => _isSpecialConveyor;
+
+    public SpecialBeltType BeltType => _specialBeltType;
+
     private readonly List<Material> _scrollingMaterials = new List<Material>();
     protected Rigidbody _rBody;
     protected Tween _rotateTween;
@@ -87,6 +91,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
             _nonSerializedSpeed = value;
         }
     }
+
 
     private void OnValidate()
     {

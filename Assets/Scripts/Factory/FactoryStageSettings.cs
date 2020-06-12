@@ -1,7 +1,6 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-[CreateAssetMenu]
 public class FactoryStageSettings : StageSettings
 {
     [field: SerializeField] public GameObject PackagePrefab { get; private set; }

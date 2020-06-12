@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public abstract class LazySingleton<T> : MonoBehaviour where T : Component
+    public abstract class LazySingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;
 
@@ -28,7 +28,7 @@ namespace StateMachine
             if (_instance != null && !_instance.Equals(null)) return;
 
             var singletons = FindObjectsOfType<T>();
-            
+
             if (singletons.Length == 1)
             {
                 _instance = singletons.First();
