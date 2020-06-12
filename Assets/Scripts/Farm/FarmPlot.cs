@@ -74,6 +74,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         _progressBar?.SetActive(false);
         this.gameObject.tag = "FarmPlot";
+        _paused = false;
     }
 
     // Start is called before the first frame update
@@ -344,7 +345,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
                 break;
             case State.Growing:
                 if (_debugLog) Debug.Log("Growing!");
-                if (previousState == State.Decay) _growTime = Mathf.Min(_growTime, _timeTillGrown - 1.0f);
+                if (previousState == State.Healing) _growTime = Mathf.Min(_growTime, _timeTillGrown - 1.0f);
                 _dirtMound.SetActive(true);
                 SetPlants(_plantGrowingMeshes);
                 _neglectCooldown = true;
@@ -387,7 +388,13 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         for(int i = 0; i < _plantPositions.Length; ++i)
         {
-            if(_plantPositions[i].transform.childCount > 0) Destroy(_plantPositions[i].transform.GetChild(0).gameObject);
+            int loopCount = _plantPositions[i].transform.childCount;
+            while (loopCount != 0)
+            {
+                Debug.Log("Has " + _plantPositions[i].transform.childCount + " children");
+                Destroy(_plantPositions[i].transform.GetChild(0).gameObject);
+                --loopCount;
+            }
         }
     }
 

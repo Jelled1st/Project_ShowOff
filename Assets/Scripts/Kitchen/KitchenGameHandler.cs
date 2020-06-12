@@ -39,6 +39,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Equals) && _choosenDish == null) ChooseDish(_dishes[0]);
         if (_pausedForTutorial && Input.GetMouseButtonDown(0))
         {
             UnPause();

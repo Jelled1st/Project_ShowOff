@@ -109,8 +109,14 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                     }
                     else
                     {
-                        //ResetPressAndHold();
-                        HitNonControllable(new ControllerHitInfo(null, hit));
+                        controllable = hit.transform.gameObject.GetComponentInParent<IControllable>();
+
+                        if(controllable != null)
+                        {
+                            hitInfo = new ControllerHitInfo(controllable, hit);
+                            HitControllable(controllable, new ControllerHitInfo(controllable, hit));
+                        }
+                        else HitNonControllable(new ControllerHitInfo(null, hit));
                     }
                 }
                 else ResetPressAndHold();

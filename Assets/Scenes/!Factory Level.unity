@@ -7766,7 +7766,7 @@ GameObject:
   - component: {fileID: 328693121}
   - component: {fileID: 328693120}
   - component: {fileID: 328693119}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Speed Down Tutorial Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -8836,6 +8836,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eea3b54acfcebd54ea66ac1406203ba6, type: 3}
+--- !u!114 &422199219 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4420835435002856285, guid: eea3b54acfcebd54ea66ac1406203ba6,
+    type: 3}
+  m_PrefabInstance: {fileID: 422199218}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee4297568ba6ab4e9a452e9f671874a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &433674055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11301,10 +11313,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c522c069a248f85449c7005a0e16e370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 651205410}
+  _textMeshProUgui: {fileID: 651205410}
+  _fieldName: misc.score
   _scoreAddSpeed: 2
-  preText: 'Score: '
-  postText: 
 --- !u!222 &651205412
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11323,7 +11334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 654698630}
   - component: {fileID: 654698629}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -15878,7 +15889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1293786520}
   - component: {fileID: 1293786519}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -17507,7 +17518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.999878, y: -64}
+  m_AnchoredPosition: {x: 63.999817, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352385681
@@ -20314,7 +20325,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.999878, y: -64}
+  m_AnchoredPosition: {x: 63.999817, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1669746551
@@ -21687,7 +21698,7 @@ GameObject:
   - component: {fileID: 1851063599}
   - component: {fileID: 1851063598}
   - component: {fileID: 1851063597}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Speed Up Tutorial Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -22381,7 +22392,7 @@ GameObject:
   - component: {fileID: 1910447927}
   - component: {fileID: 1910447929}
   - component: {fileID: 1910447928}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -23487,7 +23498,7 @@ GameObject:
   - component: {fileID: 2034863529}
   - component: {fileID: 2034863528}
   - component: {fileID: 2034863527}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Rotation Tutorial Trigger
   m_TagString: Untagged
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
@@ -23750,6 +23761,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bb56debbea9de344ebfe726508587645,
         type: 3}
+    - target: {fileID: 3870945346539593771, guid: eb27cc74911707343983a6c41a7156a6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 422199219}
+    - target: {fileID: 3870945346539593771, guid: eb27cc74911707343983a6c41a7156a6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: StopMusicImmediate
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870945346539593771, guid: eb27cc74911707343983a6c41a7156a6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3870945346752500306, guid: eb27cc74911707343983a6c41a7156a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23878,6 +23904,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bb56debbea9de344ebfe726508587645,
         type: 3}
+    - target: {fileID: 3870945347540085011, guid: eb27cc74911707343983a6c41a7156a6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 422199219}
+    - target: {fileID: 3870945347540085011, guid: eb27cc74911707343983a6c41a7156a6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: StopMusicImmediate
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb27cc74911707343983a6c41a7156a6, type: 3}
 --- !u!224 &2053673711 stripped

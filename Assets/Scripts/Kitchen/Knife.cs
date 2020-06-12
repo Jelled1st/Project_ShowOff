@@ -9,7 +9,7 @@ public class Knife : MonoBehaviour, IControllable
     [Tooltip("1 is most precise (complete equal to the rotation), 0 is perpedicular, -1 is opposite direction")]
     [SerializeField] private float _swipePrecision = 0.8f;
     [SerializeField] private int _swipeFramesLength = 5;
-    private Rigidbody _rigidBody;
+    //private Rigidbody _rigidBody;
     private bool _isSwiping = false;
     private int _swipeFramesCount = 0;
     private bool _isCutting = false;
@@ -20,9 +20,9 @@ public class Knife : MonoBehaviour, IControllable
 
     void Awake()
     {
-        _rigidBody = this.gameObject.GetComponent<Rigidbody>();
-        _rigidBody.useGravity = false;
-        _rigidBody.isKinematic = true;
+        Rigidbody rigidBody = this.gameObject.GetComponent<Rigidbody>();
+        rigidBody.useGravity = false;
+        rigidBody.isKinematic = true;
     }
 
     // Start is called before the first frame update

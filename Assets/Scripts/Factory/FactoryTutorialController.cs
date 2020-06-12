@@ -148,14 +148,8 @@ public class FactoryTutorialController : MonoBehaviour
         _rotationPart.Init();
         _machineBreakPart.Init();
 
-        _slowdownBelt.BeltHeld += delegate(float f)
-        {
-            if (f > _timeToHold) _slowdownPart?.Passed();
-        };
-        _speedupBelt.BeltHeld += delegate(float f)
-        {
-            if (f > _timeToHold) _speedupPart?.Passed();
-        };
+        FlatConveyorBelt.SpecialBeltPressed += delegate { _slowdownPart?.Passed(); };
+        FlatConveyorBelt.SpecialBeltPressed += delegate { _speedupPart?.Passed(); };
         FlatConveyorBelt.BeltRotated += delegate { _rotationPart?.Passed(); };
 
         Machine.MachineBreaking += OnMachineBreak;

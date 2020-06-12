@@ -8,12 +8,13 @@ public class ScoreDisplay : LanguageText, IScoresObserver
     [SerializeField] float _scoreAddSpeed = 2.0f;
     private float _displayScore = 0;
     private float _unAddedScore;
-    private string _preText = "nope: ";
+    private string _preText = "Score: ";
 
     // Start is called before the first frame update
     void Start()
     {
         Subscribe();
+        if (_fieldName == "") _fieldName = "misc.score";
         _preText = LanguageHandler.instance.Register(this, _fieldName) + ": ";
         _textMeshProUgui.text = _preText + _displayScore + "!";
     }

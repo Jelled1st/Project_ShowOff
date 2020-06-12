@@ -148,14 +148,17 @@
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>
 		</property>
+		<property name="initialValue">
+			<value>-10</value>
+		</property>
 		<property name="decayTime">
-			<value>8269.22949</value>
+			<value>8000</value>
 		</property>
 		<property name="releaseTime">
 			<value>3000</value>
 		</property>
 		<property name="releaseShape">
-			<value>-0.312405944</value>
+			<value>0.456475168</value>
 		</property>
 		<property name="finalValue">
 			<value>-80</value>

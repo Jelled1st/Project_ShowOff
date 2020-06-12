@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LanguageHandler : MonoBehaviour
 {
@@ -44,14 +45,14 @@ public class LanguageHandler : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null) Destroy(this.gameObject);
+        if (instance != null) Destroy(this);
         _texts = new List<LanguageText>();
         instance = this;
         DontDestroyOnLoad(this.gameObject);
         _languagePack.UnPack(this);
     }
 
-    public void SwitchTo(LanguagePack languagePack)
+    public void SwitchToLanguagePack(LanguagePack languagePack)
     {
         if (languagePack == _languagePack) return;
         _languagePack = languagePack;
@@ -63,11 +64,17 @@ public class LanguageHandler : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    private void OnEnable()
     {
+        SceneManager.sceneLoaded += OnLevelLoaded;
     }
 
-    private void OnLevelWasLoaded(int level)
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelLoaded;
+    }
+
+    private void OnLevelLoaded(Scene arg0, LoadSceneMode loadSceneMode)
     {
         _texts = new List<LanguageText>();
     }

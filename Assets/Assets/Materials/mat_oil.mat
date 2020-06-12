@@ -36,8 +36,8 @@ Material:
     - _OilLIquidWave: 5
     - _OilLiquidSpeed: -2
     - _OilLiquidWave: 5
-    - _OilNormalSpeed: 6.5
-    - _OilNormalStrength: 0.3
+    - _OilNormalSpeed: 7.25
+    - _OilNormalStrength: 0.79
     - _OilNormalTiling: 0.2
     - _OilSmoothness: 0
     - _OilWaveStrength: 1
