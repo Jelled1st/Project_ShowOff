@@ -36,12 +36,12 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
     #region IIngredient
     public void AddedToDish()
     {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     public GameObject GetDishMesh()
     {
-        return null;
+        return GetDragCopy();
     }
 
     public float GetHeight()
