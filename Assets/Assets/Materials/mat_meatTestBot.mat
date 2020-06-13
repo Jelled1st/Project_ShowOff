@@ -21,8 +21,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _MeatBurningBool: 1
-    - _MeatBurnt: 1
+    - _MeatBurningBool: 0
+    - _MeatBurnt: 0
     - _MeatCooked: 0
     - _MeatSmoothness: 0
     m_Colors:

@@ -3,7 +3,17 @@ guid: cc717def32f40db4da281bab96786d66
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BurgerBottom
+    second: {fileID: 2100000, guid: 1d1d57b22c66b334cba2d391f7a90927, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BurgerTop
+    second: {fileID: 2100000, guid: 1d1d57b22c66b334cba2d391f7a90927, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
