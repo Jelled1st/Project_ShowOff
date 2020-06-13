@@ -17404,7 +17404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.999817, y: -64}
+  m_AnchoredPosition: {x: 63.999756, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352385681
@@ -20211,7 +20211,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 63.999817, y: -64}
+  m_AnchoredPosition: {x: 63.999756, y: -64}
   m_SizeDelta: {x: 94, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1669746551
@@ -23649,6 +23649,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _output: {fileID: 1977585777}
+  _allowInputItemTag: Factory/Potato_Peeled
+  _throwPosition: {fileID: 1293786520}
   _collisionCallback: {fileID: 1910447928}
   _duration: 1.5
 --- !u!1001 &2053673710
