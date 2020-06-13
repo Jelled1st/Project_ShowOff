@@ -9,7 +9,8 @@ namespace Timeout
 {
     public class TimeoutController : LazySingleton<TimeoutController>
     {
-        public const float TimeoutInterval = 30f;
+        private const float TimeoutInterval = 30f;
+        private const string TimeoutOverlayResourceName = "TimeoutOverlay";
 
         private static Sequence _timer;
 
@@ -34,13 +35,28 @@ namespace Timeout
         {
             get
             {
+                Debug.Log(_overlay == null);
+
                 if (_overlay == null || _overlay.Equals(null))
                 {
-                    var overlay = Resources.FindObjectsOfTypeAll<TimeoutOverlay>().FirstOrDefault();
+                    var overlay = Resources.Load<TimeoutOverlay>(TimeoutOverlayResourceName);
 
-                    if (overlay != null)
+                    if (overlay == null)
                     {
-                        _overlay = Instantiate(overlay.OverlayPrefab);
+                        Debug.LogError(
+                            $"Timeout controller can't file with name {TimeoutOverlayResourceName} which is of type {nameof(TimeoutOverlay)}!");
+                    }
+                    else
+                    {
+                        if (overlay.OverlayPrefab == null)
+                        {
+                            Debug.LogError("Timeout controller found an overlay, but the prefab field is not set!",
+                                overlay);
+                        }
+                        else
+                        {
+                            _overlay = Instantiate(overlay.OverlayPrefab);
+                        }
                     }
                 }
 
