@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StirEvent : AObserverEvent
+public class CookingStirEvent : AObserverEvent
 {
     public readonly CookingPan pan;
     public readonly CookableFood food;
-    public StirEvent(CookingPan pan, CookableFood food) : base(pan)
+    public CookingStirEvent(CookingPan pan, CookableFood food) : base(pan)
     {
         this.pan = pan;
         this.food = food;

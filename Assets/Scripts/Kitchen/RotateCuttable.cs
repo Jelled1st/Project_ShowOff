@@ -22,9 +22,9 @@ public class RotateCuttable : MonoBehaviour, IObserver
 
     public void OnNotify(AObserverEvent observerEvent)
     {
-        if(observerEvent is CuttableCut)
+        if(observerEvent is CuttableCutEvent)
         {
-            CuttableCut oEvent = observerEvent as CuttableCut;
+            CuttableCutEvent oEvent = observerEvent as CuttableCutEvent;
             if (_rotations.Count >= oEvent.state)
             {
                 _cuttable.gameObject.transform.DORotate(_rotations[oEvent.state-1], 0.3f, RotateMode.LocalAxisAdd);

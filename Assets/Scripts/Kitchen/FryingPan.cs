@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class FryingPan : MonoBehaviour, IControllable
+public class FryingPan : MonoBehaviour, IControllable, ISubject
 {
     [SerializeField] List<GameObject> _foodNodes;
     [SerializeField] Stove stove;
@@ -11,6 +11,10 @@ public class FryingPan : MonoBehaviour, IControllable
     List<GameObject> _availableNodes;
     List<BakableFood> _food = new List<BakableFood>();
     Dictionary<BakableFood, GameObject> _foodNodePair = new Dictionary<BakableFood, GameObject>();
+    Dictionary<BakableFood, bool> _foodBaked = new Dictionary<BakableFood, bool>();
+    Dictionary<BakableFood, bool> _foodBurnt = new Dictionary<BakableFood, bool>();
+
+    private List<IObserver> _observers = new List<IObserver>();
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +30,16 @@ public class FryingPan : MonoBehaviour, IControllable
             for (int i = 0; i < _food.Count; ++i)
             {
                 _food[i].Bake();
+                if(_food[i].IsBaked() && !_foodBaked[_food[i]])
+                {
+                    Notify(new BakingDoneEvent(this, _food[i]));
+                    _foodBaked[_food[i]] = true;
+                }
+                if (_food[i].IsBaked() && !_foodBurnt[_food[i]])
+                {
+                    Notify(new BakingBurntEvent(this, _food[i]));
+                    _foodBurnt[_food[i]] = true;
+                }
             }
         }
     }
@@ -39,6 +53,9 @@ public class FryingPan : MonoBehaviour, IControllable
         food.transform.position = _availableNodes[0].transform.position;
         _availableNodes.RemoveAt(0);
         food.fryingPan = this;
+        _foodBaked.Add(food, false);
+        _foodBurnt.Add(food, false);
+        Notify(new BakingStartEvent(this, food));
     }
 
     public void RemoveFood(BakableFood food)
@@ -46,8 +63,11 @@ public class FryingPan : MonoBehaviour, IControllable
         if (food == null) return;
         _availableNodes.Add(_foodNodePair[food]);
         _foodNodePair.Remove(food);
+        _foodBaked.Remove(food);
+        _foodBurnt.Remove(food);
         _food.Remove(food);
         food.fryingPan = null;
+        Notify(new BakingStopEvent(this, food));
     }
 
     public GameObject GetDragCopy()
@@ -93,5 +113,23 @@ public class FryingPan : MonoBehaviour, IControllable
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
+    }
+
+    public void Register(IObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
     }
 }

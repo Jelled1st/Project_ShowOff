@@ -71,7 +71,16 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     {
         _isBaking = true;
         _bakedTimes[_currentFace] += Time.deltaTime;
-        
+    }
+
+    public bool IsBaked()
+    {
+        return (_bakedTimes[0] >= _timeToBake && _bakedTimes[1] >= _timeToBake);
+    }
+
+    public bool IsBurnt()
+    {
+        return (_bakedTimes[0] >= _timeTillBurned && _bakedTimes[1] >= _timeTillBurned);
     }
 
     public void Flip()

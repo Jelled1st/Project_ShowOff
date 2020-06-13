@@ -22,9 +22,9 @@ public class MoveCuttable : MonoBehaviour, IObserver
 
     public void OnNotify(AObserverEvent observerEvent)
     {
-        if(observerEvent is CuttableCut)
+        if(observerEvent is CuttableCutEvent)
         {
-            CuttableCut oEvent = observerEvent as CuttableCut;
+            CuttableCutEvent oEvent = observerEvent as CuttableCutEvent;
             if (_moves.Count >= oEvent.state)
             {
                 _cuttable.gameObject.transform.DOMove(this.transform.position + _moves[oEvent.state-1], 0.3f);

@@ -1202,7 +1202,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &410208817
 PrefabInstance:
@@ -2174,7 +2174,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &545710248
 MonoBehaviour:
@@ -3485,6 +3485,7 @@ MonoBehaviour:
   - {fileID: 1334618282410881212, guid: 8b53e59ef7174f343bf6c610bd72b05b, type: 3}
   - {fileID: 2737023671094111450, guid: 69aea14148b57aa4eab4ac16f6aa1082, type: 3}
   cuttingBoard: {fileID: 0}
+  _isHard: 0
   _fallOffOptionForState:
   - {fileID: 11400000, guid: 748fd6799f551df49ad10cd9da0cb502, type: 2}
   - {fileID: 11400000, guid: 067347ee74e44c0479b3713d298af3f1, type: 2}
@@ -7659,7 +7660,7 @@ Transform:
   - {fileID: 821544620}
   - {fileID: 447073881}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2031443953
 GameObject:
@@ -8390,7 +8391,7 @@ PrefabInstance:
     - target: {fileID: 1458415689702892831, guid: ce500e75d4a6f8840ba94706022f8e99,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1458415689702892831, guid: ce500e75d4a6f8840ba94706022f8e99,
         type: 3}

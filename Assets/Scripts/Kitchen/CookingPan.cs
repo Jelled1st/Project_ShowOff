@@ -101,7 +101,7 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     {
         if(!DOTween.IsTweening(_stirringDevice.transform))_stirringDevice.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
         _food?.Cook(_stirBonusModifier);
-        Notify(new StirEvent(this, _food));
+        Notify(new CookingStirEvent(this, _food));
     }
 
     public void OnHoldRelease(float timeHeld)

@@ -34,6 +34,24 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     {
         public UnityEvent onDishFinish;
         public List<DishIngredientAddUnityEvent> onDishAddIngredient;
+        public UnityEvent onBakingStart;
+        public UnityEvent onBakingDone;
+        public UnityEvent onBakingBurnt;
+        public UnityEvent onBakingStop;
+
+        public UnityEvent onCookingStart;
+        public UnityEvent onCookingDone;
+        public UnityEvent onCookingStop;
+        public UnityEvent onCookingStir;
+
+        public UnityEvent onFryerStart;
+        public UnityEvent onFryerStop;
+
+        public UnityEvent onCutCuttableHard;
+        public UnityEvent onCutCuttableSoft;
+
+        public UnityEvent onTurnOnStove;
+        public UnityEvent onTurnOffStove;
     }
 
     [System.Serializable]
@@ -163,27 +181,122 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnNotify(AObserverEvent observerEvent)
     {
+        if (InvokeFarmEvents(observerEvent)) ;
+        else if (InvokeDishEvents(observerEvent)) ;
+    }
+
+    private bool InvokeFarmEvents(AObserverEvent observerEvent)
+    {
         if (observerEvent is SwarmSpawnEvent)
         {
             this.Subscribe((observerEvent as SwarmSpawnEvent).swarm);
             _farmEvents.onSwarmSpawn.Invoke();
+            return true;
         }
-        else if(observerEvent is ToolOnCooldownWarningEvent)
+        else if (observerEvent is ToolOnCooldownWarningEvent)
         {
             _farmEvents.onToolCooldownUse.Invoke();
+            return true;
         }
         else if (observerEvent is PlotOnCooldownWarningEvent)
         {
             _farmEvents.onPlotCooldownUse.Invoke();
+            return true;
         }
         else if (observerEvent is WrongToolOnPlotWarningEvent)
         {
             _farmEvents.onWrongToolOnPlot.Invoke();
+            return true;
         }
         else if (observerEvent is FarmPlotIsInactiveWarningEvent)
         {
             _farmEvents.onFarmPlotInactive.Invoke();
+            return true;
         }
+        return false;
+    }
+
+    private bool InvokeDishEvents(AObserverEvent observerEvent)
+    {
+        if (observerEvent is BakingStartEvent)
+        {
+            _dishEvents.onBakingStart.Invoke();
+            return true;
+        }
+        else if (observerEvent is BakingDoneEvent)
+        {
+            _dishEvents.onBakingDone.Invoke();
+            return true;
+        }
+        else if (observerEvent is BakingBurntEvent)
+        {
+            _dishEvents.onBakingBurnt.Invoke();
+            return true;
+        }
+        else if (observerEvent is BakingStopEvent)
+        {
+            _dishEvents.onBakingStop.Invoke();
+            return true;
+        }
+        else if (observerEvent is StoveToggleEvent)
+        {
+            StoveToggleEvent toggleEvent = observerEvent as StoveToggleEvent;
+            if (toggleEvent.stove.IsOn())
+            {
+                _dishEvents.onTurnOnStove.Invoke();
+                return true;
+            }
+            else
+            {
+                _dishEvents.onTurnOffStove.Invoke();
+                return true;
+            }
+        }
+        else if (observerEvent is CookingStartEvent)
+        {
+            _dishEvents.onCookingStart.Invoke();
+            return true;
+        }
+        else if (observerEvent is CookingDoneEvent)
+        {
+            _dishEvents.onCookingDone.Invoke();
+            return true;
+        }
+        else if (observerEvent is CookingStopEvent)
+        {
+            _dishEvents.onCookingStop.Invoke();
+            return true;
+        }
+        else if (observerEvent is CookingStirEvent)
+        {
+            _dishEvents.onCookingStir.Invoke();
+            return true;
+        }
+        else if (observerEvent is CuttableCutEvent)
+        {
+            CuttableCutEvent cuttableCut = observerEvent as CuttableCutEvent;
+            if (cuttableCut.isHard)
+            {
+                _dishEvents.onCutCuttableHard.Invoke();
+                return true;
+            }
+            else
+            {
+                _dishEvents.onCutCuttableSoft.Invoke();
+                return true;
+            }
+        }
+        else if (observerEvent is FryerStartEvent)
+        {
+            _dishEvents.onFryerStart.Invoke();
+            return true;
+        }
+        else if (observerEvent is FryerStopEvent)
+        {
+            _dishEvents.onFryerStop.Invoke();
+            return true;
+        }
+        return false;
     }
 
     #region ISwarmObserver
