@@ -8,10 +8,13 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     [SerializeField] private IngredientType _ingredientType;
     [SerializeField] private float _ingredientHeight;
     [SerializeField] private float _timeToBake;
+    [SerializeField] private float _startBurnTimeAfterBaking = 5.0f;
     [SerializeField] private float _timeTillBurned = 10.0f;
-    [SerializeField] private int _flipHeight = 10;
+    [SerializeField] private float _flipHeight = 10;
     [SerializeField] private ParticleSystem _smokeParticles;
+    [SerializeField] private Material[] _bakeMaterials = new Material[2];
     private float[] _bakedTimes = new float[2];
+    private float[] _burntTimes = new float[2];
     private bool[] _sideIsBurned = new bool[2];
     private int _currentFace = 0;
     private bool _isBaking = false;
@@ -45,14 +48,13 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
                 _smokeParticles.Pause();
                 _smokeParticles.Clear();
             }
-            if(_bakedTimes[_currentFace] > _timeTillBurned)
+            if(_bakedTimes[_currentFace] > StartBurnTime())
             {
                 if (!_sideIsBurned[_currentFace])
                 {
                     ParticleSystem.MainModule main = _smokeParticles.main;
                     main.startColor = new Color(0.6f, 0.6f, 0.6f, 1.0f);
-                    main.simulationSpeed = 1.8f;
-                    _sideIsBurned[_currentFace] = true;
+                    main.simulationSpeed = 1.0f + Mathf.Min(_burntTimes[_currentFace] / _timeTillBurned, 1);
                 }
             }
             else
@@ -66,11 +68,31 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
         _isBaking = false;
     }
 
+    private float StartBurnTime()
+    {
+        return _timeToBake + _startBurnTimeAfterBaking;
+    }
+
     //called by the thing that does the baking
     public void Bake()
     {
         _isBaking = true;
         _bakedTimes[_currentFace] += Time.deltaTime;
+        if (_bakedTimes[_currentFace] >= StartBurnTime())
+        {
+            _burntTimes[_currentFace] += Time.deltaTime;
+            _sideIsBurned[_currentFace] = true;
+        }
+        if (_bakeMaterials[_currentFace] != null)
+        {
+            _bakeMaterials[_currentFace].SetFloat("_MeatCooked", Mathf.Min(_bakedTimes[_currentFace] / _timeToBake, 1));
+
+            if (_sideIsBurned[_currentFace])
+            {
+                _bakeMaterials[_currentFace].SetFloat("_MeatBurnt", Mathf.Min(_burntTimes[_currentFace] / _timeTillBurned, 1));
+                _bakeMaterials[_currentFace].SetInt("_MeatBurningBool", 1);
+            }
+        }
     }
 
     public bool IsBaked()
@@ -88,7 +110,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
         if ((_isBaking || _wasBaking) && !DOTween.IsTweening(this.transform))
         {
             _currentFace = (_currentFace+1) % 2;
-            this.transform.DOPunchPosition(new Vector3(0, _ingredientHeight * _flipHeight, 0), 0.7f, 0);
+            this.transform.DOPunchPosition(new Vector3(0, _flipHeight, 0), 0.7f, 0);
             this.transform.DORotate(new Vector3(180, 0, 0), 0.4f, RotateMode.WorldAxisAdd);
             _smokeParticles.transform.rotation = Quaternion.identity;
         }

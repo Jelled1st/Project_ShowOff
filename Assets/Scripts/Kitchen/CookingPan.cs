@@ -26,11 +26,14 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     {
         if (stove == null || stove.IsOn())
         {
-            _food?.Cook();
-            if(_food.IsCooked() && !_foodIsCooked)
+            if (_food != null)
             {
-                _foodIsCooked = true;
-                Notify(new CookingDoneEvent(this, _food));
+                _food.Cook();
+                if (_food.IsCooked() && !_foodIsCooked)
+                {
+                    _foodIsCooked = true;
+                    Notify(new CookingDoneEvent(this, _food));
+                }
             }
         }
     }
