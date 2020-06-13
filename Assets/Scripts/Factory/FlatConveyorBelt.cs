@@ -242,6 +242,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
                     c => _scrollingMaterials.First().SetColor(ShaderConstants.ScrollingShaderArrowColorName, c),
                     GrayArrowColor,
                     _speedChangeTime))
+                .AppendCallback(SetConveyorSpeed)
                 .AppendInterval(_speedHoldTime)
                 .AppendCallback(ResetSpecialBeltSpeed);
         }

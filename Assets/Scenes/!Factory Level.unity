@@ -19397,6 +19397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b1e6dd09d13ef43bbcc418eec05d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tag: Factory/Potato_Peeled
 --- !u!1 &1574957576
 GameObject:
   m_ObjectHideFlags: 0
