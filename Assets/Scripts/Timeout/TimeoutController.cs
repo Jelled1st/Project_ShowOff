@@ -35,8 +35,6 @@ namespace Timeout
         {
             get
             {
-                Debug.Log(_overlay == null);
-
                 if (_overlay == null || _overlay.Equals(null))
                 {
                     var overlay = Resources.Load<TimeoutOverlay>(TimeoutOverlayResourceName);
