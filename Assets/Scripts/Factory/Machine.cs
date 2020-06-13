@@ -5,6 +5,7 @@ using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Factory
@@ -55,6 +56,11 @@ namespace Factory
 
         [BoxGroup("Processing settings")]
         [SerializeField]
+        [Required]
+        private Slider _progressBar;
+
+        [BoxGroup("Processing settings")]
+        [SerializeField]
         private float _outputPushForce;
 
         [FormerlySerializedAs("_particleSystem")]
@@ -89,9 +95,18 @@ namespace Factory
         private float _slowPerStage = 1f / StagesToBreak;
 
         [BoxGroup("Clogging settings")]
-        [MinMaxSlider(1f, 20f)]
+        [Range(0f, 1f)]
         [SerializeField]
-        private Vector2 _breakEverySeconds = new Vector2(4, 8);
+        private float _firstBreakPercentage = 0.25f;
+
+        [BoxGroup("Clogging settings")]
+        [Range(0f, 1f)]
+        [SerializeField]
+        private float _secondBreakPercentage = 0.75f;
+
+        [BoxGroup("Clogging settings")]
+        [SerializeField]
+        private float _timeToBreak = 30f;
 
         private const int StagesToBreak = 3;
 
@@ -120,14 +135,10 @@ namespace Factory
                 {
                     _machineAnimator?.SetBool("isPlaying", true);
 
+                    ReleaseBufferedItems();
+
                     if (_releaseItemsTween != null && _releaseItemsTween.IsPlaying())
                         _releaseItemsTween?.Play();
-                }
-
-                // If WAS broken, then release items
-                if (value == StagesToBreak - 1)
-                {
-                    ReleaseBufferedItems();
                 }
 
                 if (value > 1)
@@ -188,6 +199,7 @@ namespace Factory
 
             _collisionCallback.TriggerEnter += TriggerEnter;
 
+            _progressBar.gameObject.SetActive(false);
 
             _processParticles = _processParticles.NullIfEqualsNull();
             _processParticles?.Stop();
@@ -205,6 +217,7 @@ namespace Factory
         {
             _collisionCallback.TriggerEnter -= TriggerEnter;
 
+            _progressBar.gameObject.SetActive(false);
             _processParticles?.Stop();
             _repairVisuals?.SetActive(false);
             _breakVisuals?.SetActive(false);
@@ -228,17 +241,32 @@ namespace Factory
             MachineBreaking(this);
 
             // Debug.Log($"Clog [{CurrentClogStage}] {gameObject.name}");
-
-            WaitAndClog();
         }
 
         private Tween _waitAndClogTween;
 
         private void WaitAndClog()
         {
+            _progressBar.gameObject.SetActive(true);
+
+            _progressBar.value = _progressBar.minValue;
+
             _waitAndClogTween = DOTween.Sequence()
-                .AppendInterval(Random.Range(_breakEverySeconds.x, _breakEverySeconds.y))
-                .AppendCallback(Clog);
+                .AppendInterval(_timeToBreak)
+                .Join(_progressBar.DOValue(_progressBar.maxValue, _timeToBreak).SetEase(Ease.Linear))
+                .OnUpdate(() =>
+                {
+                    if (_waitAndClogTween.IsActive())
+                    {
+                        if (CurrentClogStage == 0 && _waitAndClogTween.ElapsedPercentage() > _firstBreakPercentage
+                            || CurrentClogStage == 1 && _waitAndClogTween.ElapsedPercentage() > _secondBreakPercentage
+                            || CurrentClogStage == 2 && _waitAndClogTween.IsComplete())
+                        {
+                            Clog();
+                        }
+                    }
+                })
+                .SetAutoKill(false);
         }
 
         private void Repair()
@@ -247,17 +275,25 @@ namespace Factory
                 return;
 
             _repairVisuals?.SetActive(true);
+
             _isRepairing = true;
+
+            var fixTime = _baseFixTime + _baseFixTime * CurrentClogStage * (1 + _waitAndClogTween.ElapsedPercentage());
+
             _waitAndClogTween.Kill();
+            _progressBar.DOKill();
 
             MachineStartedRepairing();
 
             // Debug.Log($"Started repairing {gameObject.name}");
-            DOTween.Sequence().AppendInterval(_baseFixTime * CurrentClogStage)
+
+            DOTween.Sequence()
+                .AppendInterval(fixTime)
+                .Join(_progressBar.DOValue(_progressBar.minValue, fixTime).SetEase(Ease.Linear))
                 .AppendCallback(() =>
                 {
                     // Debug.Log($"Finished repairing {gameObject.name}");
-                    CurrentClogStage--;
+                    CurrentClogStage = 0;
                     _repairVisuals?.SetActive(false);
                     _isRepairing = false;
                     MachineRepaired(this);
@@ -321,6 +357,7 @@ namespace Factory
             var processedItem = PostDelayProcess(processedObject);
 
             processedItem.SetActive(true);
+            processedItem.tag = _outputTag;
 
             // Reset and spit the rigidbody
             if (processedItem.TryGetComponent(out Rigidbody spitItem))
