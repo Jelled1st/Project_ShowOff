@@ -121,38 +121,7 @@ namespace Factory
         private int CurrentClogStage
         {
             get => _currentClogStage;
-            set
-            {
-                if (value == StagesToBreak)
-                {
-                    Scores.AddScore(Scores.MachineCompleteBreakage);
-                    MachineBroke(this);
-                    _machineAnimator?.SetBool("isPlaying", false);
-
-                    _releaseItemsTween?.Pause();
-                }
-                else
-                {
-                    _machineAnimator?.SetBool("isPlaying", true);
-
-                    ReleaseBufferedItems();
-
-                    if (_releaseItemsTween != null && _releaseItemsTween.IsPlaying())
-                        _releaseItemsTween?.Play();
-                }
-
-                if (value > 1)
-                {
-                    _breakVisuals?.SetActive(true);
-                }
-
-                if (value == 1)
-                {
-                    _breakVisuals.SetActive(false);
-                }
-
-                _currentClogStage = value;
-            }
+            set { _currentClogStage = value; }
         }
 
         private Queue<GameObject> ItemBuffer
@@ -234,6 +203,24 @@ namespace Factory
 
             CurrentClogStage++;
 
+            switch (CurrentClogStage)
+            {
+                case StagesToBreak:
+                    Scores.AddScore(Scores.MachineCompleteBreakage);
+
+                    MachineBroke(this);
+
+                    _machineAnimator?.SetBool("isPlaying", false);
+
+                    _releaseItemsTween?.Pause();
+                    break;
+                case StagesToBreak - 1:
+                    Scores.AddScore(Scores.MachineStageTwoBreakage);
+
+                    _breakVisuals?.SetActive(true);
+                    break;
+            }
+
             // Increase delay by slowPerStage %
             Delay *= 1 + _slowPerStage;
 
@@ -296,6 +283,10 @@ namespace Factory
                     CurrentClogStage = 0;
                     _repairVisuals?.SetActive(false);
                     _isRepairing = false;
+                    _breakVisuals.SetActive(false);
+
+                    ReleaseBufferedItems();
+
                     MachineRepaired(this);
                     Scores.AddScore(Scores.MachineFixed);
 
@@ -352,7 +343,21 @@ namespace Factory
         private void PostDelayProcessInternal(GameObject processedObject)
         {
             ItemLeftMachine(_machineType);
-            Scores.AddScore(Scores.MachinePassed);
+            switch (_machineType)
+            {
+                case MachineType.PotatoWasher:
+                    Scores.AddScore(Scores.WasherPassed);
+                    break;
+                case MachineType.PotatoPeeler:
+                    Scores.AddScore(Scores.PeelerPassed);
+                    break;
+                case MachineType.FryPacker:
+                    Scores.AddScore(Scores.PackerPassed);
+                    break;
+                case MachineType.FryCutter:
+                    Scores.AddScore(Scores.CutterPassed);
+                    break;
+            }
 
             var processedItem = PostDelayProcess(processedObject);
 
