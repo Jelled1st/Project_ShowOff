@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbd4d35b86ae4ca9b3b3eca55e8d38ea, type: 3}
-  m_Name: Overlay
+  m_Name: TimeoutOverlay
   m_EditorClassIdentifier: 
   <OverlayPrefab>k__BackingField: {fileID: 8017950493544265213, guid: 7d1fab24fcebb4a468989e6c0941f4dc,
     type: 3}
