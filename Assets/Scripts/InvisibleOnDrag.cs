@@ -17,6 +17,7 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
     // Start is called before the first frame update
     void Start()
     {
+        if (_controllable == null) _controllable = this.gameObject;
         _controllableScriptRef = _controllable.GetComponent<IControllable>();
         Subscribe(_controller);
     }

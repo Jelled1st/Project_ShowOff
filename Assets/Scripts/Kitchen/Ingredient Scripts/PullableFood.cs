@@ -6,9 +6,8 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 {
     [SerializeField] private IngredientType _ingredientType;
     [SerializeField] private float _ingredientHeight;
-    [SerializeField] private List<GameObject> _pullables;
+    [SerializeField] private List<PullableFoodPullable> _pullables;
     [SerializeField] private InvisibleOnDrag _invisibleOnDrag;
-    private GameObject _currentDragPullable;
 
     private List<IObserver> _observers = new List<IObserver>();
 
@@ -20,6 +19,18 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
     void Start()
     {
         if(_invisibleOnDrag != null) _invisibleOnDrag.active = false;
+        for(int i = 0; i < _pullables.Count; ++i)
+        {
+            _pullables[i].foodParent = this;
+        }
+    }
+
+    public void Pull(PullableFoodPullable pulled)
+    {
+        if (_pullables.Contains(pulled))
+        {
+            _pullables.Remove(pulled);
+        }
     }
 
     #region IIngredient
@@ -49,11 +60,6 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
     }
     #endregion
 
-    private void DropCurrentPullable()
-    {
-        if (ReadyForDish()) return;
-    }
-
     #region IControllable
 
     public GameObject GetDragCopy()
@@ -67,16 +73,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
             copy.transform.SetParent(this.transform);
             return copy;
         }
-        else
-        {
-            _currentDragPullable = Instantiate(_pullables[0]);
-            _currentDragPullable.transform.SetParent(this.transform);
-            _currentDragPullable.transform.localScale = _pullables[0].transform.localScale;
-            Destroy(_pullables[0]);
-            _pullables.RemoveAt(0);
-            Notify(new PullablePulledEvent(this));
-            return _currentDragPullable;
-        }
+        return null;
     }
 
     public void OnClick(Vector3 hitPoint)
@@ -89,12 +86,10 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        DropCurrentPullable();
     }
 
     public void OnDragDropFailed(Vector3 position)
     {
-        DropCurrentPullable();
     }
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
