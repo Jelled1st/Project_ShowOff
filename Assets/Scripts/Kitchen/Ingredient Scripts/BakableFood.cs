@@ -32,6 +32,16 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
         ParticleSystem.MainModule main = _smokeParticles.main;
         main.playOnAwake = false;
         _smokeParticles.Pause();
+
+        Renderer rend = this.GetComponent<Renderer>();
+        for (int i = 0; i < 2; ++i)
+        {
+            if (_bakeMaterials[i] != null)
+            {
+                rend.materials[i] = _bakeMaterials[i];
+                _bakeMaterials[i] = rend.materials[i];
+            }
+        }
     }
 
     // Update is called once per frame
