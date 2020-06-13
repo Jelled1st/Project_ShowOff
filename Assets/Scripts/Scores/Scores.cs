@@ -6,19 +6,18 @@ using UnityEngine;
 
 public static class Scores
 {
-    public const int MachineCompleteBreakage = -300;
-    public const int StageTwoMachinePassed = 150;
-    public const int PerUnusedSpecialConveyor = 250;
+    public const int MachineCompleteBreakage = -500;
+    public const int MachineStageTwoBreakage = 150;
     public const int LeftTimeMultiplier = 100;
 
-    public const int MachinePassed = 100;
+    public const int WasherPassed = 100;
+    public const int PeelerPassed = 100;
+    public const int CutterPassed = 150;
+    public const int PackerPassed = 150;
+
     public const int MachineFixed = 200;
 
-    public const int LoadedPotatoUnwashed = 100;
-    public const int LoadedPotatoWashed = 200;
-    public const int LoadedPotatoPeeled = 300;
-    public const int LoadedPotatoCut = 400;
-    public const int LoadedPotatoBagged = 500;
+    public const int LoadedPotatoBagged = 100;
 
     private static List<IScoresObserver> _observers = new List<IScoresObserver>();
 
