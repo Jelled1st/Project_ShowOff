@@ -55,9 +55,11 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
                 _choosenDish = _dishes[i];
                 EnableDishIngredients(_choosenDish);
                 Subscribe(_choosenDish);
-                break;
             }
-            else Destroy(_dishes[i].gameObject);
+            else
+            {
+                Destroy(_dishes[i].transform.parent.gameObject);
+            }
         }
     }
 

@@ -17,43 +17,43 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     [SerializeField] DishTypes _dishType;
 
     [Header("Required Ingredients")]
-    [SerializeField] private List<IngredientType> _requiredIngredients;
+    [SerializeField] protected List<IngredientType> _requiredIngredients;
     [Tooltip("The placements of the required ingredients")]
-    [SerializeField] private List<GameObject> _requiredPlacements;
+    [SerializeField] protected List<GameObject> _requiredPlacements;
     [Tooltip("True means that the index in the placement list corrosponds to the index in the ingredient list")]
-    [SerializeField] private bool _placeRequiredInOrder;
+    [SerializeField] protected bool _placeRequiredInOrder;
 
     [Header("Optional Ingredients")]
-    [SerializeField] private List<IngredientType> _optionalIngredients;
+    [SerializeField] protected List<IngredientType> _optionalIngredients;
     [Tooltip("The placements of the optional ingredients")]
-    [SerializeField] private List<GameObject> _optionalPlacements;
+    [SerializeField] protected List<GameObject> _optionalPlacements;
     [Tooltip("True means that the index in the placement list corrosponds to the index in the ingredient list")]
-    [SerializeField] private bool _placeOptionalInOrder;
+    [SerializeField] protected bool _placeOptionalInOrder;
 
     [Header("Final ingredient")]
-    [SerializeField] private IngredientType _finishIngredient;
-    [SerializeField] private bool _finishIngredientPlaced = false;
-    [SerializeField] private GameObject _finishIngredientPlacement;
+    [SerializeField] protected IngredientType _finishIngredient;
+    [SerializeField] protected bool _finishIngredientPlaced = false;
+    [SerializeField] protected GameObject _finishIngredientPlacement;
 
     [Header("Misc")]
     [Tooltip("the dishes this dish is dependent on. All dependent dishes must be done before completing this")]
         [SerializeField] List<Dish> _sideDishesLeft = new List<Dish>();
     [Tooltip("Stack all ingredients from the using the required placements index 0")]
-        [SerializeField] private bool _stackAllIngredients = false;
-    private List<IngredientType> _addedIngredients = new List<IngredientType>();
-    private Dictionary<IngredientType, GameObject> _addedIngredientObjects = new Dictionary<IngredientType, GameObject>();
+        [SerializeField] protected bool _stackAllIngredients = false;
+    protected List<IngredientType> _addedIngredients = new List<IngredientType>();
+    protected Dictionary<IngredientType, GameObject> _addedIngredientObjects = new Dictionary<IngredientType, GameObject>();
 
-    private List<IDishObserver> _observers = new List<IDishObserver>();
+    protected List<IDishObserver> _observers = new List<IDishObserver>();
 
-    private bool _debugLog = false;
+    protected bool _debugLog = false;
 
-    public void Awake()
+    protected void Awake()
     {
         this.gameObject.tag = "Dish"; 
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         if (_stackAllIngredients)
         {
@@ -80,7 +80,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
 
     }
@@ -129,7 +129,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         return allIngredients;
     }
 
-    private bool TryAddIngredient(IIngredient ingredient)
+    protected virtual bool TryAddIngredient(IIngredient ingredient)
     {
         if (_debugLog) Debug.Log("Trying to add");
         IngredientType type = ingredient.GetIngredientType();
@@ -176,21 +176,21 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         return false;
     }
 
-    private bool IsFinished(bool includeFinishIngredient)
+    protected virtual bool IsFinished(bool includeFinishIngredient)
     {
         if (_requiredIngredients.Count == 0)
         {
             if (_sideDishesLeft.Count == 0)
             {
                 if (!includeFinishIngredient) return true;
-                else if (_finishIngredient == null) return true;
+                else if (_finishIngredient == IngredientType.Undefined) return true;
                 else if (_finishIngredientPlaced) return true;
             }
         }
         return false;
     }
 
-    private void AddIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight, bool requiredIngredient, int indexInList)
+    protected void AddIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight, bool requiredIngredient, int indexInList)
     {
         if (ingredientMesh == null) return;
         _addedIngredients.Add(type);
@@ -241,7 +241,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         ingredientGO.transform.rotation = rot;
     }
 
-    private void AddFinalIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight)
+    protected void AddFinalIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight)
     {
         if (ingredientMesh == null) return;
         _addedIngredients.Add(type);
@@ -298,7 +298,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         }
     }
 
-    public void OnHold(float holdTime, Vector3 hitPoint)
+    public virtual void OnHold(float holdTime, Vector3 hitPoint)
     {
     }
 
@@ -343,7 +343,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     #endregion
 
     #region IDishObserver
-    private void InformObserversAddIngredient(IIngredient ingredient)
+    protected void InformObserversAddIngredient(IIngredient ingredient)
     {
         for(int i = 0; i < _observers.Count; ++i)
         {
@@ -351,7 +351,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         }
     }
 
-    private void InformObserversFinish()
+    protected void InformObserversFinish()
     {
         for (int i = 0; i < _observers.Count; ++i)
         {
