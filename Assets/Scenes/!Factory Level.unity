@@ -232,6 +232,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_potatoPeeler
       objectReference: {fileID: 0}
+    - target: {fileID: 3740944733989314678, guid: 90d79494e548daa47bc1012255692df2,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740944733989314678, guid: 90d79494e548daa47bc1012255692df2,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4421798470432136809, guid: 90d79494e548daa47bc1012255692df2,
         type: 3}
       propertyPath: m_Enabled
@@ -10214,6 +10224,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 20283012}
     m_Modifications:
+    - target: {fileID: 2487615683695983172, guid: ccdcda0f3bd7e494a9dd4a781c2de8ea,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487615683695983172, guid: ccdcda0f3bd7e494a9dd4a781c2de8ea,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8949409736317556261, guid: ccdcda0f3bd7e494a9dd4a781c2de8ea,
         type: 3}
       propertyPath: m_Name
@@ -13314,6 +13334,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1437960371166052041, guid: 34029df25cf44be41ae46e58d5606f7d,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437960371166052041, guid: 34029df25cf44be41ae46e58d5606f7d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2446795205540483132, guid: 34029df25cf44be41ae46e58d5606f7d,
         type: 3}
       propertyPath: m_Enabled
@@ -14940,6 +14970,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3071584107309453396, guid: c7e9e31a4e7e0e04e9b6287c8d06ad6c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3071584107309453396, guid: c7e9e31a4e7e0e04e9b6287c8d06ad6c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4567196288791174154, guid: c7e9e31a4e7e0e04e9b6287c8d06ad6c,
         type: 3}
