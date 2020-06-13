@@ -12,6 +12,8 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
     private bool _enabledDragCopy = false;
     private bool _dragging = false;
 
+    public bool active = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +24,8 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
     // Update is called once per frame
     void Update()
     {
-        if(_dragging && !_enabledDragCopy)
+        if (!active) return;
+        if (_dragging && !_enabledDragCopy)
         {
             _enabledDragCopy = TryEnableDragCopyRenderer();
         }
@@ -49,6 +52,7 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
 
     public void OnDrag(Vector3 position, IControllable dragged, ControllerHitInfo hitInfo)
     {
+        if (!active) return;
         if (!_dragging && _controllableScriptRef == dragged)
         {
             Renderer[] renderers = _controllable.GetComponentsInChildren<Renderer>();
@@ -63,6 +67,7 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
 
     public void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
+        if (!active) return;
         if (dragged == _controllableScriptRef)
         {
             Renderer[] renderers = _controllable.GetComponentsInChildren<Renderer>();
@@ -77,6 +82,7 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
 
     public void OnDragDropFailed(Vector3 position, IControllable dragged)
     {
+        if (!active) return;
         if (dragged == _controllableScriptRef)
         {
             Renderer[] renderers = _controllable.GetComponentsInChildren<Renderer>();
