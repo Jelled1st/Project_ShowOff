@@ -42,22 +42,13 @@ namespace Timeout
                     var overlay = Resources.Load<TimeoutOverlay>(TimeoutOverlayResourceName);
 
                     if (overlay == null)
-                    {
                         Debug.LogError(
                             $"Timeout controller can't file with name {TimeoutOverlayResourceName} which is of type {nameof(TimeoutOverlay)}!");
-                    }
+                    else if (overlay.OverlayPrefab == null)
+                        Debug.LogError("Timeout controller found an overlay, but the prefab field is not set!",
+                            overlay);
                     else
-                    {
-                        if (overlay.OverlayPrefab == null)
-                        {
-                            Debug.LogError("Timeout controller found an overlay, but the prefab field is not set!",
-                                overlay);
-                        }
-                        else
-                        {
-                            _overlay = Instantiate(overlay.OverlayPrefab);
-                        }
-                    }
+                        _overlay = Instantiate(overlay.OverlayPrefab);
                 }
 
                 return _overlay;
