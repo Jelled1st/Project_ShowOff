@@ -1,9 +1,8 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using NaughtyAttributes;
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Factory
 {
@@ -68,24 +67,31 @@ namespace Factory
 
         private int _potatoesInput;
         private bool _level1Passed;
+        private FactoryUiManager _factoryUiManager;
+        private FactoryTimer _factoryTimer;
+
+        public int PotatoesNeededToPassLevel1 => _potatoesNeededToPassLevel1;
+
+        private int PotatoesInput
+        {
+            get => _potatoesInput;
+            set
+            {
+                _potatoesInput = value;
+                _factoryUiManager.SetPotatoesCount(_potatoesInput, _potatoesNeededToPassLevel1);
+            }
+        }
+
+        private void Awake()
+        {
+            _factoryUiManager = FindObjectOfType<FactoryUiManager>();
+            _factoryTimer = FindObjectOfType<FactoryTimer>();
+        }
 
         public void Start()
         {
             Setup();
         }
-
-        private void Update()
-        {
-            // if (Input.GetKeyDown(KeyCode.Space))
-            // {
-            //     Camera.main.transform.DOMove(_level2CameraPosition.position, 2f);
-            //     Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, 2f);
-            //
-            //     _shadowPlane.transform.DOMove(_level2ShadowPlanePosition.position, 2f);
-            //     _shadowPlane.transform.DORotate(_level2ShadowPlanePosition.rotation.eulerAngles, 2f);
-            // }
-        }
-
 
         private void Setup()
         {
@@ -95,14 +101,22 @@ namespace Factory
             _finishTriggerLevel2.FinishTriggerHit += OnLevel2TriggerHit;
 
             _peeledPotatoSpawner.enabled = false;
+
+            _factoryTimer.TimeEnded += OnTimeEnded;
+            _factoryTimer.StartTimer();
+        }
+
+        private void OnTimeEnded()
+        {
+            _factoryUiManager.ToggleLoseScreen(true);
         }
 
 
         private void OnLevel1TriggerHit(GameObject obj)
         {
-            _potatoesInput++;
+            PotatoesInput++;
 
-            if (!_level1Passed && _potatoesInput == _potatoesNeededToPassLevel1)
+            if (!_level1Passed && PotatoesInput == PotatoesNeededToPassLevel1)
             {
                 _level1Passed = true;
 
@@ -121,7 +135,7 @@ namespace Factory
 
                 _bufferBelt.FinishedOutputting += OnBufferBeltFinishedSpawning;
 
-                _potatoesInput = 0;
+                PotatoesInput = 0;
                 _finishTriggerLevel1.gameObject.SetActive(false);
             }
         }
@@ -135,9 +149,9 @@ namespace Factory
 
         private void OnLevel2TriggerHit(GameObject obj)
         {
-            _potatoesInput++;
+            PotatoesInput++;
 
-            if (_potatoesInput >= _potatoesNeededToPassLevel2)
+            if (PotatoesInput >= _potatoesNeededToPassLevel2)
             {
                 SceneManager.LoadScene("!Ending Scene");
             }
