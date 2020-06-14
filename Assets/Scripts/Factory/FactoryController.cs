@@ -65,6 +65,8 @@ namespace Factory
         [SerializeField]
         private int _potatoesNeededToPassLevel2 = 3;
 
+        private float _initialScore;
+        private bool _canAppendScore;
         private int _potatoesInput;
         private bool _level1Passed;
         private FactoryUiManager _factoryUiManager;
@@ -86,14 +88,10 @@ namespace Factory
         {
             _factoryUiManager = FindObjectOfType<FactoryUiManager>();
             _factoryTimer = FindObjectOfType<FactoryTimer>();
+            _initialScore = Scores.GetCurrentScore();
         }
 
-        public void Start()
-        {
-            Setup();
-        }
-
-        private void Setup()
+        private void OnEnable()
         {
             _level2Machines.ToggleChildren<Machine>(false);
 
@@ -102,8 +100,23 @@ namespace Factory
 
             _peeledPotatoSpawner.enabled = false;
 
-            _factoryTimer.TimeEnded += OnTimeEnded;
-            _factoryTimer.StartTimer();
+            // _factoryTimer.TimeEnded += OnTimeEnded;
+            // _factoryTimer.StartTimer();
+
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+        }
+
+        private void OnSceneUnloaded(Scene arg0)
+        {
+            if (!_canAppendScore)
+                Scores.AddScore(Scores.GetCurrentScore() - _initialScore);
+        }
+
+        private void OnDisable()
+        {
+            _finishTriggerLevel1.FinishTriggerHit -= OnLevel1TriggerHit;
+            _finishTriggerLevel2.FinishTriggerHit -= OnLevel2TriggerHit;
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
 
         private void OnTimeEnded()
@@ -153,6 +166,7 @@ namespace Factory
 
             if (PotatoesInput >= _potatoesNeededToPassLevel2)
             {
+                _canAppendScore = true;
                 SceneManager.LoadScene("!Ending Scene");
             }
         }
