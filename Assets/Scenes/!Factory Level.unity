@@ -16291,6 +16291,7 @@ MonoBehaviour:
   _level2ShadowPlanePosition: {fileID: 68405953}
   _potatoesNeededToPassLevel1: 9
   _potatoesNeededToPassLevel2: 3
+  _allowedTruckObjectTag: Factory/Potato_Packed
 --- !u!4 &929897306
 Transform:
   m_ObjectHideFlags: 0

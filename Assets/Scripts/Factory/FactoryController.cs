@@ -65,6 +65,11 @@ namespace Factory
         [SerializeField]
         private int _potatoesNeededToPassLevel2 = 3;
 
+        [BoxGroup("Stage settings")]
+        [SerializeField]
+        [Tag]
+        private string _allowedTruckObjectTag;
+
         private float _initialScore;
         private bool _canAppendScore;
         private int _potatoesInput;
@@ -162,6 +167,9 @@ namespace Factory
 
         private void OnLevel2TriggerHit(GameObject obj)
         {
+            if (!obj.CompareTag(_allowedTruckObjectTag))
+                return;
+
             PotatoesInput++;
 
             if (PotatoesInput >= _potatoesNeededToPassLevel2)
