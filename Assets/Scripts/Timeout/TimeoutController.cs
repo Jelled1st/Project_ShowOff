@@ -65,11 +65,19 @@ namespace Timeout
                 return;
             }
 
-            _timer.Pause();
+            ResetTimer();
 
-            SetPause(true);
+            if (Overlay.activeInHierarchy)
+            {
+                Overlay.SetActive(false);
+                SceneManager.LoadScene("!Main Menu");
+            }
+            else
+            {
+                SetPause(true);
 
-            Overlay.SetActive(true);
+                Overlay.SetActive(true);
+            }
         }
 
         public void Continue()
@@ -128,8 +136,14 @@ namespace Timeout
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
-            _timer = DOTween.Sequence().AppendInterval(TimeoutInterval)
-                .AppendCallback(OnTimeout).SetAutoKill(false);
+            _timer = DOTween.Sequence()
+                .AppendInterval(TimeoutInterval)
+                .AppendCallback(OnTimeout)
+                .SetAutoKill(false)
+                .SetUpdate(true);
+
+            Overlay.SetActive(false);
+            DontDestroyOnLoad(Overlay);
 
             ResetTimer();
             DontDestroyOnLoad(Instance);
