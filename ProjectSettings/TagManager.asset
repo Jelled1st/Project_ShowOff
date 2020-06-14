@@ -3,7 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ConveyorBelt
+  - Controller
+  - StartPosition
+  - Factory/Package
+  - FarmPlot
+  - Factory/Potato_Peeled
+  - Factory/Potato_Washed
+  - Factory/Potato_Dirty
+  - Factory/Potato_Cut
+  - Factory/Potato_Packed
+  - FxTemporaire
+  - GameHandler
+  - Dish
+  - AudioManager
+  - FarmTool
+  - Ingredient
   layers:
   - Default
   - TransparentFX
