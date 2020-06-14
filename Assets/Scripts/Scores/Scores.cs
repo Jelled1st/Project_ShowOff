@@ -87,6 +87,11 @@ public static class Scores
         }
     }
 
+    public static float GetCurrentScore()
+    {
+        return _currentUser.score;
+    }
+
     public static void AddScore(float score)
     {
         if (_currentUser == null)
