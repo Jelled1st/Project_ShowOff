@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1914397319393604349}
   - component: {fileID: 1914397319393604347}
-  - component: {fileID: 1914397319393604348}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -89,18 +88,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1914397319393604348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914397319393604350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26c56cf9f652c0642b8b2ab10d21dadc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1914397319968071296
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +247,7 @@ GameObject:
   - component: {fileID: 1914397320380203024}
   - component: {fileID: 1914397320380203025}
   - component: {fileID: 1914397320380203026}
+  - component: {fileID: 7995840665296594043}
   m_Layer: 5
   m_Name: Slider Canvas
   m_TagString: Untagged
@@ -330,6 +318,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &7995840665296594043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914397320380203027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c56cf9f652c0642b8b2ab10d21dadc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1914397320718417307
 GameObject:
   m_ObjectHideFlags: 0
