@@ -15,6 +15,8 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     private List<IIngredient> _ingredients;
     private List<GameObject> _ingredientGOs;
 
+    [SerializeField] private bool _disableIngredients = true;
+
     void Awake()
     {
         this.gameObject.tag = "GameHandler";
@@ -30,7 +32,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         {
             _ingredients.Add(ingredients[i].GetComponent<IIngredient>());
             _ingredientGOs.Add(ingredients[i]);
-            ingredients[i].SetActive(false);
+            if(_disableIngredients) ingredients[i].SetActive(false);
         }
 
         //ChooseDish(_dishes[0]);

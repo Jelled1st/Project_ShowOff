@@ -41,7 +41,12 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 
     public GameObject GetDishMesh()
     {
-        return GetDragCopy();
+        GameObject copy = Instantiate(this.gameObject);
+        Destroy(copy.GetComponent<PullableFood>());
+        Destroy(copy.GetComponent<Collider>());
+        copy.transform.localScale = this.transform.lossyScale;
+        copy.GetComponent<Renderer>().enabled = true;
+        return copy;
     }
 
     public float GetHeight()
@@ -70,7 +75,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
             GameObject copy = Instantiate(this.gameObject);
             Destroy(copy.GetComponent<PullableFood>());
             Destroy(copy.GetComponent<Collider>());
-            copy.transform.SetParent(this.transform);
+            copy.transform.localScale = this.transform.lossyScale;
             return copy;
         }
         return null;
