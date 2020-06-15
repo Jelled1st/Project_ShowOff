@@ -24,8 +24,11 @@ namespace Factory
         public void ToggleLoseScreen(bool toggle)
         {
             if (_youLostScreen != null)
+            {
                 _youLostScreen.SetActive(toggle);
 
+                Time.timeScale = toggle ? 0f : 1f;
+            }
             else
                 Debug.LogError(
                     $"{nameof(FactoryUiManager)} does not contain reference to {nameof(_youLostScreen)}");
