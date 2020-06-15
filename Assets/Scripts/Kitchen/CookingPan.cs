@@ -11,7 +11,7 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     [SerializeField] GameObject _stirringDeviceRotator;
     [SerializeField] GameObject _stirringDeviceBottom;
     [SerializeField] float _stirBonusModifier = 0.5f;
-    CookableFood _food;
+    private List<CookableFood> _food = new List<CookableFood>();
     private bool _foodIsCooked = false;
 
     List<IObserver> _observers = new List<IObserver>();
@@ -27,48 +27,69 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     {
         if (stove == null || stove.IsOn())
         {
-            if (_food != null)
+            if (_food.Count == 0) return;
+            CookAllFood();
+            if (_food[_food.Count - 1].IsCooked() && !_foodIsCooked)
             {
-                _food.Cook();
-                if (_food.IsCooked() && !_foodIsCooked)
-                {
-                    _foodIsCooked = true;
-                    Notify(new CookingDoneEvent(this, _food));
-                }
+                _foodIsCooked = true;
+                Notify(new CookingDoneEvent(this, _food[_food.Count - 1]));
             }
         }
     }
 
-    public void TrySetfood(CookableFood food)
+    private void CookAllFood(float mod = 1.0f)
     {
-        if (_food != null) return;
-        _food = food;
+        for (int i = 0; i < _food.Count; ++i) _food[i].Cook(mod);
+    }
+
+    public void TryAddFood(CookableFood food)
+    {
+        List<CookableFood> requiredFood = food.GetRequiredHeadIngredients();
+        if (requiredFood.Count != 0)
+        {
+            bool containsIngredient = false;
+            for(int i = 0; i < requiredFood.Count; ++i)
+            {
+                if(requiredFood[i] == null || _food.Contains(requiredFood[i]))
+                {
+                    containsIngredient = true;
+                    break;
+                }
+            }
+            if(!containsIngredient || !_food[_food.Count -1].IsCooked(false)) return;
+        }
+        _food.Add(food);
         food.transform.position = _foodNode.transform.position;
         food.cookingPan = this;
-        Notify(new CookingStartEvent(this, _food));
+        Notify(new CookingStartEvent(this, food));
         _foodIsCooked = false;
     }
 
-    public void RemoveFood()
+    public void RemoveFood(CookableFood food)
     {
-        if (_food == null) return;
-        Notify(new CookingStopEvent(this, _food));
-        _food = null;
-        _food.cookingPan = null;
+        if (!_food.Remove(food)) return;
+        Notify(new CookingStopEvent(this, food));
+        food.cookingPan = null;
     }
 
     #region IControllable
     public GameObject GetDragCopy()
     {
-        if (_food == null || !_food.IsCooked())
+        if (_food == null || _food.Count == 0 || !_food[_food.Count-1].IsCooked(true))
         {
             return null;
         }
         GameObject copy = Instantiate(_stirringDeviceRotator);
         copy.transform.localScale = _stirringDeviceRotator.transform.lossyScale;
-        GameObject foodCopy = _food.GetDragCopy();
-        foodCopy.transform.SetParent(copy.transform);
-        foodCopy.transform.localPosition = _stirringDeviceBottom.transform.localPosition;
+        GameObject empty = new GameObject();
+        empty.transform.SetParent(copy.transform);
+        empty.transform.localPosition = _stirringDeviceBottom.transform.localPosition;
+        for (int i = 0; i < _food.Count; ++i)
+        {
+            GameObject foodCopy = _food[i].GetDragCopy();
+            foodCopy.transform.SetParent(empty.transform);
+            foodCopy.transform.localPosition = new Vector3(0, 0, 0);
+        }
         Destroy(copy.GetComponent<CookingPan>());
         Collider[] colliders = copy.GetComponentsInChildren<Collider>();
         for (int i = 0; i < colliders.Length; ++i)
@@ -88,7 +109,13 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if(_food != null) droppedOn.OnDrop(_food.GetComponent<IControllable>(), hitInfo);
+        if (_food != null)
+        {
+            for (int i = 0; i < _food.Count; ++i)
+            {
+                droppedOn.OnDrop(_food[i].GetComponent<IControllable>(), hitInfo);
+            }
+        }
     }
 
     public void OnDragDropFailed(Vector3 position)
@@ -99,7 +126,7 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     {
         if (dropped is CookableFood)
         {
-            TrySetfood(dropped as CookableFood);
+            TryAddFood(dropped as CookableFood);
         }
     }
 
@@ -109,8 +136,8 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
         {
             _stirringDeviceRotator.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
         }
-        _food?.Cook(_stirBonusModifier);
-        Notify(new CookingStirEvent(this, _food));
+        CookAllFood(_stirBonusModifier);
+        Notify(new CookingStirEvent(this));
     }
 
     public void OnHoldRelease(float timeHeld)
