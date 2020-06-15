@@ -13,6 +13,10 @@ public enum IngredientType
     Buns,
     Apple,
     Beans,
+    Tomato,
+    Onion,
+    ChickenFilet,
+    ShreddedCheese,
 }
 
 public interface IIngredient

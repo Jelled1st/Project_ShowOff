@@ -28,7 +28,7 @@ public class PlaneIngredient : MonoBehaviour, IIngredient, IControllable
     #region IIngredient
     public void AddedToDish()
     {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     public GameObject GetDishMesh()
