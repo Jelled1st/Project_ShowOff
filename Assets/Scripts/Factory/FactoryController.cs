@@ -105,8 +105,8 @@ namespace Factory
 
             _peeledPotatoSpawner.enabled = false;
 
-            // _factoryTimer.TimeEnded += OnTimeEnded;
-            // _factoryTimer.StartTimer();
+            _factoryTimer.TimeEnded += OnTimeEnded;
+            _factoryTimer.StartTimer();
 
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
@@ -121,6 +121,9 @@ namespace Factory
         {
             _finishTriggerLevel1.FinishTriggerHit -= OnLevel1TriggerHit;
             _finishTriggerLevel2.FinishTriggerHit -= OnLevel2TriggerHit;
+
+            _factoryTimer.TimeEnded += OnTimeEnded;
+
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
 
