@@ -5,6 +5,7 @@ using UnityEngine;
 public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 {
     [SerializeField] List<Dish> _dishes;
+    [SerializeField] OnEventPlayer _onEventPlayer;
     private Dish _choosenDish;
 
     private List<IObserver> _observers = new List<IObserver>();
@@ -57,6 +58,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
                 _choosenDish = _dishes[i];
                 EnableDishIngredients(_choosenDish);
                 Subscribe(_choosenDish);
+                _onEventPlayer.Subscribe(_choosenDish);
             }
             else
             {
@@ -74,6 +76,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
             if(ingredientTypes.Contains(_ingredients[i].GetIngredientType()))
             {
                 _ingredientGOs[i].SetActive(true);
+                if(_ingredients[i] is ISubject) _onEventPlayer.Subscribe(_ingredients[i] as ISubject);
             }
             else
             {

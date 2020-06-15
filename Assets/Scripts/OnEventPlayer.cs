@@ -52,6 +52,8 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
         public UnityEvent onTurnOnStove;
         public UnityEvent onTurnOffStove;
+
+        public UnityEvent onDishStir;
     }
 
     [System.Serializable]
@@ -78,6 +80,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     [SerializeField] private GameObject _gameHandler;
     [SerializeField] private TouchController _touchController;
+    [SerializeField] private List<ISubject> _subjects;
     [SerializeField] private List<FarmPlot> _farmPlots;
     [SerializeField] private List<FarmTool> _farmTools;
     [SerializeField] private List<Dish> _dishes;
@@ -96,6 +99,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         SubscribeToFarmPlots();
         SubscribeToFarmTools();
         SubscribeToDishes();
+        SubscribeToOther();
         Swarm.RegisterStatic(this);
     }
 
@@ -175,6 +179,15 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
             {
                 Subscribe(_dishes[i]);
             }
+        }
+    }
+
+    private void SubscribeToOther()
+    {
+        if (_subjects == null || _subjects.Count == 0) return;
+        for(int i = 0; i < _subjects.Count; ++i)
+        {
+            Subscribe(_subjects[i]);
         }
     }
     #endregion
@@ -294,6 +307,11 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         else if (observerEvent is FryerStopEvent)
         {
             _dishEvents.onFryerStop.Invoke();
+            return true;
+        }
+        else if(observerEvent is DishStirEvent)
+        {
+            _dishEvents.onDishStir.Invoke();
             return true;
         }
         return false;

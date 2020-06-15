@@ -70,6 +70,7 @@ namespace Timeout
             if (Overlay.activeInHierarchy)
             {
                 Overlay.SetActive(false);
+                FindObjectOfType<BKM>()?.StopMusicImmediate();
                 SceneManager.LoadScene("!Main Menu");
             }
             else
@@ -136,7 +137,10 @@ namespace Timeout
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
+#if UNITY_EDITOR
             return;
+#endif
+
             _timer = DOTween.Sequence()
                 .AppendInterval(TimeoutInterval)
                 .AppendCallback(OnTimeout)

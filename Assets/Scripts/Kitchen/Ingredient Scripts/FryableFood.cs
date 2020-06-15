@@ -92,6 +92,8 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
     }
     #endregion
 
+    #region IControllable
+
     public GameObject GetDragCopy()
     {
         GameObject copy = Instantiate(this.gameObject);
@@ -135,5 +137,5 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
     }
-
+    #endregion
 }
