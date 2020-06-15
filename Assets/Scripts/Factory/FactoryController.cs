@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -115,6 +114,8 @@ namespace Factory
         {
             if (!_canAppendScore)
                 Scores.AddScore(Scores.GetCurrentScore() - _initialScore);
+
+            Time.timeScale = 1f;
         }
 
         private void OnDisable()

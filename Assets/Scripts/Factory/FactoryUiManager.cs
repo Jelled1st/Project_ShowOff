@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -14,11 +15,20 @@ namespace Factory
         [SerializeField]
         private GameObject _youLostScreen;
 
+        private void OnEnable()
+        {
+            _youLostScreen = _youLostScreen.NullIfEqualsNull();
+            _youLostScreen.SetActive(false);
+        }
+
         public void ToggleLoseScreen(bool toggle)
         {
             if (_youLostScreen != null)
+            {
                 _youLostScreen.SetActive(toggle);
 
+                Time.timeScale = toggle ? 0f : 1f;
+            }
             else
                 Debug.LogError(
                     $"{nameof(FactoryUiManager)} does not contain reference to {nameof(_youLostScreen)}");
