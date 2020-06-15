@@ -18,7 +18,7 @@ namespace Factory
         private void OnEnable()
         {
             _youLostScreen = _youLostScreen.NullIfEqualsNull();
-            _youLostScreen.SetActive(false);
+            _youLostScreen?.SetActive(false);
         }
 
         public void ToggleLoseScreen(bool toggle)
