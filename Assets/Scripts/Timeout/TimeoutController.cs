@@ -70,6 +70,7 @@ namespace Timeout
             if (Overlay.activeInHierarchy)
             {
                 Overlay.SetActive(false);
+                FindObjectOfType<BKM>()?.StopMusicImmediate();
                 SceneManager.LoadScene("!Main Menu");
             }
             else
