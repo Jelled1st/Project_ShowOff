@@ -5,10 +5,8 @@ using UnityEngine;
 public class CookingStirEvent : AObserverEvent
 {
     public readonly CookingPan pan;
-    public readonly CookableFood food;
-    public CookingStirEvent(CookingPan pan, CookableFood food) : base(pan)
+    public CookingStirEvent(CookingPan pan) : base(pan)
     {
         this.pan = pan;
-        this.food = food;
     }
 }
