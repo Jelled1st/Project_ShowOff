@@ -21,7 +21,31 @@ Material:
   - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MeatBurntNormal:
+        m_Texture: {fileID: 2800000, guid: 305d0b1c3fe04304fa5b79b6ef174e87, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MeatBurntTex:
+        m_Texture: {fileID: 2800000, guid: d5de5b918fb0e26439dba295b5124f8d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MeatCookedNormal:
+        m_Texture: {fileID: 2800000, guid: 305d0b1c3fe04304fa5b79b6ef174e87, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MeatCookedTex:
+        m_Texture: {fileID: 2800000, guid: d24cf8dda8cf7fc4ab64ac16deb70504, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MeatRawNormal:
+        m_Texture: {fileID: 2800000, guid: a874e481e442a644d97d582e78605d48, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MeatRawTex:
+        m_Texture: {fileID: 2800000, guid: 8480b2fe22804c34d87fc8fe98a29967, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _MeatBurningBool: 1
     - _MeatBurnt: 0
