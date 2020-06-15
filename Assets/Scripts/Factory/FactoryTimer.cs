@@ -29,7 +29,7 @@ namespace Factory
 
             _timerSequence = DOTween.Sequence()
                 .AppendInterval(_roundTime)
-                .OnUpdate(delegate { _factoryUiManager.SetTimer(_timerSequence.Elapsed()); })
+                .OnUpdate(delegate { _factoryUiManager.SetTimer((int) (_roundTime - _timerSequence.Elapsed())); })
                 .OnComplete(delegate { TimeEnded(); });
         }
     }

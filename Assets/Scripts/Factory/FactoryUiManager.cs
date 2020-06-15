@@ -8,10 +8,10 @@ namespace Factory
     public class FactoryUiManager : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshPro _timerText;
+        private TextMeshProUGUI _timerText;
 
         [SerializeField]
-        private TextMeshPro _potatoesCollectedText;
+        private TextMeshProUGUI _potatoesCollectedText;
 
         [SerializeField]
         private GameObject _youLostScreen;
@@ -21,7 +21,7 @@ namespace Factory
             _youLostScreen.SetActive(toggle);
         }
 
-        public void SetTimer(float time)
+        public void SetTimer(int time)
         {
             _timerText.text = time.ToString();
         }
