@@ -15,13 +15,15 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    MotionVector: User
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _MeatBurningBool: 0
+    - _MeatBurningBool: 1
     - _MeatBurnt: 0
     - _MeatCooked: 0
     - _MeatSmoothness: 0
