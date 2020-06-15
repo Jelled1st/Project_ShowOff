@@ -15,6 +15,8 @@ public enum IngredientType
     Beans,
     Tomato,
     Onion,
+    ChickenFilet,
+    ShreddedCheese,
 }
 
 public interface IIngredient

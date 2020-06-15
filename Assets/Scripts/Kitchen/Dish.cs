@@ -32,7 +32,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     [Header("Final ingredient")]
     [SerializeField] protected IngredientType _finishIngredient;
-    [SerializeField] protected bool _finishIngredientPlaced = false;
+    protected bool _finishIngredientPlaced = false;
     [SerializeField] protected GameObject _finishIngredientPlacement;
 
     [Header("Misc")]
