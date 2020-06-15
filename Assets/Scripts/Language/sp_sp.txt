@@ -1,0 +1,12 @@
+main.start: Comenzar
+main.exit: Salir
+
+misc.score: Puntos
+
+farm.mainQuest: Cosecha 9 matas de papa
+farm.shovelQuest: Usa la pala
+farm.plantQuest: Planta las papas
+farm.waterQuest: Riega las plantas
+
+kitchen.fryFries: Pon las papas fritas en la freidora
+kitchen.cookPatty: Cocina una hamburguesa
