@@ -136,7 +136,10 @@ namespace Timeout
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
+#if UNITY_EDITOR
             return;
+#endif
+
             _timer = DOTween.Sequence()
                 .AppendInterval(TimeoutInterval)
                 .AppendCallback(OnTimeout)
