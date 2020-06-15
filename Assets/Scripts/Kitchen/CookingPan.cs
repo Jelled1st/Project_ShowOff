@@ -9,6 +9,7 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     [SerializeField] GameObject _foodNode;
     [SerializeField] Stove stove;
     [SerializeField] GameObject _stirringDevice;
+    [SerializeField] GameObject _stirringDeviceBottom;
     [SerializeField] float _stirBonusModifier = 0.5f;
     CookableFood _food;
     private bool _foodIsCooked = false;
@@ -64,8 +65,10 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
             return null;
         }
         GameObject copy = Instantiate(_stirringDevice);
+        copy.transform.localScale = _stirringDevice.transform.lossyScale;
         GameObject foodCopy = _food.GetDragCopy();
         foodCopy.transform.SetParent(copy.transform);
+        foodCopy.transform.localPosition = _stirringDeviceBottom.transform.localPosition;
         Destroy(copy.GetComponent<CookingPan>());
         Collider[] colliders = copy.GetComponentsInChildren<Collider>();
         for (int i = 0; i < colliders.Length; ++i)

@@ -136,6 +136,7 @@ namespace Timeout
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
+            return;
             _timer = DOTween.Sequence()
                 .AppendInterval(TimeoutInterval)
                 .AppendCallback(OnTimeout)
