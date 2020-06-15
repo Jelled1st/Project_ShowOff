@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +14,12 @@ namespace Factory
 
         [SerializeField]
         private GameObject _youLostScreen;
+
+        private void OnEnable()
+        {
+            _youLostScreen = _youLostScreen.NullIfEqualsNull();
+            _youLostScreen.SetActive(false);
+        }
 
         public void ToggleLoseScreen(bool toggle)
         {
