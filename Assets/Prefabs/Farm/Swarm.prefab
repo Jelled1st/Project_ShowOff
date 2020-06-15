@@ -43,12 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d75f794f1a4ef642a623ab906d001af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swarmUnitPrefab: {fileID: 7593007697894141513, guid: 889ae57c068cac541bfde527f3bfbe4e,
+  _swarmUnitPrefab: {fileID: 2628866638493020036, guid: 9f6d2a71e085fe14d8d16ec965baad90,
     type: 3}
   _swarmSize: {x: 1, y: 1}
   _spawnRange: {x: 5, y: 5}
   _angleAmount: 10
-  _speed: 2
+  _speed: 1.5
   _fleeSpeed: 3
   _spawnTime: 3
   _spawnChance: 65
