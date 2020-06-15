@@ -1,22 +1,29 @@
 using System;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
 namespace Factory
 {
-    public class FactoryTimer : MonoBehaviour
+    public class StageTimer : MonoBehaviour
     {
         public event Action TimeEnded = delegate { };
 
         [SerializeField]
         private float _roundTime;
 
-        private FactoryUiManager _factoryUiManager;
+        private ISetTimer _timerImplementation;
         private Sequence _timerSequence;
 
         private void Awake()
         {
-            _factoryUiManager = FindObjectOfType<FactoryUiManager>();
+            _timerImplementation =
+                (ISetTimer) FindObjectsOfType<MonoBehaviour>().FirstOrDefault(t => t is ISetTimer);
+            
+            if (_timerImplementation == null)
+            {
+                Debug.LogError("Can't find any object that sets the timer!");
+            }
         }
 
         public void StartTimer()
@@ -29,7 +36,7 @@ namespace Factory
 
             _timerSequence = DOTween.Sequence()
                 .AppendInterval(_roundTime)
-                .OnUpdate(delegate { _factoryUiManager.SetTimer((int) (_roundTime - _timerSequence.Elapsed())); })
+                .OnUpdate(delegate { _timerImplementation.SetTimer((int) (_roundTime - _timerSequence.Elapsed())); })
                 .OnComplete(delegate { TimeEnded(); });
         }
     }

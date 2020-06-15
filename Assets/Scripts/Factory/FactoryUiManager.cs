@@ -1,10 +1,9 @@
-using System;
 using TMPro;
 using UnityEngine;
 
 namespace Factory
 {
-    public class FactoryUiManager : MonoBehaviour
+    public class FactoryUiManager : MonoBehaviour, ISetTimer
     {
         [SerializeField]
         private TextMeshProUGUI _timerText;
