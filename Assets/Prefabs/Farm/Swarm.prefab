@@ -48,7 +48,7 @@ MonoBehaviour:
   _swarmSize: {x: 1, y: 1}
   _spawnRange: {x: 5, y: 5}
   _angleAmount: 10
-  _speed: 2
+  _speed: 1.5
   _fleeSpeed: 3
   _spawnTime: 3
   _spawnChance: 65
