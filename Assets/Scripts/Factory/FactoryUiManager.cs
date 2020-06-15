@@ -1,5 +1,3 @@
-using System;
-using StateMachine;
 using TMPro;
 using UnityEngine;
 
@@ -18,17 +16,30 @@ namespace Factory
 
         public void ToggleLoseScreen(bool toggle)
         {
-            _youLostScreen.SetActive(toggle);
+            if (_youLostScreen != null)
+                _youLostScreen.SetActive(toggle);
+
+            else
+                Debug.LogError(
+                    $"{nameof(FactoryUiManager)} does not contain reference to {nameof(_youLostScreen)}");
         }
 
         public void SetTimer(int time)
         {
-            _timerText.text = time.ToString();
+            if (_timerText != null)
+                _timerText.text = time.ToString();
+            else
+                Debug.LogError(
+                    $"{nameof(FactoryUiManager)} does not contain reference to {nameof(_timerText)}");
         }
 
         public void SetPotatoesCount(int collected, int of)
         {
-            _potatoesCollectedText.text = $"{collected}/{of}";
+            if (_potatoesCollectedText != null)
+                _potatoesCollectedText.text = $"{collected}/{of}";
+            else
+                Debug.LogError(
+                    $"{nameof(FactoryUiManager)} does not contain reference to {nameof(_potatoesCollectedText)}");
         }
     }
 }
