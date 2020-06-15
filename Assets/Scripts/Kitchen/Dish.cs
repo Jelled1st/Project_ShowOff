@@ -193,6 +193,11 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     protected void AddIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight, bool requiredIngredient, int indexInList)
     {
         if (ingredientMesh == null) return;
+        if(_addedIngredientObjects.ContainsKey(type))
+        {
+            Destroy(ingredientMesh);
+            return;
+        }
         _addedIngredients.Add(type);
         GameObject ingredientGO = ingredientMesh;
         _addedIngredientObjects.Add(type, ingredientGO);
