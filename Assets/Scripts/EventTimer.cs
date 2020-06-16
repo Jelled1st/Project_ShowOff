@@ -11,7 +11,7 @@ public class EventTimer : MonoBehaviour
     [SerializeField] bool _useUnscaledDeltaTime;
     float _count;
     bool _paused = false;
-    bool _reachedTime = 0;
+    bool _reachedTime = false;
 
     // Start is called before the first frame update
     void Start()
