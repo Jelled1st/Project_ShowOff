@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class KeyboardScript : MonoBehaviour
 {
+    public const char EnterChar = ' ';
+    
     public static event Action<char> KeyPressed = delegate { };
     public static event Action BackspacePressed = delegate { };
 
@@ -22,7 +24,7 @@ public class KeyboardScript : MonoBehaviour
         BackspacePressed();
     }
 
-    public void CloseAllLayouts()
+    private void CloseAllLayouts()
     {
         RusLayoutSml.SetActive(false);
         RusLayoutBig.SetActive(false);
@@ -31,7 +33,7 @@ public class KeyboardScript : MonoBehaviour
         SymbLayout.SetActive(false);
     }
 
-    public void ShowLayout(GameObject SetLayout)
+    private void ShowLayout(GameObject SetLayout)
     {
         CloseAllLayouts();
         SetLayout.SetActive(true);
