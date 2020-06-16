@@ -43,6 +43,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
             _pullables.Remove(currentPullable);
             Destroy(currentPullable.gameObject);
             currentPullable = null;
+            if (_pullables.Count == 0) Notify(new IngredientDoneEvent(this));
         }
     }
 

@@ -31,7 +31,7 @@ public class KitchenTutorial : MonoBehaviour, IObserver
     public void ChooseDish(Dish dish)
     {
         Subscribe(dish);
-        gameHandler.subscribeToAllIngredients(this);
+        gameHandler.SubscribeToAllIngredients(this);
         if (dish.GetDishType() == Dish.DishTypes.BurgerAndFries)
         {
             _burgerTutorial.Execute();
@@ -90,6 +90,10 @@ public class KitchenTutorial : MonoBehaviour, IObserver
         else if (observerEvent is PullablePulledEvent)
         {
             _activeTutorial.IngredientPulled();
+        }
+        else if(observerEvent is IngredientDoneEvent)
+        {
+            _activeTutorial.IngredientDone((observerEvent as IngredientDoneEvent).ingredient);
         }
     }
 }

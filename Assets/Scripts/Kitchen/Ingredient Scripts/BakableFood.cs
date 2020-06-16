@@ -15,6 +15,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     [SerializeField] private Material[] _bakeMaterials = new Material[2];
     private float[] _bakedTimes = new float[2];
     private float[] _burntTimes = new float[2];
+    private bool _sidesAreDone = false;
     private bool[] _sideIsBurned = new bool[2];
     private int _currentFace = 0;
     private bool _isBaking = false;
@@ -90,6 +91,11 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     {
         _isBaking = true;
         _bakedTimes[_currentFace] += Time.deltaTime;
+        if(!_sidesAreDone && IsBaked())
+        {
+            _sidesAreDone = true;
+            Notify(new IngredientDoneEvent(this));
+        }
         if (_bakedTimes[_currentFace] >= StartBurnTime())
         {
             _burntTimes[_currentFace] += Time.deltaTime;

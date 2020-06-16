@@ -51,14 +51,11 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         }
     }
 
-    public void subscribeToAllIngredients(IObserver observer)
+    public void SubscribeToAllIngredients(IObserver observer)
     {
         for(int i = 0; i < _ingredients.Count; ++i)
         {
-            if(_ingredients[i] is ISubject)
-            {
-                (_ingredients[i] as ISubject).Register(observer);
-            }
+            _ingredients[i].Register(observer);
         }
     }
 

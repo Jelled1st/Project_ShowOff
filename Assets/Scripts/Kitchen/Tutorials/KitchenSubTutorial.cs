@@ -16,23 +16,24 @@ public abstract class KitchenSubTutorial : MonoBehaviour
     private bool _firstFryer = false;
     [SerializeField] UnityEvent _onFryingStart;
     private bool _firstFryDone = false;
-    [SerializeField] UnityEvent _onFryingDone;
+    [SerializeField] protected UnityEvent _onFryingDone;
     private bool _firstCook = false;
-    [SerializeField] UnityEvent _onCookingStart;
+    [SerializeField] protected UnityEvent _onCookingStart;
     private bool _firstCookDone = false;
-    [SerializeField] UnityEvent _onCookingDone;
+    [SerializeField] protected UnityEvent _onCookingDone;
     private bool _firstBaking = false;
-    [SerializeField] UnityEvent _onBakingStart;
+    [SerializeField] protected UnityEvent _onBakingStart;
     private bool _firstBakingFlip = true;
-    [SerializeField] UnityEvent _onBakingFlip;
+    [SerializeField] protected UnityEvent _onBakingFlip;
     private bool _firstBakingDone = false;
-    [SerializeField] UnityEvent _onBakingDone;
+    [SerializeField] protected UnityEvent _onBakingDone;
     private bool _firstIngredientCut = false;
-    [SerializeField] UnityEvent _onIngredientCut;
+    [SerializeField] protected UnityEvent _onIngredientCut;
     private bool _firstIngredientOnBoard = false;
-    [SerializeField] UnityEvent _onIngredientToCuttingBoard;
+    [SerializeField] protected UnityEvent _onIngredientToCuttingBoard;
     private bool _firstIngredientPulled = false;
-    [SerializeField] UnityEvent _onIngredientPulled;
+    [SerializeField] protected UnityEvent _onIngredientPulled;
+    [SerializeField] protected UnityEvent _onIngredientToDish;
 
     public void DisableAllElements()
     {
@@ -50,6 +51,11 @@ public abstract class KitchenSubTutorial : MonoBehaviour
         }
     }
 
+    protected void StrikeThroughText(TextMeshProUGUI text)
+    {
+        if (text != null) text.fontStyle = FontStyles.Strikethrough;
+    }
+
     public virtual void Execute() => _onExecute.Invoke();
     public virtual void FryingStart()
     {
@@ -57,7 +63,7 @@ public abstract class KitchenSubTutorial : MonoBehaviour
         _firstFryer = true;
 
         _onFryingStart.Invoke();
-        if(_friesInFryer != null) _friesInFryer.fontStyle = FontStyles.Strikethrough;
+        StrikeThroughText(_friesInFryer);
     }
     public virtual void FryingDone()
     {
@@ -88,7 +94,7 @@ public abstract class KitchenSubTutorial : MonoBehaviour
         _firstBaking = true;
 
         _onBakingStart.Invoke();
-        if (_meatToFryingPan != null) _meatToFryingPan.fontStyle = FontStyles.Strikethrough;
+        StrikeThroughText(_meatToFryingPan);
     }
 
     public virtual void BakingFlip()
@@ -97,7 +103,7 @@ public abstract class KitchenSubTutorial : MonoBehaviour
         _firstBakingFlip = true;
 
         _onBakingFlip.Invoke();
-        if (_flipMeat != null) _flipMeat.fontStyle = FontStyles.Strikethrough;
+        StrikeThroughText(_flipMeat);
     }
 
     public virtual void BakingDone()
@@ -114,7 +120,7 @@ public abstract class KitchenSubTutorial : MonoBehaviour
         _firstIngredientCut = true;
 
         _onIngredientCut.Invoke();
-        if (_cutIngredient != null) _cutIngredient.fontStyle = FontStyles.Strikethrough;
+        StrikeThroughText(_cutIngredient);
     }
     public virtual void IngredientToCuttingBoard()
     {
@@ -122,7 +128,7 @@ public abstract class KitchenSubTutorial : MonoBehaviour
         _firstIngredientOnBoard = true;
 
         _onIngredientToCuttingBoard.Invoke();
-        if (_dragIngredientToCuttingBoard != null) _dragIngredientToCuttingBoard.fontStyle = FontStyles.Strikethrough;
+        StrikeThroughText(_dragIngredientToCuttingBoard);
     }
     public virtual void IngredientPulled()
     {
@@ -132,4 +138,13 @@ public abstract class KitchenSubTutorial : MonoBehaviour
         _onIngredientPulled.Invoke();
     }
 
+    public virtual void IngredientAddedToDish()
+    {
+        _onIngredientToDish.Invoke();
+    }
+
+    public virtual void IngredientDone(IIngredient ingredient)
+    {
+
+    }
 }

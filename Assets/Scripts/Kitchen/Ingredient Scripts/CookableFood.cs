@@ -12,6 +12,9 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     [SerializeField] List<CookableFood> _completeCookingWith;
     [SerializeField] List<CookableFood> _canOnlyBeAddedWithFood;
     private float _cookedTime = 0.0f;
+    bool _isDoneCooking = false;
+
+    List<IObserver> _observers = new List<IObserver>();
 
     void Awake()
     {
@@ -33,10 +36,16 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     public void Cook(float modifier = 1.0f)
     {
         _cookedTime += Time.deltaTime *  modifier;
+        if(!_isDoneCooking && IsCooked(true))
+        {
+            _isDoneCooking = true;
+            Notify(new IngredientDoneEvent(this));
+        }
     }
 
     public bool IsCooked(bool withSideIngredients = false)
     {
+        if (_isDoneCooking) return true;
         if (!withSideIngredients) return _cookedTime >= _timeToCook;
         else
         {
@@ -151,4 +160,23 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
         return copy;
     }
     #endregion
+
+
+    public void Register(IObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for (int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
+    }
 }

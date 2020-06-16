@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 131.16855, g: 162.52502, b: 215.10977, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5227,6 +5227,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1261101783}
   - {fileID: 1592926010}
   - {fileID: 642041678}
   - {fileID: 1175631427}
@@ -5719,7 +5720,7 @@ Transform:
   - {fileID: 1112429956}
   - {fileID: 2166000822435859124}
   m_Father: {fileID: 80428011}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187689535
 GameObject:
@@ -5752,7 +5753,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a123fc0ac58cb774e8592c925f167e7c, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 926490972}
+  m_SkySettings: {fileID: 1848186437}
   m_SkySettingsFromProfile: {fileID: -1658960478407648048, guid: a123fc0ac58cb774e8592c925f167e7c,
     type: 2}
 --- !u!4 &187689537
@@ -5767,7 +5768,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &194375904 stripped
 GameObject:
@@ -7132,7 +7133,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &479585407
 GameObject:
@@ -8160,8 +8161,135 @@ MonoBehaviour:
   - {fileID: 1230993316}
   - {fileID: 441103027}
   - {fileID: 1272687321}
-  _onEventPlayer: {fileID: 0}
-  _disableIngredients: 0
+  _onEventPlayer: {fileID: 318761190}
+  _kitchenTutorial: {fileID: 1521825490}
+  _disableIngredients: 1
+--- !u!1 &566029795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 566029797}
+  - component: {fileID: 566029796}
+  m_Layer: 0
+  m_Name: BurgerTutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &566029796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566029795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b39b02486d98a4448aa35a4fc0bdb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorialElements:
+  - {fileID: 986508517}
+  - {fileID: 584093089}
+  - {fileID: 1383781074}
+  _friesInFryer: {fileID: 748580542}
+  _meatToFryingPan: {fileID: 0}
+  _flipMeat: {fileID: 0}
+  _dragIngredientToCuttingBoard: {fileID: 0}
+  _cutIngredient: {fileID: 0}
+  _onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFryingStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFryingDone:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCookingStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCookingDone:
+    m_PersistentCalls:
+      m_Calls: []
+  _onBakingStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onBakingFlip:
+    m_PersistentCalls:
+      m_Calls: []
+  _onBakingDone:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIngredientCut:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIngredientToCuttingBoard:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIngredientPulled:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIngredientToDish:
+    m_PersistentCalls:
+      m_Calls: []
+  _pattyToBurger: {fileID: 0}
+  _finishedIngredientToBurger: {fileID: 0}
+--- !u!4 &566029797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566029795}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1521825491}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &584093089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 584093090}
+  m_Layer: 0
+  m_Name: Burger Quests
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &584093090
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584093089}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1391334569}
+  m_Father: {fileID: 1274676297}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &601210413
 GameObject:
   m_ObjectHideFlags: 0
@@ -8727,7 +8855,7 @@ Transform:
   - {fileID: 1086914627}
   - {fileID: 2025259525}
   m_Father: {fileID: 80428011}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &652576344 stripped
 GameObject:
@@ -9537,7 +9665,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &748580540
 GameObject:
@@ -9854,7 +9982,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 599eeab16eca6e74ca1760e80bde8065,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 599eeab16eca6e74ca1760e80bde8065,
         type: 3}
@@ -10828,7 +10956,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 43.821003, y: -348.031, z: 0}
 --- !u!114 &899114647
 MonoBehaviour:
@@ -11106,107 +11234,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textMeshProUgui: {fileID: 0}
   _fieldName: kitchen.cookPatty
---- !u!114 &926490972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 10
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  hdriSky:
-    m_OverrideState: 0
-    m_Value: {fileID: 8900000, guid: 54a3a0570aebe8949bec4966f1376581, type: 3}
-  enableBackplate:
-    m_OverrideState: 0
-    m_Value: 0
-  backplateType:
-    m_OverrideState: 0
-    m_Value: 0
-  groundLevel:
-    m_OverrideState: 0
-    m_Value: 0
-  scale:
-    m_OverrideState: 0
-    m_Value: {x: 32, y: 32}
-  projectionDistance:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 0.0000001
-  plateRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  blendAmount:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 100
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  pointLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  dirLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  rectLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!1 &940226210
 GameObject:
   m_ObjectHideFlags: 0
@@ -12117,7 +12144,7 @@ PrefabInstance:
     - target: {fileID: 4420835435002856284, guid: eea3b54acfcebd54ea66ac1406203ba6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4420835435002856284, guid: eea3b54acfcebd54ea66ac1406203ba6,
         type: 3}
@@ -12353,7 +12380,7 @@ Transform:
   - {fileID: 195306891}
   - {fileID: 1137508610}
   m_Father: {fileID: 80428011}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1182884084
 PrefabInstance:
@@ -12885,13 +12912,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261101782}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 194375907}
-  m_Father: {fileID: 1592926010}
-  m_RootOrder: 8
+  m_Father: {fileID: 80428011}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1272687318
 PrefabInstance:
@@ -13062,7 +13089,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 986508518}
-  - {fileID: 1391334569}
+  - {fileID: 584093090}
   m_Father: {fileID: 1513123205}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13828,12 +13855,12 @@ RectTransform:
   m_Children:
   - {fileID: 884285317}
   - {fileID: 921995360}
-  m_Father: {fileID: 1274676297}
-  m_RootOrder: 1
+  m_Father: {fileID: 584093090}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -409.7, y: -170.2}
+  m_AnchoredPosition: {x: -409.7, y: -187.20003}
   m_SizeDelta: {x: 258, y: 189}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1391334570
@@ -14198,7 +14225,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1.3615}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 180, y: -0.000015258789, z: -0.000015258789}
 --- !u!1 &1425867132
 GameObject:
@@ -15406,6 +15433,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515544998}
   m_CullTransparentMesh: 0
+--- !u!1 &1521825489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1521825491}
+  - component: {fileID: 1521825490}
+  m_Layer: 0
+  m_Name: KitchenTutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1521825490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521825489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f4b5bc3733d2f4190c3a120cfda4f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _burgerTutorial: {fileID: 566029796}
+  _ccFriesTutorial: {fileID: 0}
+  _fishNChipsTutorial: {fileID: 0}
+  _fryer: {fileID: 503872837}
+  _pan: {fileID: 166019451}
+  _cooker: {fileID: 5925486007675970752}
+  _cuttingBoard: {fileID: 1997775964}
+  gameHandler: {fileID: 0}
+--- !u!4 &1521825491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521825489}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 579.76685, y: 544.4303, z: -443.6106}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 566029797}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1538555582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15696,7 +15775,7 @@ Transform:
   - {fileID: 2118374893}
   - {fileID: 1415470000}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1589746921
 GameObject:
@@ -15765,9 +15844,8 @@ Transform:
   - {fileID: 6242142770109155711}
   - {fileID: 4871316214910899657}
   - {fileID: 1766040232}
-  - {fileID: 1261101783}
   m_Father: {fileID: 80428011}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1607809775
 GameObject:
@@ -16671,7 +16749,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1776063413
 MonoBehaviour:
@@ -16854,6 +16932,107 @@ Transform:
   m_Father: {fileID: 1304799872}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -30, y: 90, z: 0}
+--- !u!114 &1848186437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 10.91
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  hdriSky:
+    m_OverrideState: 0
+    m_Value: {fileID: 8900000, guid: 54a3a0570aebe8949bec4966f1376581, type: 3}
+  enableBackplate:
+    m_OverrideState: 0
+    m_Value: 0
+  backplateType:
+    m_OverrideState: 0
+    m_Value: 0
+  groundLevel:
+    m_OverrideState: 0
+    m_Value: 0
+  scale:
+    m_OverrideState: 0
+    m_Value: {x: 32, y: 32}
+  projectionDistance:
+    m_OverrideState: 0
+    m_Value: 16
+    min: 0.0000001
+  plateRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  blendAmount:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 100
+  shadowTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  pointLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  dirLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  rectLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!1 &1916537851
 GameObject:
   m_ObjectHideFlags: 0
@@ -17716,7 +17895,7 @@ Transform:
   - {fileID: 503872836}
   - {fileID: 1589746922}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2025259519
 PrefabInstance:
@@ -18682,7 +18861,7 @@ PrefabInstance:
     - target: {fileID: 8587047618387502549, guid: 1559038271e62e8428b5ae6a3a4c232f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.7921
+      value: -0.88
       objectReference: {fileID: 0}
     - target: {fileID: 8587047618387502549, guid: 1559038271e62e8428b5ae6a3a4c232f,
         type: 3}
@@ -18692,7 +18871,7 @@ PrefabInstance:
     - target: {fileID: 8587047618387502549, guid: 1559038271e62e8428b5ae6a3a4c232f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.28480002
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 8587047618387502549, guid: 1559038271e62e8428b5ae6a3a4c232f,
         type: 3}
