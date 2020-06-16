@@ -19,7 +19,9 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
     // Start is called before the first frame update
     void Start()
     {
-        _burgerTutorial.DisableAllElements();
+        _burgerTutorial?.DisableAllElements();
+        _ccFriesTutorial?.DisableAllElements();
+        _fishNChipsTutorial?.DisableAllElements();
         Subscribe(_fryer);
         Subscribe(_pan);
         Subscribe(_cooker);
@@ -43,9 +45,17 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         gameHandler.SubscribeToAllIngredients(this);
         if (dish.GetDishType() == Dish.DishTypes.BurgerAndFries)
         {
-            _burgerTutorial.Execute();
             _activeTutorial = _burgerTutorial;
         }
+        else if(dish.GetDishType() == Dish.DishTypes.ChiliCheeseFries)
+        {
+            _activeTutorial = _ccFriesTutorial;
+        }
+        else if (dish.GetDishType() == Dish.DishTypes.FishAndChips)
+        {
+            _activeTutorial = _fishNChipsTutorial;
+        }
+        _activeTutorial.Execute();
     }
 
     public void Subscribe(ISubject subject)

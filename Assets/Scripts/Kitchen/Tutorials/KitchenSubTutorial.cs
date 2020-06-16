@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public abstract class KitchenSubTutorial : MonoBehaviour
+public class KitchenSubTutorial : MonoBehaviour
 {
     [SerializeField] List<GameObject> _tutorialElements;
     [SerializeField] TextMeshProUGUI _friesInFryer;
