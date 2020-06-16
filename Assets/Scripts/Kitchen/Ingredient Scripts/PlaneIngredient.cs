@@ -105,6 +105,20 @@ public class PlaneIngredient : MonoBehaviour, IIngredient, IControllable
         Destroy(copy.GetComponent<Collider>());
         return copy;
     }
-
     #endregion
+
+
+    public void Register(IObserver observer)
+    {
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        throw new System.NotImplementedException("Notify on PlaneIngredient is not implemented");
+    }
+
 }

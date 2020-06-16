@@ -19,7 +19,7 @@ public enum IngredientType
     ShreddedCheese,
 }
 
-public interface IIngredient
+public interface IIngredient : ISubject
 {
     IngredientType GetIngredientType();
     bool ReadyForDish();

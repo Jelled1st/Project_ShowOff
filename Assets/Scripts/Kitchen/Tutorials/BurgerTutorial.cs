@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class BurgerTutorial : KitchenSubTutorial
 {
-
+    [SerializeField] TextMeshProUGUI _pattyToBurger;
+    [SerializeField] TextMeshProUGUI _finishedIngredientToBurger;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _onBakingDone.AddListener(delegate { StrikeThroughText(_pattyToBurger); });
+        _onIngredientToDish.AddListener(delegate { StrikeThroughText(_finishedIngredientToBurger); });
     }
 
     // Update is called once per frame
@@ -19,39 +22,8 @@ public class BurgerTutorial : KitchenSubTutorial
         
     }
 
-    public void Execute()
+    public override void IngredientDone(IIngredient ingredient)
     {
-    }
-
-    public void FryingStart()
-    {
-    }
-
-    public void FryingDone()
-    {
-    }
-
-    public void CookingStart()
-    {
-    }
-
-    public void CookingDone()
-    {
-    }
-
-    public void BakingStart()
-    {
-    }
-
-    public void BakingDone()
-    {
-    }
-
-    public void IngredientCut()
-    {
-    }
-
-    public void IngredientPulled()
-    {
+        
     }
 }

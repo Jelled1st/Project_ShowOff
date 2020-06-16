@@ -27,6 +27,30 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
         }
     }
 
+    public void OnDisable()
+    {
+        for(int i = 0; i < _pullables.Count; ++i)
+        {
+            _pullables[i].gameObject.SetActive(false);
+        }
+    }
+
+    public void OnEnable()
+    {
+        for (int i = 0; i < _pullables.Count; ++i)
+        {
+            _pullables[i].gameObject.SetActive(true);
+        }
+    }
+
+    public void OnDestroy()
+    {
+        for (int i = 0; i < _pullables.Count; ++i)
+        {
+            Destroy(_pullables[i].gameObject);
+        }
+    }
+
     public void Pull(PullableFoodPullable pulled)
     {
         if (_pullables.Contains(pulled))
@@ -43,6 +67,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
             _pullables.Remove(currentPullable);
             Destroy(currentPullable.gameObject);
             currentPullable = null;
+            if (_pullables.Count == 0) Notify(new IngredientDoneEvent(this));
         }
     }
 
