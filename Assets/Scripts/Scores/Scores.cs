@@ -37,14 +37,14 @@ public static class Scores
         public int CompareTo(object obj)
         {
             var other = (UserScore) obj;
-            return other.score.CompareTo(this.score);
+            return other.score.CompareTo(score);
         }
     }
 
     private const string ScorePrefix = "Score";
     private const string NamePrefix = "Name";
     private const string BlankName = "NNM";
-    private const int MaxScoresCount = 10;
+    private const int MaxScoresCount = 3;
 
     private static UserScore _currentUser;
 
@@ -58,6 +58,7 @@ public static class Scores
 
     public static List<UserScore> GetScoreList()
     {
+        RefreshScores();
         return new List<UserScore>(ScoreList);
     }
 
@@ -85,12 +86,9 @@ public static class Scores
 
     public static void ClearScores()
     {
-        for (int i = 0; i < MaxScoresCount; i++)
-        {
-            PlayerPrefs.DeleteKey(NamePrefix + i);
-            PlayerPrefs.DeleteKey(ScorePrefix + i);
-            ScoreList.Clear();
-        }
+        PlayerPrefs.DeleteAll();
+
+        ScoreList.Clear();
     }
 
     public static float GetCurrentScore()
@@ -125,31 +123,19 @@ public static class Scores
 
         var newId = 0;
 
-        if (ScoreList.Count > 0)
-        {
-            newId = ScoreList.Count;
-        }
-        else if (ScoreList.Count > MaxScoresCount)
-        {
-            var minScore = ScoreList.Min(s => s.score);
-            if (CurrentUser.score > minScore)
-            {
-                newId = ScoreList.Find(s => s.score == minScore).id;
-            }
-            else
-            {
-                CurrentUser = null;
-                return;
-            }
-        }
+        ScoreList.Add(new UserScore(username, CurrentUser.score, -1));
+        ScoreList.Sort();
 
-        CurrentUser.username = username;
+        for (int i = 0; i < MaxScoresCount; i++)
+        {
+            if (ScoreList.Count <= i)
+                break;
 
-        PlayerPrefs.SetString(NamePrefix + newId, CurrentUser.username);
-        PlayerPrefs.SetFloat(ScorePrefix + newId, CurrentUser.score);
+            PlayerPrefs.SetString(NamePrefix + i, ScoreList[i].username);
+            PlayerPrefs.SetFloat(ScorePrefix + i, ScoreList[i].score);
+        }
 
         CurrentUser = null;
-        RefreshScores();
     }
 
     public static void Register(IScoresObserver observer)
