@@ -7,7 +7,7 @@ public class CuttingBoard : MonoBehaviour, IControllable, ISubject
     [SerializeField] private GameObject _cutPosition;
     private CuttableFood _selected = null;
 
-    private List<IObserver> _observers;
+    private List<IObserver> _observers = new List<IObserver>();
 
     // Start is called before the first frame update
     void Start()
