@@ -614,7 +614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &74002592
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2889,7 +2889,7 @@ PrefabInstance:
     - target: {fileID: 8587047618387502549, guid: 1559038271e62e8428b5ae6a3a4c232f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.88
+      value: -0.938
       objectReference: {fileID: 0}
     - target: {fileID: 8587047618387502549, guid: 1559038271e62e8428b5ae6a3a4c232f,
         type: 3}
@@ -3003,7 +3003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2dfd846ba32e24cb8fd42a496ea6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ingredientType: 4
+  _ingredientType: 5
   _ingredientHeight: 0.1
   _timeToFry: 3
   fryer: {fileID: 0}
@@ -3927,7 +3927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _burgerTutorial: {fileID: 132149837}
-  _ccFriesTutorial: {fileID: 0}
+  _ccFriesTutorial: {fileID: 1963722737}
   _fishNChipsTutorial: {fileID: 0}
   _fryer: {fileID: 1729868931}
   _pan: {fileID: 1082395791}
@@ -3946,6 +3946,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 132149838}
+  - {fileID: 1963722738}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6515,7 +6516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &770254507
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8436,9 +8437,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dishType: 1
-  _requiredIngredients: 080000000b000000
+  _requiredIngredients: 080000000b00000005000000
   _requiredPlacements:
   - {fileID: 1709684075}
+  - {fileID: 803350012}
   - {fileID: 803350012}
   _placeRequiredInOrder: 1
   _optionalIngredients: 
@@ -16735,7 +16737,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: c3e2ac4807b165d4387bf971e3759324,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9551
+      value: -0.566
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c3e2ac4807b165d4387bf971e3759324,
         type: 3}
@@ -16745,7 +16747,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: c3e2ac4807b165d4387bf971e3759324,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0951
+      value: -0.069
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c3e2ac4807b165d4387bf971e3759324,
         type: 3}
@@ -19126,6 +19128,187 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960163058}
   m_CullTransparentMesh: 0
+--- !u!1 &1963722736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1963722738}
+  - component: {fileID: 1963722737}
+  m_Layer: 0
+  m_Name: CC fries Tutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1963722737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963722736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5940c3e142136429855834dac1ae7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorialElements:
+  - {fileID: 1500152046}
+  - {fileID: 770254506}
+  _friesInFryer: {fileID: 2049476889}
+  _meatToFryingPan: {fileID: 0}
+  _flipMeat: {fileID: 0}
+  _dragIngredientToCuttingBoard: {fileID: 0}
+  _cutIngredient: {fileID: 0}
+  _onExecute:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1963722737}
+        m_MethodName: EnableAllElements
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 104984364}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 84083124}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1191444227}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1819430575}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 743543676}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1557918360}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onFryingStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 104984364}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onFryingDone:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCookingStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onCookingDone:
+    m_PersistentCalls:
+      m_Calls: []
+  _onBakingStart:
+    m_PersistentCalls:
+      m_Calls: []
+  _onSideBaked:
+    m_PersistentCalls:
+      m_Calls: []
+  _onBakingFlip:
+    m_PersistentCalls:
+      m_Calls: []
+  _onBakingDone:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIngredientCut:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIngredientToCuttingBoard:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIngredientPulled:
+    m_PersistentCalls:
+      m_Calls: []
+  _onIngredientToDish:
+    m_PersistentCalls:
+      m_Calls: []
+  _onFirstIngredientToDish:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1963722738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963722736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 466182297}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1965700346
 GameObject:
   m_ObjectHideFlags: 0
