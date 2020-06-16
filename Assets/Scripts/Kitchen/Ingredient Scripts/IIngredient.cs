@@ -17,6 +17,15 @@ public enum IngredientType
     Onion,
     ChickenFilet,
     ShreddedCheese,
+    Carrot,
+    CayennePepper,
+    ChiliPowder,
+    DicedChicken,
+    GroundTurmeric,
+    SeaSalt,
+    RawFish,
+    Cucumber,
+    FetaCheese,
 }
 
 public interface IIngredient : ISubject

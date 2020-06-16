@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public class KitchenTutorial : MonoBehaviour, IObserver
+public class KitchenTutorial : MonoBehaviour, IDishObserver
 {
     [SerializeField] KitchenSubTutorial _burgerTutorial;
     [SerializeField] KitchenSubTutorial _ccFriesTutorial;
@@ -19,7 +19,13 @@ public class KitchenTutorial : MonoBehaviour, IObserver
     // Start is called before the first frame update
     void Start()
     {
-        _burgerTutorial.DisableAllElements();
+        _burgerTutorial?.DisableAllElements();
+        _ccFriesTutorial?.DisableAllElements();
+        _fishNChipsTutorial?.DisableAllElements();
+        Subscribe(_fryer);
+        Subscribe(_pan);
+        Subscribe(_cooker);
+        Subscribe(_cuttingBoard);
     }
 
     // Update is called once per frame
@@ -31,12 +37,25 @@ public class KitchenTutorial : MonoBehaviour, IObserver
     public void ChooseDish(Dish dish)
     {
         Subscribe(dish);
+        List<Dish> sideDishes = dish.GetSideDishesLeft();
+        for(int i = 0; i < sideDishes.Count; ++i)
+        {
+            Subscribe(sideDishes[i]);
+        }
         gameHandler.SubscribeToAllIngredients(this);
         if (dish.GetDishType() == Dish.DishTypes.BurgerAndFries)
         {
-            _burgerTutorial.Execute();
             _activeTutorial = _burgerTutorial;
         }
+        else if(dish.GetDishType() == Dish.DishTypes.ChiliCheeseFries)
+        {
+            _activeTutorial = _ccFriesTutorial;
+        }
+        else if (dish.GetDishType() == Dish.DishTypes.FishAndChips)
+        {
+            _activeTutorial = _fishNChipsTutorial;
+        }
+        _activeTutorial.Execute();
     }
 
     public void Subscribe(ISubject subject)
@@ -53,47 +72,60 @@ public class KitchenTutorial : MonoBehaviour, IObserver
     {
         if(observerEvent is BakingStartEvent)
         {
-            _activeTutorial.BakingStart();
+            _activeTutorial?.BakingStart();
+        }
+        else if(observerEvent is SideBakedEvent)
+        {
+            _activeTutorial?.SideBakedDone();
         }
         else if(observerEvent is BakingDoneEvent)
         {
-            _activeTutorial.BakingDone();
+            _activeTutorial?.BakingDone();
         }
         else if(observerEvent is BakingFlipEvent)
         {
-            _activeTutorial.BakingFlip();
+            _activeTutorial?.BakingFlip();
         }
         else if (observerEvent is CookingStartEvent)
         {
-            _activeTutorial.CookingDone();
+            _activeTutorial?.CookingStart();
         }
         else if (observerEvent is CookingDoneEvent)
         {
-            _activeTutorial.CookingStart();
+            _activeTutorial?.CookingDone();
         }
         else if (observerEvent is FryerStartEvent)
         {
-            _activeTutorial.FryingStart();
+            _activeTutorial?.FryingStart();
         }
         else if (observerEvent is FryerStopEvent)
         {
-            _activeTutorial.FryingDone();
+            _activeTutorial?.FryingDone();
         }
         else if (observerEvent is CuttableCutEvent)
         {
-            _activeTutorial.IngredientCut();
+            _activeTutorial?.IngredientCut();
         }
         else if(observerEvent is CuttableOnCuttingBoardEvent)
         {
-            _activeTutorial.IngredientToCuttingBoard();
+            _activeTutorial?.IngredientToCuttingBoard();
         }
         else if (observerEvent is PullablePulledEvent)
         {
-            _activeTutorial.IngredientPulled();
+            _activeTutorial?.IngredientPulled();
         }
         else if(observerEvent is IngredientDoneEvent)
         {
-            _activeTutorial.IngredientDone((observerEvent as IngredientDoneEvent).ingredient);
+            _activeTutorial?.IngredientDone((observerEvent as IngredientDoneEvent).ingredient);
         }
+    }
+
+    public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
+    {
+        _activeTutorial?.IngredientAddedToDish();
+    }
+
+    public void OnFinishDish(ISubject subject)
+    {
     }
 }

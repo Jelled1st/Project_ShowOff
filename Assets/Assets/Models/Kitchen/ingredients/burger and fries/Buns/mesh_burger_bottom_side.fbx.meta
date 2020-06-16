@@ -6,7 +6,12 @@ ModelImporter:
   - first:
       74: 1827226128182048838
     second: Take 001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: burger_buns
+    second: {fileID: 2100000, guid: 6495fa5656eea4a419cc4a852dc54e21, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

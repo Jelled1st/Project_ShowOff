@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0cea3e0403177a4fbf23317db33c02a, type: 3}
+  m_Name: Carrot
+  m_EditorClassIdentifier: 
+  _fallOffPieces:
+  - {fileID: -927199367670048503, guid: 41378efa7153f894c9a50ab2c127de15, type: 3}
+  - {fileID: -927199367670048503, guid: c97568e4dd78e1c4497f8c6593ee1a43, type: 3}
+  - {fileID: -927199367670048503, guid: a468ee55fb4e436478ff4b962cbea5bb, type: 3}
+  - {fileID: -927199367670048503, guid: 59db1caec8e711645b3fe82a56f1e8ca, type: 3}
+  - {fileID: -927199367670048503, guid: 4ea5880a44d5ade45a258216d711aeec, type: 3}
+  - {fileID: -927199367670048503, guid: 1a6ebc2ca658f3b498019ba481d90c99, type: 3}
+  - {fileID: -927199367670048503, guid: 8ecdb5f4c559dad4695aa652c9d2b7bc, type: 3}
+  - {fileID: -927199367670048503, guid: b4439134855805f4bada97c3645d5ed5, type: 3}
+  - {fileID: -927199367670048503, guid: 49b59f0bf8f67a644b133d5a8c26c1e9, type: 3}
+  - {fileID: -927199367670048503, guid: f866def9eca6e48408a2a725e1c74a94, type: 3}
+  - {fileID: -927199367670048503, guid: f92d5f2b82839b64d879c98cfaa5b2c1, type: 3}
+  _fallOffPiecesLengths:
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1

@@ -1,6 +1,8 @@
 ﻿using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 namespace Factory
@@ -80,6 +82,8 @@ namespace Factory
         private bool _level1Passed;
         private FactoryUiManager _factoryUiManager;
         private StageTimer _stageTimer;
+
+        bool _trulyFinished = false;
 
         public int PotatoesNeededToPassLevel1 => _potatoesNeededToPassLevel1;
 
@@ -176,6 +180,7 @@ namespace Factory
 
         private void OnLevel2TriggerHit(GameObject obj)
         {
+            StartCoroutine(LoadScene());
             if (!obj.CompareTag(_allowedTruckObjectTag))
                 return;
 
@@ -186,7 +191,29 @@ namespace Factory
                 _canAppendScore = true;
                 FindObjectOfType<BKM>().TruckDriving();
 
-                SceneManager.LoadScene(_nextScene);
+                //SceneManager.LoadScene(_nextScene);
+                _trulyFinished = true;
+            }
+        }
+        IEnumerator LoadScene()
+        {
+            yield return null;
+
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_nextScene);
+
+            asyncOperation.allowSceneActivation = false;
+
+            while (!asyncOperation.isDone)
+            {
+                print("Loading Progress: " + (asyncOperation.progress * 100) + "%");
+                if (asyncOperation.progress >= 0.9f)
+                {
+                    if (_trulyFinished == true)
+                    {
+                        asyncOperation.allowSceneActivation = true;
+                    }
+                }
+                yield return null;
             }
         }
     }

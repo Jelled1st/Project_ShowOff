@@ -16,7 +16,8 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     private float[] _bakedTimes = new float[2];
     private float[] _burntTimes = new float[2];
     private bool _sidesAreDone = false;
-    private bool[] _sideIsBurned = new bool[2];
+    private bool[] _sideIsDone = new bool[2] { false, false};
+    private bool[] _sideIsBurned = new bool[2] { false, false};
     private int _currentFace = 0;
     private bool _isBaking = false;
     private bool _wasBaking = false;
@@ -91,6 +92,11 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     {
         _isBaking = true;
         _bakedTimes[_currentFace] += Time.deltaTime;
+        if(!_sideIsDone[_currentFace] && _bakedTimes[_currentFace] >= _timeToBake)
+        {
+            _sideIsDone[_currentFace] = true;
+            Notify(new SideBakedEvent(this, _currentFace));
+        }
         if(!_sidesAreDone && IsBaked())
         {
             _sidesAreDone = true;

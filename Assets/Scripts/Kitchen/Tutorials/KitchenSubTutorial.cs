@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public abstract class KitchenSubTutorial : MonoBehaviour
+public class KitchenSubTutorial : MonoBehaviour
 {
     [SerializeField] List<GameObject> _tutorialElements;
     [SerializeField] TextMeshProUGUI _friesInFryer;
@@ -23,7 +23,9 @@ public abstract class KitchenSubTutorial : MonoBehaviour
     [SerializeField] protected UnityEvent _onCookingDone;
     private bool _firstBaking = false;
     [SerializeField] protected UnityEvent _onBakingStart;
-    private bool _firstBakingFlip = true;
+    private bool _firstSide = false;
+    [SerializeField] protected UnityEvent _onSideBaked;
+    private bool _firstBakingFlip = false;
     [SerializeField] protected UnityEvent _onBakingFlip;
     private bool _firstBakingDone = false;
     [SerializeField] protected UnityEvent _onBakingDone;
@@ -33,7 +35,9 @@ public abstract class KitchenSubTutorial : MonoBehaviour
     [SerializeField] protected UnityEvent _onIngredientToCuttingBoard;
     private bool _firstIngredientPulled = false;
     [SerializeField] protected UnityEvent _onIngredientPulled;
+    private bool _firstIngredientAdded = false;
     [SerializeField] protected UnityEvent _onIngredientToDish;
+    [SerializeField] protected UnityEvent _onFirstIngredientToDish;
 
     public void DisableAllElements()
     {
@@ -97,6 +101,14 @@ public abstract class KitchenSubTutorial : MonoBehaviour
         StrikeThroughText(_meatToFryingPan);
     }
 
+    public virtual void SideBakedDone()
+    {
+        if (_firstSide) return;
+        _firstSide = true;
+
+        _onSideBaked.Invoke();
+    }
+
     public virtual void BakingFlip()
     {
         if (_firstBakingFlip) return;
@@ -141,6 +153,9 @@ public abstract class KitchenSubTutorial : MonoBehaviour
     public virtual void IngredientAddedToDish()
     {
         _onIngredientToDish.Invoke();
+        if (_firstIngredientAdded) return;
+        _firstIngredientAdded = true;
+        _onFirstIngredientToDish.Invoke();
     }
 
     public virtual void IngredientDone(IIngredient ingredient)
