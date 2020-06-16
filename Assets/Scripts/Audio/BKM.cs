@@ -30,6 +30,9 @@ public class BKM : MonoBehaviour
 
     public int debugLevelTest;
    
+    //TODO: Remove this
+    private int _debugPotatoes;
+    
     private void Start()
     {
         string currentScene = SceneManager.GetActiveScene().name;
@@ -168,6 +171,22 @@ public class BKM : MonoBehaviour
     }
 
     #endregion
+    
+    // TODO: REMOVE THIS
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Factory/Potato_Packed"))
+        {
+            if (_debugPotatoes >= 2)
+            {
+                StopMusicFade();
+            }
+            else
+            {
+                _debugPotatoes++;
+            }
+        }
+    }
 
     private IEnumerator WaitForEnd(float length)
     {
