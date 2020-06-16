@@ -13,10 +13,16 @@ public class BurgerTutorial : KitchenSubTutorial
     void Start()
     {
         _onBakingDone.AddListener(delegate { StrikeThroughText(_pattyToBurger); });
+        _onIngredientToDish.AddListener(delegate { StrikeThroughText(_finishedIngredientToBurger); });
     }
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    public override void IngredientDone(IIngredient ingredient)
     {
         
     }
