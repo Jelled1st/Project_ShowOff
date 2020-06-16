@@ -13,12 +13,13 @@ public class LevelTransition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(LoadScene());
+        //StartCoroutine(LoadScene());
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     void Awake()
@@ -34,7 +35,8 @@ public class LevelTransition : MonoBehaviour
     {
         if (message.Equals("end"))
         {
-            messagePassed = true;
+            //messagePassed = true;
+            SceneManager.LoadScene(_nextScene);
         }
     }
 
