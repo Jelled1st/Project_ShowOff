@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 
-public class KitchenTutorial : MonoBehaviour, IObserver
+public class KitchenTutorial : MonoBehaviour, IDishObserver
 {
     [SerializeField] KitchenSubTutorial _burgerTutorial;
     [SerializeField] KitchenSubTutorial _ccFriesTutorial;
@@ -20,6 +20,10 @@ public class KitchenTutorial : MonoBehaviour, IObserver
     void Start()
     {
         _burgerTutorial.DisableAllElements();
+        Subscribe(_fryer);
+        Subscribe(_pan);
+        Subscribe(_cooker);
+        Subscribe(_cuttingBoard);
     }
 
     // Update is called once per frame
@@ -31,6 +35,11 @@ public class KitchenTutorial : MonoBehaviour, IObserver
     public void ChooseDish(Dish dish)
     {
         Subscribe(dish);
+        List<Dish> sideDishes = dish.GetSideDishesLeft();
+        for(int i = 0; i < sideDishes.Count; ++i)
+        {
+            Subscribe(sideDishes[i]);
+        }
         gameHandler.SubscribeToAllIngredients(this);
         if (dish.GetDishType() == Dish.DishTypes.BurgerAndFries)
         {
@@ -55,6 +64,10 @@ public class KitchenTutorial : MonoBehaviour, IObserver
         {
             _activeTutorial.BakingStart();
         }
+        else if(observerEvent is SideBakedEvent)
+        {
+            _activeTutorial.SideBakedDone();
+        }
         else if(observerEvent is BakingDoneEvent)
         {
             _activeTutorial.BakingDone();
@@ -65,11 +78,11 @@ public class KitchenTutorial : MonoBehaviour, IObserver
         }
         else if (observerEvent is CookingStartEvent)
         {
-            _activeTutorial.CookingDone();
+            _activeTutorial.CookingStart();
         }
         else if (observerEvent is CookingDoneEvent)
         {
-            _activeTutorial.CookingStart();
+            _activeTutorial.CookingDone();
         }
         else if (observerEvent is FryerStartEvent)
         {
@@ -95,5 +108,14 @@ public class KitchenTutorial : MonoBehaviour, IObserver
         {
             _activeTutorial.IngredientDone((observerEvent as IngredientDoneEvent).ingredient);
         }
+    }
+
+    public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
+    {
+        _activeTutorial.IngredientAddedToDish();
+    }
+
+    public void OnFinishDish(ISubject subject)
+    {
     }
 }
