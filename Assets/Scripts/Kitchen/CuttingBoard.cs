@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CuttingBoard : MonoBehaviour, IControllable
+public class CuttingBoard : MonoBehaviour, IControllable, ISubject
 {
     [SerializeField] private GameObject _cutPosition;
     private CuttableFood _selected = null;
+
+    private List<IObserver> _observers;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +62,7 @@ public class CuttingBoard : MonoBehaviour, IControllable
             food.cuttingBoard = this;
             food.transform.position = _cutPosition.transform.position;
             food.transform.rotation = _cutPosition.transform.rotation;
+            Notify(new CuttableOnCuttingBoardEvent(this, food));
         }
     }
 
@@ -79,4 +82,22 @@ public class CuttingBoard : MonoBehaviour, IControllable
     {
     }
     #endregion
+
+    public void Register(IObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for(int i = 0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
+    }
 }

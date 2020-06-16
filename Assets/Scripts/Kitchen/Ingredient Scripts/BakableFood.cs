@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BakableFood : MonoBehaviour, IControllable, IIngredient
+public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 {
     [SerializeField] private IngredientType _ingredientType;
     [SerializeField] private float _ingredientHeight;
@@ -20,6 +20,8 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     private bool _isBaking = false;
     private bool _wasBaking = false;
     [HideInInspector] public FryingPan fryingPan;
+
+    private List<IObserver> _observers = new List<IObserver>();
 
     void Awake()
     {
@@ -123,6 +125,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
             this.transform.DOPunchPosition(new Vector3(0, _flipHeight, 0), 0.7f, 0);
             this.transform.DORotate(new Vector3(180, 0, 0), 0.4f, RotateMode.WorldAxisAdd);
             _smokeParticles.transform.rotation = Quaternion.identity;
+            Notify(new BakingFlipEvent(this));
         }
     }
 
@@ -215,4 +218,22 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient
     {
     }
     #endregion
+
+    public void Register(IObserver observer)
+    {
+        _observers.Add(observer);
+    }
+
+    public void UnRegister(IObserver observer)
+    {
+        _observers.Remove(observer);
+    }
+
+    public void Notify(AObserverEvent observerEvent)
+    {
+        for(int i  =0; i < _observers.Count; ++i)
+        {
+            _observers[i].OnNotify(observerEvent);
+        }
+    }
 }

@@ -6,6 +6,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 {
     [SerializeField] List<Dish> _dishes;
     [SerializeField] OnEventPlayer _onEventPlayer;
+    [SerializeField] KitchenTutorial _kitchenTutorial;
     private Dish _choosenDish;
 
     private List<IObserver> _observers = new List<IObserver>();
@@ -35,6 +36,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
             _ingredientGOs.Add(ingredients[i]);
             if(_disableIngredients) ingredients[i].SetActive(false);
         }
+        _kitchenTutorial.gameHandler = this;
 
         //ChooseDish(_dishes[0]);
     }
@@ -49,6 +51,17 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         }
     }
 
+    public void subscribeToAllIngredients(IObserver observer)
+    {
+        for(int i = 0; i < _ingredients.Count; ++i)
+        {
+            if(_ingredients[i] is ISubject)
+            {
+                (_ingredients[i] as ISubject).Register(observer);
+            }
+        }
+    }
+
     public void ChooseDish(Dish dish)
     {
         for(int i = 0; i < _dishes.Count; ++i)
@@ -59,6 +72,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
                 EnableDishIngredients(_choosenDish);
                 Subscribe(_choosenDish);
                 _onEventPlayer.Subscribe(_choosenDish);
+                _kitchenTutorial.ChooseDish(dish);
             }
             else
             {
