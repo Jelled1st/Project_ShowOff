@@ -313,6 +313,22 @@ public class SFX : MonoBehaviour
 
     #region KitchenSounds
 
+    public void SoundBurnerOn()
+    {
+        Play("SFX_KITCHEN/Burner On");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+    
+    public void SoundBurnerOff()
+    {
+        Play("SFX_KITCHEN/Burner Off");
+
+        clipLength = 0.1f;
+        StartCoroutine(WaitForEnd(clipLength));
+    }
+    
     // Sound when cutting stuff like carrots, onions, apples
     public void SoundHardCut()
     {
