@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/!Farm Level.unity
     guid: 5f031a0c09f0f024c870c2d68531c0df
   - enabled: 1
+    path: Assets/Scenes/!Farm Transition.unity
+    guid: 272278aad5691924184478291c2f5e00
+  - enabled: 1
     path: Assets/Scenes/!Factory Level.unity
     guid: fccf835ed89fd284e827d4f54a8b46b5
   - enabled: 1

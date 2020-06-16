@@ -25,6 +25,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     private bool _paused = false;
     private bool _gameFinished = false;
     private bool _debugLog = false;
+    bool _trulyFinished = false;
 
     private bool _plantsStartAtGrown = false;
 
@@ -223,6 +224,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
                 _gameHandlerObservers[i].OnFinish();
             }
         }
+        StartCoroutine(LoadScene());
     }
 
     public void OnTriggerEnter(Collider other)
@@ -232,7 +234,30 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         if(other.TryGetComponent<Truck>(out truck) && _gameFinished)
         {
             //Game truly finished
-            SceneManager.LoadScene(_nextScene);
+            //SceneManager.LoadScene(_nextScene);
+            _trulyFinished = true;
+        }
+    }
+
+    IEnumerator LoadScene()
+    {
+        yield return null;
+
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_nextScene);
+
+        asyncOperation.allowSceneActivation = false;
+        
+        while (!asyncOperation.isDone)
+        {
+            print("Loading Progress: " + (asyncOperation.progress * 100) + "%");
+            if(asyncOperation.progress >= 0.9f)
+            {
+                if(_trulyFinished == true)
+                {
+                    asyncOperation.allowSceneActivation = true;
+                }
+            }
+            yield return null;
         }
     }
 
