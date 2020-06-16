@@ -55,7 +55,7 @@ public class KitchenSubTutorial : MonoBehaviour
         }
     }
 
-    protected void StrikeThroughText(TextMeshProUGUI text)
+    public static void StrikeThroughText(TextMeshProUGUI text)
     {
         if (text != null) text.fontStyle = FontStyles.Strikethrough;
     }
