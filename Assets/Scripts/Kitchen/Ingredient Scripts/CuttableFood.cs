@@ -63,7 +63,6 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 
     public void AddedToDish()
     {
-
         Destroy(this.gameObject);
     }
 

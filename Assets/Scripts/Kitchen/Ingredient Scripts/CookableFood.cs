@@ -9,6 +9,8 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     [SerializeField] private float _ingredientHeight;
     [SerializeField] private float _timeToCook = 2.0f;
     [HideInInspector] public CookingPan cookingPan;
+    [SerializeField] List<CookableFood> _completeCookingWith;
+    [SerializeField] List<CookableFood> _canOnlyBeAddedWithFood;
     private float _cookedTime = 0.0f;
 
     void Awake()
@@ -33,9 +35,29 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
         _cookedTime += Time.deltaTime *  modifier;
     }
 
-    public bool IsCooked()
+    public bool IsCooked(bool withSideIngredients = false)
     {
-        return _cookedTime >= _timeToCook;
+        if (!withSideIngredients) return _cookedTime >= _timeToCook;
+        else
+        {
+            if (_cookedTime < _timeToCook) return false;
+            bool allDone = true;
+            for(int i = 0; i < _completeCookingWith.Count; ++i)
+            {
+                if(!_completeCookingWith[i].IsCooked(true))
+                {
+                    allDone = false;
+                    break;
+                }
+            }
+            if (allDone) return true;
+        }
+        return false;
+    }
+
+    public List<CookableFood> GetRequiredHeadIngredients()
+    {
+        return _canOnlyBeAddedWithFood;
     }
 
 
@@ -47,7 +69,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public bool ReadyForDish()
     {
-        return _cookedTime >= _timeToCook;
+        return IsCooked(true);
     }
 
     public void AddedToDish()
@@ -108,7 +130,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     {
         if (!(droppedOn is CuttingBoard))
         {
-            cookingPan?.RemoveFood();
+            cookingPan?.RemoveFood(this);
         }
     }
 

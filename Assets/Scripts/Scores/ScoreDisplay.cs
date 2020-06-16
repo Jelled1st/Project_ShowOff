@@ -15,7 +15,7 @@ public class ScoreDisplay : LanguageText, IScoresObserver
     {
         Subscribe();
         if (_fieldName == "") _fieldName = "misc.score";
-        _preText = LanguageHandler.instance.Register(this, _fieldName) + ": ";
+        if (LanguageHandler.instance != null) _preText = LanguageHandler.instance.Register(this, _fieldName) + ": ";
         _textMeshProUgui.text = _preText + _displayScore + "!";
     }
 

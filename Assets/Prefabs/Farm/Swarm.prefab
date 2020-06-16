@@ -43,13 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d75f794f1a4ef642a623ab906d001af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swarmUnitPrefab: {fileID: 2628866638493020036, guid: 9f6d2a71e085fe14d8d16ec965baad90,
+  _swarmUnitPrefab: {fileID: 1765206005474914400, guid: 31fd0166b1ac0594e9b1720281293760,
     type: 3}
   _swarmSize: {x: 1, y: 1}
-  _spawnRange: {x: 5, y: 5}
+  _spawnRange: {x: 8, y: 8}
   _angleAmount: 10
   _speed: 1.5
-  _fleeSpeed: 3
+  _fleeSpeed: 4
   _spawnTime: 3
   _spawnChance: 65
   soundEffectManager: {fileID: 0}

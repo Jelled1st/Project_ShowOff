@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -75,7 +74,7 @@ namespace Factory
         private int _potatoesInput;
         private bool _level1Passed;
         private FactoryUiManager _factoryUiManager;
-        private FactoryTimer _factoryTimer;
+        private StageTimer _stageTimer;
 
         public int PotatoesNeededToPassLevel1 => _potatoesNeededToPassLevel1;
 
@@ -92,7 +91,7 @@ namespace Factory
         private void Awake()
         {
             _factoryUiManager = FindObjectOfType<FactoryUiManager>();
-            _factoryTimer = FindObjectOfType<FactoryTimer>();
+            _stageTimer = FindObjectOfType<StageTimer>();
             _initialScore = Scores.GetCurrentScore();
         }
 
@@ -105,8 +104,8 @@ namespace Factory
 
             _peeledPotatoSpawner.enabled = false;
 
-            _factoryTimer.TimeEnded += OnTimeEnded;
-            _factoryTimer.StartTimer();
+            _stageTimer.TimeEnded += OnTimeEnded;
+            _stageTimer.StartTimer();
 
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
@@ -115,6 +114,8 @@ namespace Factory
         {
             if (!_canAppendScore)
                 Scores.AddScore(Scores.GetCurrentScore() - _initialScore);
+
+            Time.timeScale = 1f;
         }
 
         private void OnDisable()
@@ -122,7 +123,7 @@ namespace Factory
             _finishTriggerLevel1.FinishTriggerHit -= OnLevel1TriggerHit;
             _finishTriggerLevel2.FinishTriggerHit -= OnLevel2TriggerHit;
 
-            _factoryTimer.TimeEnded += OnTimeEnded;
+            _stageTimer.TimeEnded += OnTimeEnded;
 
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
