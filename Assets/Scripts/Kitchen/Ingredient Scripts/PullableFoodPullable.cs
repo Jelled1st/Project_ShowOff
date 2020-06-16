@@ -7,6 +7,14 @@ public class PullableFoodPullable : MonoBehaviour, IControllable
 {
     [HideInInspector] public PullableFood foodParent;
 
+    public GameObject GetDishMesh()
+    {
+        GameObject copy = GetDragCopy();
+        copy.GetComponent<Renderer>().enabled = true;
+        copy.transform.localScale = copy.transform.localScale * 0.3f;
+        return copy;
+    }
+
     public GameObject GetDragCopy()
     {
         GameObject copy = Instantiate(this.gameObject);
@@ -27,12 +35,11 @@ public class PullableFoodPullable : MonoBehaviour, IControllable
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        Destroy(this.gameObject);
+        foodParent.OnDragDrop(position, droppedOn, hitInfo);
     }
 
     public void OnDragDropFailed(Vector3 position)
     {
-        Destroy(this.gameObject);
     }
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)

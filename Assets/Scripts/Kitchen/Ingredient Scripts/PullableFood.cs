@@ -9,6 +9,8 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
     [SerializeField] private List<PullableFoodPullable> _pullables;
     [SerializeField] private InvisibleOnDrag _invisibleOnDrag;
 
+    private PullableFoodPullable currentPullable;
+
     private List<IObserver> _observers = new List<IObserver>();
 
     void Awake()
@@ -29,24 +31,30 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
     {
         if (_pullables.Contains(pulled))
         {
-            _pullables.Remove(pulled);
+            currentPullable = pulled;
         }
     }
 
     #region IIngredient
     public void AddedToDish()
     {
-        Destroy(this.gameObject);
+        if (currentPullable != null)
+        {
+            _pullables.Remove(currentPullable);
+            Destroy(currentPullable.gameObject);
+            currentPullable = null;
+        }
     }
 
     public GameObject GetDishMesh()
     {
-        GameObject copy = Instantiate(this.gameObject);
-        Destroy(copy.GetComponent<PullableFood>());
-        Destroy(copy.GetComponent<Collider>());
-        copy.transform.localScale = this.transform.lossyScale;
-        copy.GetComponent<Renderer>().enabled = true;
-        return copy;
+        //    GameObject copy = Instantiate(this.gameObject);
+        //    Destroy(copy.GetComponent<PullableFood>());
+        //    Destroy(copy.GetComponent<Collider>());
+        //    copy.transform.localScale = this.transform.lossyScale;
+        //    copy.GetComponent<Renderer>().enabled = true;
+        //    return copy;
+        return currentPullable.GetDishMesh();
     }
 
     public float GetHeight()
@@ -61,7 +69,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 
     public bool ReadyForDish()
     {
-        return _pullables.Count == 0;
+        return currentPullable != null;
     }
     #endregion
 
@@ -91,6 +99,10 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
+        if(droppedOn is Dish)
+        {
+            droppedOn.OnDrop(this, hitInfo);
+        }
     }
 
     public void OnDragDropFailed(Vector3 position)
