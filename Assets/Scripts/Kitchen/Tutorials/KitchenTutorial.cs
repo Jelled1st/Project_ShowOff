@@ -62,57 +62,57 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
     {
         if(observerEvent is BakingStartEvent)
         {
-            _activeTutorial.BakingStart();
+            _activeTutorial?.BakingStart();
         }
         else if(observerEvent is SideBakedEvent)
         {
-            _activeTutorial.SideBakedDone();
+            _activeTutorial?.SideBakedDone();
         }
         else if(observerEvent is BakingDoneEvent)
         {
-            _activeTutorial.BakingDone();
+            _activeTutorial?.BakingDone();
         }
         else if(observerEvent is BakingFlipEvent)
         {
-            _activeTutorial.BakingFlip();
+            _activeTutorial?.BakingFlip();
         }
         else if (observerEvent is CookingStartEvent)
         {
-            _activeTutorial.CookingStart();
+            _activeTutorial?.CookingStart();
         }
         else if (observerEvent is CookingDoneEvent)
         {
-            _activeTutorial.CookingDone();
+            _activeTutorial?.CookingDone();
         }
         else if (observerEvent is FryerStartEvent)
         {
-            _activeTutorial.FryingStart();
+            _activeTutorial?.FryingStart();
         }
         else if (observerEvent is FryerStopEvent)
         {
-            _activeTutorial.FryingDone();
+            _activeTutorial?.FryingDone();
         }
         else if (observerEvent is CuttableCutEvent)
         {
-            _activeTutorial.IngredientCut();
+            _activeTutorial?.IngredientCut();
         }
         else if(observerEvent is CuttableOnCuttingBoardEvent)
         {
-            _activeTutorial.IngredientToCuttingBoard();
+            _activeTutorial?.IngredientToCuttingBoard();
         }
         else if (observerEvent is PullablePulledEvent)
         {
-            _activeTutorial.IngredientPulled();
+            _activeTutorial?.IngredientPulled();
         }
         else if(observerEvent is IngredientDoneEvent)
         {
-            _activeTutorial.IngredientDone((observerEvent as IngredientDoneEvent).ingredient);
+            _activeTutorial?.IngredientDone((observerEvent as IngredientDoneEvent).ingredient);
         }
     }
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
-        _activeTutorial.IngredientAddedToDish();
+        _activeTutorial?.IngredientAddedToDish();
     }
 
     public void OnFinishDish(ISubject subject)
