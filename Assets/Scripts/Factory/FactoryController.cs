@@ -214,7 +214,7 @@ namespace Factory
 
             while (!asyncOperation.isDone)
             {
-                print("Loading Progress: " + (asyncOperation.progress * 100) + "%");
+                // print("Loading Progress: " + (asyncOperation.progress * 100) + "%");
                 if (asyncOperation.progress >= 0.9f)
                 {
                     if (_trulyFinished == true)
