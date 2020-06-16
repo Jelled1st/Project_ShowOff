@@ -69,6 +69,11 @@ namespace Factory
         [Tag]
         private string _allowedTruckObjectTag;
 
+        [BoxGroup("Stage settings")]
+        [SerializeField]
+        [Scene]
+        private string _nextScene;
+
         private float _initialScore;
         private bool _canAppendScore;
         private int _potatoesInput;
@@ -179,7 +184,9 @@ namespace Factory
             if (PotatoesInput >= _potatoesNeededToPassLevel2)
             {
                 _canAppendScore = true;
-                SceneManager.LoadScene("!Ending Scene");
+                FindObjectOfType<BKM>().TruckDriving();
+
+                SceneManager.LoadScene(_nextScene);
             }
         }
     }
