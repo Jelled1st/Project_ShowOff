@@ -97,8 +97,17 @@ namespace Factory
             }
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _trulyFinished = true;
+            }
+        }
+
         private void Awake()
         {
+            StartCoroutine(LoadScene());
             _factoryUiManager = FindObjectOfType<FactoryUiManager>();
             _stageTimer = FindObjectOfType<StageTimer>();
             _initialScore = Scores.GetCurrentScore();
