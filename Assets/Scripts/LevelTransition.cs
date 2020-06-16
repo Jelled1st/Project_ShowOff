@@ -50,6 +50,7 @@ public class LevelTransition : MonoBehaviour
 
         while (!asyncOperation.isDone)
         {
+            print("Loading progress: " + (asyncOperation.progress * 100) + "%");
             if(asyncOperation.progress >= 0.9f)
             {
                 if (messagePassed == true)
