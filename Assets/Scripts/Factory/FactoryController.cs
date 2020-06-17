@@ -190,6 +190,8 @@ namespace Factory
         private void OnLevel2TriggerHit(GameObject obj)
         {
             StartCoroutine(LoadScene());
+            _stageTimer.StopTimer();
+            
             if (!obj.CompareTag(_allowedTruckObjectTag))
                 return;
 
