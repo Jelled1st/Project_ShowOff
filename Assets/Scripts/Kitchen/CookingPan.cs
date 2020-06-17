@@ -143,9 +143,9 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
         if (!DOTween.IsTweening(_stirringDeviceRotator.transform))
         {
             _stirringDeviceRotator.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
+            CookAllFood(_stirBonusModifier);
+            Notify(new CookingStirEvent(this));
         }
-        CookAllFood(_stirBonusModifier);
-        Notify(new CookingStirEvent(this));
     }
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
