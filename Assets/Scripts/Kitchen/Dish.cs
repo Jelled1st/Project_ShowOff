@@ -33,6 +33,9 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     [Header("Misc")]
     [Tooltip("the dishes this dish is dependent on. All dependent dishes must be done before completing this")]
     [SerializeField] List<Dish> _sideDishesLeft = new List<Dish>();
+    [Tooltip("Auto finish is that the player does not need to make an action to register a complete side dish, if false, the player needs to drag it to this")]
+    [SerializeField] List<bool> _sideDishesAutoComplete = new List<bool>();
+    [SerializeField] List<GameObject> _sideDishGameMeshes = new List<GameObject>();
     [Tooltip("Stack all ingredients from the using the required placements index 0")]
     [SerializeField] protected bool _stackAllIngredients = false;
     [SerializeField] protected GameObject _stackIngredientsNode;
@@ -54,9 +57,11 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         if (!_stackAllIngredients)
         {
             if (_requiredIngredients.Count != _requiredIngredientMeshes.Count)
-                Debug.Log("Burgerdish warning: Amount of required ingredients does not match meshes count");
+                Debug.Log("Dish warning: Amount of required ingredients does not match meshes count");
             if (_optionalIngredients.Count != _optionalIngredientMeshes.Count)
-                Debug.Log("Burgerdish warning: Amount of optional ingredients does not match meshes count");
+                Debug.Log("Dish warning: Amount of optional ingredients does not match meshes count");
+            if (_sideDishesLeft.Count != _sideDishesAutoComplete.Count || _sideDishesLeft.Count != _sideDishGameMeshes.Count)
+                Debug.Log("Side dishes count does not equal side dish auto complete or side dish mesh count");
         }
 
         for(int i = 0; i < _sideDishesLeft.Count; ++i)
@@ -249,9 +254,16 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     }
 
     #region IControllable
-    public GameObject GetDragCopy()
+    public virtual GameObject GetDragCopy()
     {
-        return null;
+        if (IsFinished(true) && _dishType == DishTypes.SideDish)
+        {
+            GameObject copy = Instantiate(this.gameObject);
+            Destroy(copy.GetComponent<Dish>());
+            Destroy(copy.GetComponent<Collider>());
+            return copy;
+        }
+        else return null;
     }
 
     public void OnClick(Vector3 hitPoint)
@@ -277,6 +289,23 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             IIngredient ingredient = dropped as IIngredient;
             if (ingredient.ReadyForDish()) if (TryAddIngredient(ingredient)) ingredient.AddedToDish();
         }
+        else if(dropped is Dish)
+        {
+            Dish dish = dropped as Dish;
+            for (int i = 0; i < _sideDishesLeft.Count; ++i)
+            {
+                if (_sideDishesLeft[i] as Dish == dish)
+                {
+                    Destroy(dish.gameObject);
+                    _sideDishesLeft.RemoveAt(i);
+                    _sideDishGameMeshes[i].SetActive(true);
+                }
+            }
+            if (IsFinished(true))
+            {
+                InformObserversFinish();
+            }
+        }
     }
 
     public virtual void OnHold(float holdTime, Vector3 hitPoint)
@@ -289,7 +318,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     public virtual void OnPress(Vector3 hitPoint)
     {
-        Debug.Log("Finished: " + (_requiredIngredients.Count == 0 && _sideDishesLeft.Count == 0));
+        Debug.Log("Finished: " + IsFinished(true));
     }
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
@@ -347,8 +376,24 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     public void OnFinishDish(ISubject subject)
     {
         Dish dish = subject as Dish;
-        if (dish != null) _sideDishesLeft.Remove(dish);
-        if (_requiredIngredients.Count == 0 && _sideDishesLeft.Count == 0) InformObserversFinish();
+        if (dish != null)
+        {
+            for (int i = 0; i < _sideDishesLeft.Count; ++i)
+            {
+                if (_sideDishesLeft[i] == dish)
+                {
+                    if (_sideDishesAutoComplete[i])
+                    {
+                        _sideDishesLeft.RemoveAt(i);
+                        _sideDishGameMeshes[i].SetActive(true);
+                    }
+                }
+            }
+        }
+        if (_requiredIngredients.Count == 0 && _sideDishesLeft.Count == 0)
+        {
+            InformObserversFinish();
+        }
     }
 
     public void Subscribe(ISubject subject)

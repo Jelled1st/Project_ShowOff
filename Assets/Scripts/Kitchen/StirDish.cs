@@ -116,6 +116,15 @@ public class StirDish : Dish
         _mustStir = value;
     }
 
+    public override GameObject GetDragCopy()
+    {
+        GameObject copy = base.GetDragCopy();
+        if (copy == null) return null;
+        Destroy(copy.GetComponent<StirDish>());
+        Destroy(copy.GetComponent<Collider>());
+        return copy;
+    }
+
     public override void OnPress(Vector3 hitPoint)
     { 
         base.OnPress(hitPoint);
