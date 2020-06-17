@@ -5572,6 +5572,107 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 11.085205, y: 1.0522614, z: 8.521423}
   m_Center: {x: 0.000002861023, y: 0.0000010728836, z: 0.0000009536743}
+--- !u!114 &121154351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 10.91
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  hdriSky:
+    m_OverrideState: 0
+    m_Value: {fileID: 8900000, guid: 54a3a0570aebe8949bec4966f1376581, type: 3}
+  enableBackplate:
+    m_OverrideState: 0
+    m_Value: 0
+  backplateType:
+    m_OverrideState: 0
+    m_Value: 0
+  groundLevel:
+    m_OverrideState: 0
+    m_Value: 0
+  scale:
+    m_OverrideState: 0
+    m_Value: {x: 32, y: 32}
+  projectionDistance:
+    m_OverrideState: 0
+    m_Value: 16
+    min: 0.0000001
+  plateRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  blendAmount:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 100
+  shadowTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  pointLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  dirLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  rectLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!1001 &132429445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6458,7 +6559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a123fc0ac58cb774e8592c925f167e7c, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 1454094016}
+  m_SkySettings: {fileID: 121154351}
   m_SkySettingsFromProfile: {fileID: -1658960478407648048, guid: a123fc0ac58cb774e8592c925f167e7c,
     type: 2}
 --- !u!4 &187689537
@@ -8289,6 +8390,7 @@ MonoBehaviour:
   _finishIngredientMesh: {fileID: 0}
   _sideDishesLeft: []
   _sideDishesAutoComplete: 
+  _sideDishGameMeshes: []
   _stackAllIngredients: 0
   _stackIngredientsNode: {fileID: 0}
 --- !u!65 &441103029
@@ -11361,6 +11463,7 @@ MonoBehaviour:
   _finishIngredientMesh: {fileID: 0}
   _sideDishesLeft: []
   _sideDishesAutoComplete: 
+  _sideDishGameMeshes: []
   _stackAllIngredients: 1
   _stackIngredientsNode: {fileID: 618941707}
 --- !u!65 &667186814
@@ -15073,6 +15176,7 @@ MonoBehaviour:
   _finishIngredientMesh: {fileID: 0}
   _sideDishesLeft: []
   _sideDishesAutoComplete: 
+  _sideDishGameMeshes: []
   _stackAllIngredients: 0
   _stackIngredientsNode: {fileID: 0}
   _stirringDevice: {fileID: 0}
@@ -16344,6 +16448,7 @@ MonoBehaviour:
   _sideDishesLeft:
   - {fileID: 667186813}
   _sideDishesAutoComplete: 
+  _sideDishGameMeshes: []
   _stackAllIngredients: 0
   _stackIngredientsNode: {fileID: 0}
 --- !u!1 &1236945093
@@ -16617,6 +16722,7 @@ MonoBehaviour:
   _sideDishesLeft:
   - {fileID: 1304799874}
   _sideDishesAutoComplete: 00
+  _sideDishGameMeshes: []
   _stackAllIngredients: 0
   _stackIngredientsNode: {fileID: 0}
 --- !u!65 &1272687322
@@ -16914,21 +17020,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dishType: 3
-  _requiredIngredients: 03000000030000000300000003000000030000000300000007000000
+  _requiredIngredients: 03000000
   _requiredIngredientMeshes:
   - {fileID: 1719207329}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   _optionalIngredients: 
   _optionalIngredientMeshes: []
   _finishIngredient: 0
   _finishIngredientMesh: {fileID: 0}
   _sideDishesLeft: []
   _sideDishesAutoComplete: 
+  _sideDishGameMeshes: []
   _stackAllIngredients: 0
   _stackIngredientsNode: {fileID: 0}
   _stirringDevice: {fileID: 1847656031}
@@ -18788,107 +18889,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 825445551}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1454094016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 10.91
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  hdriSky:
-    m_OverrideState: 0
-    m_Value: {fileID: 8900000, guid: 54a3a0570aebe8949bec4966f1376581, type: 3}
-  enableBackplate:
-    m_OverrideState: 0
-    m_Value: 0
-  backplateType:
-    m_OverrideState: 0
-    m_Value: 0
-  groundLevel:
-    m_OverrideState: 0
-    m_Value: 0
-  scale:
-    m_OverrideState: 0
-    m_Value: {x: 32, y: 32}
-  projectionDistance:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 0.0000001
-  plateRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  blendAmount:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 100
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  pointLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  dirLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  rectLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!1 &1472909798
 GameObject:
   m_ObjectHideFlags: 0
