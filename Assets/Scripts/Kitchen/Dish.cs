@@ -60,11 +60,12 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 Debug.Log("Dish warning: Amount of required ingredients does not match meshes count");
             if (_optionalIngredients.Count != _optionalIngredientMeshes.Count)
                 Debug.Log("Dish warning: Amount of optional ingredients does not match meshes count");
-            if (_sideDishesLeft.Count != _sideDishesAutoComplete.Count || _sideDishesLeft.Count != _sideDishGameMeshes.Count)
-                Debug.Log("Side dishes count does not equal side dish auto complete or side dish mesh count");
         }
+        if (_sideDishesLeft.Count != _sideDishesAutoComplete.Count || _sideDishesLeft.Count != _sideDishGameMeshes.Count)
+            Debug.Log("Side dishes count does not equal side dish auto complete or side dish mesh count");
+        if (_sideDishGameMeshes == null) _sideDishGameMeshes = new List<GameObject>();
 
-        for(int i = 0; i < _sideDishesLeft.Count; ++i)
+        for (int i = 0; i < _sideDishesLeft.Count; ++i)
         {
             Subscribe(_sideDishesLeft[i]);
         }
@@ -298,7 +299,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 {
                     Destroy(dish.gameObject);
                     _sideDishesLeft.RemoveAt(i);
-                    _sideDishGameMeshes[i]?.SetActive(true);
+                    if(_sideDishGameMeshes != null && _sideDishGameMeshes.Count > i && _sideDishGameMeshes[i] != null) _sideDishGameMeshes[i].SetActive(true);
                 }
             }
             if (IsFinished(true))
