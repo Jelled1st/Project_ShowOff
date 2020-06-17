@@ -298,7 +298,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 {
                     Destroy(dish.gameObject);
                     _sideDishesLeft.RemoveAt(i);
-                    _sideDishGameMeshes[i].SetActive(true);
+                    _sideDishGameMeshes[i]?.SetActive(true);
                 }
             }
             if (IsFinished(true))
@@ -385,7 +385,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                     if (_sideDishesAutoComplete[i])
                     {
                         _sideDishesLeft.RemoveAt(i);
-                        _sideDishGameMeshes[i].SetActive(true);
+                        _sideDishGameMeshes[i]?.SetActive(true);
                     }
                 }
             }
