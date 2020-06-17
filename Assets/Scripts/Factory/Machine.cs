@@ -90,6 +90,10 @@ namespace Factory
         private GameObject _breakVisuals;
 
         [BoxGroup("Clogging settings")]
+        [SerializeField]
+        private TriangleController _warningTriangle;
+
+        [BoxGroup("Clogging settings")]
         [Range(0f, 1f)]
         [SerializeField]
         private float _slowPerStage = 1f / StagesToBreak;
@@ -179,6 +183,9 @@ namespace Factory
             _breakVisuals = _breakVisuals.NullIfEqualsNull();
             _breakVisuals?.SetActive(false);
 
+            _warningTriangle = _warningTriangle.NullIfEqualsNull();
+            _warningTriangle.SetColor(TriangleController.TriangleColor.None);
+
             WaitAndClog();
         }
 
@@ -190,6 +197,7 @@ namespace Factory
             _processParticles?.Stop();
             _repairVisuals?.SetActive(false);
             _breakVisuals?.SetActive(false);
+            _warningTriangle.SetColor(TriangleController.TriangleColor.None);
             _isRepairing = false;
 
             _waitAndClogTween?.Kill();
@@ -203,6 +211,7 @@ namespace Factory
 
             CurrentClogStage++;
 
+
             switch (CurrentClogStage)
             {
                 case StagesToBreak:
@@ -211,13 +220,19 @@ namespace Factory
                     MachineBroke(this);
 
                     _machineAnimator?.SetBool("isPlaying", false);
+                    _warningTriangle.SetColor(TriangleController.TriangleColor.Red);
 
                     _releaseItemsTween?.Pause();
                     break;
                 case StagesToBreak - 1:
                     Scores.AddScore(Scores.MachineStageTwoBreakage);
+                    _warningTriangle.SetColor(TriangleController.TriangleColor.Orange);
+
 
                     _breakVisuals?.SetActive(true);
+                    break;
+                case StagesToBreak - 2:
+                    _warningTriangle.SetColor(TriangleController.TriangleColor.Yellow);
                     break;
             }
 
@@ -284,6 +299,7 @@ namespace Factory
                     _repairVisuals?.SetActive(false);
                     _isRepairing = false;
                     _breakVisuals.SetActive(false);
+                    _warningTriangle.SetColor(TriangleController.TriangleColor.None);
 
                     ReleaseBufferedItems();
 
