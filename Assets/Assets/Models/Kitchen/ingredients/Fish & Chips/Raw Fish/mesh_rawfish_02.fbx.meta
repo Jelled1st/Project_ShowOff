@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_rawfish
-    second: {fileID: 2100000, guid: dfb29a0e0c961da408badd28a90c626e, type: 2}
+    second: {fileID: 2100000, guid: 2c8874a787937094d9133a05fa33b803, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
