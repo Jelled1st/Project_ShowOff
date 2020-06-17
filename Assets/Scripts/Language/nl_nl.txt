@@ -9,15 +9,15 @@ farm.shovelQuest: Gebruik de schep
 farm.plantQuest: Plant aardappelen
 farm.waterQuest: Geef de planten water
 
-factory.mainQuest: Verzend 9 pakjes friet
-factory.washQuest: Aardappelen wassen
-factory.peelQuest: Schil gewassen aardappelen
+factory.mainQuest: Maak 9 zakken friet gereed
+factory.washQuest: Was de aardappelen
+factory.peelQuest: Schil de aardappelen
 factory.chopQuest: Snijd de aardappelen in frietjes
 factory.packageQuest: Verpak de frieten
 
-kitchen.choiceBurger: Burger met frieten
-kitchen.choiceChili: Chili cheese frieten
-kitchen.choiceFish: Viz met frieten
+kitchen.choiceBurger: Burger met frietjes
+kitchen.choiceChili: Chili met kaas en frietjes
+kitchen.choiceFish: Friet met vis
 kitchen.fryFries: Doe de frietjes in de frietpan
 kitchen.cookPatty: Bak een hamburger
 

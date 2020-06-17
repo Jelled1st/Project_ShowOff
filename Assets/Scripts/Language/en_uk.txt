@@ -1,6 +1,6 @@
 main.start: Start
 main.exit: Exit
-main.subtitle: A game about turning potatoes into a delicious fried meal!
+main.subtitle: A game about the process of potatoes. From the farm up to your plate!
 
 misc.score: Score
 
@@ -11,7 +11,7 @@ farm.waterQuest: Water the potato plants
 
 factory.mainQuest: Ship 9 fry packages
 factory.washQuest: Wash the potatoes
-factory.peelQuest: Peel the washed potatoes
+factory.peelQuest: Peel the potatoes
 factory.chopQuest: Turn the potatoes into fries
 factory.packageQuest: Package the fries
 

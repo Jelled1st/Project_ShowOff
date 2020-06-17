@@ -1,30 +1,30 @@
 main.start: Start
-main.exit: Exit
-main.subtitle: A game about turning potatoes into a delicious fried meal!
+main.exit: Beenden
+main.subtitle: Ein Spiel über die Verarbeitung von Kartoffeln. Vom Feld bis auf den Teller
 
-misc.score: Score
+misc.score: Punktzahl
 
-farm.mainQuest: Harvest 9 potato plants
-farm.shovelQuest: Use the shovel
-farm.plantQuest: Plant potatoes
-farm.waterQuest: Water the potato plants
+farm.mainQuest: Ernte 9 Kartoffelpflanzen
+farm.shovelQuest: Benutze den Spaten
+farm.plantQuest: Pflanze Kartoffeln
+farm.waterQuest: Gieße die Kartoffeln
 
-factory.mainQuest: Ship 9 fry packages
-factory.washQuest: Wash the potatoes
+factory.mainQuest: Produziere 9 Pommes Tüten
+factory.washQuest: Wasch die Kartoffeln
 factory.peelQuest: Peel the washed potatoes
-factory.chopQuest: Turn the potatoes into fries
-factory.packageQuest: Package the fries
+factory.chopQuest: Schneide die Kartoffeln zu Pommes
+factory.packageQuest: Verpack die Pommes
 
-kitchen.choiceBurger: Burger with fries
-kitchen.choiceChili: Chili cheese fries
-kitchen.choiceFish: Fish & Chips
-kitchen.fryFries: Put the fries in the fryer
-kitchen.cookPatty: Cook a burger patty
+kitchen.choiceBurger: Burger mit Pommes
+kitchen.choiceChili: Chili-Käse Pommes
+kitchen.choiceFish: Pommes mit Fisch
+kitchen.fryFries: Lege die Pommes in the Friteuse
+kitchen.cookPatty: Brate eine Frikadelle
 
-persUI.restart: Are you sure you want to restart?
-persUI.quit: Are you sure you want to quit?
-persUI.yes: Yes
-persUI.no: No
+persUI.restart: Bist du sicher, dass du das Spiel neu starten willst?
+persUI.quit: Bist du sicher, dass du das Spiel beenden willst?
+persUI.yes: Ja
+persUI.no: Nein
 
-timeout.reminder: Are you still there?
-timeout.yes: Yes
+timeout.reminder: Bist du noch da?
+timeout.yes: Ja
