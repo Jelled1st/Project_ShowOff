@@ -55,7 +55,7 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         {
             _activeTutorial = _fishNChipsTutorial;
         }
-        _activeTutorial.Execute();
+        _activeTutorial?.Execute();
     }
 
     public void Subscribe(ISubject subject)

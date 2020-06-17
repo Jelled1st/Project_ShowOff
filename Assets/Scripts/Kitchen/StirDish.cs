@@ -7,7 +7,7 @@ public class StirDish : Dish
 {
     [Header("Stir dish exlusive")]
     [SerializeField] GameObject _stirringDevice;
-    [SerializeField] List<IngredientType> _requiredStirAfterIngredient;
+    [SerializeField] List<StirDishRequiredStir> _requiredStirOptions;
     private bool _mustStir = false;
     bool _isFinished = false;
 
@@ -17,6 +17,10 @@ public class StirDish : Dish
     new void Start()
     {
         base.Start();
+        for(int i = 0; i < _requiredStirOptions.Count; ++i)
+        {
+            _requiredStirOptions[i].Init(this);
+        }
     }
 
     // Update is called once per frame
@@ -27,30 +31,14 @@ public class StirDish : Dish
 
     protected override bool IsFinished(bool includeFinishIngredient)
     {
-        return base.IsFinished(includeFinishIngredient) && _mustStir == false;
+        return base.IsFinished(includeFinishIngredient) && !_mustStir;
     }
 
     protected override bool TryAddIngredient(IIngredient ingredient)
     {
-        bool setMustStir = false;
-        int stirIngredientIndex = -1;
-        for(int i = 0; i < _requiredStirAfterIngredient.Count; ++i)
-        {
-            if(ingredient.GetIngredientType() == _requiredStirAfterIngredient[i])
-            {
-                stirIngredientIndex = i;
-                setMustStir = true;
-                break;
-            }
-        }
         if (TryAddIngredientCheck(ingredient))
         {
-            if (setMustStir)
-            {
-                _mustStir = true;
-                _requiredStirAfterIngredient.RemoveAt(stirIngredientIndex);
-            }
-            else if(IsFinished(true) && !_isFinished)
+            if(IsFinished(true) && !_isFinished)
             {
                 _isFinished = true;
                 InformObserversFinish();
@@ -106,6 +94,24 @@ public class StirDish : Dish
         return false;
     }
 
+    public void ReachRequiredStir(StirDishRequiredStir requiredStir)
+    {
+        for(int i = 0; i < _requiredStirOptions.Count; ++i)
+        {
+            if(_requiredStirOptions[i] == requiredStir)
+            {
+                SetRequiredStir(true);
+                _requiredStirOptions.RemoveAt(i);
+                Destroy(requiredStir);
+            }
+        }
+    }
+
+    public void SetRequiredStir(bool value)
+    {
+        _mustStir = value;
+    }
+
     public override void OnPress(Vector3 hitPoint)
     { 
         base.OnPress(hitPoint);
@@ -113,6 +119,11 @@ public class StirDish : Dish
         if (!DOTween.IsTweening(_stirringDevice.transform))
         {
             _stirringDevice.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
+            for(int i = 0; i < _addedIngredients.Count; ++i)
+            {
+                _addedIngredientObjects[_addedIngredients[i]].transform.DOLocalRotate(new Vector3(0, 360, 0), 0.7f, RotateMode.WorldAxisAdd);
+            }
+
             Notify(new DishStirEvent(this));
             _mustStir = false;
             if (IsFinished(true) && !_isFinished)
