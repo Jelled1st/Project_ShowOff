@@ -6458,7 +6458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a123fc0ac58cb774e8592c925f167e7c, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 1121060489}
+  m_SkySettings: {fileID: 1133370116}
   m_SkySettingsFromProfile: {fileID: -1658960478407648048, guid: a123fc0ac58cb774e8592c925f167e7c,
     type: 2}
 --- !u!4 &187689537
@@ -9072,6 +9072,8 @@ MonoBehaviour:
   _foodNode: {fileID: 701261635}
   _basketDownNode: {fileID: 2114423686}
   _progressBar: {fileID: 992393544}
+  _oil: {fileID: 469403377879621428}
+  _oilTempIncrease: 0.003
 --- !u!65 &503872838
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16106,7 +16108,13 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118438788}
   m_CullTransparentMesh: 0
---- !u!114 &1121060489
+--- !u!4 &1124619517 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4420835435002856284, guid: eea3b54acfcebd54ea66ac1406203ba6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1117818645}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1133370116
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16207,12 +16215,6 @@ MonoBehaviour:
   rectLightShadow:
     m_OverrideState: 0
     m_Value: 0
---- !u!4 &1124619517 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4420835435002856284, guid: eea3b54acfcebd54ea66ac1406203ba6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1117818645}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1136540622 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 07071782d584ccf41958ae708bbc1069,
@@ -17298,9 +17300,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dishType: 3
-  _requiredIngredients: 03000000
+  _requiredIngredients: 0300000007000000
   _requiredIngredientMeshes:
   - {fileID: 1719207329}
+  - {fileID: 0}
   _optionalIngredients: 
   _optionalIngredientMeshes: []
   _finishIngredient: 0

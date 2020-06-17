@@ -7,6 +7,7 @@ public class StirDishRequiredStir : ScriptableObject, IDishObserver
 {
     [SerializeField] List<IngredientType> _stirAfterIngredients;
     List<IngredientType> _uniqueTypes;
+    private List<IngredientType> _ingredients;
     private StirDish dish;
 
     public void Init(StirDish dish)
@@ -20,6 +21,7 @@ public class StirDishRequiredStir : ScriptableObject, IDishObserver
         {
             if (!_uniqueTypes.Contains(_stirAfterIngredients[i])) _uniqueTypes.Add(_stirAfterIngredients[i]);
         }
+        _ingredients = new List<IngredientType>(_stirAfterIngredients);
     }
 
     public bool HasIngredientType(IngredientType type)
@@ -38,15 +40,15 @@ public class StirDishRequiredStir : ScriptableObject, IDishObserver
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
-        for(int i = 0; i < _stirAfterIngredients.Count; ++i)
+        for(int i = 0; i < _ingredients.Count; ++i)
         {
-            if(_stirAfterIngredients[i] == ingredient.GetIngredientType())
+            if(_ingredients[i] == ingredient.GetIngredientType())
             {
-                _stirAfterIngredients.RemoveAt(i);
+                _ingredients.RemoveAt(i);
                 break;
             }
         }
-        if (_stirAfterIngredients.Count == 0)
+        if (_ingredients.Count == 0)
         {
             dish.ReachRequiredStir(this);
         }

@@ -10,8 +10,12 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
     [SerializeField] GameObject _foodNode;
     [SerializeField] GameObject _basketDownNode;
     [SerializeField] ProgressBar _progressBar;
+    [SerializeField] GameObject _oil;
+    [SerializeField] [Range(0.0f, 1.0f)] float _oilTempIncrease;
     FryableFood _food;
     private bool _basketIsUp = true;
+    private Material _oilMat;
+    private float _oilHeat = 0;
 
     private List<IObserver> _observers = new List<IObserver>();
 
@@ -19,6 +23,7 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
     void Start()
     {
         _progressBar.SetActive(false);
+        _oilMat = _oil.GetComponent<Renderer>().materials[0];
     }
 
     // Update is called once per frame
@@ -26,6 +31,8 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
     {
         if(_food != null && !_basketIsUp)
         {
+            _oilHeat = Mathf.Min(_oilHeat + _oilTempIncrease, 1.0f);
+            _oilMat.SetFloat("_OilCooking", _oilHeat);
             _food.Fry();
             float value = _food.GetTimeFried() / _food.GetFryTime();
             _progressBar.SetPercentage(value);
@@ -35,6 +42,11 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
                 Notify(new FryerStopEvent(this, _food));
                 MoveBasketUp();
             }
+        }
+        else
+        {
+            _oilHeat = Mathf.Max(_oilHeat - _oilTempIncrease, 0.0f);
+            _oilMat.SetFloat("_OilCooking", _oilHeat);
         }
     }
 
