@@ -106,9 +106,9 @@ public class StirDish : Dish
         return false;
     }
 
-    public override void OnHold(float holdTime, Vector3 hitPoint)
-    {
-        base.OnHold(holdTime, hitPoint);
+    public override void OnPress(Vector3 hitPoint)
+    { 
+        base.OnPress(hitPoint);
 
         if (!DOTween.IsTweening(_stirringDevice.transform)) _stirringDevice.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
         Notify(new DishStirEvent(this));

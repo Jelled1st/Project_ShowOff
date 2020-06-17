@@ -311,7 +311,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     {
     }
 
-    public void OnPress(Vector3 hitPoint)
+    public virtual void OnPress(Vector3 hitPoint)
     {
         Debug.Log("Finished: " + (_requiredIngredients.Count == 0 && _sideDishesLeft.Count == 0));
     }
