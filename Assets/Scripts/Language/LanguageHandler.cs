@@ -23,6 +23,14 @@ public class LanguageHandler : MonoBehaviour
         public string shovelQuest;
         public string plantQuest;
         public string waterQuest;
+    }   
+    
+    public struct FactorySceneText
+    {
+        public string washQuest;
+        public string peelQuest;
+        public string chopQuest;
+        public string packageQuest;
     }
 
     public struct KitchenSceneText
@@ -39,6 +47,7 @@ public class LanguageHandler : MonoBehaviour
 
     public MainSceneText main;
     public FarmSceneText farm;
+    public FactorySceneText factory;
     public KitchenSceneText kitchen;
     public MiscText misc;
 
@@ -110,6 +119,22 @@ public class LanguageHandler : MonoBehaviour
         else if (field.StartsWith("farm.waterQuest"))
         {
             return farm.waterQuest;
+        }
+        else if (field.StartsWith("factory.washQuest"))
+        {
+            return factory.washQuest;
+        }
+        else if (field.StartsWith("factory.peelQuest"))
+        {
+            return factory.peelQuest;
+        }
+        else if (field.StartsWith("factory.chopQuest"))
+        {
+            return factory.chopQuest;
+        }
+        else if (field.StartsWith("factory.packageQuest"))
+        {
+            return factory.packageQuest;
         }
         else if (field.StartsWith("kitchen.fryFries"))
         {

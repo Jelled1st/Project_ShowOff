@@ -28,6 +28,10 @@ public class LanguagePack : ScriptableObject
             {
                 ParseLineFarm(line);
             }
+            else if(line.StartsWith("factory."))
+            {
+                ParseLineFactory(line);
+            }
             else if (line.StartsWith("kitchen."))
             {
                 ParseLineKitchen(line);
@@ -68,6 +72,26 @@ public class LanguagePack : ScriptableObject
         else if (line.StartsWith("farm.waterQuest: "))
         {
             _languageHandler.farm.waterQuest = line.Substring(16, line.Length-17);
+        }
+    }
+    
+    private void ParseLineFactory(string line)
+    {
+        if (line.StartsWith("factory.washQuest: "))
+        {
+            _languageHandler.factory.washQuest = line.Substring(18, line.Length - 19);
+        }
+        else if (line.StartsWith("factory.peelQuest: "))
+        {
+            _languageHandler.factory.peelQuest = line.Substring(18, line.Length - 19);
+        }
+        else if (line.StartsWith("factory.chopQuest: "))
+        {
+            _languageHandler.factory.chopQuest = line.Substring(18, line.Length - 19);
+        }
+        else if (line.StartsWith("factory.packageQuest: "))
+        {
+            _languageHandler.factory.packageQuest = line.Substring(21, line.Length - 22);
         }
     }
 
