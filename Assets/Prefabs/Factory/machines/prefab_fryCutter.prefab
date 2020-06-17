@@ -64,8 +64,11 @@ MonoBehaviour:
   _clogVisual: {fileID: 6943138190647494220}
   _repairVisuals: {fileID: 2585383875963986790}
   _breakVisuals: {fileID: 2776227702726579486}
+  _warningTriangle: {fileID: 5592371069911879412}
   _slowPerStage: 0.33333334
-  _breakEverySeconds: {x: 10, y: 15}
+  _firstBreakPercentage: 0.25
+  _secondBreakPercentage: 0.75
+  _timeToBreak: 30
   _substitute:
   - {fileID: 4628057192833825956, guid: a7cfa98c0972a024ebb2fe388436b0d7, type: 3}
   - {fileID: 7123373888999861644, guid: 5c55b868e1f7e834b906f105518b8850, type: 3}
@@ -472,6 +475,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5592371069911879412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4970268324936974367, guid: 88ee303b89be90e42a671465a1e776e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 677201782790311659}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebcb371e6ea4ca7b59ba6f9cbec654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2586803548123058926
