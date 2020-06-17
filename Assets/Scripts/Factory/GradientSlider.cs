@@ -52,7 +52,6 @@ namespace Factory
 
         private void UpdateColor(float value)
         {
-            print($"{value}:{_sortedGradientPoints[_currentPointId].ChangePercentage}");
             if (value > _sortedGradientPoints[_currentPointId].ChangePercentage)
             {
                 _currentPointId++;
@@ -80,10 +79,6 @@ namespace Factory
             var newColor = Color.LerpUnclamped(_sortedGradientPoints[_currentPointId].Color,
                 _sortedGradientPoints[_currentPointId + 1].Color,
                 percentBeforeNewPoint);
-
-            // Debug.Log(
-            //     $"{percentBeforeNewPoint}:{_sliderImage.color}:{_sortedGradientPoints[_currentPointId].Color}:{newColor.ToString()}",
-            //     gameObject);
 
             _sliderImage.color = newColor;
         }

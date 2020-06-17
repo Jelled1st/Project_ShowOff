@@ -334,8 +334,11 @@ MonoBehaviour:
   _clogVisual: {fileID: 9147021330661263417}
   _repairVisuals: {fileID: 9136129223628558166}
   _breakVisuals: {fileID: 1804844746564439611}
+  _warningTriangle: {fileID: 9001982921570486905}
   _slowPerStage: 0.33333334
-  _breakEverySeconds: {x: 10, y: 15}
+  _firstBreakPercentage: 0.25
+  _secondBreakPercentage: 0.75
+  _timeToBreak: 30
   _shaderName: Shader Graphs/shdr_potatoes
   _propertyToDisable: _enableDirty
   _propertyToEnable: _enableClean
@@ -635,6 +638,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9001982921570486905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4970268324936974367, guid: 88ee303b89be90e42a671465a1e776e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4041003684797680230}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebcb371e6ea4ca7b59ba6f9cbec654c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8949409736316960297

@@ -39,5 +39,10 @@ namespace Factory
                 .OnUpdate(delegate { _timerImplementation.SetTimer((int) (_roundTime - _timerSequence.Elapsed())); })
                 .OnComplete(delegate { TimeEnded(); });
         }
+
+        public void StopTimer()
+        {
+            _timerSequence.Kill();
+        }
     }
 }

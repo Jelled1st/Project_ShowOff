@@ -190,6 +190,7 @@ namespace Factory
         private void OnLevel2TriggerHit(GameObject obj)
         {
             StartCoroutine(LoadScene());
+            
             if (!obj.CompareTag(_allowedTruckObjectTag))
                 return;
 
@@ -199,7 +200,8 @@ namespace Factory
             {
                 _canAppendScore = true;
                 FindObjectOfType<BKM>().TruckDriving();
-
+                _stageTimer.StopTimer();
+                
                 //SceneManager.LoadScene(_nextScene);
                 _trulyFinished = true;
             }
