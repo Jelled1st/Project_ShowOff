@@ -6,15 +6,28 @@ using UnityEngine;
 public class StirDishRequiredStir : ScriptableObject, IDishObserver
 {
     [SerializeField] List<IngredientType> _stirAfterIngredients;
+    public List<IngredientType> _uniqueTypes;
     private StirDish dish;
 
     public void Init(StirDish dish)
     {
+        if (dish != null) UnSubscribe(dish);
         this.dish = dish;
         Subscribe(dish);
+
+        _uniqueTypes = new List<IngredientType>();
+        for (int i = 0; i < _stirAfterIngredients.Count; ++i)
+        {
+            if (!_uniqueTypes.Contains(_stirAfterIngredients[i])) _uniqueTypes.Add(_stirAfterIngredients[i]);
+        }
     }
 
-    public void OnDestroy()
+    public bool HasIngredientType(IngredientType type)
+    {
+        return _uniqueTypes.Contains(type);
+    }
+
+    public void RemoveDish()
     {
         UnSubscribe(dish);
     }
@@ -33,7 +46,11 @@ public class StirDishRequiredStir : ScriptableObject, IDishObserver
                 break;
             }
         }
-        if (_stirAfterIngredients.Count == 0) dish.ReachRequiredStir(this);
+        if (_stirAfterIngredients.Count == 0)
+        {
+            Debug.Log("Activate");
+            dish.ReachRequiredStir(this);
+        }
     }
 
     public void OnNotify(AObserverEvent observerEvent)

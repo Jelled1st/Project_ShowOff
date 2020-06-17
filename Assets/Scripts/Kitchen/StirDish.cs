@@ -8,8 +8,10 @@ public class StirDish : Dish
     [Header("Stir dish exlusive")]
     [SerializeField] GameObject _stirringDevice;
     [SerializeField] List<StirDishRequiredStir> _requiredStirOptions;
+    [SerializeField] GameObject _ingredientRotateParent;
     private bool _mustStir = false;
     bool _isFinished = false;
+    private StirDishRequiredStir _currentRequiredStir = null;
 
     new void Awake() => base.Awake();
     
@@ -50,6 +52,7 @@ public class StirDish : Dish
 
     private bool TryAddIngredientCheck(IIngredient ingredient)
     {
+        if (_mustStir && !_currentRequiredStir.HasIngredientType(ingredient.GetIngredientType())) return false;
         if (_debugLog) Debug.Log("Trying to add");
         IngredientType type = ingredient.GetIngredientType();
         if (_finishIngredient != IngredientType.Undefined && type == _finishIngredient)
@@ -100,9 +103,11 @@ public class StirDish : Dish
         {
             if(_requiredStirOptions[i] == requiredStir)
             {
+                Debug.Log("Stir!");
                 SetRequiredStir(true);
                 _requiredStirOptions.RemoveAt(i);
-                Destroy(requiredStir);
+                _currentRequiredStir = requiredStir;
+                requiredStir.RemoveDish();
             }
         }
     }
@@ -119,13 +124,11 @@ public class StirDish : Dish
         if (!DOTween.IsTweening(_stirringDevice.transform))
         {
             _stirringDevice.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
-            for(int i = 0; i < _addedIngredients.Count; ++i)
-            {
-                _addedIngredientObjects[_addedIngredients[i]].transform.DOLocalRotate(new Vector3(0, 360, 0), 0.7f, RotateMode.WorldAxisAdd);
-            }
+            _ingredientRotateParent.transform.DOLocalRotate(new Vector3(0, 360, 0), 0.7f, RotateMode.WorldAxisAdd);
 
             Notify(new DishStirEvent(this));
             _mustStir = false;
+            _currentRequiredStir = null;
             if (IsFinished(true) && !_isFinished)
             {
                 _isFinished = true;
