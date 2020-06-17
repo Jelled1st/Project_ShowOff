@@ -1,5 +1,6 @@
 main.start: Comenzar
 main.exit: Salir
+main.subtitle: ¡Un juego donde converties papas en una deliciosa comida frita!
 
 misc.score: Puntos
 
@@ -8,5 +9,22 @@ farm.shovelQuest: Usa la pala
 farm.plantQuest: Planta las papas
 farm.waterQuest: Riega las plantas
 
+factory.mainQuest: Haz 9 paquetes de papas fritas
+factory.washQuest: Lava las papas
+factory.peelQuest: Pela las papas lavadas
+factory.chopQuest: Convierte las papas a papas fritas 
+factory.packageQuest: Empaca las papas fritas
+
+kitchen.choiceBurger: Hamburguesa con papas fritas
+kitchen.choiceChili: Chili con queso y papas fritas
+kitchen.choiceFish: Pescado con papas fritas
 kitchen.fryFries: Pon las papas fritas en la freidora
 kitchen.cookPatty: Cocina una hamburguesa
+
+persUI.restart: ¿Estás seguro de que quieres reiniciar?
+persUI.quit: ¿Estás seguro de que quieres dejar de jugar?
+persUI.yes: Si
+persUI.no: No
+
+timeout.reminder: ¿Sigues ahí?
+timeout.yes: Si

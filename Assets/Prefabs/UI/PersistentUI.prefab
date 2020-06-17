@@ -914,7 +914,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Weet je zeker dat je opnieuw wilt opstarten?
+  m_text: Weet je zeker dat je opnieuw wilt starten?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a654818e5f2bb144592a26407773f997, type: 2}
   m_sharedMaterial: {fileID: 9074848393869467446, guid: a654818e5f2bb144592a26407773f997,
@@ -984,7 +984,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3870945346919628633}
-    characterCount: 44
+    characterCount: 42
     spriteCount: 0
     spaceCount: 7
     wordCount: 8
