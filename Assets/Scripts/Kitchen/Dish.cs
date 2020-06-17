@@ -18,28 +18,24 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     [Header("Required Ingredients")]
     [SerializeField] protected List<IngredientType> _requiredIngredients;
-    [Tooltip("The placements of the required ingredients")]
-    [SerializeField] protected List<GameObject> _requiredPlacements;
-    [Tooltip("True means that the index in the placement list corrosponds to the index in the ingredient list")]
-    [SerializeField] protected bool _placeRequiredInOrder;
+    [SerializeField] protected List<GameObject> _requiredIngredientMeshes;
 
     [Header("Optional Ingredients")]
     [SerializeField] protected List<IngredientType> _optionalIngredients;
     [Tooltip("The placements of the optional ingredients")]
-    [SerializeField] protected List<GameObject> _optionalPlacements;
-    [Tooltip("True means that the index in the placement list corrosponds to the index in the ingredient list")]
-    [SerializeField] protected bool _placeOptionalInOrder;
+    [SerializeField] protected List<GameObject> _optionalIngredientMeshes;
 
     [Header("Final ingredient")]
     [SerializeField] protected IngredientType _finishIngredient;
     protected bool _finishIngredientPlaced = false;
-    [SerializeField] protected GameObject _finishIngredientPlacement;
+    [SerializeField] protected GameObject _finishIngredientMesh;
 
     [Header("Misc")]
     [Tooltip("the dishes this dish is dependent on. All dependent dishes must be done before completing this")]
-        [SerializeField] List<Dish> _sideDishesLeft = new List<Dish>();
+    [SerializeField] List<Dish> _sideDishesLeft = new List<Dish>();
     [Tooltip("Stack all ingredients from the using the required placements index 0")]
-        [SerializeField] protected bool _stackAllIngredients = false;
+    [SerializeField] protected bool _stackAllIngredients = false;
+    [SerializeField] protected GameObject _stackIngredientsNode;
     protected List<IngredientType> _addedIngredients = new List<IngredientType>();
     protected Dictionary<IngredientType, GameObject> _addedIngredientObjects = new Dictionary<IngredientType, GameObject>();
 
@@ -55,22 +51,12 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     // Start is called before the first frame update
     protected void Start()
     {
-        if (_stackAllIngredients)
+        if (!_stackAllIngredients)
         {
-            if(_requiredPlacements.Count > 0)
-            {
-                GameObject placement = _requiredPlacements[0];
-                _requiredPlacements = new List<GameObject>();
-                _requiredPlacements.Add(placement);
-                _optionalPlacements = null;
-            }
-        }
-        else
-        {
-            if (_requiredIngredients.Count != _requiredPlacements.Count)
-                Debug.Log("Burgerdish warning: Amount of required ingredients does not match placement options");
-            if (_optionalIngredients.Count != _optionalIngredients.Count)
-                Debug.Log("Burgerdish warning: Amount of optional ingredients does not match placement options");
+            if (_requiredIngredients.Count != _requiredIngredientMeshes.Count)
+                Debug.Log("Burgerdish warning: Amount of required ingredients does not match meshes count");
+            if (_optionalIngredients.Count != _optionalIngredientMeshes.Count)
+                Debug.Log("Burgerdish warning: Amount of optional ingredients does not match meshes count");
         }
 
         for(int i = 0; i < _sideDishesLeft.Count; ++i)
@@ -199,77 +185,61 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             return;
         }
         _addedIngredients.Add(type);
-        GameObject ingredientGO = ingredientMesh;
-        _addedIngredientObjects.Add(type, ingredientGO);
-        ingredientGO.transform.SetParent(this.transform);
 
-        //saving the upcoming 4 vars makes sure the code only requires 2 if-else statements  
-        Vector3 pos = new Vector3();
-        Quaternion rot = new Quaternion();
-        List<GameObject> placementList;
-        bool inOrder = false;
         if (_stackAllIngredients)
         {
-            pos = _requiredPlacements[0].transform.position;
-            rot = _requiredPlacements[0].transform.rotation;
-            _requiredPlacements[0].transform.position += new Vector3(0, ingredientHeight, 0);
+            _addedIngredientObjects.Add(type, ingredientMesh);
+            ingredientMesh.transform.SetParent(this.transform);
+
+            Vector3 pos = new Vector3();
+            Quaternion rot = new Quaternion();
+            pos = _stackIngredientsNode.transform.position;
+            rot = _stackIngredientsNode.transform.rotation;
+            _stackIngredientsNode.transform.position += new Vector3(0, ingredientHeight, 0);
+            ingredientMesh.transform.position = pos;
+            ingredientMesh.transform.rotation = rot;
         }
         else
         {
-            if (requiredIngredient)
+            Destroy(ingredientMesh);
+            if(requiredIngredient)
             {
-                placementList = _requiredPlacements;
-                if (_placeRequiredInOrder) inOrder = true;
+                _requiredIngredientMeshes[indexInList].SetActive(true);
+                _addedIngredientObjects.Add(type, _requiredIngredientMeshes[indexInList]);
+                _requiredIngredientMeshes.RemoveAt(indexInList);
             }
             else
             {
-                placementList = _optionalPlacements;
-                if (_placeOptionalInOrder) inOrder = true;
-            }
-
-
-            if (inOrder)
-            {
-                pos = placementList[indexInList].transform.position;
-                rot = placementList[indexInList].transform.rotation;
-                _requiredPlacements.RemoveAt(indexInList);
-            }
-            else
-            {
-                int rand = Random.Range(0, _requiredPlacements.Count);
-                pos = placementList[rand].transform.position;
-                rot = placementList[rand].transform.rotation;
-                _requiredPlacements.RemoveAt(rand);
+                _optionalIngredientMeshes[indexInList].SetActive(true);
+                _addedIngredientObjects.Add(type, _optionalIngredientMeshes[indexInList]);
+                _optionalIngredientMeshes.RemoveAt(indexInList);
             }
         }
-        ingredientGO.transform.position = pos;
-        ingredientGO.transform.rotation = rot;
     }
 
     protected void AddFinalIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight)
     {
         if (ingredientMesh == null) return;
         _addedIngredients.Add(type);
-        GameObject ingredientGO = ingredientMesh;
-        _addedIngredientObjects.Add(type, ingredientGO);
-        ingredientGO.transform.SetParent(this.transform);
 
-        //saving the upcoming 4 vars makes sure the code only requires 2 if-else statements  
-        Vector3 pos = new Vector3();
-        Quaternion rot = new Quaternion();
         if (_stackAllIngredients)
         {
-            pos = _requiredPlacements[0].transform.position;
-            rot = _requiredPlacements[0].transform.rotation;
-            _requiredPlacements[0].transform.position += new Vector3(0, ingredientHeight, 0);
+            GameObject ingredientGO = ingredientMesh;
+            _addedIngredientObjects.Add(type, ingredientGO);
+            ingredientGO.transform.SetParent(this.transform);
+            Vector3 pos = new Vector3();
+            Quaternion rot = new Quaternion();
+            pos = _stackIngredientsNode.transform.position;
+            rot = _stackIngredientsNode.transform.rotation;
+            _stackIngredientsNode.transform.position += new Vector3(0, ingredientHeight, 0);
         }
         else
         {
-            pos = _finishIngredientPlacement.transform.position;
-            rot = _finishIngredientPlacement.transform.rotation;
+            Destroy(ingredientMesh);
+            _finishIngredientMesh.SetActive(true);
+            _addedIngredientObjects.Add(type, _finishIngredientMesh);
+            _finishIngredientMesh = null;
         }
-        ingredientGO.transform.position = pos;
-        ingredientGO.transform.rotation = rot;
     }
 
     #region IControllable
