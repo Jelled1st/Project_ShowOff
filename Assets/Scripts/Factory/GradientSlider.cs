@@ -59,7 +59,6 @@ namespace Factory
 
             if (Mathf.Approximately(value, 0f))
             {
-                print("true");
                 _sliderImage.color = _sortedGradientPoints[0].Color;
                 _currentPointId = 0;
                 return;
