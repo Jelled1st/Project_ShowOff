@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 246.4621, g: 305.38718, b: 404.1746, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6458,7 +6458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a123fc0ac58cb774e8592c925f167e7c, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 1133370116}
+  m_SkySettings: {fileID: 1559972482}
   m_SkySettingsFromProfile: {fileID: -1658960478407648048, guid: a123fc0ac58cb774e8592c925f167e7c,
     type: 2}
 --- !u!4 &187689537
@@ -8562,7 +8562,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443408595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0112, y: 0.064, z: 0.0015}
+  m_LocalPosition: {x: -0.0119, y: 0.0633, z: -0.0267}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1997775961}
@@ -13107,8 +13107,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.023909926, y: 0.06213379, z: 0.3863346}
-  m_Center: {x: -0.0016368032, y: -0.012816161, z: 0.15083393}
+  m_Size: {x: 0.023909926, y: 0.035610527, z: 0.3863346}
+  m_Center: {x: -0.0016368032, y: 0.00044522926, z: 0.15083395}
 --- !u!1001 &825445551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13732,8 +13732,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.05, z: 0.1}
-  m_Center: {x: 0.11, y: 0.02, z: 0}
+  m_Size: {x: 0.17818445, y: 0.050000004, z: 0.06501755}
+  m_Center: {x: 0.09909228, y: 0.02, z: 0.002054031}
 --- !u!114 &888183640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13746,7 +13746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a8312dc79de55419e876c671f866d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ingredientType: 10
+  _ingredientType: 13
   _ingredientHeight: 0.1
   _currentState: {fileID: 978375956}
   _cutStates:
@@ -13764,7 +13764,17 @@ MonoBehaviour:
   cuttingBoard: {fileID: 0}
   _isHard: 1
   _fallOffOptionForState:
-  - {fileID: 11400000, guid: 53d700f97583e7f4ca70a5608d82c927, type: 2}
+  - {fileID: 11400000, guid: 5e567acca9790d448b0717b979255604, type: 2}
+  - {fileID: 11400000, guid: 623c8cfc6a4aa084a8eeec3906f28e6f, type: 2}
+  - {fileID: 11400000, guid: 92028faf14a592442ac8108b4f9b0622, type: 2}
+  - {fileID: 11400000, guid: e4c57ac502e939d4691f8d8ecc9bb585, type: 2}
+  - {fileID: 11400000, guid: c5c48ba2710520b4cab3a7877d572f82, type: 2}
+  - {fileID: 11400000, guid: e6259a5eaba3a6f42adf306ac2b61914, type: 2}
+  - {fileID: 11400000, guid: f6161e377f248e0469f33689ad5d7087, type: 2}
+  - {fileID: 11400000, guid: 6a19bfdf9a0f74b4bb4422ed776b7c2d, type: 2}
+  - {fileID: 11400000, guid: 43cefbd1f307fdd44b76de26221fed13, type: 2}
+  - {fileID: 11400000, guid: 123333ac71bd3db4fb220981d65f4368, type: 2}
+  - {fileID: 11400000, guid: 5af09e13555145f469a8a03ecc4e0be4, type: 2}
 --- !u!114 &888183641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16114,107 +16124,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1117818645}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1133370116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 10.91
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  hdriSky:
-    m_OverrideState: 0
-    m_Value: {fileID: 8900000, guid: 54a3a0570aebe8949bec4966f1376581, type: 3}
-  enableBackplate:
-    m_OverrideState: 0
-    m_Value: 0
-  backplateType:
-    m_OverrideState: 0
-    m_Value: 0
-  groundLevel:
-    m_OverrideState: 0
-    m_Value: 0
-  scale:
-    m_OverrideState: 0
-    m_Value: {x: 32, y: 32}
-  projectionDistance:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 0.0000001
-  plateRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  blendAmount:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 100
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  pointLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  dirLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  rectLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!4 &1136540622 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 07071782d584ccf41958ae708bbc1069,
@@ -16992,8 +16901,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dishType: 2
-  _requiredIngredients: 
-  _requiredIngredientMeshes: []
+  _requiredIngredients: 0d000000
+  _requiredIngredientMeshes:
+  - {fileID: 0}
   _optionalIngredients: 
   _optionalIngredientMeshes: []
   _finishIngredient: 0
@@ -20345,6 +20255,107 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1559491452}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1559972482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 10.91
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  hdriSky:
+    m_OverrideState: 0
+    m_Value: {fileID: 8900000, guid: 54a3a0570aebe8949bec4966f1376581, type: 3}
+  enableBackplate:
+    m_OverrideState: 0
+    m_Value: 0
+  backplateType:
+    m_OverrideState: 0
+    m_Value: 0
+  groundLevel:
+    m_OverrideState: 0
+    m_Value: 0
+  scale:
+    m_OverrideState: 0
+    m_Value: {x: 32, y: 32}
+  projectionDistance:
+    m_OverrideState: 0
+    m_Value: 16
+    min: 0.0000001
+  plateRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  blendAmount:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 100
+  shadowTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  pointLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  dirLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  rectLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!1 &1565317357
 GameObject:
   m_ObjectHideFlags: 0

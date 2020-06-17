@@ -29,6 +29,7 @@ public class CuttableFoodWithDropOff : CuttableFood
     {
         if(base.Cut())
         {
+            Debug.Log("Cut");
             int fallOffIndex = _currentStateIndex - 1;
             if (_fallOffOptionForState.Count < _currentStateIndex) fallOffIndex = _fallOffOptionForState.Count-1;
             GameObject fallOff = GameObject.Instantiate(_fallOffOptionForState[fallOffIndex].GetFallOffPiece(), cuttingBoard.GetCutPosition(), Quaternion.identity);
@@ -38,6 +39,7 @@ public class CuttableFoodWithDropOff : CuttableFood
             {
                 _fallOffPieces[i].gameObject.transform.DOMove(_fallOffPieces[i].transform.position - new Vector3(_fallOffOptionForState[fallOffIndex].GetFallOffPieceLength()/2, 0, 0), 0.1f);
             }
+            fallOff.AddComponent<BoxCollider>();
             _fallOffPieces.Add(fallOff);
             return true;
         }
