@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUgui: {fileID: 0}
-  _fieldName: timeout.stillThere
+  _fieldName: timeout.reminder
 --- !u!1 &8017950494469258745
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,4 +660,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUgui: {fileID: 0}
-  _fieldName: timeout.text
+  _fieldName: timeout.yes
