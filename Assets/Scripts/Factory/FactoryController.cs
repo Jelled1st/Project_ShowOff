@@ -3,6 +3,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 namespace Factory
@@ -18,6 +19,12 @@ namespace Factory
         [Required]
         [SerializeField]
         private FinishTrigger _finishTriggerLevel2;
+
+        [BoxGroup("Scene objects")]
+        [Required]
+        [ReorderableList]
+        [SerializeField]
+        private GameObject[] _potatoPackageStacks;
 
         [BoxGroup("Scene objects")]
         [Required]
@@ -116,6 +123,8 @@ namespace Factory
 
         private void OnEnable()
         {
+            _potatoPackageStacks.ToList().ForEach(t => t.SetActive(false));
+
             _level2Machines.ToggleChildren<Machine>(false);
 
             _finishTriggerLevel1.FinishTriggerHit += OnLevel1TriggerHit;
@@ -194,6 +203,9 @@ namespace Factory
 
             if (!obj.CompareTag(_allowedTruckObjectTag))
                 return;
+
+            if (PotatoesInput < _potatoPackageStacks.Length)
+                _potatoPackageStacks[PotatoesInput].SetActive(true);
 
             PotatoesInput++;
 
