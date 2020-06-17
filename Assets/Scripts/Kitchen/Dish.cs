@@ -204,15 +204,21 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             Destroy(ingredientMesh);
             if(requiredIngredient)
             {
-                _requiredIngredientMeshes[indexInList].SetActive(true);
-                _addedIngredientObjects.Add(type, _requiredIngredientMeshes[indexInList]);
-                _requiredIngredientMeshes.RemoveAt(indexInList);
+                if (_requiredIngredientMeshes[indexInList] != null)
+                {
+                    _requiredIngredientMeshes[indexInList].SetActive(true);
+                    _addedIngredientObjects.Add(type, _requiredIngredientMeshes[indexInList]);
+                    _requiredIngredientMeshes.RemoveAt(indexInList);
+                }
             }
             else
             {
-                _optionalIngredientMeshes[indexInList].SetActive(true);
-                _addedIngredientObjects.Add(type, _optionalIngredientMeshes[indexInList]);
-                _optionalIngredientMeshes.RemoveAt(indexInList);
+                if (_optionalIngredientMeshes[indexInList] != null)
+                {
+                    _optionalIngredientMeshes[indexInList].SetActive(true);
+                    _addedIngredientObjects.Add(type, _optionalIngredientMeshes[indexInList]);
+                    _optionalIngredientMeshes.RemoveAt(indexInList);
+                }
             }
         }
     }
