@@ -1,9 +1,30 @@
 main.start: Start
 main.exit: Afsluiten
+main.subtitle: Een spel over het veranderen van aardappelen in een heerlijke gebakken maaltijd!
+
 misc.score: Score
+
 farm.mainQuest: Oogst 9 aardappelplanten
 farm.shovelQuest: Gebruik de schep
 farm.plantQuest: Plant aardappelen
 farm.waterQuest: Geef de planten water
+
+factory.mainQuest: Verzend 9 pakjes friet
+factory.washQuest: Aardappelen wassen
+factory.peelQuest: Schil gewassen aardappelen
+factory.chopQuest: Snijd de aardappelen in frietjes
+factory.packageQuest: Verpak de frieten
+
+kitchen.choiceBurger: Burger met frieten
+kitchen.choiceChili: Chili cheese frieten
+kitchen.choiceFish: Viz met frieten
 kitchen.fryFries: Doe de frietjes in de frietpan
 kitchen.cookPatty: Bak een hamburger
+
+persUI.restart: Weet je zeker dat je opnieuw wilt starten?
+persUI.quit: Weet je zeker dat je wilt stoppen?
+persUI.yes: Ja
+persUI.no: Nee
+
+timeout.reminder: Ben je er nog?
+timeout.yes: Ja
