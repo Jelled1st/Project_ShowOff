@@ -93,7 +93,8 @@ namespace Factory
             set
             {
                 _potatoesInput = value;
-                _factoryUiManager.SetPotatoesCount(_potatoesInput, _potatoesNeededToPassLevel1);
+                var of = _level1Passed ? _potatoesNeededToPassLevel2 : _potatoesNeededToPassLevel1;
+                _factoryUiManager.SetPotatoesCount(_potatoesInput, of);
             }
         }
 
@@ -190,7 +191,7 @@ namespace Factory
         private void OnLevel2TriggerHit(GameObject obj)
         {
             StartCoroutine(LoadScene());
-            
+
             if (!obj.CompareTag(_allowedTruckObjectTag))
                 return;
 
@@ -201,11 +202,12 @@ namespace Factory
                 _canAppendScore = true;
                 FindObjectOfType<BKM>().TruckDriving();
                 _stageTimer.StopTimer();
-                
+
                 //SceneManager.LoadScene(_nextScene);
                 _trulyFinished = true;
             }
         }
+
         IEnumerator LoadScene()
         {
             yield return null;
@@ -224,6 +226,7 @@ namespace Factory
                         asyncOperation.allowSceneActivation = true;
                     }
                 }
+
                 yield return null;
             }
         }
