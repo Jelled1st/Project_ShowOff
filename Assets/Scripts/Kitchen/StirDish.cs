@@ -103,7 +103,6 @@ public class StirDish : Dish
         {
             if(_requiredStirOptions[i] == requiredStir)
             {
-                Debug.Log("Stir!");
                 SetRequiredStir(true);
                 _requiredStirOptions.RemoveAt(i);
                 _currentRequiredStir = requiredStir;

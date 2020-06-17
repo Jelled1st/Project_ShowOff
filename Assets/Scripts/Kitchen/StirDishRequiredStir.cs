@@ -6,7 +6,7 @@ using UnityEngine;
 public class StirDishRequiredStir : ScriptableObject, IDishObserver
 {
     [SerializeField] List<IngredientType> _stirAfterIngredients;
-    public List<IngredientType> _uniqueTypes;
+    List<IngredientType> _uniqueTypes;
     private StirDish dish;
 
     public void Init(StirDish dish)
@@ -48,7 +48,6 @@ public class StirDishRequiredStir : ScriptableObject, IDishObserver
         }
         if (_stirAfterIngredients.Count == 0)
         {
-            Debug.Log("Activate");
             dish.ReachRequiredStir(this);
         }
     }
