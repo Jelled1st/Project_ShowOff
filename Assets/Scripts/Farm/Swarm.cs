@@ -154,6 +154,10 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         {
             if (_observers[i] is ISwarmObserver) (_observers[i] as ISwarmObserver).OnFlee();
         }
+        for(int i = 0; i < _swarmUnits.Count; ++i)
+        {
+            _swarmUnits[i].transform.Rotate(new Vector3(0, 180, 0), Space.World);
+        }
     }
 
     public void UnitReachedPlot(SwarmUnit unit, FarmPlot plot)
