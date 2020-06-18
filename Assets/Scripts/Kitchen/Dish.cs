@@ -243,6 +243,8 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             Quaternion rot = new Quaternion();
             pos = _stackIngredientsNode.transform.position;
             rot = _stackIngredientsNode.transform.rotation;
+            ingredientGO.transform.position = pos;
+            ingredientGO.transform.rotation = rot;
             _stackIngredientsNode.transform.position += new Vector3(0, ingredientHeight, 0);
         }
         else
@@ -252,6 +254,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             _addedIngredientObjects.Add(type, _finishIngredientMesh);
             _finishIngredientMesh = null;
         }
+        Debug.Log(ingredientMesh);
     }
 
     #region IControllable
