@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface ISubject
+﻿public interface ISubject
 {
     void Register(IObserver observer);
 

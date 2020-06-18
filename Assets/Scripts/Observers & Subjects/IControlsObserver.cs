@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 //Observes the TouchController, everytime a method is called on an IControllable,
 //it will also be called on this

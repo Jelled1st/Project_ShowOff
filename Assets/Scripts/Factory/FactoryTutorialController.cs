@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using Factory;
 using NaughtyAttributes;
 using StateMachine;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 [Serializable]
 public class TutorialPart
@@ -14,7 +12,6 @@ public class TutorialPart
     public CollisionCallback _trigger;
 
     public GameObject _visuals;
-    // public Transform _cameraPosition;
 
     [NonSerialized]
     private bool _passed;
@@ -38,7 +35,6 @@ public class TutorialPart
             _trigger.TriggerEnter -= OnTriggerEnter;
 
         DOTween.Sequence()
-            // .Append(Camera.main.transform.DOMove(FactoryTutorialController.CameraInitialPosition, 2f))
             .AppendCallback(() =>
             {
                 Time.timeScale = 1f;
@@ -57,19 +53,10 @@ public class TutorialPart
             return;
 
         Time.timeScale = FactoryTutorialController.TimeScaleChange;
-        // Object.FindObjectsOfType<FlatConveyorBelt>().ToggleAll(false);
-
-        Vector3 initialScale = _visuals.transform.localScale;
 
         DOTween.Sequence()
-            // .Append(Camera.main.transform.DOMove(_cameraPosition.position, 2f))
             .AppendCallback(() => { _visuals.SetActive(true); })
             .AppendCallback(() => CoroutineHandler.StartUniqueCoroutine(WaitForPassed()))
-            // .AppendInterval(3f).AppendCallback(() =>
-            // {
-            //     Debug.Log("passed interval");
-            //     _passed = true;
-            // })
             .SetUpdate(true);
     }
 
@@ -101,39 +88,18 @@ public class FactoryTutorialController : MonoBehaviour
     [SerializeField]
     private TutorialPart _slowdownPart;
 
-    [BoxGroup("Slowdown")]
-    [SerializeField]
-    private FlatConveyorBelt _slowdownBelt;
-
-
     [BoxGroup("Speedup")]
     [SerializeField]
     private TutorialPart _speedupPart;
-
-
-    [BoxGroup("Speedup")]
-    [SerializeField]
-    private FlatConveyorBelt _speedupBelt;
-
 
     [BoxGroup("Rotation")]
     [SerializeField]
     private TutorialPart _rotationPart;
 
-
-    [BoxGroup("Rotation")]
-    [SerializeField]
-    private FlatConveyorBelt _rotationBelt;
-
     [BoxGroup("Machine breaking")]
     [Label("Ignore trigger")]
     [SerializeField]
     private TutorialPart _machineBreakPart;
-
-
-    [BoxGroup("Basic")]
-    [SerializeField]
-    private float _timeToHold = 1.5f;
 
     [BoxGroup("Basic")]
     [SerializeField]

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class FryerStopEvent : AObserverEvent
+﻿public class FryerStopEvent : AObserverEvent
 {
     public readonly FryFryer fryer;
     public readonly FryableFood food;

@@ -2,7 +2,6 @@
 using NaughtyAttributes;
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.SceneManagement;
 
@@ -21,7 +20,6 @@ namespace Factory
         private FinishTrigger _finishTriggerLevel2;
 
         [BoxGroup("Scene objects")]
-        [Required]
         [ReorderableList]
         [SerializeField]
         private GameObject[] _potatoPackageStacks;
@@ -89,6 +87,7 @@ namespace Factory
         private bool _level1Passed;
         private FactoryUiManager _factoryUiManager;
         private StageTimer _stageTimer;
+        private FactoryQuestController _factoryQuestController;
 
         bool _trulyFinished = false;
 
@@ -116,8 +115,11 @@ namespace Factory
         private void Awake()
         {
             StartCoroutine(LoadScene());
+
             _factoryUiManager = FindObjectOfType<FactoryUiManager>();
             _stageTimer = FindObjectOfType<StageTimer>();
+            _factoryQuestController = FindObjectOfType<FactoryQuestController>();
+
             _initialScore = Scores.GetCurrentScore();
         }
 
@@ -134,6 +136,8 @@ namespace Factory
 
             _stageTimer.TimeEnded += OnTimeEnded;
             _stageTimer.StartTimer();
+
+            _factoryQuestController.SetLevel(1);
 
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
@@ -169,6 +173,8 @@ namespace Factory
             if (!_level1Passed && PotatoesInput == PotatoesNeededToPassLevel1)
             {
                 _level1Passed = true;
+
+                _factoryQuestController.SetLevel(2);
 
                 Camera.main.transform.DOMove(_level2CameraPosition.position, 2f);
                 Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, 2f);
