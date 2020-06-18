@@ -13467,9 +13467,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 874305625}
-  - component: {fileID: 874305628}
-  - component: {fileID: 874305627}
-  - component: {fileID: 874305626}
   m_Layer: 0
   m_Name: Fries On Plate (1)
   m_TagString: Untagged
@@ -13512,51 +13509,6 @@ Transform:
   m_Father: {fileID: 601210414}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &874305626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 874305624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d2dfd846ba32e24cb8fd42a496ea6e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ingredientType: 5
-  _ingredientHeight: 0.2
-  _timeToFry: 10
-  fryer: {fileID: 0}
---- !u!114 &874305627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 874305624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3577b6eb2b3c16e4c965bb281c0fe307, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _controllable: {fileID: 874305624}
-  _controller: {fileID: 2144155326}
-  _controllerFeedback: {fileID: 1072549211}
-  active: 1
---- !u!65 &874305628
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 874305624}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.018, y: 0.05, z: 0.018}
-  m_Center: {x: 0, y: 0.025, z: 0}
 --- !u!1 &884285316
 GameObject:
   m_ObjectHideFlags: 0
