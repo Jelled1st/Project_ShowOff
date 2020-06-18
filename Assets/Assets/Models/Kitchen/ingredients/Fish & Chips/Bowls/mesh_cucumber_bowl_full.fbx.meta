@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 801923c92be993845aea9482601ae7a4
+guid: 61ace530ac07bb84e823a95c91e06e84
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,13 +7,19 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_bowl
-    second: {fileID: 2100000, guid: f2b789c9cc73ce243b8e751d4c8f4d27, type: 2}
+      name: mat_CucumberPeel
+    second: {fileID: 2100000, guid: fba2371b01979c941a3d87a7f5c16b9b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_lettuce
-    second: {fileID: 2100000, guid: 24331a74571a67e4bb7bb8ff632e46d4, type: 2}
+      name: mat_Cucumber_CucumberInternal
+    second: {fileID: 2100000, guid: eba36b22de0287540887f6ec7eab8382, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_bowl
+    second: {fileID: 3045578158407981359, guid: f8b14469ffc91fc428409996c967a209,
+      type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
