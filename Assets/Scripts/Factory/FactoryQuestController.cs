@@ -7,6 +7,12 @@ namespace Factory
     public class FactoryQuestController : MonoBehaviour
     {
         [SerializeField]
+        private GameObject _level1Ui;
+
+        [SerializeField]
+        private GameObject _level2Ui;
+
+        [SerializeField]
         private TextMeshProUGUI _washText;
 
         [SerializeField]
@@ -26,6 +32,21 @@ namespace Factory
         private void OnDisable()
         {
             Machine.ItemLeftMachine -= SetPassedQuest;
+        }
+
+        public void SetLevel(int level)
+        {
+            switch (level)
+            {
+                case 1:
+                    _level1Ui.SetActive(true);
+                    _level2Ui.SetActive(false);
+                    break;
+                case 2:
+                    _level1Ui.SetActive(false);
+                    _level2Ui.SetActive(true);
+                    break;
+            }
         }
 
         private void SetPassedQuest(Machine.MachineType machineType)
