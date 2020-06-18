@@ -44,6 +44,7 @@ public class Knife : MonoBehaviour, IControllable
             _swipeFramesCount = 0;
             ResetCut();
         }
+        else if (this.transform.rotation.eulerAngles == new Vector3(0, 0, 0)) ResetCut();
         if (!_isSwiping)
         {
             _swipeFramesCount = 0;
