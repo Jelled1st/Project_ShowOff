@@ -85,6 +85,11 @@ namespace Factory
 
         [BoxGroup("Stage settings")]
         [SerializeField]
+        [Tag]
+        private string _allowedLevel1ObjectTag;
+
+        [BoxGroup("Stage settings")]
+        [SerializeField]
         [Scene]
         private string _nextScene;
 
@@ -172,6 +177,9 @@ namespace Factory
 
         private void OnLevel1TriggerHit(GameObject obj)
         {
+            if (!obj.CompareTag(_allowedLevel1ObjectTag))
+                return;
+
             PotatoesInput++;
 
             if (!_level1Passed && PotatoesInput == PotatoesNeededToPassLevel1)
@@ -222,6 +230,7 @@ namespace Factory
                 _potatoPackageStacks[PotatoesInput].SetActive(true);
 
             PotatoesInput++;
+            Scores.AddScore(Scores.LoadedPotatoBagged);
 
             if (PotatoesInput >= _potatoesNeededToPassLevel2)
             {
@@ -238,6 +247,7 @@ namespace Factory
             bkm.StopMusicFade();
             bkm.TruckDriving();
             _stageTimer.StopTimer();
+            Scores.AddScore(Scores.LeftTimeMultiplier * _stageTimer.TimeRemaining);
 
 
             DOTween.Sequence()
