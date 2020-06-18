@@ -32035,6 +32035,7 @@ MonoBehaviour:
   _potatoesNeededToPassLevel1: 5
   _potatoesNeededToPassLevel2: 3
   _allowedTruckObjectTag: Factory/Potato_Packed
+  _allowedLevel1ObjectTag: Factory/Potato_Peeled
   _nextScene: '!Factory Transition'
   _changeSceneAfterDriveInterval: 5
 --- !u!4 &1559861478
