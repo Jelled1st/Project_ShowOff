@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: OnionDropOffHalf
   m_EditorClassIdentifier: 
   _fallOffPieces:
-  - {fileID: -927199367670048503, guid: 7b9434b4a39aae649bb6d725868d773e, type: 3}
+  - {fileID: -927199367670048503, guid: 6891dfdcb41f6a6419a13302350a751f, type: 3}
   _fallOffPiecesLengths:
-  - 0.05
+  - 0.1
