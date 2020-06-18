@@ -39,11 +39,12 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     {
         if (_currentStateIndex < _cutStates.Count - 1)
         {
-            Transform current = _currentState.transform;
+            Transform previous = _currentState.transform;
             Destroy(_currentState);
             _currentState = Instantiate(_cutStates[++_currentStateIndex], this.transform);
             _currentState.transform.localPosition = new Vector3(0, 0, 0);
-            _currentState.transform.position = current.position;
+            _currentState.transform.position = previous.position;
+            _currentState.transform.rotation = previous.rotation;
             Notify(new CuttableCutEvent(this, _isHard, _currentStateIndex, ReadyForDish()));
             if (_currentStateIndex < _cutStates.Count - 1) Notify(new IngredientDoneEvent(this));
             return true;
