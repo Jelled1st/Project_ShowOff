@@ -35,6 +35,7 @@ public class CuttableFoodWithDropOff : CuttableFood
             fallOff.gameObject.transform.SetParent(this.gameObject.transform);
             fallOff.gameObject.transform.rotation = current.rotation;
             fallOff.gameObject.transform.position -= new Vector3(_fallOffOptionForState[fallOffIndex].GetFallOffPieceLength(), 0, 0);
+            fallOff.gameObject.transform.localScale = current.localScale;
             Rigidbody rb = fallOff.AddComponent<Rigidbody>();
             for(int i = 0; i < _fallOffPieces.Count; ++i)
             {
