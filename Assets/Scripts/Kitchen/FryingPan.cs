@@ -6,7 +6,6 @@ using UnityEngine;
 public class FryingPan : MonoBehaviour, IControllable, ISubject
 {
     [SerializeField] List<GameObject> _foodNodes;
-    [SerializeField] Stove stove;
     bool _stoveOn = false;
     List<GameObject> _availableNodes;
     List<BakableFood> _food = new List<BakableFood>();
@@ -25,21 +24,18 @@ public class FryingPan : MonoBehaviour, IControllable, ISubject
     // Update is called once per frame
     void Update()
     {
-        if (stove == null || stove.IsOn())
+        for (int i = 0; i < _food.Count; ++i)
         {
-            for (int i = 0; i < _food.Count; ++i)
+            _food[i].Bake();
+            if (_food[i].IsBaked() && !_foodBaked[_food[i]])
             {
-                _food[i].Bake();
-                if(_food[i].IsBaked() && !_foodBaked[_food[i]])
-                {
-                    Notify(new BakingDoneEvent(this, _food[i]));
-                    _foodBaked[_food[i]] = true;
-                }
-                if (_food[i].IsBaked() && !_foodBurnt[_food[i]])
-                {
-                    Notify(new BakingBurntEvent(this, _food[i]));
-                    _foodBurnt[_food[i]] = true;
-                }
+                Notify(new BakingDoneEvent(this, _food[i]));
+                _foodBaked[_food[i]] = true;
+            }
+            if (_food[i].IsBaked() && !_foodBurnt[_food[i]])
+            {
+                Notify(new BakingBurntEvent(this, _food[i]));
+                _foodBurnt[_food[i]] = true;
             }
         }
     }

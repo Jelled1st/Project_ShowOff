@@ -7,7 +7,6 @@ using DG.Tweening;
 public class CookingPan : MonoBehaviour, IControllable, ISubject
 {
     [SerializeField] GameObject _foodNode;
-    [SerializeField] Stove stove;
     [SerializeField] GameObject _stirringDeviceRotator;
     [SerializeField] GameObject _stirringDeviceBottom;
     [SerializeField] float _stirBonusModifier = 0.5f;
@@ -25,16 +24,13 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     // Update is called once per frame
     void Update()
     {
-        if (stove == null || stove.IsOn())
+        if (_food.Count == 0) return;
+        CookAllFood();
+        if (_food[_food.Count - 1].IsCooked() && !_foodIsCooked)
         {
-            if (_food.Count == 0) return;
-            CookAllFood();
-            if (_food[_food.Count - 1].IsCooked() && !_foodIsCooked)
-            {
-                _foodIsCooked = true;
-                Notify(new CookingDoneEvent(this, _food[_food.Count - 1]));
-                if (_food[_food.Count - 1].IsCooked(true)) Notify(new CookingAllIngredientsDoneEvent(this));
-            }
+            _foodIsCooked = true;
+            Notify(new CookingDoneEvent(this, _food[_food.Count - 1]));
+            if (_food[_food.Count - 1].IsCooked(true)) Notify(new CookingAllIngredientsDoneEvent(this));
         }
     }
 
