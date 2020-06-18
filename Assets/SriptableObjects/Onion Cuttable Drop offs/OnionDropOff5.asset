@@ -15,4 +15,4 @@ MonoBehaviour:
   _fallOffPieces:
   - {fileID: -927199367670048503, guid: 3558985dc5b632d4583af9c2d3edd338, type: 3}
   _fallOffPiecesLengths:
-  - 0.005
+  - 0
