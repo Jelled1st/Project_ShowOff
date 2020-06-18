@@ -101,7 +101,7 @@ public static class Scores
 
     public static void SetCurrentDish(Dish.DishTypes dishType)
     {
-        _currentUser.dish = dishType;
+        CurrentUser.dish = dishType;
     }
 
     public static void AddScore(float score)
