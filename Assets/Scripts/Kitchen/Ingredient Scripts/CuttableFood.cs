@@ -7,7 +7,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 {
     [SerializeField] private IngredientType _ingredientType;
     [SerializeField] private float _ingredientHeight;
-    [SerializeField] private GameObject _currentState;
+    [SerializeField] protected GameObject _currentState;
     [SerializeField] private List<GameObject> _cutStates;
     [HideInInspector] public CuttingBoard cuttingBoard = null;
     [SerializeField] private bool _isHard = false;

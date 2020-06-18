@@ -29,11 +29,12 @@ public class CuttableFoodWithDropOff : CuttableFood
     {
         if(base.Cut())
         {
-            Debug.Log("Cut");
+            Transform current = _currentState.transform;
             int fallOffIndex = _currentStateIndex - 1;
             if (_fallOffOptionForState.Count < _currentStateIndex) fallOffIndex = _fallOffOptionForState.Count-1;
             GameObject fallOff = GameObject.Instantiate(_fallOffOptionForState[fallOffIndex].GetFallOffPiece(), cuttingBoard.GetCutPosition(), Quaternion.identity);
             fallOff.gameObject.transform.SetParent(this.gameObject.transform);
+            fallOff.gameObject.transform.rotation = current.rotation;
             Rigidbody rb = fallOff.AddComponent<Rigidbody>();
             for(int i = 0; i < _fallOffPieces.Count; ++i)
             {
