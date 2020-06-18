@@ -151,7 +151,7 @@ namespace Factory
             _finishTriggerLevel1.FinishTriggerHit -= OnLevel1TriggerHit;
             _finishTriggerLevel2.FinishTriggerHit -= OnLevel2TriggerHit;
 
-            _stageTimer.TimeEnded += OnTimeEnded;
+            _stageTimer.TimeEnded -= OnTimeEnded;
 
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
