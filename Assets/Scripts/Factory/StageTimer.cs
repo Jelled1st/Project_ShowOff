@@ -14,12 +14,15 @@ namespace Factory
 
         private ISetTimer _timerImplementation;
         private Sequence _timerSequence;
+        private float _timeRemaining;
+
+        public float TimeRemaining => _timeRemaining;
 
         private void Awake()
         {
             _timerImplementation =
                 (ISetTimer) FindObjectsOfType<MonoBehaviour>().FirstOrDefault(t => t is ISetTimer);
-            
+
             if (_timerImplementation == null)
             {
                 Debug.LogError("Can't find any object that sets the timer!");
@@ -36,7 +39,11 @@ namespace Factory
 
             _timerSequence = DOTween.Sequence()
                 .AppendInterval(_roundTime)
-                .OnUpdate(delegate { _timerImplementation.SetTimer((int) (_roundTime - _timerSequence.Elapsed())); })
+                .OnUpdate(delegate
+                {
+                    _timeRemaining = _roundTime - _timerSequence.Elapsed();
+                    _timerImplementation.SetTimer((int) TimeRemaining);
+                })
                 .OnComplete(delegate { TimeEnded(); });
         }
 
