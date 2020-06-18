@@ -50,9 +50,6 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         public UnityEvent onCutCuttableHard;
         public UnityEvent onCutCuttableSoft;
 
-        public UnityEvent onTurnOnStove;
-        public UnityEvent onTurnOffStove;
-
         public UnityEvent onDishStir;
     }
 
@@ -250,20 +247,6 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         {
             _dishEvents.onBakingStop.Invoke();
             return true;
-        }
-        else if (observerEvent is StoveToggleEvent)
-        {
-            StoveToggleEvent toggleEvent = observerEvent as StoveToggleEvent;
-            if (toggleEvent.stove.IsOn())
-            {
-                _dishEvents.onTurnOnStove.Invoke();
-                return true;
-            }
-            else
-            {
-                _dishEvents.onTurnOffStove.Invoke();
-                return true;
-            }
         }
         else if (observerEvent is CookingStartEvent)
         {
