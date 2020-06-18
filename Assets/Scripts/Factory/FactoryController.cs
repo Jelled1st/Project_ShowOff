@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using System.Collections;
@@ -46,7 +47,13 @@ namespace Factory
 
         [BoxGroup("Scene objects")]
         [SerializeField]
+        [Required]
         private BufferBelt _bufferBelt;
+
+        [BoxGroup("Scene objects")]
+        [SerializeField]
+        [Required]
+        private Transform _truck;
 
         [BoxGroup("Scene objects")]
         [Required]
@@ -81,10 +88,15 @@ namespace Factory
         [Scene]
         private string _nextScene;
 
+        [BoxGroup("Stage settings")]
+        [SerializeField]
+        private float _changeSceneAfterDriveInterval = 5f;
+
         private float _initialScore;
         private bool _canAppendScore;
         private int _potatoesInput;
         private bool _level1Passed;
+        private bool _level2Passed;
         private FactoryUiManager _factoryUiManager;
         private StageTimer _stageTimer;
         private FactoryQuestController _factoryQuestController;
@@ -101,14 +113,6 @@ namespace Factory
                 _potatoesInput = value;
                 var of = _level1Passed ? _potatoesNeededToPassLevel2 : _potatoesNeededToPassLevel1;
                 _factoryUiManager.SetPotatoesCount(_potatoesInput, of);
-            }
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _trulyFinished = true;
             }
         }
 
@@ -207,7 +211,11 @@ namespace Factory
         {
             StartCoroutine(LoadScene());
 
-            if (!obj.CompareTag(_allowedTruckObjectTag))
+            var objTag = obj.tag;
+            Destroy(obj);
+
+            if (objTag != _allowedTruckObjectTag ||
+                PotatoesInput >= _potatoesNeededToPassLevel2)
                 return;
 
             if (PotatoesInput < _potatoPackageStacks.Length)
@@ -217,31 +225,53 @@ namespace Factory
 
             if (PotatoesInput >= _potatoesNeededToPassLevel2)
             {
-                _canAppendScore = true;
-                FindObjectOfType<BKM>().TruckDriving();
-                _stageTimer.StopTimer();
+                _level2Passed = true;
 
-                //SceneManager.LoadScene(_nextScene);
-                _trulyFinished = true;
+                FinishScene();
             }
         }
+
+        private void FinishScene()
+        {
+            _canAppendScore = true;
+            var bkm = FindObjectOfType<BKM>();
+            bkm.StopMusicFade();
+            bkm.TruckDriving();
+            _stageTimer.StopTimer();
+
+
+            DOTween.Sequence()
+                .Join(_truck.DOMove(_truck.position + _truck.right * 20f, _changeSceneAfterDriveInterval)
+                    .SetEase(Ease.InQuint))
+                .AppendInterval(_changeSceneAfterDriveInterval)
+                .AppendCallback(() =>
+                {
+                    print("should change scene");
+                    _trulyFinished = true;
+                });
+        }
+
+        private AsyncOperation sceneLoad;
 
         IEnumerator LoadScene()
         {
             yield return null;
 
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_nextScene);
+            if (SceneManager.GetSceneByName(_nextScene).isLoaded || sceneLoad != null)
+                yield break;
 
-            asyncOperation.allowSceneActivation = false;
+            sceneLoad = SceneManager.LoadSceneAsync(_nextScene);
 
-            while (!asyncOperation.isDone)
+            sceneLoad.allowSceneActivation = false;
+
+            while (!sceneLoad.isDone)
             {
                 // print("Loading Progress: " + (asyncOperation.progress * 100) + "%");
-                if (asyncOperation.progress >= 0.9f)
+                if (sceneLoad.progress >= 0.9f)
                 {
                     if (_trulyFinished == true)
                     {
-                        asyncOperation.allowSceneActivation = true;
+                        sceneLoad.allowSceneActivation = true;
                     }
                 }
 
