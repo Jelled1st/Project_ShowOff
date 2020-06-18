@@ -2,6 +2,7 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreSceneController : MonoBehaviour
 {
@@ -14,15 +15,38 @@ public class ScoreSceneController : MonoBehaviour
         [SerializeField]
         private TextMeshProUGUI _name;
 
-        public void SetScore(string name, float score)
+        [SerializeField]
+        private RawImage _dishRender;
+
+        public void SetScore(string name, float score, Texture dish)
         {
             var splitName = name.ToList().Select(n => n.ToString().ToUpper()).Aggregate((t, next) => t + ' ' + next)
                 .TrimEnd(' ');
 
             _name.SetText(splitName);
             _score.SetText(score.ToString());
+            _dishRender.texture = dish;
         }
     }
+
+    [Serializable]
+    public class RenderTextures
+    {
+        [SerializeField]
+        public Texture BurgerAndFries;
+
+        [SerializeField]
+        public Texture ChiliCheeseFries;
+
+        [SerializeField]
+        public Texture FishAndChip;
+
+        [SerializeField]
+        public Texture SideDish;
+    }
+
+    [SerializeField]
+    private RenderTextures _dishRenderTextures;
 
     [SerializeField]
     private GameScore[] _scores;
@@ -92,6 +116,24 @@ public class ScoreSceneController : MonoBehaviour
         }
     }
 
+    private Texture GetDishTexture(Dish.DishTypes dishType)
+    {
+        switch (dishType)
+        {
+            case Dish.DishTypes.BurgerAndFries:
+                return _dishRenderTextures.BurgerAndFries;
+            case Dish.DishTypes.ChiliCheeseFries:
+                return _dishRenderTextures.ChiliCheeseFries;
+            case Dish.DishTypes.FishAndChips:
+                return _dishRenderTextures.FishAndChip;
+            case Dish.DishTypes.SideDish:
+                return _dishRenderTextures.SideDish;
+            default:
+                Debug.LogError($"Can't process dish of type {dishType.ToString()}");
+                return null;
+        }
+    }
+
     private void TryToAppendScore()
     {
         if (_inputText.text.Length == 3)
@@ -103,15 +145,17 @@ public class ScoreSceneController : MonoBehaviour
                 var scoreList = Scores.GetScoreList();
                 scoreList.Sort();
                 print(scoreList.Count);
+
                 for (var i = 0; i < scoreList.Count; i++)
                 {
-                    _scores[i].SetScore(scoreList[i].username, scoreList[i].score);
+                    _scores[i].SetScore(scoreList[i].username, scoreList[i].score, GetDishTexture(scoreList[i].dish));
                 }
 
                 if (!currentScore.Item1)
                 {
                     _notInHighscoresGameObject?.SetActive(true);
-                    _notInHighscoresScore?.SetScore(currentScore.Item2.username, currentScore.Item2.score);
+                    _notInHighscoresScore?.SetScore(currentScore.Item2.username, currentScore.Item2.score,
+                        GetDishTexture(currentScore.Item2.dish));
                 }
 
                 _keyboard.SetActive(false);
