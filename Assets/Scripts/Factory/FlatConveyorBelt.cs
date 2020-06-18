@@ -293,6 +293,14 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
     {
         if (_isSpecialConveyor)
         {
+            ChangeSpecialBeltSpeed();
+        }
+    }
+
+    private void PerformSpecialBeltInternal()
+    {
+        if (_isSpecialConveyor)
+        {
             SpecialBeltPressed();
             ChangeSpecialBeltSpeed();
         }
