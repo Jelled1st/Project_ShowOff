@@ -126,7 +126,7 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         {
             _activeTutorial?.DishStir();
         }
-        else if(observerEvent is CookingAllIngredientsDone)
+        else if(observerEvent is CookingAllIngredientsDoneEvent)
         {
             _activeTutorial?.CookingAllIngredientsDone();
         }

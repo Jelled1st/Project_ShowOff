@@ -33,7 +33,7 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
             {
                 _foodIsCooked = true;
                 Notify(new CookingDoneEvent(this, _food[_food.Count - 1]));
-                if (_food[_food.Count - 1].IsCooked(true)) Notify(new CookingAllIngredientsDone(this));
+                if (_food[_food.Count - 1].IsCooked(true)) Notify(new CookingAllIngredientsDoneEvent(this));
             }
         }
     }
