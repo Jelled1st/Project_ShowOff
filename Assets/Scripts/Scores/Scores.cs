@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Scores
@@ -23,13 +24,15 @@ public static class Scores
     {
         public int id;
         public string username;
+        public Dish.DishTypes dish;
         public float score;
 
-        public UserScore(string username, float score, int id)
+        public UserScore(string username, float score, int id, Dish.DishTypes dish)
         {
             this.username = username;
             this.score = score;
             this.id = id;
+            this.dish = dish;
         }
 
         public int CompareTo(object obj)
@@ -41,6 +44,7 @@ public static class Scores
 
     private const string ScorePrefix = "Score";
     private const string NamePrefix = "Name";
+    private const string DishPrefix = "Dish";
     private const string BlankName = "NNM";
     private const int MaxScoresCount = 3;
 
@@ -50,7 +54,7 @@ public static class Scores
 
     private static UserScore CurrentUser
     {
-        get => _currentUser ?? (_currentUser = new UserScore(BlankName, 0f, -1));
+        get => _currentUser ?? (_currentUser = new UserScore(BlankName, 0f, -1, Dish.DishTypes.Undifined));
         set => _currentUser = value;
     }
 
@@ -74,7 +78,8 @@ public static class Scores
         while (PlayerPrefs.HasKey(ScorePrefix + i))
         {
             ScoreList.Add(
-                new UserScore(PlayerPrefs.GetString(NamePrefix + i), PlayerPrefs.GetFloat(ScorePrefix + i), i));
+                new UserScore(PlayerPrefs.GetString(NamePrefix + i), PlayerPrefs.GetFloat(ScorePrefix + i), i,
+                    (Dish.DishTypes) Enum.Parse(typeof(Dish.DishTypes), PlayerPrefs.GetString(DishPrefix + i))));
             i++;
         }
 
@@ -92,6 +97,11 @@ public static class Scores
     public static float GetCurrentScore()
     {
         return CurrentUser.score;
+    }
+
+    public static void SetCurrentDish(Dish.DishTypes dishType)
+    {
+        _currentUser.dish = dishType;
     }
 
     public static void AddScore(float score)
@@ -115,14 +125,18 @@ public static class Scores
         //Debug.Log(_currentUser.score);
     }
 
-    public static void AppendScoreToLeaderboard(string username)
+    public static (bool, UserScore) AppendScoreToLeaderboard(string username)
     {
         RefreshScores();
 
         var newId = 0;
 
-        ScoreList.Add(new UserScore(username, CurrentUser.score, -1));
+        var newUser = new UserScore(username, CurrentUser.score, -1, CurrentUser.dish);
+
+        ScoreList.Add(newUser);
         ScoreList.Sort();
+
+        var gotToTop = ScoreList.Take(MaxScoresCount).Contains(newUser);
 
         for (int i = 0; i < MaxScoresCount; i++)
         {
@@ -131,9 +145,11 @@ public static class Scores
 
             PlayerPrefs.SetString(NamePrefix + i, ScoreList[i].username);
             PlayerPrefs.SetFloat(ScorePrefix + i, ScoreList[i].score);
+            PlayerPrefs.SetString(DishPrefix + i, ScoreList[i].dish.ToString());
         }
 
         CurrentUser = null;
+        return (gotToTop, newUser);
     }
 
     public static void Register(IScoresObserver observer)
