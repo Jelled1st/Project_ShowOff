@@ -25,7 +25,7 @@ public class SFX : MonoBehaviour
 
     [HideInInspector]
     public bool conveyorHumInstancePlaying = false;
-    
+
     #region Event Subscriptions
 
     private void OnEnable()
@@ -183,6 +183,18 @@ public class SFX : MonoBehaviour
                     break;
             }
         }
+        else
+        {
+            switch (specialBeltType)
+            {
+                case FlatConveyorBelt.SpecialBeltType.SpeedUp:
+                    SoundSlowdown();
+                    break;
+                case FlatConveyorBelt.SpecialBeltType.SpeedDown:
+                    SoundSpeedup();
+                    break;
+            }
+        }
     }
 
     /*
@@ -210,7 +222,7 @@ public class SFX : MonoBehaviour
         _conveyorHumInstance.release();
     }
     */
-    
+
     // Sound when rotating conveyor belts
     public void SoundRotate()
     {
@@ -246,6 +258,7 @@ public class SFX : MonoBehaviour
         clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
+
     // Sound when machine starts breaking down
     public void SoundBreaking(Machine machine)
     {
@@ -320,7 +333,7 @@ public class SFX : MonoBehaviour
         clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
-    
+
     public void SoundBurnerOff()
     {
         Play("SFX_KITCHEN/Burner Off");
@@ -328,7 +341,7 @@ public class SFX : MonoBehaviour
         clipLength = 0.1f;
         StartCoroutine(WaitForEnd(clipLength));
     }
-    
+
     // Sound when cutting stuff like carrots, onions, apples
     public void SoundHardCut()
     {
@@ -396,7 +409,7 @@ public class SFX : MonoBehaviour
     }
 
     #endregion
-    
+
     #region playRules
 
     private void Play(string fmodEvent)
