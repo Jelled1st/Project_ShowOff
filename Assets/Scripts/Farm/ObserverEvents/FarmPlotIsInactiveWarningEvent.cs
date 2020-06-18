@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class FarmPlotIsInactiveWarningEvent : AObserverEvent
+﻿public class FarmPlotIsInactiveWarningEvent : AObserverEvent
 {
     public readonly FarmPlot farmPlot;
 

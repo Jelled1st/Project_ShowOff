@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CookingStopEvent : AObserverEvent
+﻿public class CookingStopEvent : AObserverEvent
 {
     public readonly CookingPan pan;
     public readonly CookableFood food;

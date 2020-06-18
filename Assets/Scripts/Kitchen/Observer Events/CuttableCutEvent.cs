@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CuttableCutEvent : AObserverEvent
+﻿public class CuttableCutEvent : AObserverEvent
 {
     public readonly CuttableFood cuttable;
     public readonly bool isHard;

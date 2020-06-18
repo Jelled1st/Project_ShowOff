@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Factory;
-using FMOD.Studio;
-using FMODUnity;
 using UnityEngine;
 
 public class SFX : MonoBehaviour

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SwarmBugKillEvent : AObserverEvent
+﻿public class SwarmBugKillEvent : AObserverEvent
 {
     public readonly SwarmUnit bug;
     public readonly Swarm swarm;
