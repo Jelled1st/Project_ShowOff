@@ -28,6 +28,12 @@ public class ScoreSceneController : MonoBehaviour
     private GameScore[] _scores;
 
     [SerializeField]
+    private GameObject _notInHighscoresGameObject;
+
+    [SerializeField]
+    private GameScore _notInHighscoresScore;
+
+    [SerializeField]
     private GameObject _keyboard;
 
     [SerializeField]
@@ -46,6 +52,9 @@ public class ScoreSceneController : MonoBehaviour
             print($"{userScore.id}:{userScore.username}:{userScore.score}");
         }
 
+        _notInHighscoresGameObject = _notInHighscoresGameObject.NullIfEqualsNull();
+        _notInHighscoresGameObject?.SetActive(false);
+
         _scoreParent.SetActive(false);
         _keyboard.SetActive(true);
 
@@ -53,6 +62,12 @@ public class ScoreSceneController : MonoBehaviour
 
         KeyboardScript.KeyPressed += AppendInput;
         KeyboardScript.BackspacePressed += SubtractInput;
+    }
+
+    private void OnDisable()
+    {
+        KeyboardScript.KeyPressed -= AppendInput;
+        KeyboardScript.BackspacePressed -= SubtractInput;
     }
 
     private void AppendInput(char letter)
@@ -83,13 +98,20 @@ public class ScoreSceneController : MonoBehaviour
         {
             if (!BadWordsList.IsBadWord(_inputText.text))
             {
-                Scores.AppendScoreToLeaderboard(_inputText.text);
+                var currentScore = Scores.AppendScoreToLeaderboard(_inputText.text);
+
                 var scoreList = Scores.GetScoreList();
                 scoreList.Sort();
                 print(scoreList.Count);
                 for (var i = 0; i < scoreList.Count; i++)
                 {
                     _scores[i].SetScore(scoreList[i].username, scoreList[i].score);
+                }
+
+                if (!currentScore.Item1)
+                {
+                    _notInHighscoresGameObject?.SetActive(true);
+                    _notInHighscoresScore?.SetScore(currentScore.Item2.username, currentScore.Item2.score);
                 }
 
                 _keyboard.SetActive(false);
@@ -104,11 +126,5 @@ public class ScoreSceneController : MonoBehaviour
         {
             //TODO: Tell input should be 3 letters
         }
-    }
-
-    private void OnDisable()
-    {
-        KeyboardScript.KeyPressed -= AppendInput;
-        KeyboardScript.BackspacePressed -= SubtractInput;
     }
 }
