@@ -9467,7 +9467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6479, y: -32.019962}
+  m_AnchoredPosition: {x: -1.6479, y: -70.4}
   m_SizeDelta: {x: 360.43585, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &576319710
@@ -9503,7 +9503,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Peel The Potatoes
+  m_text: Peel the potatoes
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a654818e5f2bb144592a26407773f997, type: 2}
   m_sharedMaterial: {fileID: 9074848393869467446, guid: a654818e5f2bb144592a26407773f997,
@@ -10971,7 +10971,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 28.922}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 151, y: -24.899967}
+  m_AnchoredPosition: {x: 153.4, y: -66.7}
   m_SizeDelta: {x: 48.671204, y: 44.03585}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &692471923
@@ -11531,7 +11531,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6479, y: 14}
+  m_AnchoredPosition: {x: -1.6479, y: 7.2}
   m_SizeDelta: {x: 360.4359, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &724903144
@@ -13383,7 +13383,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150.17, y: 22.200035}
+  m_AnchoredPosition: {x: 150.17, y: 7.2}
   m_SizeDelta: {x: 68, y: 38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &842342376
@@ -25727,7 +25727,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1291576274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33051,7 +33051,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 155.50002, y: -18.260963}
+  m_AnchoredPosition: {x: 148.8, y: -67.1}
   m_SizeDelta: {x: 49, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1598675757
@@ -34249,7 +34249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 26.562038}
+  m_AnchoredPosition: {x: 150, y: 4.1}
   m_SizeDelta: {x: 53, y: 54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1647651734
@@ -40368,7 +40368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6479, y: -19.399967}
+  m_AnchoredPosition: {x: -1.6479, y: -70.3}
   m_SizeDelta: {x: 360.4359, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1993579208
@@ -42883,7 +42883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6479, y: 12}
+  m_AnchoredPosition: {x: -1.6479, y: 8.2}
   m_SizeDelta: {x: 360.43585, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2127030383
@@ -42919,7 +42919,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wash The Potatoes
+  m_text: Wash the potatoes
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a654818e5f2bb144592a26407773f997, type: 2}
   m_sharedMaterial: {fileID: 9074848393869467446, guid: a654818e5f2bb144592a26407773f997,
