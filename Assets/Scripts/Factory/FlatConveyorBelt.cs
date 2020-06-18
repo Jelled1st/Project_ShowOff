@@ -295,9 +295,27 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     public void PerformSpecialBelt()
     {
-        if (_isSpecialConveyor)
+        if (_isSpecialConveyor || !_isChangingBeltSpeed)
         {
-            ChangeSpecialBeltSpeed();
+            _isChangingBeltSpeed = true;
+            DOTween.Sequence()
+                .Append(DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime))
+                .Join(_scrollingMaterials.First().DOColor(GrayArrowColor, ShaderConstants.ScrollingShaderArrowColorName,
+                    _speedChangeTime))
+                .AppendCallback(SetConveyorSpeed)
+                .AppendInterval(_speedHoldTime - _colorChangeBeforeSpeedResetInterval)
+                .AppendInterval(_colorChangeBeforeSpeedResetInterval)
+                .Join(_scrollingMaterials.First()
+                    .DOColor(_specialBeltInitialColor,
+                        ShaderConstants.ScrollingShaderArrowColorName,
+                        _colorChangeBeforeSpeedResetInterval))
+                .Append(DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime))
+                .AppendCallback(() =>
+                {
+                    SpecialConveyorHeld(_specialBeltType, false);
+                    SetConveyorSpeed();
+                    _isChangingBeltSpeed = false;
+                });
         }
     }
 
@@ -325,7 +343,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
             TurnInternal();
         }
 
-        PerformSpecialBelt();
+        PerformSpecialBeltInternal();
     }
 
     public virtual void OnHold(float holdTime, Vector3 hitPoint)
