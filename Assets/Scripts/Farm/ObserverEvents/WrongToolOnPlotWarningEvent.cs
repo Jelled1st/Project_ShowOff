@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class WrongToolOnPlotWarningEvent : AObserverEvent
+﻿public class WrongToolOnPlotWarningEvent : AObserverEvent
 {
     public readonly FarmPlot farmPlot;
     public readonly FarmTool farmTool;

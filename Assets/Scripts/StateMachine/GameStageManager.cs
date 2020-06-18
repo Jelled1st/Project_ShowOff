@@ -1,8 +1,5 @@
 using System;
-using System.Linq;
-using Factory;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace StateMachine
 {

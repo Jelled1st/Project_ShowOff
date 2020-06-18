@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlotOnCooldownWarningEvent : AObserverEvent
+﻿public class PlotOnCooldownWarningEvent : AObserverEvent
 {
     public readonly FarmPlot farmPlot;
     public readonly FarmTool farmTool;

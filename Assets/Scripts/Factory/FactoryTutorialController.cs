@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using Factory;
 using NaughtyAttributes;
 using StateMachine;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 [Serializable]
 public class TutorialPart

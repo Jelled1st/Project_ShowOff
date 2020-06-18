@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "FarmPlotSpawnStateRate", menuName = "ScriptableObjects/FarmPlotSpawnStateRate", order = 1)]
