@@ -43,6 +43,8 @@ public class KitchenSubTutorial : MonoBehaviour
     [SerializeField] protected UnityEvent _onCookingStir;
     private bool _firstDishStir = false;
     [SerializeField] protected UnityEvent _onDishStir;
+    private bool _firstCookingAllDone = false;
+    [SerializeField] protected UnityEvent _onCookingAllIngredientsDone;
 
     public void DisableAllElements()
     {
@@ -98,6 +100,15 @@ public class KitchenSubTutorial : MonoBehaviour
 
         _onCookingDone.Invoke();
     }
+
+    public virtual void CookingAllIngredientsDone()
+    {
+        if (_firstCookingAllDone) return;
+        _firstCookingAllDone = true;
+
+        _onCookingAllIngredientsDone.Invoke();
+    }
+
     public virtual void BakingStart()
     {
         if (_firstBaking) return;

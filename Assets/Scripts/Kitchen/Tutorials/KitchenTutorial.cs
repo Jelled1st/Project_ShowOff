@@ -126,6 +126,10 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         {
             _activeTutorial?.DishStir();
         }
+        else if(observerEvent is CookingAllIngredientsDone)
+        {
+            _activeTutorial?.CookingAllIngredientsDone();
+        }
     }
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
