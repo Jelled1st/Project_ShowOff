@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using System;
 
 public class KitchenSubTutorial : MonoBehaviour
 {
@@ -38,6 +39,10 @@ public class KitchenSubTutorial : MonoBehaviour
     private bool _firstIngredientAdded = false;
     [SerializeField] protected UnityEvent _onIngredientToDish;
     [SerializeField] protected UnityEvent _onFirstIngredientToDish;
+    private bool _firstCookingStir = false;
+    [SerializeField] protected UnityEvent _onCookingStir;
+    private bool _firstDishStir = false;
+    [SerializeField] protected UnityEvent _onDishStir;
 
     public void DisableAllElements()
     {
@@ -117,6 +122,22 @@ public class KitchenSubTutorial : MonoBehaviour
 
         _onBakingFlip.Invoke();
         StrikeThroughText(_flipMeat);
+    }
+
+    public void CookingStir()
+    {
+        if (_firstCookingStir) return;
+        _firstCookingStir = true;
+
+        _onCookingStir.Invoke();
+    }
+
+    public void DishStir()
+    {
+        if (_firstDishStir) return;
+        _firstDishStir = true;
+
+        _onDishStir.Invoke();
     }
 
     public virtual void BakingDone()
