@@ -312,7 +312,6 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
                 .Append(DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime))
                 .AppendCallback(() =>
                 {
-                    SpecialConveyorHeld(_specialBeltType, false);
                     SetConveyorSpeed();
                     _isChangingBeltSpeed = false;
                 });
