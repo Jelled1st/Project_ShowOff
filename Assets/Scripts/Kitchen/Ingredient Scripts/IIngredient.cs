@@ -26,6 +26,7 @@ public enum IngredientType
     RawFish,
     Cucumber,
     FetaCheese,
+    LettuceLeaves,
 }
 
 public interface IIngredient : ISubject

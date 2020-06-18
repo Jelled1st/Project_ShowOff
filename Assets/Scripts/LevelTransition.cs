@@ -7,13 +7,15 @@ public class LevelTransition : MonoBehaviour
 {
 
     [SerializeField] private string _nextScene = "";
+    [SerializeField] private string _previousScene = "";
 
-    bool messagePassed = false;
+    private bool messagePassed = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(LoadScene());
+        StartCoroutine(LoadScene());
+        StartCoroutine(UnloadPrevious());
     }
 
     // Update is called once per frame
@@ -35,33 +37,44 @@ public class LevelTransition : MonoBehaviour
     {
         if (message.Equals("end"))
         {
-            //messagePassed = true;
-            SceneManager.LoadScene(_nextScene);
+            messagePassed = true;
         }
     }
+
 
     IEnumerator LoadScene()
     {
         yield return null;
 
         //Begin to load specified scene
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_nextScene);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_nextScene);
 
         //Don't let the scene activate until end message received
-        asyncOperation.allowSceneActivation = false;
+        asyncLoad.allowSceneActivation = false;
 
-        while (!asyncOperation.isDone)
+        while (!asyncLoad.isDone)
         {
-            print("Loading progress: " + (asyncOperation.progress * 100) + "%");
-            if(asyncOperation.progress >= 0.9f)
+            print("Loading progress: " + (asyncLoad.progress * 100) + "%");
+            if(asyncLoad.progress >= 0.9f)
             {
                 if (messagePassed == true)
                 {
-                    asyncOperation.allowSceneActivation = true;
+                    asyncLoad.allowSceneActivation = true;
                 }
             }
 
             yield return null;
         }
+    }
+
+    IEnumerator UnloadPrevious()
+    {
+        yield return null;
+
+        //Unload previous scene
+        AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(_previousScene);
+
+        //Unload unused assets
+        AsyncOperation asyncUnloadAssets = Resources.UnloadUnusedAssets();
     }
 }
