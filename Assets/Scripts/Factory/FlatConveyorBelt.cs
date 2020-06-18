@@ -60,6 +60,10 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     [ShowIf(nameof(_isSpecialConveyor))]
     [SerializeField]
+    private float _colorChangeBeforeSpeedResetInterval = 5f;
+
+    [ShowIf(nameof(_isSpecialConveyor))]
+    [SerializeField]
     private SpecialBeltType _specialBeltType = SpecialBeltType.SpeedDown;
 
     public bool IsSpecialConveyor => _isSpecialConveyor;
@@ -240,23 +244,23 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
                 .Join(_scrollingMaterials.First().DOColor(GrayArrowColor, ShaderConstants.ScrollingShaderArrowColorName,
                     _speedChangeTime))
                 .AppendCallback(SetConveyorSpeed)
-                .AppendInterval(_speedHoldTime)
                 .AppendCallback(ResetSpecialBeltSpeed);
         }
     }
 
     private void ResetSpecialBeltSpeed()
     {
-        SpecialConveyorHeld(_specialBeltType, false);
-
         DOTween.Sequence()
-            .Append(DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime))
+            .AppendInterval(_speedHoldTime - _colorChangeBeforeSpeedResetInterval)
+            .AppendInterval(_colorChangeBeforeSpeedResetInterval)
             .Join(_scrollingMaterials.First()
                 .DOColor(_specialBeltInitialColor,
                     ShaderConstants.ScrollingShaderArrowColorName,
-                    _speedChangeTime))
+                    _colorChangeBeforeSpeedResetInterval))
+            .Append(DOTween.To(() => Speed, x => Speed = x, _speed, _speedChangeTime))
             .AppendCallback(() =>
             {
+                SpecialConveyorHeld(_specialBeltType, false);
                 SetConveyorSpeed();
                 _isChangingBeltSpeed = false;
             });
