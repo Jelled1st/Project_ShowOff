@@ -12,7 +12,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     [SerializeField] private float _timeTillBurned = 10.0f;
     [SerializeField] private float _flipHeight = 10;
     [SerializeField] private ParticleSystem _smokeParticles;
-    [SerializeField] private Material[] _bakeMaterials = new Material[2];
+    [SerializeField] private GameObject _bakableObject;
     private float[] _bakedTimes = new float[2];
     private float[] _burntTimes = new float[2];
     private bool _sidesAreDone = false;
@@ -22,6 +22,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     private bool _isBaking = false;
     private bool _wasBaking = false;
     [HideInInspector] public FryingPan fryingPan;
+    private Material[] _bakeMaterials = new Material[2];
 
     private List<IObserver> _observers = new List<IObserver>();
 
@@ -37,14 +38,10 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
         main.playOnAwake = false;
         _smokeParticles.Pause();
 
-        Renderer rend = this.GetComponent<Renderer>();
+        Renderer rend = _bakableObject.GetComponentInChildren<Renderer>();
         for (int i = 0; i < 2; ++i)
         {
-            if (_bakeMaterials[i] != null)
-            {
-                rend.materials[i] = _bakeMaterials[i];
-                _bakeMaterials[i] = rend.materials[i];
-            }
+            _bakeMaterials[i] = rend.materials[i];
         }
     }
 
