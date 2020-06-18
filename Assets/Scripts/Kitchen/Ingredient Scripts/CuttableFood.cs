@@ -79,11 +79,20 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
         {
             GameObject copy = Instantiate(this.gameObject);
             Destroy(copy.GetComponent<CuttableFood>());
-            Destroy(copy.GetComponent<Collider>());
             Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
             for (int i = 0; i < renderers.Length; ++i)
             {
                 renderers[i].enabled = true;
+            }
+            Collider[] colliders = copy.GetComponentsInChildren<Collider>();
+            Rigidbody[] rbs = copy.GetComponentsInChildren<Rigidbody>();
+            for (int i = 0; i < rbs.Length; ++i)
+            {
+                Destroy(rbs[i]);
+            }
+            for (int i = 0; i < colliders.Length; ++i)
+            {
+                Destroy(colliders[i]);
             }
             return copy;
         }
