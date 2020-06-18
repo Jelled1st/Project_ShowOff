@@ -289,6 +289,15 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
                                          0.5f);
     }
 
+    public void PerformSpecialBelt()
+    {
+        if (_isSpecialConveyor)
+        {
+            SpecialBeltPressed();
+            ChangeSpecialBeltSpeed();
+        }
+    }
+
     public virtual void OnClick(Vector3 hitPoint)
     {
     }
@@ -304,11 +313,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
             TurnInternal();
         }
 
-        if (_isSpecialConveyor)
-        {
-            SpecialBeltPressed();
-            ChangeSpecialBeltSpeed();
-        }
+        PerformSpecialBelt();
     }
 
     public virtual void OnHold(float holdTime, Vector3 hitPoint)
