@@ -240,10 +240,13 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
             _isChangingBeltSpeed = true;
             DOTween.Sequence()
-                .Append(DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime))
+                .AppendCallback(() =>
+                {
+                    Speed = _heldSpeed;
+                    SetConveyorSpeed();
+                })
                 .Join(_scrollingMaterials.First().DOColor(GrayArrowColor, ShaderConstants.ScrollingShaderArrowColorName,
                     _speedChangeTime))
-                .AppendCallback(SetConveyorSpeed)
                 .AppendCallback(ResetSpecialBeltSpeed);
         }
     }
@@ -299,10 +302,13 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         {
             _isChangingBeltSpeed = true;
             DOTween.Sequence()
-                .Append(DOTween.To(() => Speed, x => Speed = x, _heldSpeed, _speedChangeTime))
+                .AppendCallback(() =>
+                {
+                    Speed = _heldSpeed;
+                    SetConveyorSpeed();
+                })
                 .Join(_scrollingMaterials.First().DOColor(GrayArrowColor, ShaderConstants.ScrollingShaderArrowColorName,
                     _speedChangeTime))
-                .AppendCallback(SetConveyorSpeed)
                 .AppendInterval(_speedHoldTime - _colorChangeBeforeSpeedResetInterval)
                 .AppendInterval(_colorChangeBeforeSpeedResetInterval)
                 .Join(_scrollingMaterials.First()
