@@ -71,6 +71,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
                 Subscribe(_choosenDish);
                 _onEventPlayer.Subscribe(_choosenDish);
                 _kitchenTutorial.ChooseDish(dish);
+                //Scores.SetCurrentDish(dish.GetDishType());
             }
             else
             {
