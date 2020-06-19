@@ -3,7 +3,12 @@ guid: 9e68c052b6a8c2546989c368272a1434
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bowl_color
+    second: {fileID: 2100000, guid: 934c6c4fa2a85ca49b98d8c0adae37d6, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

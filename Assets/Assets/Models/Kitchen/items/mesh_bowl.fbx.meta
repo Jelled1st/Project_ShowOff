@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 53cdb8067e88407459e2841fcfb41554
+guid: f8b14469ffc91fc428409996c967a209
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_plate
-    second: {fileID: 2100000, guid: 697ba24f68fe38b4d8c175ad08ec62c5, type: 2}
+      name: bowl_color
+    second: {fileID: 2100000, guid: 934c6c4fa2a85ca49b98d8c0adae37d6, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

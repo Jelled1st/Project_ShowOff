@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ffee2642bfae86843af827116943b11b
+guid: 53cdb8067e88407459e2841fcfb41554
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,19 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_bowl
-    second: {fileID: 3045578158407981359, guid: f8b14469ffc91fc428409996c967a209,
-      type: 3}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat_tomato_inside
-    second: {fileID: 2100000, guid: c1f6db7ec8ad1e84d8da5294641c5f6b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat_tomato_outside
-    second: {fileID: 2100000, guid: a9627864e14a6064797da67fae60ab68, type: 2}
+      name: mat_plate
+    second: {fileID: 2100000, guid: 934c6c4fa2a85ca49b98d8c0adae37d6, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

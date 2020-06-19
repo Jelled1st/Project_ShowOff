@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c60fc9dfb6be5174cb9ea289a3af8c69
+guid: f7c5eda41fecf2642b0b7743947b642d
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_batter
-    second: {fileID: 2100000, guid: d4bb88ea4a202144983ec21bf5c9e105, type: 2}
+      name: mat_bowl
+    second: {fileID: 2100000, guid: 934c6c4fa2a85ca49b98d8c0adae37d6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_bowl
-    second: {fileID: 2100000, guid: f2b789c9cc73ce243b8e751d4c8f4d27, type: 2}
+      name: mat_flour
+    second: {fileID: 2100000, guid: 7a0d53f57edb0894689b383f44127d40, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

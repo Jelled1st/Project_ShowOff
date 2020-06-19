@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ec7e08ac2c073ed458bd8c15f483ac82
+guid: 4aec7a9eb489e284ba060286e4c63c36
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,13 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_bowl
-    second: {fileID: 2100000, guid: f2b789c9cc73ce243b8e751d4c8f4d27, type: 2}
+      name: mat_applemeat
+    second: {fileID: 2100000, guid: 7b22b93266e857343953cce24e6372b9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_salt
-    second: {fileID: 2100000, guid: 04595d91193533048aaf81c8de76b5ff, type: 2}
+      name: mat_applemeat1
+    second: {fileID: 2100000, guid: 7b22b93266e857343953cce24e6372b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_applepeel1
+    second: {fileID: 2100000, guid: 1211596ae3cb33c4f955a809a5d88bf7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_bowl
+    second: {fileID: 2100000, guid: 934c6c4fa2a85ca49b98d8c0adae37d6, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
