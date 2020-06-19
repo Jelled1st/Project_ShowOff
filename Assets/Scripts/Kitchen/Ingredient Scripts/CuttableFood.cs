@@ -45,7 +45,11 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
             _currentState.transform.position = previous.position;
             _currentState.transform.rotation = previous.rotation;
             Notify(new CuttableCutEvent(this, _isHard, _currentStateIndex, ReadyForDish()));
-            if (_currentStateIndex < _cutStates.Count - 1) Notify(new IngredientDoneEvent(this));
+            if (_currentStateIndex < _cutStates.Count - 1)
+            {
+                Notify(new CuttableCutUpEvent(this, _isHard));
+                Notify(new IngredientDoneEvent(this));
+            }
             return true;
         }
         else return false;

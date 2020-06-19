@@ -103,6 +103,10 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         {
             _activeTutorial?.IngredientCut();
         }
+        else if (observerEvent is CuttableCutUpEvent)
+        {
+            _activeTutorial?.IngredientCutUp();
+        }
         else if(observerEvent is CuttableOnCuttingBoardEvent)
         {
             _activeTutorial?.IngredientToCuttingBoard();

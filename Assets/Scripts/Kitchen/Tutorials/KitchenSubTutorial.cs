@@ -30,6 +30,8 @@ public class KitchenSubTutorial : MonoBehaviour
     [SerializeField] protected UnityEvent _onBakingDone;
     private bool _firstIngredientCut = false;
     [SerializeField] protected UnityEvent _onIngredientCut;
+    private bool _firstIngredientCutUp = false;
+    [SerializeField] protected UnityEvent _onIngredientCutUp;
     private bool _firstIngredientOnBoard = false;
     [SerializeField] protected UnityEvent _onIngredientToCuttingBoard;
     private bool _firstIngredientPulled = false;
@@ -165,6 +167,15 @@ public class KitchenSubTutorial : MonoBehaviour
         _onIngredientCut.Invoke();
         StrikeThroughText(_cutIngredient);
     }
+
+    public virtual void IngredientCutUp()
+    {
+        if (_firstIngredientCutUp) return;
+        _firstIngredientCutUp = true;
+
+        _onIngredientCutUp.Invoke();
+    }
+
     public virtual void IngredientToCuttingBoard()
     {
         if (_firstIngredientOnBoard) return;
