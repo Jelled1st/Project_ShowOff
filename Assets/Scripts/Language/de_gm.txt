@@ -1,30 +1,30 @@
 main.start: Start
 main.exit: Beenden
 main.subtitle: Ein Spiel über die Verarbeitung von Kartoffeln. Vom Feld bis auf den Teller
-
+/
 misc.score: Punktzahl
-
+/
 farm.mainQuest: Ernte 9 Kartoffelpflanzen
 farm.shovelQuest: Benutze den Spaten
 farm.plantQuest: Pflanze Kartoffeln
 farm.waterQuest: Gieße die Kartoffeln
-
+/
 factory.mainQuest: Produziere 9 Pommes Tüten
 factory.washQuest: Wasch die Kartoffeln
 factory.peelQuest: Peel the washed potatoes
 factory.chopQuest: Schneide die Kartoffeln zu Pommes
 factory.packageQuest: Verpack die Pommes
-
+/
 kitchen.choiceBurger: Burger mit Pommes
 kitchen.choiceChili: Chili-Käse Pommes
 kitchen.choiceFish: Pommes mit Fisch
 kitchen.fryFries: Lege die Pommes in the Friteuse
 kitchen.cookPatty: Brate eine Frikadelle
-
+/
 persUI.restart: Bist du sicher, dass du das Spiel neu starten willst?
 persUI.quit: Bist du sicher, dass du das Spiel beenden willst?
 persUI.yes: Ja
 persUI.no: Nein
-
+/
 timeout.reminder: Bist du noch da?
 timeout.yes: Ja

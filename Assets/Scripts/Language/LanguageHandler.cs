@@ -14,6 +14,7 @@ public class LanguageHandler : MonoBehaviour
     {
         public string start;
         public string exit;
+        public string subtitle;
     }
 
     public struct FarmSceneText
@@ -26,6 +27,7 @@ public class LanguageHandler : MonoBehaviour
     
     public struct FactorySceneText
     {
+        public string mainQuest;
         public string washQuest;
         public string peelQuest;
         public string chopQuest;
@@ -34,8 +36,25 @@ public class LanguageHandler : MonoBehaviour
 
     public struct KitchenSceneText
     {
+        public string choiceBurger;
+        public string choiceChili;
+        public string choiceFish;
         public string fryFries;
         public string cookPatty;
+    }
+
+    public struct PersUI
+    {
+        public string restart;
+        public string quit;
+        public string yes;
+        public string no;
+    }
+
+    public struct TimeOut
+    {
+        public string reminder;
+        public string yes;
     }
 
     public struct MiscText
@@ -48,6 +67,8 @@ public class LanguageHandler : MonoBehaviour
     public FarmSceneText farm;
     public FactorySceneText factory;
     public KitchenSceneText kitchen;
+    public PersUI persUI;
+    public TimeOut timeout;
     public MiscText misc;
 
 
@@ -94,7 +115,8 @@ public class LanguageHandler : MonoBehaviour
     }
 
     private string GetTextForField(string field)
-    { 
+    {
+        #region Main
         if (field.StartsWith("main.start"))
         {
             return main.start;
@@ -103,6 +125,12 @@ public class LanguageHandler : MonoBehaviour
         {
             return main.exit;
         }
+        else if (field.StartsWith("main.subtitle"))
+        {
+            return main.subtitle;
+        }
+        #endregion
+        #region Farm
         else if (field.StartsWith("farm.mainQuest"))
         {
             return farm.mainQuest;
@@ -118,6 +146,12 @@ public class LanguageHandler : MonoBehaviour
         else if (field.StartsWith("farm.waterQuest"))
         {
             return farm.waterQuest;
+        }
+        #endregion
+        #region Factory
+        else if (field.StartsWith("factory.mainQuest"))
+        {
+            return factory.mainQuest;
         }
         else if (field.StartsWith("factory.washQuest"))
         {
@@ -135,6 +169,20 @@ public class LanguageHandler : MonoBehaviour
         {
             return factory.packageQuest;
         }
+        #endregion
+        #region Kitchen
+        else if (field.StartsWith("kitchen.choiceBurger"))
+        {
+            return kitchen.choiceBurger;
+        }
+        else if (field.StartsWith("kitchen.choiceChili"))
+        {
+            return kitchen.choiceChili;
+        }
+        else if (field.StartsWith("kitchen.choiceFish"))
+        {
+            return kitchen.choiceFish;
+        }
         else if (field.StartsWith("kitchen.fryFries"))
         {
             return kitchen.fryFries;
@@ -143,10 +191,39 @@ public class LanguageHandler : MonoBehaviour
         {
             return kitchen.cookPatty;
         }
+        #endregion
+        #region Persistant UI
+        else if (field.StartsWith("persUI.restart"))
+        {
+            return persUI.restart;
+        }
+        else if (field.StartsWith("persUI.quit"))
+        {
+            return persUI.quit;
+        }
+        else if (field.StartsWith("persUI.yes"))
+        {
+            return persUI.yes;
+        }
+        else if (field.StartsWith("persUI.no"))
+        {
+            return persUI.no;
+        }
+        #endregion
+        #region Timout
+        else if (field.StartsWith("timout.reminder"))
+        {
+            return timeout.reminder;
+        }
+        else if (field.StartsWith("timout.yes"))
+        {
+            return timeout.yes;
+        }
+        #endregion
         else if (field.StartsWith("misc.score"))
         {
             return misc.score;
         }
-        return "";
+        return "NO TRANSLATION";
     }
 }
