@@ -107,15 +107,15 @@ public class LanguagePack : ScriptableObject
     {
         if (line.StartsWith("kitchen.choiceBurger: "))
         {
-            _languageHandler.kitchen.choiceBurger = line.Substring(23, line.Length - 23);
+            _languageHandler.kitchen.choiceBurger = line.Substring(22, line.Length - 22);
         }
         if (line.StartsWith("kitchen.choiceChili: "))
         {
-            _languageHandler.kitchen.choiceChili = line.Substring(22, line.Length - 22);
+            _languageHandler.kitchen.choiceChili = line.Substring(21, line.Length - 21);
         }
         if (line.StartsWith("kitchen.choiceFish: "))
         {
-            _languageHandler.kitchen.choiceFish = line.Substring(21, line.Length - 21);
+            _languageHandler.kitchen.choiceFish = line.Substring(20, line.Length - 20);
         }
         if (line.StartsWith("kitchen.fryFries: "))
         {
