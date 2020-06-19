@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EasterEggController : MonoBehaviour
+public class EasterEgg_scarecrow : MonoBehaviour
 {
     [SerializeField] private int PlayCount;
     private int _playCount;
