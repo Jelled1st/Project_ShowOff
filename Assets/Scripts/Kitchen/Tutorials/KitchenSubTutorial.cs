@@ -128,7 +128,7 @@ public class KitchenSubTutorial : MonoBehaviour
 
     public virtual void BakingFlip()
     {
-        if (_firstBakingFlip) return;
+        if (_firstBakingFlip || !_firstSide) return;
         _firstBakingFlip = true;
 
         _onBakingFlip.Invoke();
