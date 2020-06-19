@@ -34,7 +34,10 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     [SerializeField] List<Dish> _sideDishesLeft = new List<Dish>();
     [Tooltip("Auto finish is that the player does not need to make an action to register a complete side dish, if false, the player needs to drag it to this")]
     [SerializeField] List<bool> _sideDishesAutoComplete = new List<bool>();
-    [SerializeField] List<GameObject> _sideDishGameMeshes = new List<GameObject>();
+    private List<List<GameObject>> _sideDishMeshesToEnable;
+    [SerializeField] List<IngredientType> _sideDishesMeshIngredientTypes;
+    [SerializeField] List<GameObject> _sideDishMeshes;
+
     [Tooltip("Stack all ingredients from the using the required placements index 0")]
     [SerializeField] protected bool _stackAllIngredients = false;
     [SerializeField] protected GameObject _stackIngredientsNode;
@@ -60,13 +63,18 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             if (_optionalIngredients.Count != _optionalIngredientMeshes.Count)
                 Debug.Log("Dish warning: Amount of optional ingredients does not match meshes count");
         }
-        if (_sideDishesLeft.Count != _sideDishesAutoComplete.Count || _sideDishesLeft.Count != _sideDishGameMeshes.Count)
+        if (_sideDishesLeft.Count != _sideDishesAutoComplete.Count)
             Debug.Log("Side dishes count does not equal side dish auto complete or side dish mesh count");
-        if (_sideDishGameMeshes == null) _sideDishGameMeshes = new List<GameObject>();
 
         for (int i = 0; i < _sideDishesLeft.Count; ++i)
         {
             Subscribe(_sideDishesLeft[i]);
+        }
+
+        _sideDishMeshesToEnable = new List<List<GameObject>>();
+        for(int i = 0; i < _sideDishesLeft.Count; ++i)
+        {
+            _sideDishMeshesToEnable.Add(new List<GameObject>());
         }
     }
 
@@ -101,7 +109,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         return _sideDishesLeft;
     }
 
-    public List<IngredientType> GetAllPossibleIngredients()
+    public List<IngredientType> GetAllPossibleIngredients(bool includeSideDishes = true)
     {
         List<IngredientType> allIngredients = new List<IngredientType>(_requiredIngredients);
         for(int i = 0; i < _optionalIngredients.Count; ++i)
@@ -109,12 +117,15 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             allIngredients.Add(_optionalIngredients[i]);
         }
         if (_finishIngredient != IngredientType.Undefined) allIngredients.Add(_finishIngredient);
-        for(int i = 0; i < _sideDishesLeft.Count; ++i)
+        if (includeSideDishes)
         {
-            List<IngredientType> ingredientTypes = _sideDishesLeft[i].GetAllPossibleIngredients();
-            for (int j = 0; j < ingredientTypes.Count; ++j)
+            for (int i = 0; i < _sideDishesLeft.Count; ++i)
             {
-                allIngredients.Add(ingredientTypes[j]);
+                List<IngredientType> ingredientTypes = _sideDishesLeft[i].GetAllPossibleIngredients();
+                for (int j = 0; j < ingredientTypes.Count; ++j)
+                {
+                    allIngredients.Add(ingredientTypes[j]);
+                }
             }
         }
         return allIngredients;
@@ -300,8 +311,12 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 if (_sideDishesLeft[i] as Dish == dish)
                 {
                     Destroy(dish.gameObject);
+                    for(int j = 0; j < _sideDishMeshesToEnable.Count; ++j)
+                    {
+                        _sideDishMeshesToEnable[i][j].SetActive(true);
+                    }
+                    _sideDishMeshesToEnable.RemoveAt(i);
                     _sideDishesLeft.RemoveAt(i);
-                    if(_sideDishGameMeshes != null && _sideDishGameMeshes.Count > i && _sideDishGameMeshes[i] != null) _sideDishGameMeshes[i].SetActive(true);
                 }
             }
             if (IsFinished(true))
@@ -374,6 +389,27 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
+        Dish sideDish = subject as Dish;
+        if (sideDish != null)
+        {
+            for (int i = 0; i < _sideDishesLeft.Count; ++i)
+            {
+                if (sideDish == _sideDishesLeft[i])
+                {
+                    for (int j = 0; j < _sideDishesMeshIngredientTypes.Count; ++j)
+                    {
+                        if (_sideDishesMeshIngredientTypes[j] == ingredient.GetIngredientType())
+                        {
+                            _sideDishMeshesToEnable[i].Add(_sideDishMeshes[j]);
+                            _sideDishesMeshIngredientTypes.RemoveAt(j);
+                            _sideDishMeshes.RemoveAt(i);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     public void OnFinishDish(ISubject subject)
