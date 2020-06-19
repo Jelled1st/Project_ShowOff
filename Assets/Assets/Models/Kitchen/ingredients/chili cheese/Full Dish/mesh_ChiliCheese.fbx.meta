@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6cba322429b2aa34ca014d5f3178ec04
+guid: fa1df5ebf095abd4cb39bca5f22c06df
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_Bean
+      name: mat_Beans
     second: {fileID: 2100000, guid: ba5db6f64802efd46be0bb4d7e058cf4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Cheese
+    second: {fileID: 2100000, guid: 4da548e3b96221f43b5d385f98371848, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Container_Plastic
+    second: {fileID: 2100000, guid: 8a3ca2245fd4a7441819961ec38730b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Fries
+    second: {fileID: 2100000, guid: 13a995663b32e3f42a75660d3d349396, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
