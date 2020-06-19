@@ -9,6 +9,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: bowl_color
     second: {fileID: 2100000, guid: 934c6c4fa2a85ca49b98d8c0adae37d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: diced_chicken
+    second: {fileID: 2100000, guid: d5ff86df216cc2044b5ef1a3dad6c503, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: diced_chicken_chunks
+    second: {fileID: 2100000, guid: 6508cb81ef9c06e48a02736a61183120, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
