@@ -9,6 +9,7 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     [SerializeField] GameObject _spoon;
     [SerializeField] GameObject _spoonBottomNode;
     [SerializeField] float _stirBonusModifier = 0.5f;
+    Animator _spoonAnimator;
     private List<CookableFood> _food = new List<CookableFood>();
     private bool _foodIsCooked = false;
 
@@ -18,6 +19,7 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     // Start is called before the first frame update
     void Start()
     {
+        _spoonAnimator = _spoon.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -71,12 +73,14 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     #region IControllable
     public GameObject GetDragCopy()
     {
-        if (_food == null || _food.Count == 0 || !_food[_food.Count-1].IsCooked(true))
+        if (_food == null || _food.Count == 0 || !_food[_food.Count - 1].IsCooked(true))
         {
             return null;
         }
         GameObject copy = Instantiate(_spoon);
         copy.transform.localScale = _spoon.transform.lossyScale;
+        Animator ani = copy.GetComponent<Animator>();
+        Destroy(ani);
         GameObject empty = new GameObject();
         empty.transform.SetParent(copy.transform);
         empty.transform.localPosition = _spoonBottomNode.transform.localPosition;
@@ -136,10 +140,9 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
 
     public void OnPress(Vector3 hitPoint)
     {
-        Animator ani = _spoon.GetComponent<Animator>();
-        if (!DOTween.IsTweening(_spoon.transform))
+        if (!_spoonAnimator.GetCurrentAnimatorStateInfo(0).IsName("anim_spoon_stirring"))
         {
-            ani.SetTrigger("isPlaying");
+            _spoonAnimator.SetTrigger("isPlaying");
             CookAllFood(_stirBonusModifier);
             Notify(new CookingStirEvent(this));
         }
