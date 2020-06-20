@@ -6,8 +6,8 @@ using DG.Tweening;
 public class CookingPan : MonoBehaviour, IControllable, ISubject
 {
     [SerializeField] GameObject _foodNode;
-    [SerializeField] GameObject _stirringDeviceRotator;
-    [SerializeField] GameObject _stirringDeviceBottom;
+    [SerializeField] GameObject _spoon;
+    [SerializeField] GameObject _spoonBottomNode;
     [SerializeField] float _stirBonusModifier = 0.5f;
     private List<CookableFood> _food = new List<CookableFood>();
     private bool _foodIsCooked = false;
@@ -75,11 +75,11 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
         {
             return null;
         }
-        GameObject copy = Instantiate(_stirringDeviceRotator);
-        copy.transform.localScale = _stirringDeviceRotator.transform.lossyScale;
+        GameObject copy = Instantiate(_spoon);
+        copy.transform.localScale = _spoon.transform.lossyScale;
         GameObject empty = new GameObject();
         empty.transform.SetParent(copy.transform);
-        empty.transform.localPosition = _stirringDeviceBottom.transform.localPosition;
+        empty.transform.localPosition = _spoonBottomNode.transform.localPosition;
         for (int i = 0; i < _food.Count; ++i)
         {
             GameObject foodCopy = _food[i].GetDragCopy();
@@ -136,9 +136,10 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
 
     public void OnPress(Vector3 hitPoint)
     {
-        if (!DOTween.IsTweening(_stirringDeviceRotator.transform))
+        Animator ani = _spoon.GetComponent<Animator>();
+        if (!DOTween.IsTweening(_spoon.transform))
         {
-            _stirringDeviceRotator.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
+            ani.SetTrigger("isPlaying");
             CookAllFood(_stirBonusModifier);
             Notify(new CookingStirEvent(this));
         }
