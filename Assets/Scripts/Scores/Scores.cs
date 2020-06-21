@@ -77,9 +77,17 @@ public static class Scores
         var i = 0;
         while (PlayerPrefs.HasKey(ScorePrefix + i))
         {
-            ScoreList.Add(
-                new UserScore(PlayerPrefs.GetString(NamePrefix + i), PlayerPrefs.GetFloat(ScorePrefix + i), i,
-                    (Dish.DishTypes) Enum.Parse(typeof(Dish.DishTypes), PlayerPrefs.GetString(DishPrefix + i))));
+            var username = PlayerPrefs.GetString(NamePrefix + i);
+            var score = PlayerPrefs.GetFloat(ScorePrefix + i);
+
+            if (!Enum.TryParse(PlayerPrefs.GetString(DishPrefix + i), out Dish.DishTypes dishType))
+            {
+                dishType = Dish.DishTypes.BurgerAndFries;
+                Debug.LogWarning(
+                    $"When loading the dish for user [{username} the dish couldn't be found! Setting the default dish...]");
+            }
+
+            ScoreList.Add(new UserScore(username, score, i, dishType));
             i++;
         }
 
