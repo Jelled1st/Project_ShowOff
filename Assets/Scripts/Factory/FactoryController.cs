@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using System.Collections;
@@ -101,7 +100,7 @@ namespace Factory
         [SerializeField]
         private float _levelTransitionInterval = 2f;
 
-
+        private AsyncOperation _sceneLoad;
         private float _initialScore;
         private bool _canAppendScore;
         private int _potatoesInput;
@@ -266,36 +265,20 @@ namespace Factory
                 .AppendCallback(() =>
                 {
                     print("should change scene");
-                    _trulyFinished = true;
+                    _sceneLoad.allowSceneActivation = true;
                 });
         }
 
-        private AsyncOperation sceneLoad;
-
-        IEnumerator LoadScene()
+        private IEnumerator LoadScene()
         {
             yield return null;
 
-            if (SceneManager.GetSceneByName(_nextScene).isLoaded || sceneLoad != null)
+            if (SceneManager.GetSceneByName(_nextScene).isLoaded || _sceneLoad != null)
                 yield break;
 
-            sceneLoad = SceneManager.LoadSceneAsync(_nextScene);
+            _sceneLoad = SceneManager.LoadSceneAsync(_nextScene);
 
-            sceneLoad.allowSceneActivation = false;
-
-            while (!sceneLoad.isDone)
-            {
-                // print("Loading Progress: " + (asyncOperation.progress * 100) + "%");
-                if (sceneLoad.progress >= 0.9f)
-                {
-                    if (_trulyFinished == true)
-                    {
-                        sceneLoad.allowSceneActivation = true;
-                    }
-                }
-
-                yield return null;
-            }
+            _sceneLoad.allowSceneActivation = false;
         }
     }
 }
