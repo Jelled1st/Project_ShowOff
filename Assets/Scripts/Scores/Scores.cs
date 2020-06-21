@@ -84,7 +84,7 @@ public static class Scores
             {
                 dishType = Dish.DishTypes.BurgerAndFries;
                 Debug.LogWarning(
-                    $"When loading the dish for user [{username} the dish couldn't be found! Setting the default dish...]");
+                    $"When loading the dish for user [{username}] the dish couldn't be found! Setting the default dish...");
             }
 
             ScoreList.Add(new UserScore(username, score, i, dishType));
