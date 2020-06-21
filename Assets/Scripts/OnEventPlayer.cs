@@ -74,12 +74,23 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     }
     #endregion
 
+    #region combining structs
+    [System.Serializable]
+    public struct CookingSubjects
+    {
+        public FryingPan fryingPan;
+        public FryFryer fryFryer;
+        public CookingPan cookingPan;
+    }
+    #endregion
+
     [SerializeField] private GameObject _gameHandler;
     [SerializeField] private TouchController _touchController;
     [SerializeField] private List<ISubject> _subjects;
     [SerializeField] private List<FarmPlot> _farmPlots;
     [SerializeField] private List<FarmTool> _farmTools;
     [SerializeField] private List<Dish> _dishes;
+    [SerializeField] private CookingSubjects _cookingSubjects;
 
     [SerializeField] private GameEventFunctions _gameEvents;
     [SerializeField] private ControlsEventFucntions _controllerEvents;
@@ -176,6 +187,10 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
                 Subscribe(_dishes[i]);
             }
         }
+
+        Subscribe(_cookingSubjects.cookingPan);
+        Subscribe(_cookingSubjects.fryFryer);
+        Subscribe(_cookingSubjects.fryingPan);
     }
 
     private void SubscribeToOther()
