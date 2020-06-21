@@ -40,9 +40,6 @@ public class ScoreSceneController : MonoBehaviour
 
         [SerializeField]
         public Texture FishAndChip;
-
-        [SerializeField]
-        public Texture SideDish;
     }
 
     [SerializeField]
@@ -126,8 +123,6 @@ public class ScoreSceneController : MonoBehaviour
                 return _dishRenderTextures.ChiliCheeseFries;
             case Dish.DishTypes.FishAndChips:
                 return _dishRenderTextures.FishAndChip;
-            case Dish.DishTypes.SideDish:
-                return _dishRenderTextures.SideDish;
             default:
                 Debug.LogError($"Can't process dish of type {dishType.ToString()}");
                 return null;
