@@ -65,9 +65,11 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
 
     public void RemoveFood(CookableFood food)
     {
-        if (!_food.Remove(food)) return;
-        Notify(new CookingStopEvent(this, food));
-        food.cookingPan = null;
+        if (_food.Remove(food))
+        {
+            Notify(new CookingStopEvent(this, food));
+            food.cookingPan = null;
+        }
     }
 
     #region IControllable
@@ -109,11 +111,14 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if (_food != null)
+        if (_food != null && _food.Count > 0)
         {
-            for (int i = 0; i < _food.Count; ++i)
+            Debug.Log("Foods to be dropped: " + _food.Count);
+            for (int i = _food.Count - 1; i >= 0; --i)
             {
-                droppedOn.OnDrop(_food[i].GetComponent<IControllable>(), hitInfo);
+                CookableFood food = _food[i];
+                food.OnDragDrop(position, droppedOn, hitInfo);
+                droppedOn.OnDrop(food.GetComponent<IControllable>(), hitInfo);
             }
         }
     }

@@ -46,7 +46,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     protected List<IDishObserver> _observers = new List<IDishObserver>();
 
-    protected bool _debugLog = false;
+    protected bool _debugLog = true;
 
     protected void Awake()
     {
@@ -133,13 +133,13 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     protected virtual bool TryAddIngredient(IIngredient ingredient)
     {
-        if (_debugLog) Debug.Log("Trying to add");
+        if (_debugLog) Debug.Log("Trying to add " + ingredient);
         IngredientType type = ingredient.GetIngredientType();
         if(_finishIngredient != IngredientType.Undefined && type == _finishIngredient)
         {
             if (IsFinished(false))
             {
-                if (_debugLog) Debug.Log("Finish ingredient");
+                if (_debugLog) Debug.Log("Finish ingredient " + ingredient);
                 //required ingredient
                 AddFinalIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight());
                 InformObserversAddIngredient(ingredient);
@@ -153,7 +153,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         {
             if (type == _requiredIngredients[i])
             {
-                if (_debugLog) Debug.Log("Required ingredient");
+                if (_debugLog) Debug.Log("Required ingredient " + ingredient);
                 //required ingredient
                 AddIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight(), true, i);
                 _requiredIngredients.RemoveAt(i); //remove ingredient from the list
@@ -166,7 +166,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         {
             if (type == _optionalIngredients[i])
             {
-                if (_debugLog) Debug.Log("Optional ingredient");
+                if (_debugLog) Debug.Log("Optional ingredient " + ingredient);
                 //required ingredient
                 AddIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight(), false, i);
                 _optionalIngredients.RemoveAt(i); //remove ingredient from the list
@@ -174,7 +174,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 return true;
             }
         }
-        if (_debugLog) Debug.Log("Could not be added");
+        if (_debugLog) Debug.Log(ingredient + " Could not be added");
         return false;
     }
 
@@ -298,10 +298,19 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
+        Debug.Log(dropped + " dropped");
         if (dropped is IIngredient)
         {
             IIngredient ingredient = dropped as IIngredient;
-            if (ingredient.ReadyForDish()) if (TryAddIngredient(ingredient)) ingredient.AddedToDish();
+            if (ingredient.ReadyForDish())
+            {
+                Debug.Log(dropped + " is ready for dish");
+                if (TryAddIngredient(ingredient))
+                {
+                    Debug.Log(dropped + " was added to dish");
+                    ingredient.AddedToDish();
+                }
+            }
         }
         else if(dropped is Dish)
         {

@@ -58,9 +58,8 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
                     break;
                 }
             }
-            if (allDone) return true;
+            return allDone;
         }
-        return false;
     }
 
     public List<CookableFood> GetRequiredHeadIngredients()
@@ -136,7 +135,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if (!(droppedOn is CuttingBoard))
+        if (!(droppedOn is CookingPan))
         {
             cookingPan?.RemoveFood(this);
         }
