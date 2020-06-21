@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class LevelTransition : MonoBehaviour
 {
+    [SerializeField]
+    private string _nextScene = "";
 
-    [SerializeField] private string _nextScene = "";
-    [SerializeField] private string _previousScene = "";
+    [SerializeField]
+    private string _previousScene = "";
 
     private bool messagePassed = false;
 
@@ -21,7 +23,6 @@ public class LevelTransition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     void Awake()
@@ -55,7 +56,7 @@ public class LevelTransition : MonoBehaviour
         while (!asyncLoad.isDone)
         {
             print("Loading progress: " + (asyncLoad.progress * 100) + "%");
-            if(asyncLoad.progress >= 0.9f)
+            if (asyncLoad.progress >= 0.9f)
             {
                 if (messagePassed == true)
                 {
@@ -72,7 +73,10 @@ public class LevelTransition : MonoBehaviour
         yield return null;
 
         //Unload previous scene
-        AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(_previousScene);
+        if (!SceneManager.GetSceneByName(_previousScene).isLoaded)
+        {
+            AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(_previousScene);
+        }
 
         //Unload unused assets
         AsyncOperation asyncUnloadAssets = Resources.UnloadUnusedAssets();
