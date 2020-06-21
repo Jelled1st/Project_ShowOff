@@ -97,6 +97,11 @@ namespace Factory
         [SerializeField]
         private float _changeSceneAfterDriveInterval = 5f;
 
+        [BoxGroup("Stage settings")]
+        [SerializeField]
+        private float _levelTransitionInterval = 2f;
+
+
         private float _initialScore;
         private bool _canAppendScore;
         private int _potatoesInput;
@@ -188,14 +193,18 @@ namespace Factory
 
                 _factoryQuestController.SetLevel(2);
 
-                Camera.main.transform.DOMove(_level2CameraPosition.position, 2f);
-                Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, 2f);
+                Camera.main.transform.DOMove(_level2CameraPosition.position, _levelTransitionInterval);
+                Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, _levelTransitionInterval);
 
-                _shadowPlane.transform.DOMove(_level2ShadowPlanePosition.position, 2f);
-                _shadowPlane.transform.DORotate(_level2ShadowPlanePosition.rotation.eulerAngles, 2f);
+                _shadowPlane.transform.DOMove(_level2ShadowPlanePosition.position, _levelTransitionInterval);
+                _shadowPlane.transform.DORotate(_level2ShadowPlanePosition.rotation.eulerAngles,
+                    _levelTransitionInterval);
 
                 _level1Machines.ToggleChildren<Machine>(false);
-                _level2Machines.ToggleChildren<Machine>(true);
+
+                DOTween.Sequence()
+                    .AppendInterval(_levelTransitionInterval + 1f)
+                    .AppendCallback(() => { _level2Machines.ToggleChildren<Machine>(true); });
 
                 _potatoSpawner.enabled = false;
 
