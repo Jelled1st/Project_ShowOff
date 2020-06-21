@@ -10537,6 +10537,7 @@ MonoBehaviour:
     _trigger: {fileID: 0}
     _visuals: {fileID: 486675951}
   _timeScaleChange: 0.5
+  _timeScaleChange: 0.2
 --- !u!4 &641337532
 Transform:
   m_ObjectHideFlags: 0
