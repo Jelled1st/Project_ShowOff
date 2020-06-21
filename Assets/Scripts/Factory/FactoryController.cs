@@ -251,9 +251,18 @@ namespace Factory
         private void FinishScene()
         {
             _canAppendScore = true;
+
+            _peeledPotatoSpawner.enabled = false;
+            FindObjectsOfType<FlatConveyorBelt>().ToggleAll(false);
+            FindObjectsOfType<Machine>().ToggleAll(false);
+
             var bkm = FindObjectOfType<BKM>();
-            bkm.StopMusicFade();
-            bkm.TruckDriving();
+            if (bkm)
+            {
+                bkm.StopMusicFade();
+                bkm.TruckDriving();
+            }
+
             _stageTimer.StopTimer();
             Scores.AddScore(Scores.LeftTimeMultiplier * _stageTimer.TimeRemaining);
 
