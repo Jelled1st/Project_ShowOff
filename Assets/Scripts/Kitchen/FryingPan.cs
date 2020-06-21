@@ -31,11 +31,6 @@ public class FryingPan : MonoBehaviour, IControllable, ISubject
                 Notify(new BakingDoneEvent(this, _food[i]));
                 _foodBaked[_food[i]] = true;
             }
-            if (_food[i].IsBaked() && !_foodBurnt[_food[i]])
-            {
-                Notify(new BakingBurntEvent(this, _food[i]));
-                _foodBurnt[_food[i]] = true;
-            }
         }
     }
 

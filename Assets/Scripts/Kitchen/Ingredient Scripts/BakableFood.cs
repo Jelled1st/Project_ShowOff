@@ -101,7 +101,11 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
         if (_bakedTimes[_currentFace] >= StartBurnTime())
         {
             _burntTimes[_currentFace] += Time.deltaTime;
-            _sideIsBurned[_currentFace] = true;
+            if (!_sideIsBurned[_currentFace])
+            {
+                _sideIsBurned[_currentFace] = true;
+                Notify(new BakingStartBurnEvent(this));
+            }
         }
         if (_bakeMaterials[_currentFace] != null)
         {
