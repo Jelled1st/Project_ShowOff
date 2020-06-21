@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Factory
@@ -37,6 +38,19 @@ namespace Factory
         [SerializeField]
         private TextMeshProUGUI _packText;
 
+        [SerializeField]
+        private UnityEvent _washed;
+
+        [SerializeField]
+        private UnityEvent _peeled;
+
+        [SerializeField]
+        private UnityEvent _cutt;
+
+        [SerializeField]
+        private UnityEvent _packed;
+
+
         private void OnEnable()
         {
             Machine.ItemLeftMachine += SetPassedQuest;
@@ -70,15 +84,19 @@ namespace Factory
             {
                 case Machine.MachineType.PotatoWasher:
                     KitchenSubTutorial.StrikeThroughText(_washText);
+                    _washed.Invoke();
                     break;
                 case Machine.MachineType.PotatoPeeler:
                     KitchenSubTutorial.StrikeThroughText(_peelText);
+                    _peeled.Invoke();
                     break;
                 case Machine.MachineType.FryPacker:
                     KitchenSubTutorial.StrikeThroughText(_packText);
+                    _cutt.Invoke();
                     break;
                 case Machine.MachineType.FryCutter:
                     KitchenSubTutorial.StrikeThroughText(_cutText);
+                    _packed.Invoke();
                     break;
             }
         }
