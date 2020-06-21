@@ -19,5 +19,10 @@ public class DebugLog : MonoBehaviour
         Debug.Log(output);
     }
 
+    public static void WriteStatic(string output)
+    {
+        Debug.Log(output);
+    }
+
 
 }

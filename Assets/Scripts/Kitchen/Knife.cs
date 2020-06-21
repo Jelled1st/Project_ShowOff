@@ -133,7 +133,7 @@ public class Knife : MonoBehaviour, IControllable
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
         float directionRotationDiff = Vector3.Dot(direction.normalized, this.transform.forward);
-        if(directionRotationDiff >= _swipePrecision)
+        if(Mathf.Abs(directionRotationDiff) >= _swipePrecision)
         {
             _isSwiping = true;
             ++_swipeFramesCount;

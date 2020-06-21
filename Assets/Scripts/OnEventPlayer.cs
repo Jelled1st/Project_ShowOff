@@ -252,7 +252,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
             _dishEvents.onBakingDone.Invoke();
             return true;
         }
-        else if (observerEvent is BakingBurntEvent)
+        else if (observerEvent is BakingStartBurnEvent)
         {
             _dishEvents.onBakingBurnt.Invoke();
             return true;
