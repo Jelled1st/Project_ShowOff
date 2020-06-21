@@ -6,7 +6,7 @@ RenderTexture:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: tex_score_display_dish_3
+  m_Name: tex_burger_score
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
