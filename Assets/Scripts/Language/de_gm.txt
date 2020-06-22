@@ -19,6 +19,15 @@ kitchen.choiceChili: Chili-Käse Pommes
 kitchen.choiceFish: Pommes mit Fisch
 kitchen.fryFries: Lege die Pommes in the Friteuse
 kitchen.cookPatty: Brate eine Frikadelle
+kitchen.cutVegetables: NO_TRANSLATION
+kitchen.assmebleBurger: NO_TRANSLATION
+kitchen.dropMeat: NO_TRANSLATION
+kitchen.dropVeggies: NO_TRANSLATION
+kitchen.stirPot: NO_TRANSLATION
+kitchen.assembleDish: NO_TRANSLATION
+kitchen.bakeFish: NO_TRANSLATION
+kitchen.stirSalad: NO_TRANSLATION
+kitchen.fishPlate: NO_TRANSLATION
 /
 persUI.restart: Bist du sicher, dass du das Spiel neu starten willst?
 persUI.quit: Bist du sicher, dass du das Spiel beenden willst?

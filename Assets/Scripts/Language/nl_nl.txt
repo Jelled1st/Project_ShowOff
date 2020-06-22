@@ -19,6 +19,15 @@ kitchen.choiceChili: Chili met kaas en frietjes
 kitchen.choiceFish: Friet met vis
 kitchen.fryFries: Doe de frietjes in de friteuse
 kitchen.cookPatty: Bak een hamburger
+kitchen.cutVegetables: Snijd de groenten
+kitchen.assmebleBurger: Maak de burger klaar
+kitchen.dropMeat: Doe het vlees in de pan
+kitchen.dropVeggies: Doe de groenten in de pan
+kitchen.stirPot: Roer in de pan
+kitchen.assembleDish: Maak het gerecht klaar
+kitchen.bakeFish: Bak de vis in de pan
+kitchen.stirSalad: Mix de salade
+kitchen.fishPlate: Doe de salade op je bord
 /
 persUI.restart: Weet je zeker dat je opnieuw wilt starten?
 persUI.quit: Weet je zeker dat je wilt stoppen?

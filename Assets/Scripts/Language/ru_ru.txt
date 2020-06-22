@@ -19,6 +19,15 @@ kitchen.choiceChili: Картофель фри с сыром и мясом
 kitchen.choiceFish: Рыба и картофель фри
 kitchen.fryFries: Загрузи картофель во фритюр
 kitchen.cookPatty: Приготовь котлету
+kitchen.cutVegetables: NO_TRANSLATION
+kitchen.assmebleBurger: NO_TRANSLATION
+kitchen.dropMeat: NO_TRANSLATION
+kitchen.dropVeggies: NO_TRANSLATION
+kitchen.stirPot: NO_TRANSLATION
+kitchen.assembleDish: NO_TRANSLATION
+kitchen.bakeFish: NO_TRANSLATION
+kitchen.stirSalad: NO_TRANSLATION
+kitchen.fishPlate: NO_TRANSLATION
 /
 persUI.restart: Вы точно хотите начать заново?
 persUI.quit: Вы точно хотите выйти?

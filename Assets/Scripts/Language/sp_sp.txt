@@ -19,6 +19,15 @@ kitchen.choiceChili: Chile con queso y papas fritas
 kitchen.choiceFish: Pescado con papas fritas
 kitchen.fryFries: Pon las papas fritas en la freidora
 kitchen.cookPatty: Cocina una hamburguesa
+kitchen.cutVegetables: Corta las verduras
+kitchen.assmebleBurger: Ensemble la hamburguesa
+kitchen.dropMeat: Pon la carne en la olla
+kitchen.dropVeggies: Pon las verduras en la olla
+kitchen.stirPot: Revuelve la olla
+kitchen.assembleDish: Ensemble la comida
+kitchen.bakeFish: Freír el pescado
+kitchen.stirSalad: Mezcla la ensalada
+kitchen.fishPlate: Pon la ensalada en el plato
 /
 persUI.restart: ¿Estás seguro de que quieres reiniciar?
 persUI.quit: ¿Estás seguro de que quieres dejar de jugar?

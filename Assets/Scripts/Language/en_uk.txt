@@ -19,6 +19,15 @@ kitchen.choiceChili: Chili cheese fries
 kitchen.choiceFish: Fish & Chips
 kitchen.fryFries: Put the fries in the fryer
 kitchen.cookPatty: Cook a burger patty
+kitchen.cutVegetables: Cut vegetables
+kitchen.assmebleBurger: Assemble the burger
+kitchen.dropMeat: Drop the meat in the pot
+kitchen.dropVeggies: Put the vegetables in the pot
+kitchen.stirPot: Stir the pot
+kitchen.assembleDish: Assemble the dish
+kitchen.bakeFish: Bake the fish
+kitchen.stirSalad: Mix the salad
+kitchen.fishPlate: Put the salad on your plate
 /
 persUI.restart: Are you sure you want to restart?
 persUI.quit: Are you sure you want to quit?
