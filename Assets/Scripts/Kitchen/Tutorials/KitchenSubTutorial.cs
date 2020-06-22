@@ -56,7 +56,6 @@ public class KitchenSubTutorial : MonoBehaviour
 
     public void EnableAllElements()
     {
-        Debug.Log("Enabling stuff");
         for (int i = 0; i < _tutorialElements.Count; ++i)
         {
             _tutorialElements[i].SetActive(true);
