@@ -102,9 +102,9 @@ public static class Scores
         ScoreList.Clear();
     }
 
-    public static float GetCurrentScore()
+    public static UserScore GetCurrentUser()
     {
-        return CurrentUser.score;
+        return CurrentUser;
     }
 
     public static void SetCurrentDish(Dish.DishTypes dishType)

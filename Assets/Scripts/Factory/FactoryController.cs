@@ -133,7 +133,7 @@ namespace Factory
             _stageTimer = FindObjectOfType<StageTimer>();
             _factoryQuestController = FindObjectOfType<FactoryQuestController>();
 
-            _initialScore = Scores.GetCurrentScore();
+            _initialScore = Scores.GetCurrentUser().score;
         }
 
         private void OnEnable()
@@ -158,7 +158,7 @@ namespace Factory
         private void OnSceneUnloaded(Scene arg0)
         {
             if (!_canAppendScore)
-                Scores.AddScore(Scores.GetCurrentScore() - _initialScore);
+                Scores.AddScore(Scores.GetCurrentUser().score - _initialScore);
 
             Time.timeScale = 1f;
         }
