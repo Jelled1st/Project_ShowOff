@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(Collider))]
 public class CookingPan : MonoBehaviour, IControllable, ISubject
 {
     [SerializeField] GameObject _foodNode;
+    [SerializeField] GameObject _water;
     [SerializeField] GameObject _spoon;
     [SerializeField] GameObject _spoonBottomNode;
     [SerializeField] float _stirBonusModifier = 0.5f;
+    [SerializeField] float _stirTime = 0.8f;
     Animator _spoonAnimator;
     private List<CookableFood> _food = new List<CookableFood>();
     private bool _foodIsCooked = false;
@@ -56,7 +59,8 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
             if(!containsIngredient || !_food[_food.Count -1].IsCooked(false)) return;
         }
         _food.Add(food);
-        food.transform.position = _foodNode.transform.position;
+        food.transform.SetParent(_foodNode.transform);
+        food.transform.localPosition = new Vector3(0, 0, 0);
         food.cookingPan = this;
         Notify(new CookingStartEvent(this, food));
         _foodIsCooked = false;
@@ -146,6 +150,8 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
         if (!_spoonAnimator.GetCurrentAnimatorStateInfo(0).IsName("anim_spoon_stirring"))
         {
             _spoonAnimator.SetTrigger("isPlaying");
+            _water.transform.DORotate(new Vector3(0, 360, 0), _stirTime, RotateMode.LocalAxisAdd);
+            _foodNode.transform.DORotate(new Vector3(0, 360, 0), _stirTime, RotateMode.LocalAxisAdd);
             CookAllFood(_stirBonusModifier);
             Notify(new CookingStirEvent(this));
         }
