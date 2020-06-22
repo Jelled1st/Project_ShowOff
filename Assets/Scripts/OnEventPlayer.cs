@@ -188,9 +188,9 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
             }
         }
 
-        Subscribe(_cookingSubjects.cookingPan);
-        Subscribe(_cookingSubjects.fryFryer);
-        Subscribe(_cookingSubjects.fryingPan);
+        if(_cookingSubjects.cookingPan != null )Subscribe(_cookingSubjects.cookingPan);
+        if(_cookingSubjects.fryFryer != null) Subscribe(_cookingSubjects.fryFryer);
+        if(_cookingSubjects.fryingPan != null) Subscribe(_cookingSubjects.fryingPan);
     }
 
     private void SubscribeToOther()
@@ -445,7 +445,8 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void Subscribe(ISubject subject)
     {
-        subject.Register(this);
+        if (subject != null) subject.Register(this);
+        else Debug.LogError("OnEventPlayer: subject is null");
     }
 
     public void UnSubscribe(ISubject subject)
