@@ -46,7 +46,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     protected List<IDishObserver> _observers = new List<IDishObserver>();
 
-    protected bool _debugLog = true;
+    protected bool _debugLog = false;
 
     protected void Awake()
     {
@@ -298,16 +298,16 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
-        Debug.Log(dropped + " dropped");
+        if(_debugLog) Debug.Log(dropped + " dropped");
         if (dropped is IIngredient)
         {
             IIngredient ingredient = dropped as IIngredient;
             if (ingredient.ReadyForDish())
             {
-                Debug.Log(dropped + " is ready for dish");
+                if (_debugLog) Debug.Log(dropped + " is ready for dish");
                 if (TryAddIngredient(ingredient))
                 {
-                    Debug.Log(dropped + " was added to dish");
+                    if (_debugLog) Debug.Log(dropped + " was added to dish");
                     ingredient.AddedToDish();
                 }
             }
