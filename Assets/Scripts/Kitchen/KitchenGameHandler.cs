@@ -78,6 +78,11 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         }
     }
 
+    public Dish GetChosenDish()
+    {
+        return _choosenDish;
+    }
+
     private void EnableDishIngredients(Dish dish)
     {
         List<IngredientType> ingredientTypes = new List<IngredientType>(dish.GetAllPossibleIngredients());

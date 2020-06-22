@@ -12,6 +12,7 @@ public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
     [SerializeField] GameObject _scoreUI;
     [SerializeField] float _tweenTime = 1.0f;
     [SerializeField] string _nextScene;
+    [SerializeField] GameObject _completedDishNode;
     bool _gamefinished = false;
 
     // Start is called before the first frame update
@@ -48,6 +49,15 @@ public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
         _gamefinished = true;
         _camera.transform.DOMove(_cameraNode.transform.position, _tweenTime);
         _camera.transform.DORotate(_cameraNode.transform.rotation.eulerAngles, _tweenTime);
+        CopyAndPlaceDish();
+    }
+
+    private void CopyAndPlaceDish()
+    {
+        GameObject dish = Instantiate(_gameHandler.GetChosenDish().transform.parent.gameObject);
+        Destroy(dish.GetComponent<Dish>());
+        dish.transform.SetParent(_completedDishNode.transform);
+        dish.transform.localPosition = new Vector3(0, 0, 0);
     }
 
     public void OnNotify(AObserverEvent observerEvent)
