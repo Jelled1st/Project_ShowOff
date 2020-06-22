@@ -17,7 +17,6 @@ public class LevelTransition : MonoBehaviour
     void Start()
     {
         StartCoroutine(LoadScene());
-        StartCoroutine(UnloadPrevious());
     }
 
     // Update is called once per frame
@@ -49,36 +48,5 @@ public class LevelTransition : MonoBehaviour
 
         //Begin to load specified scene
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_nextScene);
-
-        //Don't let the scene activate until end message received
-        asyncLoad.allowSceneActivation = false;
-
-        while (!asyncLoad.isDone)
-        {
-            print("Loading progress: " + (asyncLoad.progress * 100) + "%");
-            if (asyncLoad.progress >= 0.9f)
-            {
-                if (messagePassed == true)
-                {
-                    asyncLoad.allowSceneActivation = true;
-                }
-            }
-
-            yield return null;
-        }
-    }
-
-    IEnumerator UnloadPrevious()
-    {
-        yield return null;
-
-        //Unload previous scene
-        if (!SceneManager.GetSceneByName(_previousScene).isLoaded)
-        {
-            AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(_previousScene);
-        }
-
-        //Unload unused assets
-        AsyncOperation asyncUnloadAssets = Resources.UnloadUnusedAssets();
     }
 }
