@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using TMPro;
@@ -75,6 +76,7 @@ public class ScoreSceneController : MonoBehaviour
         {
             _scoreParent.SetActive(false);
             _keyboard.enabled = true;
+            _keyboard.gameObject.SetActive(true);
             _keyboard.InputEnabled = true;
 
             _inputVisuals.SetActive(true);
@@ -87,6 +89,7 @@ public class ScoreSceneController : MonoBehaviour
         else
         {
             _keyboard.enabled = false;
+            _keyboard.gameObject.SetActive(false);
             _inputVisuals.SetActive(false);
             ShowScores();
             ShowInput = true;
