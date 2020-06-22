@@ -6,7 +6,6 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     [SerializeField] List<Dish> _dishes;
     [SerializeField] OnEventPlayer _onEventPlayer;
     [SerializeField] KitchenTutorial _kitchenTutorial;
-    [SerializeField] GameObject _polaroidScore;
     private Dish _choosenDish;
 
     private List<IObserver> _observers = new List<IObserver>();
@@ -22,7 +21,6 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     void Awake()
     {
         this.gameObject.tag = "GameHandler";
-        _polaroidScore.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -137,7 +135,6 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
                     (_observers[i] as IGameHandlerObserver).OnFinish();
                 }
             }
-            _polaroidScore.SetActive(true);
             _gameFinished = true;
         }
     }

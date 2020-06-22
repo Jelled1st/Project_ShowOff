@@ -113,7 +113,6 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     {
         if (_food != null && _food.Count > 0)
         {
-            Debug.Log("Foods to be dropped: " + _food.Count);
             for (int i = _food.Count - 1; i >= 0; --i)
             {
                 CookableFood food = _food[i];
