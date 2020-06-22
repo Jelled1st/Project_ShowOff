@@ -12237,7 +12237,7 @@ GameObject:
   - component: {fileID: 748580542}
   - component: {fileID: 748580544}
   m_Layer: 0
-  m_Name: Quest 1 Text
+  m_Name: Quest 2 Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14242,7 +14242,7 @@ GameObject:
   - component: {fileID: 921995361}
   - component: {fileID: 921995363}
   m_Layer: 0
-  m_Name: Quest 2 Text
+  m_Name: Quest 1 Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15147,7 +15147,7 @@ GameObject:
   - component: {fileID: 986508519}
   - component: {fileID: 986508521}
   m_Layer: 0
-  m_Name: Quest 1 Paper
+  m_Name: Quest 2 Paper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22788,7 +22788,7 @@ GameObject:
   - component: {fileID: 1391334570}
   - component: {fileID: 1391334572}
   m_Layer: 0
-  m_Name: Quest 2 Paper
+  m_Name: Quest 1 Paper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31621,7 +31621,7 @@ PrefabInstance:
     - target: {fileID: 4406147801926110880, guid: dbd1c18b8895c5d44849589b02933f77,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4406147801926110880, guid: dbd1c18b8895c5d44849589b02933f77,
         type: 3}
