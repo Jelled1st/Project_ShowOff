@@ -79,19 +79,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatBurntNormal:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9618152bf9684984799f9e2c25d1e056, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatBurntTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d5471a5369d3e5a4cb8ddef855bfa8b3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatCookedNormal:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9618152bf9684984799f9e2c25d1e056, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatCookedTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c728cbb4f44dd4043a5e9e643bb42f24, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatRawNormal:
@@ -99,7 +99,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatRawTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b2631529a367e3042ae5079106564470, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -202,7 +202,7 @@ Material:
     - _IridescenceThickness: 1
     - _LinkDetailsWithBase: 1
     - _MaterialID: 1
-    - _MeatBurningBool: 0
+    - _MeatBurningBool: 1
     - _MeatBurnt: 0
     - _MeatCooked: 1
     - _MeatSmoothness: 0
