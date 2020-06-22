@@ -5,23 +5,39 @@ using UnityEngine.UI;
 public class KeyboardScript : MonoBehaviour
 {
     public const char EnterChar = ' ';
-    
+
     public static event Action<char> KeyPressed = delegate { };
     public static event Action BackspacePressed = delegate { };
 
-    public InputField TextField;
     public GameObject RusLayoutSml, RusLayoutBig, EngLayoutSml, EngLayoutBig, SymbLayout;
+
+    public bool InputEnabled { get; set; }
+
+
+    private void OnEnable()
+    {
+        gameObject.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void alphabetFunction(string alphabet)
     {
-        // TextField.text = TextField.text + alphabet;
-        KeyPressed(alphabet[0]);
+        if (InputEnabled)
+        {
+            KeyPressed(alphabet[0]);
+        }
     }
 
     public void BackSpace()
     {
-        // if (TextField.text.Length > 0) TextField.text = TextField.text.Remove(TextField.text.Length - 1);
-        BackspacePressed();
+        if (InputEnabled)
+        {
+            BackspacePressed();
+        }
     }
 
     private void CloseAllLayouts()
