@@ -95,6 +95,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public void AddedToDish()
     {
+        cookingPan?.RemoveFood(this);
         Destroy(this.gameObject);
     }
 
@@ -149,10 +150,6 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if (!(droppedOn is CookingPan))
-        {
-            cookingPan?.RemoveFood(this);
-        }
     }
 
     public void OnDragDropFailed(Vector3 position)
