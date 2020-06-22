@@ -16,7 +16,7 @@ public class EasterEgg_barrels : MonoBehaviour
     {
         if(_playCount > 0)
         {
-            _rigidBody.AddRelativeTorque(0, -200, 0);
+            _rigidBody.AddRelativeTorque(0, -25, 0);
         }
         if(_playCount == 0)
         {
