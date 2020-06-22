@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 using System.Collections;
@@ -97,6 +96,11 @@ namespace Factory
         [SerializeField]
         private float _changeSceneAfterDriveInterval = 5f;
 
+        [BoxGroup("Stage settings")]
+        [SerializeField]
+        private float _levelTransitionInterval = 2f;
+
+        private AsyncOperation _sceneLoad;
         private float _initialScore;
         private bool _canAppendScore;
         private int _potatoesInput;
@@ -188,14 +192,18 @@ namespace Factory
 
                 _factoryQuestController.SetLevel(2);
 
-                Camera.main.transform.DOMove(_level2CameraPosition.position, 2f);
-                Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, 2f);
+                Camera.main.transform.DOMove(_level2CameraPosition.position, _levelTransitionInterval);
+                Camera.main.transform.DORotate(_level2CameraPosition.rotation.eulerAngles, _levelTransitionInterval);
 
-                _shadowPlane.transform.DOMove(_level2ShadowPlanePosition.position, 2f);
-                _shadowPlane.transform.DORotate(_level2ShadowPlanePosition.rotation.eulerAngles, 2f);
+                _shadowPlane.transform.DOMove(_level2ShadowPlanePosition.position, _levelTransitionInterval);
+                _shadowPlane.transform.DORotate(_level2ShadowPlanePosition.rotation.eulerAngles,
+                    _levelTransitionInterval);
 
                 _level1Machines.ToggleChildren<Machine>(false);
-                _level2Machines.ToggleChildren<Machine>(true);
+
+                DOTween.Sequence()
+                    .AppendInterval(_levelTransitionInterval + 1f)
+                    .AppendCallback(() => { _level2Machines.ToggleChildren<Machine>(true); });
 
                 _potatoSpawner.enabled = false;
 
@@ -243,9 +251,18 @@ namespace Factory
         private void FinishScene()
         {
             _canAppendScore = true;
+
+            _peeledPotatoSpawner.enabled = false;
+            FindObjectsOfType<FlatConveyorBelt>().ToggleAll(false);
+            FindObjectsOfType<Machine>().ToggleAll(false);
+
             var bkm = FindObjectOfType<BKM>();
-            bkm.StopMusicFade();
-            bkm.TruckDriving();
+            if (bkm)
+            {
+                bkm.StopMusicFade();
+                bkm.TruckDriving();
+            }
+
             _stageTimer.StopTimer();
             Scores.AddScore(Scores.LeftTimeMultiplier * _stageTimer.TimeRemaining);
 
@@ -257,36 +274,20 @@ namespace Factory
                 .AppendCallback(() =>
                 {
                     print("should change scene");
-                    _trulyFinished = true;
+                    _sceneLoad.allowSceneActivation = true;
                 });
         }
 
-        private AsyncOperation sceneLoad;
-
-        IEnumerator LoadScene()
+        private IEnumerator LoadScene()
         {
             yield return null;
 
-            if (SceneManager.GetSceneByName(_nextScene).isLoaded || sceneLoad != null)
+            if (SceneManager.GetSceneByName(_nextScene).isLoaded || _sceneLoad != null)
                 yield break;
 
-            sceneLoad = SceneManager.LoadSceneAsync(_nextScene);
+            _sceneLoad = SceneManager.LoadSceneAsync(_nextScene);
 
-            sceneLoad.allowSceneActivation = false;
-
-            while (!sceneLoad.isDone)
-            {
-                // print("Loading Progress: " + (asyncOperation.progress * 100) + "%");
-                if (sceneLoad.progress >= 0.9f)
-                {
-                    if (_trulyFinished == true)
-                    {
-                        sceneLoad.allowSceneActivation = true;
-                    }
-                }
-
-                yield return null;
-            }
+            _sceneLoad.allowSceneActivation = false;
         }
     }
 }
