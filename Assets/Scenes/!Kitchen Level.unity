@@ -10181,6 +10181,7 @@ MonoBehaviour:
   _onEventPlayer: {fileID: 318761190}
   _kitchenTutorial: {fileID: 885145666}
   _disableIngredients: 1
+  blackOutSquare: {fileID: 1069192790}
 --- !u!4 &560893438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1125722024137673638, guid: ea9a5df2bf59cf84f973a64b17f37a57,
@@ -12839,6 +12840,7 @@ MonoBehaviour:
   _tweenTime: 3
   _nextScene: '!ScoreInput'
   _completedDishNode: {fileID: 1617153154}
+  blackOutSquare: {fileID: 1069192790}
 --- !u!1001 &769574013
 PrefabInstance:
   m_ObjectHideFlags: 0

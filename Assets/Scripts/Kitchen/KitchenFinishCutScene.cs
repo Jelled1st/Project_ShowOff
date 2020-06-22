@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
 {
@@ -13,6 +14,7 @@ public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
     [SerializeField] string _nextScene;
     [SerializeField] GameObject _completedDishNode;
     bool _gamefinished = false;
+    public GameObject blackOutSquare;
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +83,19 @@ public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
     {
         yield return null;
 
+        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        float fadeAmount;
+        float fadeSpeed = 5;
+
+        //fade to black
+        while (blackOutSquare.GetComponent<Image>().color.a < 1)
+        {
+            fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            blackOutSquare.GetComponent<Image>().color = objectColor;
+            yield return null;
+        }
         //Begin to load specified scene
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_nextScene);
     }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 {
@@ -18,6 +20,8 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 
     [SerializeField] private bool _disableIngredients = true;
 
+    public GameObject blackOutSquare;
+
     void Awake()
     {
         this.gameObject.tag = "GameHandler";
@@ -26,6 +30,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(FadeIn());
         _ingredients = new List<IIngredient>();
         _ingredientGOs = new List<GameObject>();
         GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
@@ -79,6 +84,25 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     public Dish GetChosenDish()
     {
         return _choosenDish;
+    }
+
+    public IEnumerator FadeIn(bool fadeToWhite = true, int fadeSpeed = 5)
+    {
+        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        float fadeAmount;
+
+        if (fadeToWhite)
+        {
+            while (blackOutSquare.GetComponent<Image>().color.a > 0)
+            {
+                fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                blackOutSquare.GetComponent<Image>().color = objectColor;
+                yield return null;
+            }
+        }
+
     }
 
     private void EnableDishIngredients(Dish dish)
@@ -184,4 +208,6 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         subject.UnRegister(this);
     }
     #endregion
+
+ 
 }
