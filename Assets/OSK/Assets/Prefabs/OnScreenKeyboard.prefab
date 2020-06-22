@@ -2405,7 +2405,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2452114811308096173}
   - component: {fileID: 2452114811308096172}
-  - component: {fileID: 2452114811308096175}
   m_Layer: 5
   m_Name: OnScreenKeyboard
   m_TagString: Untagged
@@ -2445,24 +2444,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b588419570d9394a94ff4cef1addb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextField: {fileID: 0}
   RusLayoutSml: {fileID: 0}
   RusLayoutBig: {fileID: 0}
   EngLayoutSml: {fileID: 0}
   EngLayoutBig: {fileID: 2452114810701978350}
   SymbLayout: {fileID: 0}
---- !u!114 &2452114811308096175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2452114811308096170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ed86bb98803f44b9781db51170b3fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2452114811317318439
 GameObject:
   m_ObjectHideFlags: 0
