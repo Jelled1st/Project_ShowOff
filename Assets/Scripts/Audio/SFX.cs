@@ -194,32 +194,6 @@ public class SFX : MonoBehaviour
         }
     }
 
-    /*
-    // Constant humming noise of the conveyors
-    public void SoundConveyor()
-    {
-        if (!conveyorHumInstancePlaying)
-        {
-            Debug.Log("Conveyor Hum Is Playing");
-            _conveyorHumInstance = FMODUnity.RuntimeManager.CreateInstance("event:/SFX_FACTORY/Conveyor Hum");
-            _conveyorHumInstance.start();
-
-            conveyorHumInstancePlaying = true;
-        }
-
-        clipLength = 0.1f;
-        StartCoroutine(WaitForEnd(clipLength));
-    }
-
-    public void SoundConveyorStop()
-    {
-        conveyorHumInstancePlaying = false;
-        Debug.Log("Stopping Conveyor Hum");
-        _conveyorHumInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        _conveyorHumInstance.release();
-    }
-    */
-
     // Sound when rotating conveyor belts
     public void SoundRotate()
     {
