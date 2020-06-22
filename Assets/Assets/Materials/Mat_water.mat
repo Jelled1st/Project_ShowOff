@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_OilTest
+  m_Name: Mat_water
   m_Shader: {fileID: -6465566751694194690, guid: b495331cc257293489ea3eb716bb5dd9,
     type: 3}
   m_ShaderKeywords: 
@@ -31,10 +31,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_C0FB440: 0.75
+    - Vector1_C0FB440: 0.674
     - _OilAlpha: 1
     - _OilCooking: 1
-    - _OilDepth: 0.95
+    - _OilDepth: 0.85
     - _OilDepthStrength: 1
     - _OilEmStrength: 0
     - _OilFoamDist: 1
@@ -43,11 +43,11 @@ Material:
     - _OilLiquidSpeed: 1
     - _OilLiquidWave: 1
     - _OilNormalSpeed: 1.5
-    - _OilNormalStrength: 0.12
-    - _OilNormalTiling: 25
-    - _OilSmoothness: 0.8
+    - _OilNormalStrength: 0.245
+    - _OilNormalTiling: 6.7
+    - _OilSmoothness: 1
     - _OilWaveStrength: -0.025
     m_Colors:
-    - _OilColA: {r: 0.95294124, g: 0.8196079, b: 0.3372549, a: 0}
+    - _OilColA: {r: 0.33725488, g: 0.9529412, b: 0.9404984, a: 0}
     - _OilColB: {r: 0.81960785, g: 0.73333335, b: 0.4745098, a: 0}
-    - _OilDepthCol: {r: 1, g: 0.90395236, b: 0, a: 1}
+    - _OilDepthCol: {r: 0.12927197, g: 0.44166833, b: 0.7830189, a: 1}
