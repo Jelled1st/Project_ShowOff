@@ -225,7 +225,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Conveyor Rotate");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -234,7 +234,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Fry Chopping");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -243,7 +243,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Fry Packing");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -252,7 +252,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Item Coming Out");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -261,7 +261,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Machine Breaking");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -270,7 +270,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Machine Broken");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -279,7 +279,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Machine Fixing");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -288,7 +288,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Potato Peeling");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -297,7 +297,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Potato Washing");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -306,7 +306,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Slowdown");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
@@ -315,7 +315,7 @@ public class SFX : MonoBehaviour
     {
         Play("SFX_FACTORY/Speedup");
 
-        clipLength = 0.1f;
+        clipLength = 0.01f;
         StartCoroutine(WaitForEnd(clipLength));
     }
 
