@@ -32,7 +32,7 @@ public class EventTimer : MonoBehaviour
             _reachedTime = true;
             _timerEndEvent.Invoke();
         }
-        _output.text = "" + GetTime();
+        _output.text = "" + Mathf.Floor(GetTime());
     }
 
     public float GetTime()
