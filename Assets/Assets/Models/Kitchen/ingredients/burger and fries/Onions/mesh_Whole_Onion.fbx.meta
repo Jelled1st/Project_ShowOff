@@ -3,7 +3,12 @@ guid: d68295810a2d50a41a2f0e6323f4ea96
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: whole_onion
+    second: {fileID: 2100000, guid: 9866d9c6c4e50c5499657c8786c5942a, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

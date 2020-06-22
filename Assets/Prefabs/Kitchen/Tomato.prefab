@@ -92,6 +92,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 29baf18e1f2fa6141b90115c9014746a, type: 2}
   - {fileID: 11400000, guid: 952b02b7a658a3b4c85fe917fffb17df, type: 2}
   - {fileID: 11400000, guid: 55d68fc0c5a78174f91178f06bd68fd7, type: 2}
+  _dishMesh: {fileID: -927199367670048503, guid: bbc8bde751accb743bdd35f3fe063dec,
+    type: 3}
 --- !u!1001 &4691510630378721060
 PrefabInstance:
   m_ObjectHideFlags: 0
