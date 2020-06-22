@@ -38,7 +38,7 @@ public class EventTimer : MonoBehaviour
     public float GetTime()
     {
         if (_countDown) return (_time - _count);
-        else return _count
+        else return _count;
     }
 
     public void ResetTimer()
