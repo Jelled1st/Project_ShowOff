@@ -264,7 +264,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             _addedIngredientObjects.Add(type, _finishIngredientMesh);
             _finishIngredientMesh = null;
         }
-        Debug.Log(ingredientMesh);
+        if(_debugLog) Debug.Log(ingredientMesh);
     }
 
     #region IControllable
