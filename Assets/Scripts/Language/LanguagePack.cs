@@ -85,6 +85,10 @@ public class LanguagePack : ScriptableObject
         {
             _languageHandler.factory.mainQuest = line.Substring(19, line.Length - 19);
         }
+        if (line.StartsWith("factory.level2Quest: "))
+        {
+            _languageHandler.factory.level2Quest = line.Substring(21, line.Length - 21);
+        }
         else if (line.StartsWith("factory.washQuest: "))
         {
             _languageHandler.factory.washQuest = line.Substring(19, line.Length - 19);
@@ -131,31 +135,35 @@ public class LanguagePack : ScriptableObject
     {
         if (line.StartsWith("persUI.restart: "))
         {
-            _languageHandler.persUI.restart = line.Substring(15, line.Length - 16);
+            _languageHandler.persUI.restart = line.Substring(16, line.Length - 16);
         }
         else if (line.StartsWith("persUI.quit: "))
         {
-            _languageHandler.persUI.quit = line.Substring(12, line.Length - 13);
+            _languageHandler.persUI.quit = line.Substring(13, line.Length - 13);
         }
         else if (line.StartsWith("persUI.yes: "))
         {
-            _languageHandler.persUI.yes = line.Substring(11, line.Length - 12);
+            _languageHandler.persUI.yes = line.Substring(12, line.Length - 12);
         }
         else if (line.StartsWith("persUI.no: "))
         {
-            _languageHandler.persUI.no = line.Substring(10, line.Length - 11);
+            _languageHandler.persUI.no = line.Substring(11, line.Length - 11);
         }
         else if (line.StartsWith("timeout.reminder: "))
         {
-            _languageHandler.timeout.reminder = line.Substring(17, line.Length - 18);
+            _languageHandler.timeout.reminder = line.Substring(18, line.Length - 18);
         }
         else if (line.StartsWith("timeout.yes: "))
         {
-            _languageHandler.timeout.reminder = line.Substring(12, line.Length - 13);
+            _languageHandler.timeout.reminder = line.Substring(13, line.Length - 13);
         }
         else if (line.StartsWith("misc.score: "))
         {
-            _languageHandler.misc.score = line.Substring(11, line.Length-12);
+            _languageHandler.misc.score = line.Substring(12, line.Length-12);
+        }
+        else if(line.StartsWith("misc.lossText: "))
+        {
+            _languageHandler.misc.lossText = line.Substring(15, line.Length-15);
         }
     }
 }

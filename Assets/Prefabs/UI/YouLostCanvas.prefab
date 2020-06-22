@@ -1045,4 +1045,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUgui: {fileID: 0}
-  _fieldName: loss.text
+  _fieldName: misc.lossText

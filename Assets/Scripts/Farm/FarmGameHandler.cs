@@ -13,6 +13,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     [SerializeField] List<FarmPlotSpawnStateRate> _stateSpawnRates;
     [SerializeField] private string _nextScene = "";
     public GameObject blackOutSquare;
+    public GameObject blackoutCanvas;
 
     [Header("Scores")]
     [SerializeField] private float _harvestPoints = 250;
@@ -50,7 +51,12 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     // Start is called before the first frame update
     void Start()
     {
+        if (blackoutCanvas.activeInHierarchy == false)
+        {
+            blackoutCanvas.SetActive(true);
+        }
         StartCoroutine(FadeIn());
+        
         GameObject controller = GameObject.FindGameObjectWithTag("Controller");
         if (controller == null) Debug.LogError("No controller found!");
         else

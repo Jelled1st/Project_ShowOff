@@ -37,7 +37,7 @@ public class EventTimer : MonoBehaviour
 
     public float GetTime()
     {
-        if (_countDown) return Mathf.Min((_time - _count), 0);
+        if (_countDown) return Mathf.Max((_time - _count), 0);
         else return _count;
     }
 

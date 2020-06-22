@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 246.4621, g: 305.38718, b: 404.1746, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2701,6 +2701,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5a0ac57acbf2b4f46887eda4ff99ec6b, type: 2}
   _nextScene: '!Farm Transition'
   blackOutSquare: {fileID: 1769351209}
+  blackoutCanvas: {fileID: 690910242}
   _harvestPoints: 250
   _fullyHealthyPoints: 500
   _killBugPoinst: 100
@@ -6793,7 +6794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &690910243
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17686,7 +17687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

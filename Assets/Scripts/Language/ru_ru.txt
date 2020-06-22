@@ -1,0 +1,32 @@
+﻿main.start: Начать
+main.exit: Выйти
+main.subtitle: Игра об обработке картошки. От поля до твоей тарелки!
+/
+farm.mainQuest: Собери урожай с 9 картофельных грядок
+farm.shovelQuest: Используй лопату
+farm.plantQuest: Посади картофель
+farm.waterQuest: Полей растения
+/
+factory.mainQuest: Собери 5 очищенных картофелин
+factory.level2Quest: Загрузи 3 пачки нарезанного картофеля
+factory.washQuest: Помыть картофель
+factory.peelQuest: Почистить картофель
+factory.chopQuest: Нарезать картофель
+factory.packageQuest: Упаковать картофель
+/
+kitchen.choiceBurger: Бургер с жареным картофелем
+kitchen.choiceChili: Картофель фри с сыром и мясом
+kitchen.choiceFish: Рыба и картофель фри
+kitchen.fryFries: Загрузи картофель во фритюр
+kitchen.cookPatty: Приготовь котлету
+/
+persUI.restart: Вы точно хотите начать заново?
+persUI.quit: Вы точно хотите выйти?
+persUI.yes: Да
+persUI.no: Нет
+/
+timeout.reminder: Вы всё ещё здесь?
+timeout.yes: Да
+/
+misc.score: Счёт
+misc.lossText: У вас закончилось время, хотите попробовать снова?

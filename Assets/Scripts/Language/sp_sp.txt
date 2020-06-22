@@ -2,14 +2,13 @@ main.start: Comenzar
 main.exit: Salir
 main.subtitle: ¡Un juego sobre el proceso de las papas. Desde la granja a tu plato!
 /
-misc.score: Puntos
-/
 farm.mainQuest: Cosecha 9 plantas de papa
 farm.shovelQuest: Usa la pala
 farm.plantQuest: Planta las papas
 farm.waterQuest: Riega las plantas
 /
-factory.mainQuest: Haz 9 paquetes de papas fritas
+factory.mainQuest: Colecta 5 papas peladas
+factoty.level2Quest: Transporta 3 bolsas de papas fritas
 factory.washQuest: Lava las papas
 factory.peelQuest: Pela las papas
 factory.chopQuest: Convierte las papas a papas fritas 
@@ -28,3 +27,6 @@ persUI.no: No
 /
 timeout.reminder: ¿Sigues ahí?
 timeout.yes: Si
+/
+misc.score: Puntos
+misc.lossText: se te acabó el tiempo, ¿quieres intentar de nuevo?

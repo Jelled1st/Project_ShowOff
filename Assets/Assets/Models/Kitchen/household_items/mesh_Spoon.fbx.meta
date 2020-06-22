@@ -3,7 +3,17 @@ guid: 9ad6a75f6165d694aad3786eafcbbd0a
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: spoon_material
+    second: {fileID: 2100000, guid: c3964782650c44148947a7ad79b18698, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: spoon_thingy_top
+    second: {fileID: 2100000, guid: 0d450317ffd424e448a14449edd1c65b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
