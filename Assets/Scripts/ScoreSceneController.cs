@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,16 +50,16 @@ public class ScoreSceneController : MonoBehaviour
     private GameScore[] _scores;
 
     [SerializeField]
-    private GameObject _notInHighscoresGameObject;
+    private RawImage _currentUserRenderTexture;
 
     [SerializeField]
-    private GameScore _notInHighscoresScore;
-
-    [SerializeField]
-    private GameObject _keyboard;
+    private KeyboardScript _keyboard;
 
     [SerializeField]
     private GameObject _scoreParent;
+
+    [SerializeField]
+    private GameObject _inputVisuals;
 
     [SerializeField]
     private TextMeshProUGUI _inputText;
@@ -66,23 +67,30 @@ public class ScoreSceneController : MonoBehaviour
     [SerializeField]
     private int _maxLetters;
 
+    public static bool ShowInput = true;
+
     private void OnEnable()
     {
-        foreach (var userScore in Scores.GetScoreList())
+        if (ShowInput)
         {
-            print($"{userScore.id}:{userScore.username}:{userScore.score}");
+            _scoreParent.SetActive(false);
+            _keyboard.enabled = true;
+            _keyboard.InputEnabled = true;
+
+            _inputVisuals.SetActive(true);
+            _currentUserRenderTexture.texture = GetDishTexture(Scores.GetCurrentUser().dish);
+            _inputText.SetText("");
+
+            KeyboardScript.KeyPressed += AppendInput;
+            KeyboardScript.BackspacePressed += SubtractInput;
         }
-
-        _notInHighscoresGameObject = _notInHighscoresGameObject.NullIfEqualsNull();
-        _notInHighscoresGameObject?.SetActive(false);
-
-        _scoreParent.SetActive(false);
-        _keyboard.SetActive(true);
-
-        _inputText.SetText("");
-
-        KeyboardScript.KeyPressed += AppendInput;
-        KeyboardScript.BackspacePressed += SubtractInput;
+        else
+        {
+            _keyboard.enabled = false;
+            _inputVisuals.SetActive(false);
+            ShowScores();
+            ShowInput = true;
+        }
     }
 
     private void OnDisable()
@@ -102,6 +110,26 @@ public class ScoreSceneController : MonoBehaviour
         if (_inputText.text.Length < _maxLetters)
         {
             _inputText.text += letter;
+        }
+
+        if (BadWordsList.IsBadWord(_inputText.text))
+        {
+            var textInitialColor = _inputText.color;
+            DOTween.Sequence()
+                .AppendCallback(() =>
+                {
+                    _keyboard.InputEnabled = false;
+                    _inputText.text = "@#%";
+                    _inputText.color = Color.red;
+                })
+                .Join(_inputText.transform.DOShakePosition(.5f, 50f))
+                .AppendInterval(1f)
+                .AppendCallback(() =>
+                {
+                    _keyboard.InputEnabled = true;
+                    _inputText.text = "";
+                    _inputText.color = textInitialColor;
+                });
         }
     }
 
@@ -125,45 +153,57 @@ public class ScoreSceneController : MonoBehaviour
                 return _dishRenderTextures.FishAndChip;
             default:
                 Debug.LogError($"Can't process dish of type {dishType.ToString()}");
+                return _dishRenderTextures.FishAndChip;
                 return null;
         }
+    }
+
+    private void ShowScores()
+    {
+        var scoreList = Scores.GetScoreList();
+        scoreList.Sort();
+
+        for (var i = 0; i < scoreList.Count; i++)
+        {
+            _scores[i].SetScore(scoreList[i].username, scoreList[i].score, GetDishTexture(scoreList[i].dish));
+        }
+
+        _scoreParent.SetActive(true);
     }
 
     private void TryToAppendScore()
     {
         if (_inputText.text.Length == 3)
         {
-            if (!BadWordsList.IsBadWord(_inputText.text))
-            {
-                var currentScore = Scores.AppendScoreToLeaderboard(_inputText.text);
+            Scores.AppendScoreToLeaderboard(_inputText.text);
 
-                var scoreList = Scores.GetScoreList();
-                scoreList.Sort();
-                print(scoreList.Count);
+            ShowScores();
 
-                for (var i = 0; i < scoreList.Count; i++)
-                {
-                    _scores[i].SetScore(scoreList[i].username, scoreList[i].score, GetDishTexture(scoreList[i].dish));
-                }
-
-                if (!currentScore.Item1)
-                {
-                    _notInHighscoresGameObject?.SetActive(true);
-                    _notInHighscoresScore?.SetScore(currentScore.Item2.username, currentScore.Item2.score,
-                        GetDishTexture(currentScore.Item2.dish));
-                }
-
-                _keyboard.SetActive(false);
-                _scoreParent.SetActive(true);
-            }
-            else
-            {
-                //TODO: Tell can't append the word
-            }
+            _inputVisuals.SetActive(false);
+            _keyboard.enabled = false;
         }
         else
         {
-            //TODO: Tell input should be 3 letters
+            var charactersInput = "";
+
+            DOTween.Sequence()
+                .AppendCallback(() =>
+                {
+                    _keyboard.InputEnabled = false;
+                    for (int i = _inputText.text.Length; i < _maxLetters; i++)
+                    {
+                        charactersInput += "<color=red>X</color>";
+                    }
+
+                    _inputText.text += charactersInput;
+                })
+                .Join(_inputText.transform.DOShakePosition(0.5f, 50f))
+                .AppendInterval(1f)
+                .AppendCallback(() =>
+                {
+                    _inputText.text = _inputText.text.Replace(charactersInput, "");
+                    _keyboard.InputEnabled = true;
+                });
         }
     }
 }
