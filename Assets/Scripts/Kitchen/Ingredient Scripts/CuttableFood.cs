@@ -76,7 +76,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
         return _ingredientHeight;
     }
 
-    public GameObject GetDishMesh()
+    public virtual GameObject GetDishMesh()
     {
         if(ReadyForDish())
         {

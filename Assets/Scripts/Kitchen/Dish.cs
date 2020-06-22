@@ -320,8 +320,10 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 if (_sideDishesLeft[i] as Dish == dish)
                 {
                     Destroy(dish.gameObject);
-                    for(int j = 0; j < _sideDishMeshesToEnable.Count; ++j)
+                    if(_debugLog) Debug.Log("enabling " + _sideDishMeshesToEnable[i].Count + " meshes");
+                    for(int j = 0; j < _sideDishMeshesToEnable[i].Count; ++j)
                     {
+                        if (_debugLog) Debug.Log("Enabling " + _sideDishMeshesToEnable[i][j]);
                         _sideDishMeshesToEnable[i][j].SetActive(true);
                     }
                     _sideDishMeshesToEnable.RemoveAt(i);
@@ -405,13 +407,15 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             {
                 if (sideDish == _sideDishesLeft[i])
                 {
+                    if (_debugLog) Debug.Log(sideDish + " found");
                     for (int j = 0; j < _sideDishesMeshIngredientTypes.Count; ++j)
                     {
                         if (_sideDishesMeshIngredientTypes[j] == ingredient.GetIngredientType())
                         {
+                            if (_debugLog) Debug.Log(ingredient + " is one of the meshes");
                             _sideDishMeshesToEnable[i].Add(_sideDishMeshes[j]);
                             _sideDishesMeshIngredientTypes.RemoveAt(j);
-                            _sideDishMeshes.RemoveAt(i);
+                            _sideDishMeshes.RemoveAt(j);
                             break;
                         }
                     }

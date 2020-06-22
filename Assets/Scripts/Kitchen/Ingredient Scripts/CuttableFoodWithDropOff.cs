@@ -6,6 +6,7 @@ public class CuttableFoodWithDropOff : CuttableFood
 {
     [SerializeField] List<CuttableFallOffOptions> _fallOffOptionForState;
     List<GameObject> _fallOffPieces = new List<GameObject>();
+    [SerializeField] GameObject _dishMesh;
 
     new void Awake()
     {
@@ -46,6 +47,32 @@ public class CuttableFoodWithDropOff : CuttableFood
             return true;
         }
         else return false;
+    }
+
+    public override GameObject GetDishMesh()
+    {
+        if (ReadyForDish())
+        {
+            GameObject copy = Instantiate(_dishMesh);
+            Destroy(copy.GetComponent<CuttableFood>());
+            Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
+            for (int i = 0; i < renderers.Length; ++i)
+            {
+                renderers[i].enabled = true;
+            }
+            Collider[] colliders = copy.GetComponentsInChildren<Collider>();
+            Rigidbody[] rbs = copy.GetComponentsInChildren<Rigidbody>();
+            for (int i = 0; i < rbs.Length; ++i)
+            {
+                Destroy(rbs[i]);
+            }
+            for (int i = 0; i < colliders.Length; ++i)
+            {
+                Destroy(colliders[i]);
+            }
+            return copy;
+        }
+        return base.GetDishMesh();
     }
 
     public override GameObject GetDragCopy()
