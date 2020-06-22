@@ -6028,9 +6028,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: 7440fbc4907bdf44eb8173b0b8d75064, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 1843283514}
-  m_SkySettingsFromProfile: {fileID: 1827213624383092779, guid: 7440fbc4907bdf44eb8173b0b8d75064,
-    type: 2}
 --- !u!4 &187689537
 Transform:
   m_ObjectHideFlags: 1
@@ -9947,8 +9944,9 @@ MonoBehaviour:
   - {fileID: 751350870}
   _onEventPlayer: {fileID: 318761190}
   _kitchenTutorial: {fileID: 885145666}
-  _polaroidScore: {fileID: 1532966004}
   _disableIngredients: 1
+  blackOutSquare: {fileID: 0}
+  blackoutCanvas: {fileID: 0}
 --- !u!4 &560893438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1125722024137673638, guid: ea9a5df2bf59cf84f973a64b17f37a57,
@@ -10606,6 +10604,9 @@ MonoBehaviour:
   _completeCookingWith: []
   _canOnlyBeAddedWithFood:
   - {fileID: 1086914629}
+  _currentMesh: {fileID: 0}
+  _cookMesh: {fileID: 0}
+  _cookMeshOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &612918751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15144,6 +15145,7 @@ GameObject:
   - component: {fileID: 986508518}
   - component: {fileID: 986508520}
   - component: {fileID: 986508519}
+  - component: {fileID: 986508521}
   m_Layer: 0
   m_Name: Quest 1 Paper
   m_TagString: Untagged
@@ -15209,6 +15211,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986508517}
   m_CullTransparentMesh: 0
+--- !u!95 &986508521
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986508517}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a026845c89ded1c428817958c7c28770, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &992393544 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2254212856526971527, guid: f9ea48f170fb4854b905c4feb8816526,
@@ -15619,6 +15640,9 @@ MonoBehaviour:
   _completeCookingWith:
   - {fileID: 612918750}
   _canOnlyBeAddedWithFood: []
+  _currentMesh: {fileID: 0}
+  _cookMesh: {fileID: 0}
+  _cookMeshOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &1086914630
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22762,6 +22786,7 @@ GameObject:
   - component: {fileID: 1391334569}
   - component: {fileID: 1391334571}
   - component: {fileID: 1391334570}
+  - component: {fileID: 1391334572}
   m_Layer: 0
   m_Name: Quest 2 Paper
   m_TagString: Untagged
@@ -22827,6 +22852,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391334568}
   m_CullTransparentMesh: 0
+--- !u!95 &1391334572
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391334568}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1fd2f02e1b7fe7e41bdb616c29f2aa84, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &1393405354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: d56893d6257e7e740a4aa7c096198ac6,
@@ -27065,107 +27109,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 769574013}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1843283514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 11.5
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  hdriSky:
-    m_OverrideState: 0
-    m_Value: {fileID: 8900000, guid: 54a3a0570aebe8949bec4966f1376581, type: 3}
-  enableBackplate:
-    m_OverrideState: 0
-    m_Value: 0
-  backplateType:
-    m_OverrideState: 0
-    m_Value: 0
-  groundLevel:
-    m_OverrideState: 0
-    m_Value: 0
-  scale:
-    m_OverrideState: 0
-    m_Value: {x: 32, y: 32}
-  projectionDistance:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 0.0000001
-  plateRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  blendAmount:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 100
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  pointLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  dirLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  rectLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!1 &1846620543 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 170270657660728274, guid: 978d78ee452c6d846ba54e1857aed142,
@@ -28029,6 +27972,7 @@ MonoBehaviour:
   showAdditionalSettings: 0
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
+  m_AreaLightEmissiveMeshLayer: -1
 --- !u!108 &1992696202
 Light:
   m_ObjectHideFlags: 0
@@ -30531,6 +30475,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3967de6b8be605748af0f5c6deeda422, type: 2}
   - {fileID: 11400000, guid: cd7cc8b696130664bac6f8db6e226c05, type: 2}
   - {fileID: 11400000, guid: 454b369925273a14aad0719049de5d64, type: 2}
+  _dishMesh: {fileID: 0}
 --- !u!114 &2504816986220958447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31035,9 +30980,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _foodNode: {fileID: 1377620369}
+  _water: {fileID: 0}
   _spoon: {fileID: 141448191}
   _spoonBottomNode: {fileID: 1943316491}
   _stirBonusModifier: 0.5
+  _stirTime: 0.8
 --- !u!65 &5925486007675970754
 BoxCollider:
   m_ObjectHideFlags: 0
