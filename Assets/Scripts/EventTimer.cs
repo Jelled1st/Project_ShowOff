@@ -17,7 +17,7 @@ public class EventTimer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (_pauseTimeOnEnd) _timerEndEvent.AddListener(Pause);
+        if (_pauseTimeOnEnd || _countDown) _timerEndEvent.AddListener(Pause);
     }
 
     // Update is called once per frame
@@ -32,12 +32,12 @@ public class EventTimer : MonoBehaviour
             _reachedTime = true;
             _timerEndEvent.Invoke();
         }
-        _output.text = "" + GetTime();
+        _output.text = "" + Mathf.Floor(GetTime());
     }
 
     public float GetTime()
     {
-        if (_countDown) return (_time - _count);
+        if (_countDown) return Mathf.Min((_time - _count), 0);
         else return _count;
     }
 
