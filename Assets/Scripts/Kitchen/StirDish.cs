@@ -5,12 +5,13 @@ using DG.Tweening;
 public class StirDish : Dish
 {
     [Header("Stir dish exlusive")]
-    [SerializeField] GameObject _stirringDevice;
+    [SerializeField] GameObject _spoon;
     [SerializeField] List<StirDishRequiredStir> _requiredStirOptions;
     [SerializeField] GameObject _ingredientRotateParent;
     private bool _mustStir = false;
     bool _isFinished = false;
     private StirDishRequiredStir _currentRequiredStir = null;
+    Animator _spoonAnimator;
 
     new void Awake() => base.Awake();
     
@@ -18,6 +19,7 @@ public class StirDish : Dish
     new void Start()
     {
         base.Start();
+        _spoonAnimator = _spoon.GetComponent<Animator>();
         for(int i = 0; i < _requiredStirOptions.Count; ++i)
         {
             _requiredStirOptions[i].Init(this);
@@ -128,9 +130,9 @@ public class StirDish : Dish
     { 
         base.OnPress(hitPoint);
 
-        if (!DOTween.IsTweening(_stirringDevice.transform))
+        if (!_spoonAnimator.GetCurrentAnimatorStateInfo(0).IsName("anim_spoon_stirring"))
         {
-            _stirringDevice.transform.DORotate(new Vector3(0, 360, 0), 0.7f, RotateMode.LocalAxisAdd);
+            _spoonAnimator.SetTrigger("isPlaying");
             _ingredientRotateParent.transform.DOLocalRotate(new Vector3(0, 360, 0), 0.7f, RotateMode.WorldAxisAdd);
 
             Notify(new DishStirEvent(this));
