@@ -35,6 +35,7 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
             Notify(new CookingDoneEvent(this, _food[_food.Count - 1]));
             if (_food[_food.Count - 1].IsCooked(true)) Notify(new CookingAllIngredientsDoneEvent(this));
         }
+        _water.GetComponent<Renderer>().material.SetFloat("_OilCooking", _food[_food.Count-1].GetProgress());
     }
 
     private void CookAllFood(float mod = 1.0f)
@@ -94,6 +95,7 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
             GameObject foodCopy = _food[i].GetDragCopy();
             foodCopy.transform.SetParent(empty.transform);
             foodCopy.transform.localPosition = new Vector3(0, 0, 0);
+            foodCopy.transform.localScale = _food[i].transform.lossyScale;
         }
         Destroy(copy.GetComponent<CookingPan>());
         Collider[] colliders = copy.GetComponentsInChildren<Collider>();

@@ -36,8 +36,6 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
             if(_disableIngredients) ingredients[i].SetActive(false);
         }
         _kitchenTutorial.gameHandler = this;
-
-        //ChooseDish(_dishes[0]);
     }
 
     // Update is called once per frame
@@ -69,7 +67,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
                 Subscribe(_choosenDish);
                 _onEventPlayer.Subscribe(_choosenDish);
                 _kitchenTutorial.ChooseDish(dish);
-                //Scores.SetCurrentDish(dish.GetDishType());
+                Scores.SetCurrentDish(dish.GetDishType());
             }
             else
             {

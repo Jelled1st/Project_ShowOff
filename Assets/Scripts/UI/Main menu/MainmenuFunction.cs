@@ -8,8 +8,14 @@ public class MainmenuFunction : MonoBehaviour
         SceneManager.LoadScene("!Farm Level");
     }
 
-    public void QuitGame()
+    public void CreditScene()
     {
-        Application.Quit();
+        SceneManager.LoadScene("!Credits");
+    }
+
+    public void ScoreScene()
+    {
+        ScoreSceneController.ShowInput = false;
+        SceneManager.LoadScene("!ScoreInput");
     }
 }

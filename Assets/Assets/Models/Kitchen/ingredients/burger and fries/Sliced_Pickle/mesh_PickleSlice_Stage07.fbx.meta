@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6cba322429b2aa34ca014d5f3178ec04
+guid: 49f7dda6b3ea7c74bb1640776e059e5c
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: mat_Bean
-    second: {fileID: 2100000, guid: ba5db6f64802efd46be0bb4d7e058cf4, type: 2}
+      name: mat_PicklePeel
+    second: {fileID: 2100000, guid: fcc1de38a3d155e4bb14fab8a88d6981, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_Pickle_Internal
+    second: {fileID: 2100000, guid: f43d8f3c01938be45a6a40262a1ac16b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

@@ -81,6 +81,11 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
         return _canOnlyBeAddedWithFood;
     }
 
+    public float GetProgress()
+    {
+        return Mathf.Min(_cookedTime / _timeToCook, 1);
+    }
+
 
     #region IIngredient
     public IngredientType GetIngredientType()
