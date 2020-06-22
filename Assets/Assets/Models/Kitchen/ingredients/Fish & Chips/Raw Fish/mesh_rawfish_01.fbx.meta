@@ -7,12 +7,27 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: fish_bot
+    second: {fileID: 2100000, guid: 2c8874a787937094d9133a05fa33b803, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fish_top
+    second: {fileID: 2100000, guid: 2c8874a787937094d9133a05fa33b803, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: mat_fish_bottom
     second: {fileID: 2100000, guid: 2c8874a787937094d9133a05fa33b803, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_fish_top
+    second: {fileID: 2100000, guid: 2c8874a787937094d9133a05fa33b803, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_top
     second: {fileID: 2100000, guid: 2c8874a787937094d9133a05fa33b803, type: 2}
   materials:
     materialImportMode: 1
