@@ -202,7 +202,7 @@ Material:
     - _IridescenceThickness: 1
     - _LinkDetailsWithBase: 1
     - _MaterialID: 1
-    - _MeatBurningBool: 1
+    - _MeatBurningBool: 0
     - _MeatBurnt: 0
     - _MeatCooked: 1
     - _MeatSmoothness: 0
