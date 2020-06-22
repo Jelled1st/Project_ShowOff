@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0cea3e0403177a4fbf23317db33c02a, type: 3}
-  m_Name: TomatoDropOff3
+  m_Name: pickleFallOff4
   m_EditorClassIdentifier: 
   _fallOffPieces:
-  - {fileID: -927199367670048503, guid: 006ddf1eb1f5dcc44b1eda8597c19063, type: 3}
+  - {fileID: -927199367670048503, guid: 160a1ef82a7c79946a2b5e8012199da5, type: 3}
   _fallOffPiecesLengths:
-  - 0.02
+  - 0.025

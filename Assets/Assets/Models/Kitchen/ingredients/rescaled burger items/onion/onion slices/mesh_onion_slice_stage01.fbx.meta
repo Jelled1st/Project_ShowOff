@@ -3,7 +3,17 @@ guid: 176246949e16d884d8b26de5544c1437
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sliced_onion_purple
+    second: {fileID: 2100000, guid: 95601c2039b7dbb4197ba32df19e05a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sliced_onion_white
+    second: {fileID: 2100000, guid: e0e091a31d968f0449f8191c815264c4, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

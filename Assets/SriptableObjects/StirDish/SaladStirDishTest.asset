@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3144e1ef7228cbf4da10f372e8e62ffa, type: 3}
   m_Name: SaladStirDishTest
   m_EditorClassIdentifier: 
-  _stirAfterIngredients: 03000000
+  _stirAfterIngredients: 
