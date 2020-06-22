@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class KeyboardScript : MonoBehaviour
 {
@@ -12,7 +11,6 @@ public class KeyboardScript : MonoBehaviour
     public GameObject RusLayoutSml, RusLayoutBig, EngLayoutSml, EngLayoutBig, SymbLayout;
 
     public bool InputEnabled { get; set; }
-
 
     private void OnEnable()
     {
