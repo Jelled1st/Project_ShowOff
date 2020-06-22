@@ -79,27 +79,27 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatBurntNormal:
-        m_Texture: {fileID: 2800000, guid: 46d36a59fa297064087a306fbad6b100, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatBurntTex:
-        m_Texture: {fileID: 2800000, guid: a636f8ba2194f2b48832647972a5e157, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatCookedNormal:
-        m_Texture: {fileID: 2800000, guid: 46d36a59fa297064087a306fbad6b100, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatCookedTex:
-        m_Texture: {fileID: 2800000, guid: dbec079cf62b7d3418d287a192e82c5b, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatRawNormal:
-        m_Texture: {fileID: 2800000, guid: d7ad297f88d81ff458a412ddbce17065, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatRawTex:
-        m_Texture: {fileID: 2800000, guid: 89d860a04052f6e4abc3f6de33d292e6, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -202,7 +202,7 @@ Material:
     - _IridescenceThickness: 1
     - _LinkDetailsWithBase: 1
     - _MaterialID: 1
-    - _MeatBurningBool: 1
+    - _MeatBurningBool: 0
     - _MeatBurnt: 0
     - _MeatCooked: 0
     - _MeatSmoothness: 0
@@ -269,6 +269,9 @@ Material:
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _MeatBurntColour: {r: 0.254717, g: 0.18196109, b: 0.08770915, a: 0}
+    - _MeatCookedColour: {r: 0.59607846, g: 0.42352942, b: 0.2, a: 0}
+    - _MeatRawColour: {r: 0.8490566, g: 0.41592917, b: 0.3484336, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}
