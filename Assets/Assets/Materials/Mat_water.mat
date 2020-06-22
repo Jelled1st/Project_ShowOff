@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_OilTest
+  m_Name: Mat_water
   m_Shader: {fileID: -6465566751694194690, guid: b495331cc257293489ea3eb716bb5dd9,
     type: 3}
   m_ShaderKeywords: 

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Factory
 {
@@ -94,6 +95,10 @@ namespace Factory
 
         [BoxGroup("Stage settings")]
         [SerializeField]
+        public GameObject blackOutSquare;
+
+        [BoxGroup("Stage settings")]
+        [SerializeField]
         private float _changeSceneAfterDriveInterval = 5f;
 
         [BoxGroup("Stage settings")]
@@ -135,6 +140,19 @@ namespace Factory
 
             _initialScore = Scores.GetCurrentUser().score;
         }
+        private void Start()
+        {
+            StartCoroutine(FadeIn());
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                FinishScene();
+            }
+        }
+
 
         private void OnEnable()
         {
@@ -274,7 +292,9 @@ namespace Factory
                 .AppendCallback(() =>
                 {
                     print("should change scene");
-                    _sceneLoad.allowSceneActivation = true;
+
+                    StartCoroutine(FadeOut());
+                    //_sceneLoad.allowSceneActivation = true;
                 });
         }
 
@@ -288,6 +308,44 @@ namespace Factory
             _sceneLoad = SceneManager.LoadSceneAsync(_nextScene);
 
             _sceneLoad.allowSceneActivation = false;
+        }
+        public IEnumerator FadeIn(bool fadeToWhite = true, int fadeSpeed = 5)
+        {
+            Color objectColor = blackOutSquare.GetComponent<Image>().color;
+            float fadeAmount;
+
+            if (fadeToWhite)
+            {
+                while (blackOutSquare.GetComponent<Image>().color.a > 0)
+                {
+                    fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+
+                    objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                    blackOutSquare.GetComponent<Image>().color = objectColor;
+                    yield return null;
+                }
+            }
+
+        }
+
+        public IEnumerator FadeOut(bool fadeToBlack = true, int fadeSpeed = 5)
+        {
+            Color objectColor = blackOutSquare.GetComponent<Image>().color;
+            float fadeAmount;
+
+            if (fadeToBlack)
+            {
+                while (blackOutSquare.GetComponent<Image>().color.a < 1)
+                {
+                    fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+
+                    objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                    blackOutSquare.GetComponent<Image>().color = objectColor;
+                    yield return null;
+                }
+                _sceneLoad.allowSceneActivation = true;
+            }
+
         }
     }
 }

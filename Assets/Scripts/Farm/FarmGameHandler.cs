@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider))]
 public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarmPlotObserver, ISwarmObserver
@@ -11,6 +12,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     [Header("SpawnStates and rates")]
     [SerializeField] List<FarmPlotSpawnStateRate> _stateSpawnRates;
     [SerializeField] private string _nextScene = "";
+    public GameObject blackOutSquare;
 
     [Header("Scores")]
     [SerializeField] private float _harvestPoints = 250;
@@ -48,6 +50,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(FadeIn());
         GameObject controller = GameObject.FindGameObjectWithTag("Controller");
         if (controller == null) Debug.LogError("No controller found!");
         else
@@ -233,14 +236,16 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         if(other.TryGetComponent<Truck>(out truck) && _gameFinished)
         {
             //Game truly finished
-            //SceneManager.LoadScene(_nextScene);
             _trulyFinished = true;
         }
     }
 
-    IEnumerator LoadScene()
+    IEnumerator LoadScene(int fadeSpeed = 5)
     {
         yield return null;
+        //declare color for fade out
+        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        float fadeAmount;
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_nextScene);
 
@@ -251,13 +256,42 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
             print("Loading Progress: " + (asyncOperation.progress * 100) + "%");
             if(asyncOperation.progress >= 0.9f)
             {
-                if(_trulyFinished == true)
+                if (_trulyFinished == true)
                 {
+                    //fade out first
+                    while (blackOutSquare.GetComponent<Image>().color.a < 1)
+                    {
+                        fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+
+                        objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                        blackOutSquare.GetComponent<Image>().color = objectColor;
+                        yield return null;
+                    }
+                    //then activate new scene
                     asyncOperation.allowSceneActivation = true;
                 }
             }
             yield return null;
         }
+    }
+
+    public IEnumerator FadeIn(bool fadeToWhite = true, int fadeSpeed = 5)
+    {
+        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        float fadeAmount;
+
+        if (fadeToWhite)
+        {
+            while (blackOutSquare.GetComponent<Image>().color.a > 0)
+            {
+                fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+
+                objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+                blackOutSquare.GetComponent<Image>().color = objectColor;
+                yield return null;
+            }
+        }
+
     }
 
     #region ControlsObserver
