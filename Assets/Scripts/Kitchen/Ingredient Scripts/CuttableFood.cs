@@ -68,6 +68,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 
     public void AddedToDish()
     {
+        cuttingBoard?.RequestRemoveSelected(this);
         Destroy(this.gameObject);
     }
 
@@ -131,10 +132,6 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if(!(droppedOn is CuttingBoard))
-        {
-            cuttingBoard?.RequestRemoveSelected(this);
-        }
     }
 
     public void OnDragDropFailed(Vector3 position)

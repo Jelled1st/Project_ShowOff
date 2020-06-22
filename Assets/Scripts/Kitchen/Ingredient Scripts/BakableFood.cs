@@ -243,7 +243,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i  =0; i < _observers.Count; ++i)
+        for(int i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }
