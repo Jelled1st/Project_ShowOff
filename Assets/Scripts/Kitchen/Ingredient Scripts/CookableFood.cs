@@ -10,6 +10,10 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     [HideInInspector] public CookingPan cookingPan;
     [SerializeField] List<CookableFood> _completeCookingWith;
     [SerializeField] List<CookableFood> _canOnlyBeAddedWithFood;
+    [SerializeField] GameObject _currentMesh;
+    [SerializeField] GameObject _cookMesh;
+    [SerializeField] Vector3 _cookMeshOffset;
+    private bool _stateCook = false;
     private float _cookedTime = 0.0f;
     bool _isDoneCooking = false;
 
@@ -34,6 +38,16 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public void Cook(float modifier = 1.0f)
     {
+        if(!_stateCook)
+        {
+            Transform transform = _currentMesh.transform;
+            _stateCook = true;
+            Destroy(_currentMesh);
+            _currentMesh = Instantiate(_cookMesh);
+            _currentMesh.transform.SetParent(this.transform);
+            _currentMesh.transform.localPosition = transform.localPosition + _cookMeshOffset;
+            _currentMesh.transform.localRotation = transform.localRotation;
+        }
         _cookedTime += Time.deltaTime *  modifier;
         if(!_isDoneCooking && IsCooked(true))
         {
