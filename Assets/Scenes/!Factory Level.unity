@@ -10910,8 +10910,8 @@ MonoBehaviour:
   _cutt:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1208851431}
-        m_MethodName: SetActive
+      - m_Target: {fileID: 852982907}
+        m_MethodName: 
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10924,8 +10924,8 @@ MonoBehaviour:
   _packed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 852982907}
-        m_MethodName: SetActive
+      - m_Target: {fileID: 1208851431}
+        m_MethodName: 
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -31977,7 +31977,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1540650444
 RectTransform:
   m_ObjectHideFlags: 0
