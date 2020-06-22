@@ -21,6 +21,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     [SerializeField] private bool _disableIngredients = true;
 
     public GameObject blackOutSquare;
+    public GameObject blackoutCanvas;
 
     void Awake()
     {
@@ -30,7 +31,12 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     // Start is called before the first frame update
     void Start()
     {
+        if (blackoutCanvas.activeInHierarchy == false)
+        {
+            blackoutCanvas.SetActive(true);
+        }
         StartCoroutine(FadeIn());
+
         _ingredients = new List<IIngredient>();
         _ingredientGOs = new List<GameObject>();
         GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");

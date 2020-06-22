@@ -94,8 +94,10 @@ namespace Factory
         private string _nextScene;
 
         [BoxGroup("Stage settings")]
-        [SerializeField]
         public GameObject blackOutSquare;
+
+        [BoxGroup("Stage settings")]
+        public GameObject blackoutCanvas;
 
         [BoxGroup("Stage settings")]
         [SerializeField]
@@ -142,6 +144,10 @@ namespace Factory
         }
         private void Start()
         {
+            if (blackoutCanvas.activeInHierarchy == false)
+            {
+                blackoutCanvas.SetActive(true);
+            }
             StartCoroutine(FadeIn());
         }
 

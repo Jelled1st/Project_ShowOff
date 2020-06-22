@@ -10182,6 +10182,7 @@ MonoBehaviour:
   _kitchenTutorial: {fileID: 885145666}
   _disableIngredients: 1
   blackOutSquare: {fileID: 1069192790}
+  blackoutCanvas: {fileID: 2121362959}
 --- !u!4 &560893438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1125722024137673638, guid: ea9a5df2bf59cf84f973a64b17f37a57,
@@ -15701,7 +15702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -29991,12 +29992,12 @@ GameObject:
   - component: {fileID: 2121362962}
   - component: {fileID: 2121362961}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: FadeoutCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2121362960
 RectTransform:
   m_ObjectHideFlags: 0
