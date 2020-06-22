@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class EventTimer : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class EventTimer : MonoBehaviour
     [SerializeField] UnityEvent _timerEndEvent;
     [SerializeField] bool _pauseTimeOnEnd;
     [SerializeField] bool _useUnscaledDeltaTime;
+    [SerializeField] bool _countDown = false;
+    [SerializeField] TextMeshProUGUI _output;
     float _count;
     bool _paused = false;
     bool _reachedTime = false;
@@ -29,6 +32,13 @@ public class EventTimer : MonoBehaviour
             _reachedTime = true;
             _timerEndEvent.Invoke();
         }
+        _output.text = "" + GetTime();
+    }
+
+    public float GetTime()
+    {
+        if (_countDown) return (_time - _count);
+        else return _count;
     }
 
     public void ResetTimer()

@@ -132,7 +132,10 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         {
             for (int i = 0; i < _observers.Count; ++i)
             {
-                if (_observers is IGameHandlerObserver) (_observers[i] as IGameHandlerObserver).OnFinish();
+                if (_observers[i] is IGameHandlerObserver)
+                {
+                    (_observers[i] as IGameHandlerObserver).OnFinish();
+                }
             }
             _polaroidScore.SetActive(true);
             _gameFinished = true;

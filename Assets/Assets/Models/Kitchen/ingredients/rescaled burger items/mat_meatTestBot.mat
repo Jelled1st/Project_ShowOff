@@ -52,6 +52,6 @@ Material:
     - _MeatCooked: 0
     - _MeatSmoothness: 0
     m_Colors:
-    - _MeatBurntColour: {r: 0.21698111, g: 0.10768692, b: 0, a: 0}
-    - _MeatCookedColour: {r: 1, g: 0, b: 0, a: 0}
-    - _MeatRawColour: {r: 0, g: 0.31109616, b: 1, a: 0}
+    - _MeatBurntColour: {r: 1, g: 1, b: 1, a: 0}
+    - _MeatCookedColour: {r: 1, g: 1, b: 1, a: 0}
+    - _MeatRawColour: {r: 1, g: 1, b: 1, a: 0}
