@@ -8,6 +8,7 @@ public class StirDish : Dish
     [SerializeField] GameObject _spoon;
     [SerializeField] List<StirDishRequiredStir> _requiredStirOptions;
     [SerializeField] GameObject _ingredientRotateParent;
+    [SerializeField] float _stirTime = 0.8f;
     private bool _mustStir = false;
     bool _isFinished = false;
     private StirDishRequiredStir _currentRequiredStir = null;
@@ -133,7 +134,7 @@ public class StirDish : Dish
         if (!_spoonAnimator.GetCurrentAnimatorStateInfo(0).IsName("anim_spoon_stirring"))
         {
             _spoonAnimator.SetTrigger("isPlaying");
-            _ingredientRotateParent.transform.DOLocalRotate(new Vector3(0, 360, 0), 0.7f, RotateMode.WorldAxisAdd);
+            _ingredientRotateParent.transform.DOLocalRotate(new Vector3(0, 360, 0), _stirTime, RotateMode.WorldAxisAdd);
 
             Notify(new DishStirEvent(this));
             _mustStir = false;

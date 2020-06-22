@@ -33,7 +33,7 @@ Material:
     m_Floats:
     - Vector1_C0FB440: 0.674
     - _OilAlpha: 1
-    - _OilCooking: 1
+    - _OilCooking: 0
     - _OilDepth: 0.85
     - _OilDepthStrength: 1
     - _OilEmStrength: 0

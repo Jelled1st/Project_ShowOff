@@ -12837,7 +12837,7 @@ MonoBehaviour:
   _cameraNode: {fileID: 1515279938}
   _scoreUI: {fileID: 1532966004}
   _tweenTime: 3
-  _nextScene: '!Kitchen Level'
+  _nextScene: '!ScoreInput'
   _completedDishNode: {fileID: 1617153154}
 --- !u!1001 &769574013
 PrefabInstance:
@@ -24918,7 +24918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1565317358
 Transform:
   m_ObjectHideFlags: 0
@@ -31927,6 +31927,7 @@ MonoBehaviour:
   _requiredStirOptions:
   - {fileID: 11400000, guid: fad61beabe134f14f844ec3b01fedbeb, type: 2}
   _ingredientRotateParent: {fileID: 8673788683782406603}
+  _stirTime: 2.3
 --- !u!23 &8789484986044709363
 MeshRenderer:
   m_ObjectHideFlags: 0
