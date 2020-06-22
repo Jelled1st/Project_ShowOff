@@ -2,14 +2,13 @@ main.start: Start
 main.exit: Exit
 main.subtitle: A game about the process of potatoes. From the farm up to your plate!
 /
-misc.score: Score
-/
 farm.mainQuest: Harvest 9 potato plants
 farm.shovelQuest: Use the shovel
 farm.plantQuest: Plant potatoes
 farm.waterQuest: Water the potato plants
 /
-factory.mainQuest: Ship 9 fry packages
+factory.mainQuest: Gather 5 peeled potatoes
+factory.level2Quest: Transport 3 bags of fries
 factory.washQuest: Wash the potatoes
 factory.peelQuest: Peel the potatoes
 factory.chopQuest: Turn the potatoes into fries
@@ -28,3 +27,6 @@ persUI.no: No
 /
 timeout.reminder: Are you still there?
 timeout.yes: Yes
+/
+misc.score: Score
+misc.lossText: You ran out of time, do you want to try again?

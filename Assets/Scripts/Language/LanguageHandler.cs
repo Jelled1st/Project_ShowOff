@@ -28,6 +28,7 @@ public class LanguageHandler : MonoBehaviour
     public struct FactorySceneText
     {
         public string mainQuest;
+        public string level2Quest;
         public string washQuest;
         public string peelQuest;
         public string chopQuest;
@@ -60,6 +61,7 @@ public class LanguageHandler : MonoBehaviour
     public struct MiscText
     {
         public string score;
+        public string lossText;
     }
     #endregion
 
@@ -153,6 +155,10 @@ public class LanguageHandler : MonoBehaviour
         {
             return factory.mainQuest;
         }
+        else if (field.StartsWith("factory.level2Quest"))
+        {
+            return factory.level2Quest;
+        }
         else if (field.StartsWith("factory.washQuest"))
         {
             return factory.washQuest;
@@ -220,10 +226,16 @@ public class LanguageHandler : MonoBehaviour
             return timeout.yes;
         }
         #endregion
+        #region Misc
         else if (field.StartsWith("misc.score"))
         {
             return misc.score;
         }
+        else if (field.StartsWith("misc.lossText"))
+        {
+            return misc.lossText;
+        }
+        #endregion
         return "NO TRANSLATION";
     }
 }
