@@ -3,7 +3,12 @@ guid: 61252f3dec814f5408fec6d94fd2b16e
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: beef_patty_cooked
+    second: {fileID: 2100000, guid: 1d1d57b22c66b334cba2d391f7a90927, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

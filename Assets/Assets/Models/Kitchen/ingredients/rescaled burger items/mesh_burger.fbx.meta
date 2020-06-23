@@ -37,6 +37,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: sliced_onion_white
+    second: {fileID: 2100000, guid: be708b4559fff1344882d4a5c965d2ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: tomato_red
     second: {fileID: 2100000, guid: 4a6415df7e378664c8cfe4360fa9a446, type: 2}
   materials:

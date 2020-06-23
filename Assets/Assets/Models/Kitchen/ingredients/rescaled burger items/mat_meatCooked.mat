@@ -23,19 +23,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MeatBurntNormal:
-        m_Texture: {fileID: 2800000, guid: 305d0b1c3fe04304fa5b79b6ef174e87, type: 3}
+        m_Texture: {fileID: 2800000, guid: cd28b2066a1bf954c8ec4e0ab7c08261, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatBurntTex:
-        m_Texture: {fileID: 2800000, guid: d5de5b918fb0e26439dba295b5124f8d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8e1d26a3ab68be74a968a37246076646, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatCookedNormal:
-        m_Texture: {fileID: 2800000, guid: 305d0b1c3fe04304fa5b79b6ef174e87, type: 3}
+        m_Texture: {fileID: 2800000, guid: cd28b2066a1bf954c8ec4e0ab7c08261, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatCookedTex:
-        m_Texture: {fileID: 2800000, guid: d24cf8dda8cf7fc4ab64ac16deb70504, type: 3}
+        m_Texture: {fileID: 2800000, guid: e54bb022da2bff44bbcd69039b21b6fe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatRawNormal:
@@ -43,15 +43,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatRawTex:
-        m_Texture: {fileID: 2800000, guid: 8480b2fe22804c34d87fc8fe98a29967, type: 3}
+        m_Texture: {fileID: 2800000, guid: 18d70342abc2f8048b75d93198d1faee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _MeatBurningBool: 0
+    - _MeatBurningBool: 1
     - _MeatBurnt: 0
     - _MeatCooked: 1
     - _MeatSmoothness: 0
     m_Colors:
-    - _MeatBurntColour: {r: 0.21698111, g: 0.10768692, b: 0, a: 0}
-    - _MeatCookedColour: {r: 1, g: 0, b: 0, a: 0}
-    - _MeatRawColour: {r: 0, g: 0.31109616, b: 1, a: 0}
+    - _MeatBurntColour: {r: 1, g: 1, b: 1, a: 0}
+    - _MeatCookedColour: {r: 1, g: 1, b: 1, a: 0}
+    - _MeatRawColour: {r: 1, g: 1, b: 1, a: 0}

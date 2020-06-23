@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: mat_tomato_inside
     second: {fileID: 2100000, guid: 3bfb09737e99ced419942611663cd281, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_tomato_outside
+    second: {fileID: 2100000, guid: 8ef2458d9bcde064cbab28c7d772e3c7, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
