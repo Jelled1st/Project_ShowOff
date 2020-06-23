@@ -8,7 +8,7 @@ farm.plantQuest: Pflanze Kartoffeln
 farm.waterQuest: Gieße die Kartoffeln
 /
 factory.mainQuest: Sammle 5 geschälte Kartoffeln
-factoty.level2Quest: Transportiere 3 Tüten Pommes
+factory.level2Quest: Transportiere 3 Tüten Pommes
 factory.washQuest: Wasch die Kartoffeln
 factory.peelQuest: Peel the washed potatoes
 factory.chopQuest: Schneide die Kartoffeln zu Pommes

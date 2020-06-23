@@ -8,7 +8,7 @@ farm.plantQuest: Planta las papas
 farm.waterQuest: Riega las plantas
 /
 factory.mainQuest: Colecta 5 papas peladas
-factoty.level2Quest: Transporta 3 bolsas de papas fritas
+factory.level2Quest: Transporta 3 bolsas de papas fritas
 factory.washQuest: Lava las papas
 factory.peelQuest: Pela las papas
 factory.chopQuest: Convierte las papas a papas fritas 
