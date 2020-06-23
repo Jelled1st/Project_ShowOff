@@ -80,27 +80,10 @@ public class BKM : MonoBehaviour
             Destroy(objs[0]);
         
         DontDestroyOnLoad(this.gameObject);
-        
-        /*
-        if (debugLevelTest == 0)
-        {
-            FarmMusic();
-        }
-
-        if (debugLevelTest == 1)
-        {
-            FactoryMusic();
-        }
-
-        if (debugLevelTest == 2)
-        {
-            FarmMusic();
-            _instanceSong.setVolume(0.5f);
-        }
-        */
     }
-    
-    
+
+
+    #region Rules
 
     public void StopMusicImmediate()
     {
@@ -113,6 +96,8 @@ public class BKM : MonoBehaviour
         _instanceSong.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         _instanceSong.release();
     }
+
+    #endregion
 
     private void MenuMusic()
     {
