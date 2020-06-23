@@ -136,7 +136,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         {
             if (_state == State.Growing)
             {
-                _progressBar.SetFillColor(new Color(166/255.0f, 125/255.0f, 103/255.0f));
+                _progressBar.SetFillColor(new Color(102/255.0f, 77/255.0f, 63/255.0f));
                 _progressBar.SetActive(true);
                 float percentage = _growTime / _timeTillGrown;
                 if (percentage <= 1.0f) _progressBar.SetPercentage(percentage);
@@ -150,7 +150,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             }
             else if (_cooldownTimer <= _cooldown && !_neglectCooldown && _isOnCooldown)
             {
-                _progressBar.SetFillColor(new Color(166/255.0f, 125/255.0f, 103/255.0f));
+                _progressBar.SetFillColor(new Color(102/255.0f, 77/255.0f, 63/255.0f));
                 _progressBar.SetActive(true);
                 _progressBar.SetPercentage(_cooldownTimer / _cooldown);
             }
