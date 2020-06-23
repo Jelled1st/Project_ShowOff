@@ -26,7 +26,7 @@ public class ScoreSceneController : MonoBehaviour
                 .TrimEnd(' ');
 
             _name.SetText(splitName);
-            _score.SetText(score.ToString());
+            _score.SetText(((int) score).ToString());
             _dishRender.texture = dish;
         }
     }
