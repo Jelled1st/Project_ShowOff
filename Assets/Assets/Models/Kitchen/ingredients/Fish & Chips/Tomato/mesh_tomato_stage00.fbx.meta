@@ -3,7 +3,17 @@ guid: 5f09eb5b07a2c8748b0a219b4ee3d85e
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_tomato_green
+    second: {fileID: 2100000, guid: 9ed0e02008a49b44187c493f0faccff5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_tomato_outside
+    second: {fileID: 2100000, guid: 8ef2458d9bcde064cbab28c7d772e3c7, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
