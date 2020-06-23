@@ -7416,8 +7416,9 @@ MonoBehaviour:
   _tutorialElements:
   - {fileID: 986508517}
   - {fileID: 1685062752}
-  _friesInFryer: {fileID: 748580542}
-  _meatToFryingPan: {fileID: 0}
+  - {fileID: 40505958}
+  _friesInFryer: {fileID: 690117762}
+  _meatToFryingPan: {fileID: 214098009}
   _flipMeat: {fileID: 0}
   _dragIngredientToCuttingBoard: {fileID: 0}
   _cutIngredient: {fileID: 0}
@@ -7729,6 +7730,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 254930719}
+        m_MethodName: EnableStrikeThrough
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1204605311}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onIngredientToCuttingBoard:
     m_PersistentCalls:
       m_Calls:
@@ -7824,9 +7836,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 254930719}
+        m_MethodName: EnableStrikeThrough
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1774441098}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onCookingAllIngredientsDone:
     m_PersistentCalls:
       m_Calls: []
+  _onDishDone:
+    m_PersistentCalls:
+      m_Calls: []
+  _onSideDishToMain:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 254930719}
+        m_MethodName: EnableStrikeThrough
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 256696631}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &256696628
 GameObject:
   m_ObjectHideFlags: 0
@@ -10690,7 +10730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &522064381
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19971,7 +20011,18 @@ MonoBehaviour:
         m_CallState: 2
   _onIngredientCutUp:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1255693708}
+        m_MethodName: EnableStrikeThrough
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 252583585}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onIngredientToCuttingBoard:
     m_PersistentCalls:
       m_Calls:
@@ -20048,8 +20099,15 @@ MonoBehaviour:
   _onCookingAllIngredientsDone:
     m_PersistentCalls:
       m_Calls: []
+  _onDishDone:
+    m_PersistentCalls:
+      m_Calls: []
+  _onSideDishToMain:
+    m_PersistentCalls:
+      m_Calls: []
   _pattyToBurger: {fileID: 0}
-  _finishedIngredientToBurger: {fileID: 0}
+  _finishedIngredientToBurger: {fileID: 623986714}
+  _burgerSideDish: {fileID: 667186813}
 --- !u!1 &1265859584
 GameObject:
   m_ObjectHideFlags: 0
@@ -32191,7 +32249,8 @@ MonoBehaviour:
   _tutorialElements:
   - {fileID: 986508517}
   - {fileID: 447025254}
-  _friesInFryer: {fileID: 748580542}
+  - {fileID: 433483540}
+  _friesInFryer: {fileID: 2047989437}
   _meatToFryingPan: {fileID: 0}
   _flipMeat: {fileID: 0}
   _dragIngredientToCuttingBoard: {fileID: 0}
@@ -32318,9 +32377,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1994077223}
+        m_MethodName: EnableStrikeThrough
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 944802885}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onCookingDone:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1903290692}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1994077223}
+        m_MethodName: RepeatCookingStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _onBakingStart:
     m_PersistentCalls:
       m_Calls: []
@@ -32398,6 +32490,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1994077223}
+        m_MethodName: EnableStrikeThrough
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1538670486}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onDishStir:
     m_PersistentCalls:
       m_Calls: []
@@ -32415,6 +32518,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  _onDishDone:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1994077223}
+        m_MethodName: EnableStrikeThrough
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 47542436}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onSideDishToMain:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1997775960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 48215129011b0c94ead4d0a27b796a15,

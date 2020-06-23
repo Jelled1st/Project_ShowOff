@@ -22,7 +22,7 @@ kitchen.choiceFish: Pescado con papas fritas
 kitchen.fryFries: Pon las papas fritas en la freidora
 kitchen.cookPatty: Cocina una hamburguesa
 kitchen.cutVegetables: Corta las verduras
-kitchen.assmebleBurger: Ensemble la hamburguesa
+kitchen.assembleBurger: Ensemble la hamburguesa
 kitchen.dropMeat: Pon la carne en la olla
 kitchen.dropVeggies: Pon las verduras en la olla
 kitchen.stirPot: Revuelve la olla

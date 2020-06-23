@@ -91,6 +91,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
                 else OnFailedSpawnChance();
             }
         }
+        else if (_swarmUnits.Count == 0) Destroy(this.gameObject);
     }
 
     private void SpawnUnits()
@@ -215,7 +216,6 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
             _continueSpawning = false;
             _flee = true;
             OnFlee();
-            if (_swarmUnits.Count == 0) Destroy(this.gameObject);
         }
         if(state == FarmPlot.State.Healing)
         {
