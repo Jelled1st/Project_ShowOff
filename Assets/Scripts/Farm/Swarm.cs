@@ -12,6 +12,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     [SerializeField] private float _speed = 0.5f;
     [SerializeField] private float _fleeSpeed = 2.0f;
     [SerializeField] private float _spawnTime = 1.5f;
+    [SerializeField] private float _outOfScreenMargin = 100;
     [Tooltip("Spawnchance in percentage")]
     [Range(0, 100)] [SerializeField] private float _spawnChance = 75;
     private FarmPlot _farmPlot;
@@ -101,10 +102,15 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
             int angleIndex = Random.Range(0, _angles.Count);
             float angle = _angles[angleIndex];
             _angles.RemoveAt(angleIndex);
-            GameObject unit = Instantiate(_swarmUnitPrefab);
-            _swarmUnits.Add(unit);
             Quaternion angleRotation = Quaternion.Euler(0, angle, 0);
             Vector3 spawnPosition = angleRotation * new Vector3(Random.Range(_spawnRange.x, _spawnRange.y), 1.0f, 0);
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(spawnPosition);
+            if (PointOutOfScreen(screenPosition))
+            {
+                continue;
+            }
+            GameObject unit = Instantiate(_swarmUnitPrefab);
+            _swarmUnits.Add(unit);
             SwarmUnit script = unit.GetComponent<SwarmUnit>();
             script.Init(this);
             unit.transform.SetParent(this.transform);
@@ -115,6 +121,16 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
             --spawnCount;
         }
+    }
+
+    private bool PointOutOfScreen(Vector3 point)
+    {
+        if (point.x < _outOfScreenMargin || point.x > Screen.width - _outOfScreenMargin || 
+            point.y < _outOfScreenMargin || point.y > Screen.height - _outOfScreenMargin)
+        {
+            return true;
+        }
+        else return false;
     }
 
     private float GetUnitAngleWithCamera(GameObject unit)
