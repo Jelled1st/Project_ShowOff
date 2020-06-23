@@ -53,6 +53,14 @@ public class LanguagePack : ScriptableObject
         {
             _languageHandler.main.exit = line.Substring(11, line.Length - 11);
         }
+        else if (line.StartsWith("main.highScores: "))
+        {
+            _languageHandler.main.highScores = line.Substring(17, line.Length - 17);
+        }
+        else if (line.StartsWith("main.credits: "))
+        {
+            _languageHandler.main.credits = line.Substring(14, line.Length - 14);
+        }
         else if (line.StartsWith("main.subtitle: "))
         {
             _languageHandler.main.subtitle = line.Substring(15, line.Length - 15);

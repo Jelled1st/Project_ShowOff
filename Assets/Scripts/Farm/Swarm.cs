@@ -24,7 +24,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     private float _timeSinceLastSpawn = 0.0f;
     bool _ignoreSpawnTimer = true;
     Vector3 _destination;
-    private static bool _paused;
+    private bool _paused;
 
     [SerializeField] private SFX soundEffectManager;
 
@@ -215,6 +215,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
             _continueSpawning = false;
             _flee = true;
             OnFlee();
+            if (_swarmUnits.Count == 0) Destroy(this.gameObject);
         }
         if(state == FarmPlot.State.Healing)
         {
