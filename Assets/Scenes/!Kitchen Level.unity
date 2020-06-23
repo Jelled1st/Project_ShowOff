@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 370.97684, g: 459.67514, b: 608.4028, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9116,7 +9116,7 @@ MonoBehaviour:
   - {fileID: 539618382}
   _canOnlyBeAddedWithFood: []
   _currentMesh: {fileID: 1086914628}
-  _cookMesh: {fileID: -927199367670048503, guid: 033ccb2925cfcf545b8c9841f0356314,
+  _cookMesh: {fileID: 9121916942778435524, guid: b043fa880d7c7c24e9e4b1623b4d8ee0,
     type: 3}
   _cookMeshOffset: {x: 0, y: 0.05, z: 0}
 --- !u!114 &335218645
@@ -31413,7 +31413,7 @@ Transform:
   m_GameObject: {fileID: 1943316491}
   m_LocalRotation: {x: -0, y: 0.69036525, z: -0, w: 0.7234611}
   m_LocalPosition: {x: 0.57515436, y: -6.6000023, z: -4.798343}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 141448192}
   m_RootOrder: 1
