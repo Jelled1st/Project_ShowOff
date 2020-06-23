@@ -17,6 +17,7 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     private bool _sidesAreDone = false;
     private bool[] _sideIsDone = new bool[2] { false, false};
     private bool[] _sideIsBurned = new bool[2] { false, false};
+    private bool[] _sideIsFullyBurned = new bool[2] { false, false};
     private int _currentFace = 0;
     private bool _isBaking = false;
     private bool _wasBaking = false;
@@ -101,6 +102,11 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
         if (_bakedTimes[_currentFace] >= StartBurnTime())
         {
             _burntTimes[_currentFace] += Time.deltaTime;
+            if(_burntTimes[_currentFace] >= _timeTillBurned && !_sideIsFullyBurned[_currentFace])
+            {
+                _sideIsFullyBurned[_currentFace] = true;
+                Scores.SubScore(300);
+            }
             if (!_sideIsBurned[_currentFace])
             {
                 _sideIsBurned[_currentFace] = true;

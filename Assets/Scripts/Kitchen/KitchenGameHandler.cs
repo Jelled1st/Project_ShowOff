@@ -197,6 +197,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     #region IDishObserver
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
+        Scores.AddScore(250);
     }
 
     public void OnFinishDish(ISubject subject)
