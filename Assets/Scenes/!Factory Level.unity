@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 246.4621, g: 305.38718, b: 404.1746, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -32268,7 +32268,7 @@ MonoBehaviour:
   _nextScene: '!Factory Transition'
   blackOutSquare: {fileID: 120174845}
   blackoutCanvas: {fileID: 715936143}
-  _changeSceneAfterDriveInterval: 5
+  _changeSceneAfterDriveInterval: 2
   _levelTransitionInterval: 2
 --- !u!4 &1559861478
 Transform:
