@@ -23,7 +23,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MeatBurntNormal:
-        m_Texture: {fileID: 2800000, guid: 305d0b1c3fe04304fa5b79b6ef174e87, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6ad832434c282f64681085099eb18a24, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatBurntTex:
@@ -31,7 +31,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatCookedNormal:
-        m_Texture: {fileID: 2800000, guid: 305d0b1c3fe04304fa5b79b6ef174e87, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6ad832434c282f64681085099eb18a24, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MeatCookedTex:
