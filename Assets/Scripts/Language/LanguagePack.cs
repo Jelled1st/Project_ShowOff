@@ -109,25 +109,63 @@ public class LanguagePack : ScriptableObject
 
     private void ParseLineKitchen(string line)
     {
-        if (line.StartsWith("kitchen.choiceBurger: "))
+        //8
+        if (line.StartsWith("kitchen.cookPatty: "))
+        {
+            _languageHandler.kitchen.cookPatty = line.Substring(19, line.Length - 19);
+        }
+        else if (line.StartsWith("kitchen.cutVegetables: "))
+        {
+            _languageHandler.kitchen.cutVegetables = line.Substring(23, line.Length - 23);
+        }
+        else if (line.StartsWith("kitchen.assembleBurger: "))
+        {
+            _languageHandler.kitchen.assembleBurger = line.Substring(24, line.Length - 24);
+        }
+        else if (line.StartsWith("kitchen.dropMeat: "))
+        {
+            _languageHandler.kitchen.dropMeat = line.Substring(18, line.Length - 18);
+        }
+        else if (line.StartsWith("kitchen.dropVeggies: "))
+        {
+            _languageHandler.kitchen.dropVeggies = line.Substring(21, line.Length - 21);
+        }
+        else if (line.StartsWith("kitchen.stirPot: "))
+        {
+            _languageHandler.kitchen.stirPot = line.Substring(17, line.Length - 17);
+        }
+        else if (line.StartsWith("kitchen.assembleDish: "))
+        {
+            _languageHandler.kitchen.assembleDish = line.Substring(22, line.Length - 22);
+        }
+        else if (line.StartsWith("kitchen.bakeFish: "))
+        {
+            _languageHandler.kitchen.bakeFish = line.Substring(18, line.Length - 18);
+        }
+        else if (line.StartsWith("kitchen.stirSalad: "))
+        {
+            _languageHandler.kitchen.stirSalad = line.Substring(19, line.Length - 19);
+        }
+        else if (line.StartsWith("kitchen.fishPlate: "))
+        {
+            _languageHandler.kitchen.fishPlate = line.Substring(19, line.Length - 19);
+        }
+
+        else if (line.StartsWith("kitchen.choiceBurger: "))
         {
             _languageHandler.kitchen.choiceBurger = line.Substring(22, line.Length - 22);
         }
-        if (line.StartsWith("kitchen.choiceChili: "))
+        else if (line.StartsWith("kitchen.choiceChili: "))
         {
             _languageHandler.kitchen.choiceChili = line.Substring(21, line.Length - 21);
         }
-        if (line.StartsWith("kitchen.choiceFish: "))
+        else if (line.StartsWith("kitchen.choiceFish: "))
         {
             _languageHandler.kitchen.choiceFish = line.Substring(20, line.Length - 20);
         }
-        if (line.StartsWith("kitchen.fryFries: "))
+        else if (line.StartsWith("kitchen.fryFries: "))
         {
             _languageHandler.kitchen.fryFries = line.Substring(18, line.Length-18);
-        }
-        else if (line.StartsWith("kitchen.cookPatty: "))
-        {
-            _languageHandler.kitchen.cookPatty = line.Substring(19, line.Length-19);
         }
     }
 

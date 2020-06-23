@@ -7,8 +7,8 @@ farm.shovelQuest: Benutze den Spaten
 farm.plantQuest: Pflanze Kartoffeln
 farm.waterQuest: Gieße die Kartoffeln
 /
-factory.mainQuest: DE: NO_TRANSLATION
-factoty.level2Quest: DE: NO_TRANSLATION
+factory.mainQuest: Sammle 5 geschälte Kartoffeln
+factoty.level2Quest: Transportiere 3 Tüten Pommes
 factory.washQuest: Wasch die Kartoffeln
 factory.peelQuest: Peel the washed potatoes
 factory.chopQuest: Schneide die Kartoffeln zu Pommes
@@ -19,15 +19,15 @@ kitchen.choiceChili: Chili-Käse Pommes
 kitchen.choiceFish: Pommes mit Fisch
 kitchen.fryFries: Lege die Pommes in the Friteuse
 kitchen.cookPatty: Brate eine Frikadelle
-kitchen.cutVegetables: NO_TRANSLATION
-kitchen.assmebleBurger: NO_TRANSLATION
-kitchen.dropMeat: NO_TRANSLATION
-kitchen.dropVeggies: NO_TRANSLATION
-kitchen.stirPot: NO_TRANSLATION
-kitchen.assembleDish: NO_TRANSLATION
-kitchen.bakeFish: NO_TRANSLATION
-kitchen.stirSalad: NO_TRANSLATION
-kitchen.fishPlate: NO_TRANSLATION
+kitchen.cutVegetables: Schneide das Gemüse
+kitchen.assmebleBurger: Baue den Burger
+kitchen.dropMeat: Lege das Fleisch in die Pfanne
+kitchen.dropVeggies: Lege das Gemüse in den Topf
+kitchen.stirPot: Rühre den Topf um
+kitchen.assembleDish: Stell das Gericht zusammen
+kitchen.bakeFish: Backe den Fisch in der Pfanne
+kitchen.stirSalad: Mix den Salat
+kitchen.fishPlate: Lege den Salat auf den Teller
 /
 persUI.restart: Bist du sicher, dass du das Spiel neu starten willst?
 persUI.quit: Bist du sicher, dass du das Spiel beenden willst?
@@ -38,4 +38,4 @@ timeout.reminder: Bist du noch da?
 timeout.yes: Ja
 /
 misc.score: Punktzahl
-misc.loss: DE: NO_TRANSLATION
+misc.loss: Die Zeit ist abgelaufen, willst du es nochmal versuchen?
