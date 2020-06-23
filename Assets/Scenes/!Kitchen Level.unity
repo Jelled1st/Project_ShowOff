@@ -6647,7 +6647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48116a7103a5e274d94675ecc4be4ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _time: 5
+  _time: 300
   _timerEndEvent:
     m_PersistentCalls:
       m_Calls:
