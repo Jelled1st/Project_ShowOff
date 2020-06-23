@@ -89,6 +89,12 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
         Destroy(ani);
         GameObject empty = new GameObject();
         empty.transform.SetParent(copy.transform);
+        empty.transform.localScale = new Vector3(
+                empty.transform.localScale.x * _spoonBottomNode.transform.localScale.x,
+                empty.transform.localScale.y * _spoonBottomNode.transform.localScale.y,
+                empty.transform.localScale.z * _spoonBottomNode.transform.localScale.z
+                );
+
         empty.transform.localPosition = _spoonBottomNode.transform.localPosition;
         for (int i = 0; i < _food.Count; ++i)
         {
