@@ -1,6 +1,8 @@
 main.start: Start
 main.exit: Afsluiten
 main.subtitle: Een spel over het veranderen van aardappelen in een heerlijke gebakken maaltijd!
+main.highScores: Scores
+main.credits: Credits
 /
 farm.mainQuest: Oogst 9 aardappelplanten
 farm.shovelQuest: Gebruik de schep

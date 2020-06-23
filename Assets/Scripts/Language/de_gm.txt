@@ -1,6 +1,8 @@
 main.start: Start
 main.exit: Beenden
 main.subtitle: Ein Spiel über die Verarbeitung von Kartoffeln. Vom Feld bis auf den Teller
+main.highScores: Highscore
+main.credits: Creduts
 /
 farm.mainQuest: Ernte 9 Kartoffelpflanzen
 farm.shovelQuest: Benutze den Spaten

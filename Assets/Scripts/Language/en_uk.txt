@@ -1,6 +1,8 @@
 main.start: Start
 main.exit: Exit
 main.subtitle: A game about the process of potatoes. From the farm up to your plate!
+main.highScores: Scores
+main.credits: Credits
 /
 farm.mainQuest: Harvest 9 potato plants
 farm.shovelQuest: Use the shovel
