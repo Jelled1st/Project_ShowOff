@@ -131,6 +131,10 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         {
             _activeTutorial?.CookingAllIngredientsDone();
         }
+        else if(observerEvent is SideDishDraggedToMain)
+        {
+            _activeTutorial?.SideDishToMain();
+        }
     }
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
@@ -140,5 +144,7 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
 
     public void OnFinishDish(ISubject subject)
     {
+        Debug.Log(subject + " is finished");
+        _activeTutorial?.DishComplete(subject as Dish);
     }
 }

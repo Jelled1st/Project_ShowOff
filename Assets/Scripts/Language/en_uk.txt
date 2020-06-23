@@ -22,7 +22,7 @@ kitchen.choiceFish: Fish & Chips
 kitchen.fryFries: Put the fries in the fryer
 kitchen.cookPatty: Cook a burger patty
 kitchen.cutVegetables: Cut vegetables
-kitchen.assmebleBurger: Assemble the burger
+kitchen.assembleBurger: Assemble the burger
 kitchen.dropMeat: Drop the meat in the pot
 kitchen.dropVeggies: Put the vegetables in the pot
 kitchen.stirPot: Stir the pot

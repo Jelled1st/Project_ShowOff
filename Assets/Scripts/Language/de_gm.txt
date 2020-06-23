@@ -22,7 +22,7 @@ kitchen.choiceFish: Pommes mit Fisch
 kitchen.fryFries: Lege die Pommes in the Friteuse
 kitchen.cookPatty: Brate eine Frikadelle
 kitchen.cutVegetables: Schneide das Gemüse
-kitchen.assmebleBurger: Baue den Burger
+kitchen.assembleBurger: Baue den Burger
 kitchen.dropMeat: Lege das Fleisch in die Pfanne
 kitchen.dropVeggies: Lege das Gemüse in den Topf
 kitchen.stirPot: Rühre den Topf um

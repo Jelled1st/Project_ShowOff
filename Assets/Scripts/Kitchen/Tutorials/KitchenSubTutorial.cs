@@ -45,6 +45,8 @@ public class KitchenSubTutorial : MonoBehaviour
     [SerializeField] protected UnityEvent _onDishStir;
     private bool _firstCookingAllDone = false;
     [SerializeField] protected UnityEvent _onCookingAllIngredientsDone;
+    [SerializeField] protected UnityEvent _onDishDone;
+    [SerializeField] protected UnityEvent _onSideDishToMain;
 
     public void DisableAllElements()
     {
@@ -65,6 +67,11 @@ public class KitchenSubTutorial : MonoBehaviour
     public static void StrikeThroughText(TextMeshProUGUI text)
     {
         if (text != null) text.fontStyle = FontStyles.Strikethrough;
+    }
+
+    public void EnableStrikeThrough(TextMeshProUGUI text)
+    {
+        StrikeThroughText(text);
     }
 
     public virtual void Execute() => _onExecute.Invoke();
@@ -90,6 +97,11 @@ public class KitchenSubTutorial : MonoBehaviour
         _firstCook = true;
 
         _onCookingStart.Invoke();
+    }
+
+    public virtual void RepeatCookingStart()
+    {
+        _firstCook = false;
     }
 
     public virtual void CookingDone()
@@ -202,5 +214,15 @@ public class KitchenSubTutorial : MonoBehaviour
     public virtual void IngredientDone(IIngredient ingredient)
     {
 
+    }
+
+    public virtual void DishComplete(Dish dish)
+    {
+        _onDishDone.Invoke();
+    }
+
+    public virtual void SideDishToMain()
+    {
+        _onSideDishToMain.Invoke();
     }
 }

@@ -328,6 +328,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                     }
                     _sideDishMeshesToEnable.RemoveAt(i);
                     _sideDishesLeft.RemoveAt(i);
+                    Notify(new SideDishDraggedToMain(this, dish));
                 }
             }
             if (IsFinished(true))
