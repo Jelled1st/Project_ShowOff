@@ -1,6 +1,8 @@
 main.start: Comenzar
 main.exit: Salir
 main.subtitle: ¡Un juego sobre el proceso de las papas. Desde la granja a tu plato!
+main.highScores: Puntos
+main.credits: Creditos
 /
 farm.mainQuest: Cosecha 9 plantas de papa
 farm.shovelQuest: Usa la pala

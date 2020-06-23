@@ -1,6 +1,8 @@
 ﻿main.start: Начать
 main.exit: Выйти
 main.subtitle: Игра об обработке картошки. От поля до твоей тарелки!
+main.highScores: Таблица рекордов
+main.credits: О создателях
 /
 farm.mainQuest: Собери урожай с 9 картофельных грядок
 farm.shovelQuest: Используй лопату

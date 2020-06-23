@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 246.4621, g: 305.38718, b: 404.1746, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5085,7 +5085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textMeshProUgui: {fileID: 0}
-  _fieldName: misc.score
+  _fieldName: main.highScores
 --- !u!1 &358796478
 GameObject:
   m_ObjectHideFlags: 0
@@ -33548,6 +33548,7 @@ GameObject:
   - component: {fileID: 1970114235}
   - component: {fileID: 1970114237}
   - component: {fileID: 1970114236}
+  - component: {fileID: 1970114238}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -33694,6 +33695,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1970114234}
   m_CullTransparentMesh: 0
+--- !u!114 &1970114238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970114234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd81ade537301b46b5f3490b679ba8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textMeshProUgui: {fileID: 0}
+  _fieldName: main.credits
 --- !u!1001 &1979584992
 PrefabInstance:
   m_ObjectHideFlags: 0
