@@ -14,6 +14,8 @@ public class LanguageHandler : MonoBehaviour
     {
         public string start;
         public string exit;
+        public string highScores;
+        public string credits;
         public string subtitle;
     }
 
@@ -138,6 +140,14 @@ public class LanguageHandler : MonoBehaviour
         else if (field.StartsWith("main.exit"))
         {
             return main.exit;
+        }
+        else if (field.StartsWith("main.highScores"))
+        {
+            return main.highScores;
+        }
+        else if (field.StartsWith("main.credits"))
+        {
+            return main.credits;
         }
         else if (field.StartsWith("main.subtitle"))
         {
