@@ -16,7 +16,7 @@ public class EasterEgg_locker : MonoBehaviour
     {
         if (!_isClicked)
         {
-            _rigidBody.AddRelativeForce(0, 0, 60f);
+            _rigidBody.AddRelativeForce(0, 0, 750f);
         }
         _isClicked = true;
     }
