@@ -76,6 +76,11 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
                 _choosenDish = _dishes[i];
                 EnableDishIngredients(_choosenDish);
                 Subscribe(_choosenDish);
+                List<Dish> sideDishes = _choosenDish.GetSideDishesLeft();
+                for(int j = 0; j < sideDishes.Count; ++j)
+                {
+                    Subscribe(sideDishes[j]);
+                }
                 _onEventPlayer.Subscribe(_choosenDish);
                 _kitchenTutorial.ChooseDish(dish);
                 Scores.SetCurrentDish(dish.GetDishType());
@@ -202,7 +207,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 
     public void OnFinishDish(ISubject subject)
     {
-        FinishGame();
+        if(subject as Dish == _choosenDish) FinishGame();
     }
 
     public void Subscribe(ISubject subject)
