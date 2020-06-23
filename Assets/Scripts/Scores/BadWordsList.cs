@@ -46,7 +46,7 @@ public class BadWordsList : ScriptableObject
             }
 
             Instance._customBadWords = customWords.downloadHandler.text.Split('\n')
-                .Where(w => w != "\n" && w != "\r")
+                .Where(w => w != "\n" && w != "\r" && w.Length >= 3)
                 .Select(w => w.ToLower().Replace("\r", "").Replace("\n", "")).ToArray();
         }
         catch (Exception e)
