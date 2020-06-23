@@ -22,7 +22,7 @@ kitchen.choiceFish: Рыба и картофель фри
 kitchen.fryFries: Загрузи картофель во фритюр
 kitchen.cookPatty: Приготовь котлету
 kitchen.cutVegetables: Нарежь овощи
-kitchen.assmebleBurger: Собери бургер
+kitchen.assembleBurger: Собери бургер
 kitchen.dropMeat: Положи мясо на сковороду
 kitchen.dropVeggies: Положи овощи в кастрюлю
 kitchen.stirPot: Перемешай содержимое кастрюли
