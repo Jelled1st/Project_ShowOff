@@ -141,13 +141,14 @@ namespace Factory
             _factoryQuestController = FindObjectOfType<FactoryQuestController>();
 
             _initialScore = Scores.GetCurrentUser().score;
-        }
-        private void Start()
-        {
             if (blackoutCanvas.activeInHierarchy == false)
             {
                 blackoutCanvas.SetActive(true);
             }
+        }
+        private void Start()
+        {
+
             StartCoroutine(FadeIn());
         }
 

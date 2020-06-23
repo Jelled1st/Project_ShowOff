@@ -46,15 +46,16 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
             Debug.LogWarning("Next scene not set, reloading this scene assumed");
         }
         Swarm.RegisterStatic(this);
+        if (blackoutCanvas.activeInHierarchy == false)
+        {
+            blackoutCanvas.SetActive(true);
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (blackoutCanvas.activeInHierarchy == false)
-        {
-            blackoutCanvas.SetActive(true);
-        }
+
         StartCoroutine(FadeIn());
         
         GameObject controller = GameObject.FindGameObjectWithTag("Controller");
