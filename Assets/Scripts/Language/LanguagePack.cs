@@ -159,7 +159,7 @@ public class LanguagePack : ScriptableObject
         }
         else if (line.StartsWith("misc.score: "))
         {
-            _languageHandler.misc.score = line.Substring(12, line.Length-12);
+            _languageHandler.misc.score = line.Substring(12, line.Length-13);
         }
         else if(line.StartsWith("misc.lossText: "))
         {
