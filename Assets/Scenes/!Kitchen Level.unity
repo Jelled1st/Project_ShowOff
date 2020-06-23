@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 370.97684, g: 459.67514, b: 608.4028, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5474,6 +5474,7 @@ GameObject:
   - component: {fileID: 100787259}
   - component: {fileID: 100787261}
   - component: {fileID: 100787260}
+  - component: {fileID: 100787262}
   m_Layer: 0
   m_Name: Quest 4 - Assemble dish
   m_TagString: Untagged
@@ -5539,6 +5540,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100787258}
   m_CullTransparentMesh: 0
+--- !u!95 &100787262
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100787258}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50251109e0d43fe4c8af44222a212e51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &119972489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5842,6 +5862,7 @@ GameObject:
   - component: {fileID: 134380120}
   - component: {fileID: 134380122}
   - component: {fileID: 134380121}
+  - component: {fileID: 134380123}
   m_Layer: 0
   m_Name: Quest 4 - Stir bowl
   m_TagString: Untagged
@@ -5907,6 +5928,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134380119}
   m_CullTransparentMesh: 0
+--- !u!95 &134380123
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134380119}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50251109e0d43fe4c8af44222a212e51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &141448191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2087854049200934063, guid: 61d9944c2fa6ee94eb6ac891eb566e06,
@@ -6589,6 +6629,7 @@ GameObject:
   - component: {fileID: 209814136}
   - component: {fileID: 209814138}
   - component: {fileID: 209814137}
+  - component: {fileID: 209814139}
   m_Layer: 0
   m_Name: Quest 2 - Bake fish
   m_TagString: Untagged
@@ -6654,6 +6695,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209814135}
   m_CullTransparentMesh: 0
+--- !u!95 &209814139
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209814135}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a026845c89ded1c428817958c7c28770, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &210932352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1458415689702892831, guid: ce500e75d4a6f8840ba94706022f8e99,
@@ -9322,6 +9382,7 @@ GameObject:
   - component: {fileID: 398577552}
   - component: {fileID: 398577554}
   - component: {fileID: 398577553}
+  - component: {fileID: 398577555}
   m_Layer: 0
   m_Name: Quest 1 - Fries in fryer
   m_TagString: Untagged
@@ -9387,6 +9448,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398577551}
   m_CullTransparentMesh: 0
+--- !u!95 &398577555
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398577551}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1fd2f02e1b7fe7e41bdb616c29f2aa84, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &409091936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13136,6 +13216,7 @@ GameObject:
   - component: {fileID: 703038981}
   - component: {fileID: 703038983}
   - component: {fileID: 703038982}
+  - component: {fileID: 703038984}
   m_Layer: 0
   m_Name: Quest 4 - Assemble burger
   m_TagString: Untagged
@@ -13201,6 +13282,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703038980}
   m_CullTransparentMesh: 0
+--- !u!95 &703038984
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703038980}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50251109e0d43fe4c8af44222a212e51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &710118733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17555,6 +17655,7 @@ GameObject:
   - component: {fileID: 986508518}
   - component: {fileID: 986508520}
   - component: {fileID: 986508519}
+  - component: {fileID: 986508521}
   m_Layer: 0
   m_Name: Quest 1 - Fries in fryer
   m_TagString: Untagged
@@ -17620,6 +17721,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986508517}
   m_CullTransparentMesh: 0
+--- !u!95 &986508521
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986508517}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1fd2f02e1b7fe7e41bdb616c29f2aa84, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &992393544 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2254212856526971527, guid: f9ea48f170fb4854b905c4feb8816526,
@@ -17831,6 +17951,7 @@ GameObject:
   - component: {fileID: 1012098000}
   - component: {fileID: 1012098002}
   - component: {fileID: 1012098001}
+  - component: {fileID: 1012098003}
   m_Layer: 0
   m_Name: Quest 3 - Cut vegetables
   m_TagString: Untagged
@@ -17896,6 +18017,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012097999}
   m_CullTransparentMesh: 0
+--- !u!95 &1012098003
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012097999}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 45bcc682030c61e4883b5217f22e4c70, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1024559060
 GameObject:
   m_ObjectHideFlags: 0
@@ -19921,6 +20061,7 @@ GameObject:
   - component: {fileID: 1265859585}
   - component: {fileID: 1265859587}
   - component: {fileID: 1265859586}
+  - component: {fileID: 1265859588}
   m_Layer: 0
   m_Name: Quest 5 - Salad to bowl
   m_TagString: Untagged
@@ -19986,6 +20127,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265859584}
   m_CullTransparentMesh: 0
+--- !u!95 &1265859588
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265859584}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 985e3ad149c0d3142b7737accc03742c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1266200165
 GameObject:
   m_ObjectHideFlags: 0
@@ -25224,6 +25384,7 @@ GameObject:
   - component: {fileID: 1341188798}
   - component: {fileID: 1341188800}
   - component: {fileID: 1341188799}
+  - component: {fileID: 1341188801}
   m_Layer: 0
   m_Name: Quest 3 - Cut veggies
   m_TagString: Untagged
@@ -25289,6 +25450,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341188797}
   m_CullTransparentMesh: 0
+--- !u!95 &1341188801
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341188797}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 45bcc682030c61e4883b5217f22e4c70, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1344217900
 GameObject:
   m_ObjectHideFlags: 0
@@ -25657,6 +25837,7 @@ GameObject:
   - component: {fileID: 1391334569}
   - component: {fileID: 1391334571}
   - component: {fileID: 1391334570}
+  - component: {fileID: 1391334572}
   m_Layer: 0
   m_Name: Quest 2 - Cook patty
   m_TagString: Untagged
@@ -25722,6 +25903,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391334568}
   m_CullTransparentMesh: 0
+--- !u!95 &1391334572
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391334568}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a026845c89ded1c428817958c7c28770, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &1393405354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: d56893d6257e7e740a4aa7c096198ac6,
@@ -25769,6 +25969,7 @@ GameObject:
   - component: {fileID: 1398469553}
   - component: {fileID: 1398469555}
   - component: {fileID: 1398469554}
+  - component: {fileID: 1398469556}
   m_Layer: 0
   m_Name: Quest 1 - Fries in fryer
   m_TagString: Untagged
@@ -25834,6 +26035,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398469552}
   m_CullTransparentMesh: 0
+--- !u!95 &1398469556
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398469552}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1fd2f02e1b7fe7e41bdb616c29f2aa84, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1398772150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32695,6 +32915,7 @@ GameObject:
   - component: {fileID: 2032841827}
   - component: {fileID: 2032841829}
   - component: {fileID: 2032841828}
+  - component: {fileID: 2032841830}
   m_Layer: 0
   m_Name: Quest 3 - Stir pot
   m_TagString: Untagged
@@ -32760,6 +32981,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032841826}
   m_CullTransparentMesh: 0
+--- !u!95 &2032841830
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032841826}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 45bcc682030c61e4883b5217f22e4c70, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2047989434
 GameObject:
   m_ObjectHideFlags: 0
@@ -34080,6 +34320,7 @@ GameObject:
   - component: {fileID: 2141633433}
   - component: {fileID: 2141633435}
   - component: {fileID: 2141633434}
+  - component: {fileID: 2141633436}
   m_Layer: 0
   m_Name: Quest 2 - Meat in pot
   m_TagString: Untagged
@@ -34145,6 +34386,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141633432}
   m_CullTransparentMesh: 0
+--- !u!95 &2141633436
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141633432}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a026845c89ded1c428817958c7c28770, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2144155326 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1458415689702892830, guid: ce500e75d4a6f8840ba94706022f8e99,
