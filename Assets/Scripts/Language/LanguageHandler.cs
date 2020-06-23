@@ -37,11 +37,23 @@ public class LanguageHandler : MonoBehaviour
 
     public struct KitchenSceneText
     {
+        public string cookPatty;
+        public string cutVegetables;
+        public string assembleBurger;
+
+        public string dropMeat;
+        public string dropVeggies;
+        public string stirPot;
+        public string assembleDish;
+
+        public string bakeFish;
+        public string stirSalad;
+        public string fishPlate;
+
         public string choiceBurger;
         public string choiceChili;
         public string choiceFish;
         public string fryFries;
-        public string cookPatty;
     }
 
     public struct PersUI
@@ -177,6 +189,49 @@ public class LanguageHandler : MonoBehaviour
         }
         #endregion
         #region Kitchen
+        else if (field.StartsWith("kitchen.cookPatty"))
+        {
+            return kitchen.cookPatty;
+        }
+        else if (field.StartsWith("kitchen.cutVegetables"))
+        {
+            return kitchen.cutVegetables;
+        }
+        else if (field.StartsWith("kitchen.assembleBurger"))
+        {
+            return kitchen.assembleBurger;
+        }
+
+        else if (field.StartsWith("kitchen.dropMeat"))
+        {
+            return kitchen.dropMeat;
+        }
+        else if (field.StartsWith("kitchen.dropVeggies"))
+        {
+            return kitchen.dropVeggies;
+        }
+        else if (field.StartsWith("kitchen.stirPot"))
+        {
+            return kitchen.stirPot;
+        }
+        else if (field.StartsWith("kitchen.assembleDish"))
+        {
+            return kitchen.assembleDish;
+        }
+
+        else if (field.StartsWith("kitchen.bakeFish"))
+        {
+            return kitchen.bakeFish;
+        }
+        else if (field.StartsWith("kitchen.stirSalad"))
+        {
+            return kitchen.stirSalad;
+        }
+        else if (field.StartsWith("kitchen.fishPlate"))
+        {
+            return kitchen.fishPlate;
+        }
+
         else if (field.StartsWith("kitchen.choiceBurger"))
         {
             return kitchen.choiceBurger;
@@ -192,10 +247,6 @@ public class LanguageHandler : MonoBehaviour
         else if (field.StartsWith("kitchen.fryFries"))
         {
             return kitchen.fryFries;
-        }
-        else if (field.StartsWith("kitchen.cookPatty"))
-        {
-            return kitchen.cookPatty;
         }
         #endregion
         #region Persistant UI
