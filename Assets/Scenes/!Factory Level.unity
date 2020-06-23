@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 246.4621, g: 305.38718, b: 404.1746, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13395,6 +13395,8 @@ GameObject:
   - component: {fileID: 814962455}
   - component: {fileID: 814962454}
   - component: {fileID: 814962453}
+  - component: {fileID: 814962456}
+  - component: {fileID: 814962457}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -13477,6 +13479,35 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814962451}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &814962456
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814962451}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 4.1066704, z: 10}
+  m_Center: {x: 0, y: -1.4096928, z: 0}
+--- !u!114 &814962457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814962451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f49b4660993b7640856460ccb0560a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mat: {fileID: 2100000, guid: 659558c677f46474d96faec440a80d40, type: 2}
+  _color1: {r: 1, g: 0, b: 0, a: 1}
+  _color2: {r: 1, g: 0, b: 0.69219637, a: 1}
+  _color3: {r: 1, g: 0.81974864, b: 0, a: 1}
 --- !u!1 &824214856
 GameObject:
   m_ObjectHideFlags: 0
