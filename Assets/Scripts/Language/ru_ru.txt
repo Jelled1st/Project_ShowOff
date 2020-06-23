@@ -1,20 +1,20 @@
 ﻿main.start: Начать
 main.exit: Выйти
-main.subtitle: Игра об обработке картошки. От поля до твоей тарелки!
+main.subtitle: Игра про обработку картошки. От поля до твоей тарелки!
 main.highScores: Таблица рекордов
 main.credits: О создателях
 /
 farm.mainQuest: Собери урожай с 9 картофельных грядок
-farm.shovelQuest: Используй лопату
+farm.shovelQuest: Выкопай яму
 farm.plantQuest: Посади картофель
 farm.waterQuest: Полей растения
 /
-factory.mainQuest: Собери 5 очищенных картофелин
+factory.mainQuest: Почисть 5 картофелин
 factory.level2Quest: Загрузи 3 пачки нарезанного картофеля
-factory.washQuest: Помыть картофель
-factory.peelQuest: Почистить картофель
-factory.chopQuest: Нарезать картофель
-factory.packageQuest: Упаковать картофель
+factory.washQuest: Помой картофель
+factory.peelQuest: Почисть картофель
+factory.chopQuest: Нарежь картофель
+factory.packageQuest: Упакуй картофель
 /
 kitchen.choiceBurger: Бургер с жареным картофелем
 kitchen.choiceChili: Картофель фри с сыром и мясом
