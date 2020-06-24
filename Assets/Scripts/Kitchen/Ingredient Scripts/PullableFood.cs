@@ -55,6 +55,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
         if (_pullables.Contains(pulled))
         {
             currentPullable = pulled;
+            Notify(new PullablePulledEvent(this));
         }
     }
 
