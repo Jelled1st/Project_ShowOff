@@ -20,7 +20,7 @@ namespace Timeout
                 switch (SceneManager.GetActiveScene().name)
                 {
                     case "!Main Menu":
-                    case "!Ending Scene":
+                    case "!Credits":
                         return false;
                     default:
                         return true;
@@ -87,6 +87,13 @@ namespace Timeout
             SetPause(false);
 
             Overlay.SetActive(false);
+        }
+
+        public void QuitMain()
+        {
+            Overlay.SetActive(false);
+            FindObjectOfType<BKM>()?.StopMusicImmediate();
+            SceneManager.LoadScene("!Main Menu");
         }
 
         public static void SetPause(bool pause)
