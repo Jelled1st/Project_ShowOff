@@ -3039,6 +3039,7 @@ MonoBehaviour:
   _killBugPoinst: 100
   _decayPenaltyPoints: 0
   _witherPenaltyPoints: 25
+  _turorial: {fileID: 1509437914}
   _doTutorial: 1
 --- !u!65 &204829731
 BoxCollider:

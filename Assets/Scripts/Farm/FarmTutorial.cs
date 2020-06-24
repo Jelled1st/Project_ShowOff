@@ -52,7 +52,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     private bool _firstUpdateCalled = false;
     
     // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         SubscribeAndDisableFarmPlots();
         Swarm.RegisterStatic(this);

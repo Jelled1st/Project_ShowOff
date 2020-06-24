@@ -32,6 +32,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     private bool _plantsStartAtGrown = false;
 
     [Header("Tutorial")]
+    [SerializeField] FarmTutorial _turorial;
     [SerializeField] private bool _doTutorial = true;
     private bool _pausedForTutorial = false;
     private bool _repeatPause = false;
@@ -55,7 +56,6 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     // Start is called before the first frame update
     void Start()
     {
-
         StartCoroutine(FadeIn());
         
         GameObject controller = GameObject.FindGameObjectWithTag("Controller");
@@ -82,6 +82,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         }
         else SetFarmPlotStates(_farmPlots);
 
+        _turorial.Init();
         for (int i = 0; i < _farmPlots.Count; ++i)
         {
             Subscribe(_farmPlots[i]);
