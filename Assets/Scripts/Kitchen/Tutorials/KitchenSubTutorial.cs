@@ -11,6 +11,7 @@ public class KitchenSubTutorial : MonoBehaviour
     [SerializeField] TextMeshProUGUI _flipMeat;
     [SerializeField] TextMeshProUGUI _dragIngredientToCuttingBoard;
     [SerializeField] TextMeshProUGUI _cutIngredient;
+    [SerializeField] Dish _sideDish;
     [SerializeField] UnityEvent _onExecute;
     private bool _firstFryer = false;
     [SerializeField] UnityEvent _onFryingStart;
@@ -39,6 +40,8 @@ public class KitchenSubTutorial : MonoBehaviour
     private bool _firstIngredientAdded = false;
     [SerializeField] protected UnityEvent _onIngredientToDish;
     [SerializeField] protected UnityEvent _onFirstIngredientToDish;
+    private bool _firstIngredientSideDish = false;
+    [SerializeField] protected UnityEvent _onIngredientToSideDish;
     private bool _firstCookingStir = false;
     [SerializeField] protected UnityEvent _onCookingStir;
     private bool _firstDishStir = false;
@@ -146,6 +149,11 @@ public class KitchenSubTutorial : MonoBehaviour
         StrikeThroughText(_flipMeat);
     }
 
+    public void RepeatCookingStir()
+    {
+        _firstCookingStir = false;
+    }
+
     public void CookingStir()
     {
         if (_firstCookingStir) return;
@@ -203,9 +211,14 @@ public class KitchenSubTutorial : MonoBehaviour
         _onIngredientPulled.Invoke();
     }
 
-    public virtual void IngredientAddedToDish()
+    public virtual void IngredientAddedToDish(Dish dish)
     {
         _onIngredientToDish.Invoke();
+        if (dish == _sideDish && !_firstIngredientSideDish)
+        {
+            _firstIngredientSideDish = true;
+            _onIngredientToSideDish.Invoke();
+        }
         if (_firstIngredientAdded) return;
         _firstIngredientAdded = true;
         _onFirstIngredientToDish.Invoke();

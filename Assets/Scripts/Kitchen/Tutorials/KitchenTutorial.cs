@@ -139,7 +139,7 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
-        _activeTutorial?.IngredientAddedToDish();
+        _activeTutorial?.IngredientAddedToDish(subject as Dish);
     }
 
     public void OnFinishDish(ISubject subject)
