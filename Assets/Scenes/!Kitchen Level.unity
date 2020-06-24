@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 370.97684, g: 459.67514, b: 608.4028, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7578,6 +7578,7 @@ MonoBehaviour:
   _flipMeat: {fileID: 0}
   _dragIngredientToCuttingBoard: {fileID: 0}
   _cutIngredient: {fileID: 0}
+  _sideDish: {fileID: 8673788684160804167}
   _onExecute:
     m_PersistentCalls:
       m_Calls:
@@ -7972,6 +7973,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1992521400}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1780279997}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 324632609}
         m_MethodName: SetActive
         m_Mode: 6
@@ -7987,6 +8010,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 474858615}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _onIngredientToSideDish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 324632609}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -8063,7 +8100,18 @@ MonoBehaviour:
       m_Calls: []
   _onDishDone:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1780279997}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   _onSideDishToMain:
     m_PersistentCalls:
       m_Calls:
@@ -8073,6 +8121,17 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 256696631}
           m_ObjectArgumentAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1780279997}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14415,17 +14474,17 @@ PrefabInstance:
     - target: {fileID: -7038692840708057349, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6209068818959923613, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5775268505486649949, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
@@ -14500,7 +14559,7 @@ PrefabInstance:
     - target: {fileID: -3573086496703477069, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1615863771066186425, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
@@ -14510,7 +14569,7 @@ PrefabInstance:
     - target: {fileID: -1485607202548364233, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
@@ -14525,17 +14584,17 @@ PrefabInstance:
     - target: {fileID: 1661792508726148293, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6438120633263540623, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6977923061801070449, guid: 80d7081ffa1be344fa4bf15568f21ee3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80d7081ffa1be344fa4bf15568f21ee3, type: 3}
@@ -20216,6 +20275,7 @@ MonoBehaviour:
   _flipMeat: {fileID: 0}
   _dragIngredientToCuttingBoard: {fileID: 0}
   _cutIngredient: {fileID: 0}
+  _sideDish: {fileID: 0}
   _onExecute:
     m_PersistentCalls:
       m_Calls:
@@ -20558,6 +20618,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  _onIngredientToSideDish:
+    m_PersistentCalls:
+      m_Calls: []
   _onCookingStir:
     m_PersistentCalls:
       m_Calls: []
@@ -32725,6 +32788,7 @@ MonoBehaviour:
   _flipMeat: {fileID: 0}
   _dragIngredientToCuttingBoard: {fileID: 0}
   _cutIngredient: {fileID: 0}
+  _sideDish: {fileID: 0}
   _onExecute:
     m_PersistentCalls:
       m_Calls:
@@ -32892,7 +32956,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1994077223}
         m_MethodName: RepeatCookingStart
@@ -32915,6 +32979,28 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 173089477}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1994077223}
+        m_MethodName: RepeatCookingStir
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
   _onBakingStart:
     m_PersistentCalls:
@@ -32965,6 +33051,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 173089477}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onFirstIngredientToDish:
     m_PersistentCalls:
       m_Calls:
@@ -32979,6 +33076,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  _onIngredientToSideDish:
+    m_PersistentCalls:
+      m_Calls: []
   _onCookingStir:
     m_PersistentCalls:
       m_Calls:
@@ -36706,8 +36806,7 @@ MonoBehaviour:
   _stackAllIngredients: 0
   _stackIngredientsNode: {fileID: 0}
   _spoon: {fileID: 1428874769}
-  _requiredStirOptions:
-  - {fileID: 11400000, guid: fad61beabe134f14f844ec3b01fedbeb, type: 2}
+  _requiredStirOptions: []
   _ingredientRotateParent: {fileID: 8673788683782406603}
   _stirTime: 2.3
 --- !u!23 &8789484986044709363

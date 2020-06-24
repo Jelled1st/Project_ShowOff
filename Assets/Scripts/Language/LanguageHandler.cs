@@ -90,7 +90,7 @@ public class LanguageHandler : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null) Destroy(this);
+        if (instance != null) Destroy(this.gameObject);
         _texts = new List<LanguageText>();
         instance = this;
         DontDestroyOnLoad(this.gameObject);
@@ -278,11 +278,11 @@ public class LanguageHandler : MonoBehaviour
         }
         #endregion
         #region Timout
-        else if (field.StartsWith("timout.reminder"))
+        else if (field.StartsWith("timeout.reminder"))
         {
             return timeout.reminder;
         }
-        else if (field.StartsWith("timout.yes"))
+        else if (field.StartsWith("timeout.yes"))
         {
             return timeout.yes;
         }
