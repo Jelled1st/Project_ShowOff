@@ -90,11 +90,16 @@ public class LanguageHandler : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null) Destroy(this);
-        _texts = new List<LanguageText>();
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
-        _languagePack.UnPack(this);
+        Debug.Log("Current instance: " + instance);
+        if (instance != null) DestroyImmediate(this.gameObject);
+        else
+        {
+            Debug.Log("new language instance");
+            _texts = new List<LanguageText>();
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            _languagePack.UnPack(this);
+        }
     }
 
     public void SwitchToLanguagePack(LanguagePack languagePack)
@@ -278,11 +283,11 @@ public class LanguageHandler : MonoBehaviour
         }
         #endregion
         #region Timout
-        else if (field.StartsWith("timout.reminder"))
+        else if (field.StartsWith("timeout.reminder"))
         {
             return timeout.reminder;
         }
-        else if (field.StartsWith("timout.yes"))
+        else if (field.StartsWith("timeout.yes"))
         {
             return timeout.yes;
         }

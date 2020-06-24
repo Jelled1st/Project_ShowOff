@@ -201,7 +201,7 @@ public class LanguagePack : ScriptableObject
         }
         else if (line.StartsWith("timeout.yes: "))
         {
-            _languageHandler.timeout.reminder = line.Substring(13, line.Length - 13);
+            _languageHandler.timeout.yes = line.Substring(13, line.Length - 13);
         }
         else if (line.StartsWith("misc.score: "))
         {
