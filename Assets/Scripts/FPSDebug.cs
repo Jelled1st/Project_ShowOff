@@ -41,7 +41,7 @@ public class FPSDebug : MonoBehaviour
 		string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
 		GUI.Label(rect, text, style);
 
-
+		/*
 		int width = 2;
 		Rect debuggerRect = new Rect(w-width*frameTimes.Length, 0, width * frameTimes.Length, 100);
 		Texture2D frameTimeRect = new Texture2D((int)debuggerRect.width, (int)debuggerRect.height);
@@ -59,5 +59,6 @@ public class FPSDebug : MonoBehaviour
 		frameTimeRect.Apply();
 		GUI.skin.box.normal.background = frameTimeRect;
 		GUI.Box(debuggerRect, GUIContent.none);
+		*/
 	}
 }
