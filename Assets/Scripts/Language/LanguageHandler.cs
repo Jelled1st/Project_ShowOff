@@ -91,7 +91,11 @@ public class LanguageHandler : MonoBehaviour
     void Awake()
     {
         Debug.Log("Current instance: " + instance);
-        if (instance != null) DestroyImmediate(this.gameObject);
+        if (instance != null)
+        {
+            if (this.gameObject.GetComponents<Component>().Length == 2) DestroyImmediate(this.gameObject);
+            else DestroyImmediate(this);
+        }
         else
         {
             Debug.Log("new language instance");
