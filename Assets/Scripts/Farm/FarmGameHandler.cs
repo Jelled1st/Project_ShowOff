@@ -173,10 +173,10 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         {
             UnPause();
         }
-        if(Input.GetKeyDown(KeyCode.Space))
+        /*if(Input.GetKeyDown(KeyCode.Space))
         {
             FinishGame();
-        }
+        }*/
     }
 
     public void LastPotatoCollected()
