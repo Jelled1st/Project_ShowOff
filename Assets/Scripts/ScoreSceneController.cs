@@ -81,7 +81,7 @@ public class ScoreSceneController : MonoBehaviour
 
             _inputVisuals.SetActive(true);
             _currentUserRenderTexture.texture = GetDishTexture(Scores.GetCurrentUser().dish);
-            _inputText.SetText("");
+            _inputText.text = "";
 
             KeyboardScript.KeyPressed += AppendInput;
             KeyboardScript.BackspacePressed += SubtractInput;
@@ -155,7 +155,7 @@ public class ScoreSceneController : MonoBehaviour
             case Dish.DishTypes.FishAndChips:
                 return _dishRenderTextures.FishAndChip;
             default:
-                Debug.LogError($"Can't process dish of type {dishType.ToString()}");
+                Debug.LogWarning($"Can't process dish of type {dishType.ToString()}");
                 return _dishRenderTextures.FishAndChip;
                 return null;
         }
