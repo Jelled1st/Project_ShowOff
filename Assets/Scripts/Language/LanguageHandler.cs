@@ -90,11 +90,16 @@ public class LanguageHandler : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null) Destroy(this.gameObject);
-        _texts = new List<LanguageText>();
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
-        _languagePack.UnPack(this);
+        Debug.Log("Current instance: " + instance);
+        if (instance != null) DestroyImmediate(this.gameObject);
+        else
+        {
+            Debug.Log("new language instance");
+            _texts = new List<LanguageText>();
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            _languagePack.UnPack(this);
+        }
     }
 
     public void SwitchToLanguagePack(LanguagePack languagePack)
