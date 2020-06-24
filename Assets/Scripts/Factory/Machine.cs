@@ -171,6 +171,7 @@ namespace Factory
 
             _collisionCallback.TriggerEnter += TriggerEnter;
 
+            _progressBar.value = _progressBar.minValue;
             _progressBar.gameObject.SetActive(false);
 
             _processParticles = _processParticles.NullIfEqualsNull();
