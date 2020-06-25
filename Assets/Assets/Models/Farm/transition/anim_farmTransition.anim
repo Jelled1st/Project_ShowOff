@@ -968,7 +968,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 6
-    functionName: transitionAnim
+    functionName: TransitionAnim
     data: end
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
