@@ -56,6 +56,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     {
         SubscribeAndDisableFarmPlots();
         Swarm.RegisterStatic(this);
+        ResetTutorial();
     }
 
     private void SubscribeAndDisableFarmPlots()
@@ -64,15 +65,34 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
         for (int i = 0; i < farmPlotsGOs.Length; ++i)
         {
             FarmPlot farmPlot = farmPlotsGOs[i].GetComponent<FarmPlot>();
-            Subscribe(farmPlot);
             if (farmPlot != _tutorialPlot) farmPlot.SetInteractable(false);
             else
             {
                 farmPlot.SetInteractable(true);
                 farmPlot.SetStartState(FarmPlot.State.Rough);
             }
+            Subscribe(farmPlot);
             _farmPlots.Add(farmPlot);
         }
+    }
+
+    private void ResetTutorial()
+    {
+        _shovelComplete = false;
+        _plantQuestStarted = false;
+        _plantComplete = false;
+        _waterQuestStarted = false;
+        _waterComplete = false;
+        _killBugsCompelte = false;
+        _firstBug = true;
+
+        _firstHarvest = true;
+        _firstHarvestCompleted = false;
+        _harvestTweenStart = new Vector2();
+
+        _firstSpray = true;
+        _firstSprayCompleted = false;
+        _sprayTweenEnd = new Vector2();
     }
 
     private void EnableFarmPlots()
@@ -89,6 +109,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
         if (!_firstUpdateCalled)
         {
             _onStart.Invoke();
+            ResetTutorial();
             _firstUpdateCalled = true;
         }
         
@@ -110,11 +131,6 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
             }
         }
     }
-
-    //private Vector2 CalcCanvasBugPosition(SwarmUnit bug, )
-    //{
-
-    //}
 
     private void CheckCompletion()
     {
@@ -192,6 +208,7 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
     {
         if (state == FarmPlot.State.Dug && !_plantQuestStarted)
         {
+            Debug.Log("Start plant quest");
             _plantQuestStarted = true;
             _startPlantQuestEvent.Invoke();
         }

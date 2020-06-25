@@ -35,7 +35,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     private float _timeSinceLastCultivation = 0.0f;
     private float _growTime;
     private bool _neglectCooldown = true;
-    private static bool _paused = false;
+    private bool _paused = false;
     private bool _hasBeenPoisened = false;
     private float _cooldown = 3.0f;
 
@@ -71,7 +71,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         _progressBar?.SetActive(false);
         this.gameObject.tag = "FarmPlot";
-        _paused = false;
     }
 
     // Start is called before the first frame update

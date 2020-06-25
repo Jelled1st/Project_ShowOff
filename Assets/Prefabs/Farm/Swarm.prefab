@@ -51,5 +51,6 @@ MonoBehaviour:
   _speed: 1.5
   _fleeSpeed: 4
   _spawnTime: 3
+  _outOfScreenMargin: {x: 300, y: 100}
   _spawnChance: 65
   soundEffectManager: {fileID: 0}
