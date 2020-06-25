@@ -315,20 +315,23 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         else if(dropped is Dish)
         {
             Dish dish = dropped as Dish;
-            for (int i = 0; i < _sideDishesLeft.Count; ++i)
+            if (dish != null && dish.IsFinished(true))
             {
-                if (_sideDishesLeft[i] as Dish == dish)
+                for (int i = 0; i < _sideDishesLeft.Count; ++i)
                 {
-                    Destroy(dish.gameObject);
-                    if(_debugLog) Debug.Log("enabling " + _sideDishMeshesToEnable[i].Count + " meshes");
-                    for(int j = 0; j < _sideDishMeshesToEnable[i].Count; ++j)
+                    if (_sideDishesLeft[i] as Dish == dish)
                     {
-                        if (_debugLog) Debug.Log("Enabling " + _sideDishMeshesToEnable[i][j]);
-                        _sideDishMeshesToEnable[i][j].SetActive(true);
+                        Destroy(dish.gameObject);
+                        if (_debugLog) Debug.Log("enabling " + _sideDishMeshesToEnable[i].Count + " meshes");
+                        for (int j = 0; j < _sideDishMeshesToEnable[i].Count; ++j)
+                        {
+                            if (_debugLog) Debug.Log("Enabling " + _sideDishMeshesToEnable[i][j]);
+                            _sideDishMeshesToEnable[i][j].SetActive(true);
+                        }
+                        _sideDishMeshesToEnable.RemoveAt(i);
+                        _sideDishesLeft.RemoveAt(i);
+                        Notify(new SideDishDraggedToMain(this, dish));
                     }
-                    _sideDishMeshesToEnable.RemoveAt(i);
-                    _sideDishesLeft.RemoveAt(i);
-                    Notify(new SideDishDraggedToMain(this, dish));
                 }
             }
             if (IsFinished(true))
