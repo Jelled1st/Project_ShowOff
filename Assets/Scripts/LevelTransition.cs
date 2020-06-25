@@ -28,7 +28,7 @@ public class LevelTransition : MonoBehaviour
         //StartCoroutine(FadeIn());
     }
 
-    public void TransitionAnim(string message)
+    public void transitionAnim(string message)
     {
         if (message.Equals("end"))
         {
