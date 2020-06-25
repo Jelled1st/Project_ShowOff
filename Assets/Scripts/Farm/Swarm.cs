@@ -96,10 +96,10 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     private void SpawnUnits()
     {
-        if (_angles.Count == 0) return;
         int spawnCount = Random.Range(_swarmSize.x, _swarmSize.y+1);
         while(spawnCount >= 0)
         {
+            if (_angles.Count == 0) return;
             int angleIndex = Random.Range(0, _angles.Count);
             float angle = _angles[angleIndex];
             _angles.RemoveAt(angleIndex);
