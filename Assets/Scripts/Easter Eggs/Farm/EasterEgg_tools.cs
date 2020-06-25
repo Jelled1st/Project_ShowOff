@@ -69,13 +69,13 @@ public class EasterEgg_tools : MonoBehaviour
         //start tools coroutine
         if (!_hasClicked && _playCount < 1)
         {
-            StartCoroutine(beam());
+            StartCoroutine(Beam());
         }
 
         _playCount--;
     }
 
-    private IEnumerator beam()
+    private IEnumerator Beam()
     {
         yield return null;
 
