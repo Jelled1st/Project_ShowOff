@@ -2,11 +2,13 @@
 
 public class EasterEgg_barrels : MonoBehaviour
 {
-    [SerializeField] private int PlayCount;
+    [SerializeField]
+    private int PlayCount;
+
     private Rigidbody _rigidBody;
     private int _playCount;
 
-    void Start()
+    private void Start()
     {
         _playCount = PlayCount;
         _rigidBody = gameObject.GetComponent<Rigidbody>();
@@ -14,14 +16,16 @@ public class EasterEgg_barrels : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(_playCount > 0)
+        if (_playCount > 0)
         {
             _rigidBody.AddRelativeTorque(0, -25, 0);
         }
-        if(_playCount == 0)
+
+        if (_playCount == 0)
         {
             _rigidBody.AddRelativeForce(-300, 0, 0);
         }
+
         _playCount--;
     }
 }

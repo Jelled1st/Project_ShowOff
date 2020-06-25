@@ -3,37 +3,42 @@ using UnityEngine;
 
 public class HarvestCollector : MonoBehaviour, IControllable
 {
-    [SerializeField] private List<GameObject> _collectedPotatoesPrefab;
-    [SerializeField] private List<GameObject> _collectedPotatoPosition;
-    List<int> _potatoPositionsLeft;
-    [SerializeField] private FarmGameHandler _gameHandler;
+    [SerializeField]
+    private List<GameObject> _collectedPotatoesPrefab;
+
+    [SerializeField]
+    private List<GameObject> _collectedPotatoPosition;
+
+    private List<int> _potatoPositionsLeft;
+
+    [SerializeField]
+    private FarmGameHandler _gameHandler;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _potatoPositionsLeft = new List<int>();
-        for(int i = 0; i < _collectedPotatoPosition.Count; ++i)
+        for (var i = 0; i < _collectedPotatoPosition.Count; ++i)
         {
             _potatoPositionsLeft.Add(i);
         }
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 
 
     private void CollectPotato()
     {
-        if(_potatoPositionsLeft.Count != 0)
+        if (_potatoPositionsLeft.Count != 0)
         {
-            int rand = Random.Range(0, _potatoPositionsLeft.Count);
-            int index = _potatoPositionsLeft[rand];
+            var rand = Random.Range(0, _potatoPositionsLeft.Count);
+            var index = _potatoPositionsLeft[rand];
             _potatoPositionsLeft.RemoveAt(rand);
             rand = Random.Range(0, _collectedPotatoesPrefab.Count);
-            GameObject potatoes = Instantiate(_collectedPotatoesPrefab[rand], _collectedPotatoPosition[index].transform);
+            var potatoes = Instantiate(_collectedPotatoesPrefab[rand], _collectedPotatoPosition[index].transform);
             potatoes.transform.localPosition = new Vector3(0, 0, 0);
             potatoes.transform.localScale = new Vector3(1, 1, 1);
             if (_potatoPositionsLeft.Count == 0)
@@ -78,9 +83,9 @@ public class HarvestCollector : MonoBehaviour, IControllable
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
-        if(dropped is FarmPlot)
+        if (dropped is FarmPlot)
         {
-            FarmPlot plot = (FarmPlot)dropped;
+            var plot = (FarmPlot) dropped;
             if (plot.Harvest())
             {
                 CollectPotato();

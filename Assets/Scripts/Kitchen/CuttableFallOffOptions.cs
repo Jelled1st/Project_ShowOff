@@ -4,8 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CuttableFallOffOptions", menuName = "ScriptableObjects/CuttableFallOffOptions", order = 1)]
 public class CuttableFallOffOptions : ScriptableObject
 {
-    [SerializeField] List<GameObject> _fallOffPieces;
-    [SerializeField] List<float> _fallOffPiecesLengths;
+    [SerializeField]
+    private List<GameObject> _fallOffPieces;
+
+    [SerializeField]
+    private List<float> _fallOffPiecesLengths;
+
     private int _lastIndex = -1;
 
     public GameObject GetFallOffPiece()

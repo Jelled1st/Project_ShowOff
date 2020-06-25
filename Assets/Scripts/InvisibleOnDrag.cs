@@ -2,9 +2,14 @@
 
 public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
 {
-    [SerializeField] GameObject _controllable;
-    [SerializeField] TouchController _controller;
-    [SerializeField] TouchFeedback _controllerFeedback;
+    [SerializeField]
+    private GameObject _controllable;
+
+    [SerializeField]
+    private TouchController _controller;
+
+    [SerializeField]
+    private TouchFeedback _controllerFeedback;
 
     private IControllable _controllableScriptRef;
     private bool _enabledDragCopy = false;
@@ -13,15 +18,15 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
     public bool active = true;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        if (_controllable == null) _controllable = this.gameObject;
+        if (_controllable == null) _controllable = gameObject;
         _controllableScriptRef = _controllable.GetComponent<IControllable>();
         Subscribe(_controller);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!active) return;
         if (_dragging && !_enabledDragCopy)
@@ -32,16 +37,18 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
 
     private bool TryEnableDragCopyRenderer()
     {
-        GameObject dragCopy = _controllerFeedback.GetCurrentDragCopy();
-        if(dragCopy != null)
+        var dragCopy = _controllerFeedback.GetCurrentDragCopy();
+        if (dragCopy != null)
         {
-            Renderer[] renderers = dragCopy.GetComponentsInChildren<Renderer>();
-            for (int i = 0; i < renderers.Length; ++i)
+            var renderers = dragCopy.GetComponentsInChildren<Renderer>();
+            for (var i = 0; i < renderers.Length; ++i)
             {
                 renderers[i].enabled = true;
             }
+
             return true;
         }
+
         return false;
     }
 
@@ -54,11 +61,12 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
         if (!active) return;
         if (!_dragging && _controllableScriptRef == dragged)
         {
-            Renderer[] renderers = _controllable.GetComponentsInChildren<Renderer>();
-            for (int i = 0; i < renderers.Length; ++i)
+            var renderers = _controllable.GetComponentsInChildren<Renderer>();
+            for (var i = 0; i < renderers.Length; ++i)
             {
                 renderers[i].enabled = false;
             }
+
             _enabledDragCopy = TryEnableDragCopyRenderer();
             _dragging = true;
         }
@@ -69,11 +77,12 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
         if (!active) return;
         if (dragged == _controllableScriptRef)
         {
-            Renderer[] renderers = _controllable.GetComponentsInChildren<Renderer>();
-            for (int i = 0; i < renderers.Length; ++i)
+            var renderers = _controllable.GetComponentsInChildren<Renderer>();
+            for (var i = 0; i < renderers.Length; ++i)
             {
                 renderers[i].enabled = true;
             }
+
             _enabledDragCopy = false;
             _dragging = false;
         }
@@ -84,11 +93,12 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
         if (!active) return;
         if (dragged == _controllableScriptRef)
         {
-            Renderer[] renderers = _controllable.GetComponentsInChildren<Renderer>();
-            for (int i = 0; i < renderers.Length; ++i)
+            var renderers = _controllable.GetComponentsInChildren<Renderer>();
+            for (var i = 0; i < renderers.Length; ++i)
             {
                 renderers[i].enabled = true;
             }
+
             _enabledDragCopy = false;
             _dragging = false;
         }

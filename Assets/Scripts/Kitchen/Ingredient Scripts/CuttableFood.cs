@@ -1,28 +1,40 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))] 
+[RequireComponent(typeof(Collider))]
 public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 {
-    [SerializeField] private IngredientType _ingredientType;
-    [SerializeField] private float _ingredientHeight;
-    [SerializeField] protected GameObject _currentState;
-    [SerializeField] private List<GameObject> _cutStates;
-    [HideInInspector] public CuttingBoard cuttingBoard = null;
-    [SerializeField] private bool _isHard = false;
+    [SerializeField]
+    private IngredientType _ingredientType;
+
+    [SerializeField]
+    private float _ingredientHeight;
+
+    [SerializeField]
+    protected GameObject _currentState;
+
+    [SerializeField]
+    private List<GameObject> _cutStates;
+
+    [HideInInspector]
+    public CuttingBoard cuttingBoard = null;
+
+    [SerializeField]
+    private bool _isHard = false;
+
     protected int _currentStateIndex = 0;
 
     private List<IObserver> _observers = new List<IObserver>();
 
     protected void Awake()
     {
-        this.gameObject.tag = "Ingredient";
+        gameObject.tag = "Ingredient";
     }
 
     // Start is called before the first frame update
     protected void Start()
     {
-        if (_cutStates != null && (_cutStates.Count == 0 || _cutStates[0] !=_currentState))
+        if (_cutStates != null && (_cutStates.Count == 0 || _cutStates[0] != _currentState))
         {
             _cutStates.Insert(0, _currentState);
         }
@@ -31,16 +43,15 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     // Update is called once per frame
     protected void Update()
     {
-        
     }
 
     public virtual bool Cut()
     {
         if (_currentStateIndex < _cutStates.Count - 1)
         {
-            Transform previous = _currentState.transform;
+            var previous = _currentState.transform;
             Destroy(_currentState);
-            _currentState = Instantiate(_cutStates[++_currentStateIndex], this.transform);
+            _currentState = Instantiate(_cutStates[++_currentStateIndex], transform);
             _currentState.transform.localPosition = new Vector3(0, 0, 0);
             _currentState.transform.position = previous.position;
             _currentState.transform.rotation = previous.rotation;
@@ -50,12 +61,17 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
                 Notify(new CuttableCutUpEvent(this, _isHard));
                 Notify(new IngredientDoneEvent(this));
             }
+
             return true;
         }
-        else return false;
+        else
+        {
+            return false;
+        }
     }
 
     #region IIngredient
+
     public IngredientType GetIngredientType()
     {
         return _ingredientType;
@@ -69,7 +85,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
     public void AddedToDish()
     {
         cuttingBoard?.RequestRemoveSelected(this);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public float GetHeight()
@@ -79,33 +95,38 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 
     public virtual GameObject GetDishMesh()
     {
-        if(ReadyForDish())
+        if (ReadyForDish())
         {
-            GameObject copy = Instantiate(this.gameObject);
+            var copy = Instantiate(gameObject);
             Destroy(copy.GetComponent<CuttableFood>());
-            Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
-            for (int i = 0; i < renderers.Length; ++i)
+            var renderers = copy.GetComponentsInChildren<Renderer>();
+            for (var i = 0; i < renderers.Length; ++i)
             {
                 renderers[i].enabled = true;
             }
-            Collider[] colliders = copy.GetComponentsInChildren<Collider>();
-            Rigidbody[] rbs = copy.GetComponentsInChildren<Rigidbody>();
-            for (int i = 0; i < rbs.Length; ++i)
+
+            var colliders = copy.GetComponentsInChildren<Collider>();
+            var rbs = copy.GetComponentsInChildren<Rigidbody>();
+            for (var i = 0; i < rbs.Length; ++i)
             {
                 Destroy(rbs[i]);
             }
-            for (int i = 0; i < colliders.Length; ++i)
+
+            for (var i = 0; i < colliders.Length; ++i)
             {
                 Destroy(colliders[i]);
             }
+
             return copy;
         }
-        return _cutStates[_cutStates.Count-1];
+
+        return _cutStates[_cutStates.Count - 1];
     }
 
     #endregion
 
     #region IControllable
+
     public void OnClick(Vector3 hitPoint)
     {
     }
@@ -144,21 +165,24 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 
     public virtual GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(this.gameObject);
+        var copy = Instantiate(gameObject);
         Destroy(copy.GetComponent<CuttableFood>());
-        Collider[] colliders = copy.GetComponentsInChildren<Collider>();
-        Rigidbody[] rbs = copy.GetComponentsInChildren<Rigidbody>();
-        for (int i = 0; i < rbs.Length; ++i)
+        var colliders = copy.GetComponentsInChildren<Collider>();
+        var rbs = copy.GetComponentsInChildren<Rigidbody>();
+        for (var i = 0; i < rbs.Length; ++i)
         {
             Destroy(rbs[i]);
         }
-        for (int i = 0; i < colliders.Length; ++i)
+
+        for (var i = 0; i < colliders.Length; ++i)
         {
             Destroy(colliders[i]);
         }
+
         copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         return copy;
     }
+
     #endregion
 
     public void Register(IObserver observer)
@@ -173,7 +197,7 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }

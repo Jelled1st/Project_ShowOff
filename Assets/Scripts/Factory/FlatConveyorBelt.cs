@@ -207,7 +207,7 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     protected virtual void FixedUpdateMovement()
     {
-        Vector3 pos = _rBody.position;
+        var pos = _rBody.position;
         _rBody.position += _rBody.transform.right * -Speed * Time.fixedDeltaTime;
         _rBody.MovePosition(pos);
     }
@@ -224,8 +224,8 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
 
     protected virtual void Turn()
     {
-        _rotateTween = this.gameObject.transform.DORotate(
-            this.gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0),
+        _rotateTween = gameObject.transform.DORotate(
+            gameObject.transform.rotation.eulerAngles + new Vector3(0, 90, 0),
             RotateInterval);
         _rotateTween.onComplete += delegate { _rotateTween = null; };
     }

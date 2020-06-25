@@ -8,11 +8,16 @@ namespace Factory
     [SelectionBase]
     public class SplitterBelt : FlatConveyorBelt
     {
-        [Header("Splitter settings")] [SerializeField]
+        [Header("Splitter settings")]
+        [SerializeField]
         private float _rotationSpeed;
 
-        [SerializeField] private float _delay;
-        [ReorderableList] [SerializeField] private List<float> _angles = new List<float> {-45f, 45f};
+        [SerializeField]
+        private float _delay;
+
+        [ReorderableList]
+        [SerializeField]
+        private List<float> _angles = new List<float> {-45f, 45f};
 
         private int _currentAngleId = 0;
         private Sequence _sequence;

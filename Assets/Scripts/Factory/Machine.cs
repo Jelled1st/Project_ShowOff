@@ -124,7 +124,7 @@ namespace Factory
         private int CurrentClogStage
         {
             get => _currentClogStage;
-            set { _currentClogStage = value; }
+            set => _currentClogStage = value;
         }
 
         private Queue<GameObject> ItemBuffer

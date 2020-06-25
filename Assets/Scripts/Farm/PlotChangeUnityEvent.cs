@@ -9,7 +9,7 @@ public struct PlotChangeUnityEvent
 
     public void TryInvoke(FarmPlot.State state, FarmPlot.State preState)
     {
-        if(newState == state && previousState == preState)
+        if (newState == state && previousState == preState)
         {
             events.Invoke();
         }

@@ -7,21 +7,20 @@ public class LevelFadeout : MonoBehaviour
 {
     public GameObject blackOutSquare;
 
-    void Update()
+    private void Update()
     {
-
     }
 
     public IEnumerator FadeBlackOutSquare(bool fadeToBlack = true, int fadeSpeed = 5)
     {
-        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        var objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
 
         if (fadeToBlack)
         {
-            while(blackOutSquare.GetComponent<Image>().color.a < 1)
+            while (blackOutSquare.GetComponent<Image>().color.a < 1)
             {
-                fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+                fadeAmount = objectColor.a + fadeSpeed * Time.deltaTime;
 
                 objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                 blackOutSquare.GetComponent<Image>().color = objectColor;
@@ -32,13 +31,12 @@ public class LevelFadeout : MonoBehaviour
         {
             while (blackOutSquare.GetComponent<Image>().color.a > 0)
             {
-                fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+                fadeAmount = objectColor.a - fadeSpeed * Time.deltaTime;
 
                 objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                 blackOutSquare.GetComponent<Image>().color = objectColor;
                 yield return null;
             }
         }
-
     }
 }

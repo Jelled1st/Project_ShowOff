@@ -4,29 +4,31 @@ using DG.Tweening;
 
 public class RotateCuttable : MonoBehaviour, IObserver
 {
-    [SerializeField] private CuttableFood _cuttable;
-    [SerializeField] private List<Vector3> _rotations;
+    [SerializeField]
+    private CuttableFood _cuttable;
+
+    [SerializeField]
+    private List<Vector3> _rotations;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Subscribe(_cuttable);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 
     public void OnNotify(AObserverEvent observerEvent)
     {
-        if(observerEvent is CuttableCutEvent)
+        if (observerEvent is CuttableCutEvent)
         {
-            CuttableCutEvent oEvent = observerEvent as CuttableCutEvent;
+            var oEvent = observerEvent as CuttableCutEvent;
             if (_rotations.Count >= oEvent.state)
             {
-                _cuttable.gameObject.transform.DORotate(_rotations[oEvent.state-1], 0.3f, RotateMode.LocalAxisAdd);
+                _cuttable.gameObject.transform.DORotate(_rotations[oEvent.state - 1], 0.3f, RotateMode.LocalAxisAdd);
             }
         }
     }

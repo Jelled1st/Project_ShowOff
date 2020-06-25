@@ -1,4 +1,4 @@
-interface ISetTimer
+public interface ISetTimer
 {
     void SetTimer(int time);
 }

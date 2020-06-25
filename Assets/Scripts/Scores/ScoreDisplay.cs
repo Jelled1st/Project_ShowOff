@@ -2,13 +2,15 @@
 
 public class ScoreDisplay : LanguageText, IScoresObserver
 {
-    [SerializeField] float _scoreAddSpeed = 2.0f;
+    [SerializeField]
+    private float _scoreAddSpeed = 2.0f;
+
     private float _displayScore = 0;
     private float _unAddedScore;
     private string _preText = "Score: ";
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Subscribe();
         if (_fieldName == "") _fieldName = "misc.score";
@@ -17,11 +19,11 @@ public class ScoreDisplay : LanguageText, IScoresObserver
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (_unAddedScore != 0.0f)
         {
-            float amount = 0.0f;
+            var amount = 0.0f;
             if (_unAddedScore < 0.0f)
             {
                 amount = Mathf.Max(-_scoreAddSpeed, _unAddedScore);
@@ -63,6 +65,7 @@ public class ScoreDisplay : LanguageText, IScoresObserver
     }
 
     #region LanguageText
+
     public override void SetText(string text)
     {
         _preText = text + ": ";
@@ -72,5 +75,6 @@ public class ScoreDisplay : LanguageText, IScoresObserver
     {
         return _fieldName;
     }
+
     #endregion
 }

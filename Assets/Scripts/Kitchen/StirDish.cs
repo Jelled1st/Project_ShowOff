@@ -5,30 +5,41 @@ using DG.Tweening;
 public class StirDish : Dish
 {
     [Header("Stir dish exlusive")]
-    [SerializeField] GameObject _spoon;
-    [SerializeField] List<StirDishRequiredStir> _requiredStirOptions;
-    [SerializeField] GameObject _ingredientRotateParent;
-    [SerializeField] float _stirTime = 0.8f;
-    private bool _mustStir = false;
-    bool _isFinished = false;
-    private StirDishRequiredStir _currentRequiredStir = null;
-    Animator _spoonAnimator;
+    [SerializeField]
+    private GameObject _spoon;
 
-    new void Awake() => base.Awake();
-    
+    [SerializeField]
+    private List<StirDishRequiredStir> _requiredStirOptions;
+
+    [SerializeField]
+    private GameObject _ingredientRotateParent;
+
+    [SerializeField]
+    private float _stirTime = 0.8f;
+
+    private bool _mustStir = false;
+    private bool _isFinished = false;
+    private StirDishRequiredStir _currentRequiredStir = null;
+    private Animator _spoonAnimator;
+
+    private new void Awake()
+    {
+        base.Awake();
+    }
+
     // Start is called before the first frame update
-    new void Start()
+    private new void Start()
     {
         base.Start();
         _spoonAnimator = _spoon.GetComponent<Animator>();
-        for(int i = 0; i < _requiredStirOptions.Count; ++i)
+        for (var i = 0; i < _requiredStirOptions.Count; ++i)
         {
             _requiredStirOptions[i].Init(this);
         }
     }
 
     // Update is called once per frame
-    new void Update()
+    private new void Update()
     {
         base.Update();
     }
@@ -42,21 +53,25 @@ public class StirDish : Dish
     {
         if (TryAddIngredientCheck(ingredient))
         {
-            if(IsFinished(true) && !_isFinished)
+            if (IsFinished(true) && !_isFinished)
             {
                 _isFinished = true;
                 InformObserversFinish();
             }
+
             return true;
         }
-        else return false;
+        else
+        {
+            return false;
+        }
     }
 
     private bool TryAddIngredientCheck(IIngredient ingredient)
     {
         if (_mustStir && !_currentRequiredStir.HasIngredientType(ingredient.GetIngredientType())) return false;
         if (_debugLog) Debug.Log("Trying to add");
-        IngredientType type = ingredient.GetIngredientType();
+        var type = ingredient.GetIngredientType();
         if (_finishIngredient != IngredientType.Undefined && type == _finishIngredient)
         {
             if (IsFinished(false))
@@ -70,8 +85,9 @@ public class StirDish : Dish
                 return true;
             }
         }
+
         if (_finishIngredientPlaced) return false;
-        for (int i = 0; i < _requiredIngredients.Count; ++i)
+        for (var i = 0; i < _requiredIngredients.Count; ++i)
         {
             if (type == _requiredIngredients[i])
             {
@@ -83,7 +99,8 @@ public class StirDish : Dish
                 return true;
             }
         }
-        for (int i = 0; i < _optionalIngredients.Count; ++i)
+
+        for (var i = 0; i < _optionalIngredients.Count; ++i)
         {
             if (type == _optionalIngredients[i])
             {
@@ -95,15 +112,16 @@ public class StirDish : Dish
                 return true;
             }
         }
+
         if (_debugLog) Debug.Log("Could not be added");
         return false;
     }
 
     public void ReachRequiredStir(StirDishRequiredStir requiredStir)
     {
-        for(int i = 0; i < _requiredStirOptions.Count; ++i)
+        for (var i = 0; i < _requiredStirOptions.Count; ++i)
         {
-            if(_requiredStirOptions[i] == requiredStir)
+            if (_requiredStirOptions[i] == requiredStir)
             {
                 SetRequiredStir(true);
                 _requiredStirOptions.RemoveAt(i);
@@ -120,7 +138,7 @@ public class StirDish : Dish
 
     public override GameObject GetDragCopy()
     {
-        GameObject copy = base.GetDragCopy();
+        var copy = base.GetDragCopy();
         if (copy == null) return null;
         Destroy(copy.GetComponent<StirDish>());
         Destroy(copy.GetComponent<Collider>());
@@ -128,7 +146,7 @@ public class StirDish : Dish
     }
 
     public override void OnPress(Vector3 hitPoint)
-    { 
+    {
         base.OnPress(hitPoint);
 
         if (!_spoonAnimator.GetCurrentAnimatorStateInfo(0).IsName("anim_spoon_stirring"))

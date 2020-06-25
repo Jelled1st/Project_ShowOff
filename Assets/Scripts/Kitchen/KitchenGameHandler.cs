@@ -5,52 +5,61 @@ using UnityEngine.UI;
 
 public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 {
-    [SerializeField] List<Dish> _dishes;
-    [SerializeField] OnEventPlayer _onEventPlayer;
-    [SerializeField] KitchenTutorial _kitchenTutorial;
+    [SerializeField]
+    private List<Dish> _dishes;
+
+    [SerializeField]
+    private OnEventPlayer _onEventPlayer;
+
+    [SerializeField]
+    private KitchenTutorial _kitchenTutorial;
+
     private Dish _choosenDish;
 
     private List<IObserver> _observers = new List<IObserver>();
-    bool _paused = false;
-    bool _pausedForTutorial = false;
-    bool _gameFinished = false;
+    private bool _paused = false;
+    private bool _pausedForTutorial = false;
+    private bool _gameFinished = false;
 
     private List<IIngredient> _ingredients;
     private List<GameObject> _ingredientGOs;
 
-    [SerializeField] private bool _disableIngredients = true;
+    [SerializeField]
+    private bool _disableIngredients = true;
 
     public GameObject blackOutSquare;
     public GameObject blackoutCanvas;
 
-    void Awake()
+    private void Awake()
     {
-        this.gameObject.tag = "GameHandler";
+        gameObject.tag = "GameHandler";
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (blackoutCanvas.activeInHierarchy == false)
         {
             blackoutCanvas.SetActive(true);
         }
+
         StartCoroutine(FadeIn());
 
         _ingredients = new List<IIngredient>();
         _ingredientGOs = new List<GameObject>();
-        GameObject[] ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
-        for(int i = 0; i < ingredients.Length; ++i)
+        var ingredients = GameObject.FindGameObjectsWithTag("Ingredient");
+        for (var i = 0; i < ingredients.Length; ++i)
         {
             _ingredients.Add(ingredients[i].GetComponent<IIngredient>());
             _ingredientGOs.Add(ingredients[i]);
-            if(_disableIngredients) ingredients[i].SetActive(false);
+            if (_disableIngredients) ingredients[i].SetActive(false);
         }
+
         _kitchenTutorial.gameHandler = this;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Equals) && _choosenDish == null) ChooseDish(_dishes[0]);
         if (_pausedForTutorial && Input.GetMouseButtonDown(0))
@@ -61,7 +70,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 
     public void SubscribeToAllIngredients(IObserver observer)
     {
-        for(int i = 0; i < _ingredients.Count; ++i)
+        for (var i = 0; i < _ingredients.Count; ++i)
         {
             _ingredients[i].Register(observer);
         }
@@ -69,18 +78,19 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 
     public void ChooseDish(Dish dish)
     {
-        for(int i = 0; i < _dishes.Count; ++i)
+        for (var i = 0; i < _dishes.Count; ++i)
         {
             if (_dishes[i] == dish)
             {
                 _choosenDish = _dishes[i];
                 EnableDishIngredients(_choosenDish);
                 Subscribe(_choosenDish);
-                List<Dish> sideDishes = _choosenDish.GetSideDishesLeft();
-                for(int j = 0; j < sideDishes.Count; ++j)
+                var sideDishes = _choosenDish.GetSideDishesLeft();
+                for (var j = 0; j < sideDishes.Count; ++j)
                 {
                     Subscribe(sideDishes[j]);
                 }
+
                 _onEventPlayer.Subscribe(_choosenDish);
                 _kitchenTutorial.ChooseDish(dish);
                 Scores.SetCurrentDish(dish.GetDishType());
@@ -99,33 +109,32 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 
     public IEnumerator FadeIn(bool fadeToWhite = true, int fadeSpeed = 5)
     {
-        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        var objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
 
         if (fadeToWhite)
         {
             while (blackOutSquare.GetComponent<Image>().color.a > 0)
             {
-                fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+                fadeAmount = objectColor.a - fadeSpeed * Time.deltaTime;
 
                 objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                 blackOutSquare.GetComponent<Image>().color = objectColor;
                 yield return null;
             }
         }
-
     }
 
     private void EnableDishIngredients(Dish dish)
     {
-        List<IngredientType> ingredientTypes = new List<IngredientType>(dish.GetAllPossibleIngredients());
+        var ingredientTypes = new List<IngredientType>(dish.GetAllPossibleIngredients());
 
-        for(int i = _ingredients.Count-1; i >= 0; --i)
+        for (var i = _ingredients.Count - 1; i >= 0; --i)
         {
-            if(ingredientTypes.Contains(_ingredients[i].GetIngredientType()))
+            if (ingredientTypes.Contains(_ingredients[i].GetIngredientType()))
             {
                 _ingredientGOs[i].SetActive(true);
-                if(_ingredients[i] is ISubject) _onEventPlayer.Subscribe(_ingredients[i] as ISubject);
+                if (_ingredients[i] is ISubject) _onEventPlayer.Subscribe(_ingredients[i] as ISubject);
             }
             else
             {
@@ -142,9 +151,9 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         if (!_paused)
         {
             _paused = true;
-            for (int i = 0; i < _observers.Count; ++i)
+            for (var i = 0; i < _observers.Count; ++i)
             {
-                if(_observers is IGameHandlerObserver) (_observers[i] as IGameHandlerObserver).OnPause();
+                if (_observers is IGameHandlerObserver) (_observers[i] as IGameHandlerObserver).OnPause();
             }
         }
     }
@@ -155,7 +164,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         {
             _pausedForTutorial = false;
             _paused = false;
-            for (int i = 0; i < _observers.Count; ++i)
+            for (var i = 0; i < _observers.Count; ++i)
             {
                 if (_observers is IGameHandlerObserver) (_observers[i] as IGameHandlerObserver).OnContinue();
             }
@@ -166,13 +175,14 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     {
         if (!_gameFinished)
         {
-            for (int i = 0; i < _observers.Count; ++i)
+            for (var i = 0; i < _observers.Count; ++i)
             {
                 if (_observers[i] is IGameHandlerObserver)
                 {
                     (_observers[i] as IGameHandlerObserver).OnFinish();
                 }
             }
+
             _gameFinished = true;
         }
     }
@@ -189,7 +199,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }
@@ -200,6 +210,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     }
 
     #region IDishObserver
+
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
         Scores.AddScore(250);
@@ -207,7 +218,7 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
 
     public void OnFinishDish(ISubject subject)
     {
-        if(subject as Dish == _choosenDish) FinishGame();
+        if (subject as Dish == _choosenDish) FinishGame();
     }
 
     public void Subscribe(ISubject subject)
@@ -219,7 +230,6 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
     {
         subject.UnRegister(this);
     }
-    #endregion
 
- 
+    #endregion
 }

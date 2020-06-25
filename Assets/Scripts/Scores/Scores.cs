@@ -146,7 +146,7 @@ public static class Scores
 
         var gotToTop = ScoreList.Take(MaxScoresCount).Contains(newUser);
 
-        for (int i = 0; i < MaxScoresCount; i++)
+        for (var i = 0; i < MaxScoresCount; i++)
         {
             if (ScoreList.Count <= i)
                 break;
@@ -172,7 +172,7 @@ public static class Scores
 
     private static void NotifyAddScore(float score)
     {
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].AddedScore(score);
         }
@@ -180,7 +180,7 @@ public static class Scores
 
     private static void NotifySubScore(float score)
     {
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].SubtractedScore(score);
         }
@@ -188,7 +188,7 @@ public static class Scores
 
     private static void NotifyAdjustScore(float score)
     {
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].AdjustedScore(score);
         }

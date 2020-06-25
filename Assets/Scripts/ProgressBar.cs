@@ -3,18 +3,22 @@ using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
-    [SerializeField] private Slider _slider;
-    [SerializeField] private Image _backgroundColor;
-    [SerializeField] private Image _fillColor;
+    [SerializeField]
+    private Slider _slider;
+
+    [SerializeField]
+    private Image _backgroundColor;
+
+    [SerializeField]
+    private Image _fillColor;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
     }
 

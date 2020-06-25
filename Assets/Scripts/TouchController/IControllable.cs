@@ -12,6 +12,7 @@ public interface IControllable
 
     //OnHold is called when the mouse is clicked on the object and held
     void OnHold(float holdTime, Vector3 hitPoint);
+
     //OnHoldRelease is called when the mouse let's go of the hold on the object
     void OnHoldRelease(float timeHeld);
 
@@ -22,12 +23,15 @@ public interface IControllable
 
 
     void OnDrag(Vector3 position);
+
     // OnDragDrop is called when the object is released from dragging
     // and the drop was succesful - it was dropped on an IControllable
     void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo);
+
     // OnDragDropFailed is called when the object is released from dragging
     // but the drop failed - it was dropped in empty space
     void OnDragDropFailed(Vector3 position);
+
     // OnDrop is called when something is dropped on the object
     void OnDrop(IControllable dropped, ControllerHitInfo hitInfo);
 

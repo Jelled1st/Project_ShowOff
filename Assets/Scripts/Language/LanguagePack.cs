@@ -3,22 +3,24 @@
 [CreateAssetMenu(fileName = "LanguagePack", menuName = "ScriptableObjects/LanguagePack", order = 1)]
 public class LanguagePack : ScriptableObject
 {
-    [SerializeField] TextAsset _file;
+    [SerializeField]
+    private TextAsset _file;
 
     private LanguageHandler _languageHandler;
 
     public void UnPack(LanguageHandler handler)
     {
         _languageHandler = handler;
-        string file = _file.text;
-        string[] lines = file.Split('\n');
-        for(int i = 0; i < lines.Length; ++i)
+        var file = _file.text;
+        var lines = file.Split('\n');
+        for (var i = 0; i < lines.Length; ++i)
         {
             if (lines[i].StartsWith("/"))
             {
                 continue;
             }
-            string line = lines[i];
+
+            var line = lines[i];
             if (line.StartsWith("main."))
             {
                 ParseLineMain(line);
@@ -39,7 +41,10 @@ public class LanguagePack : ScriptableObject
             {
                 ParseLineMisc(line);
             }
-            else Debug.LogError("Translation not found for: " + _file.name + "(" + line + ")"); 
+            else
+            {
+                Debug.LogError("Translation not found for: " + _file.name + "(" + line + ")");
+            }
         }
     }
 
@@ -49,7 +54,7 @@ public class LanguagePack : ScriptableObject
         {
             _languageHandler.main.start = line.Substring(12, line.Length - 12);
         }
-        else if(line.StartsWith("main.exit: "))
+        else if (line.StartsWith("main.exit: "))
         {
             _languageHandler.main.exit = line.Substring(11, line.Length - 11);
         }
@@ -83,16 +88,17 @@ public class LanguagePack : ScriptableObject
         }
         else if (line.StartsWith("farm.waterQuest: "))
         {
-            _languageHandler.farm.waterQuest = line.Substring(17, line.Length-17);
+            _languageHandler.farm.waterQuest = line.Substring(17, line.Length - 17);
         }
     }
-    
+
     private void ParseLineFactory(string line)
     {
         if (line.StartsWith("factory.mainQuest: "))
         {
             _languageHandler.factory.mainQuest = line.Substring(19, line.Length - 19);
         }
+
         if (line.StartsWith("factory.level2Quest: "))
         {
             _languageHandler.factory.level2Quest = line.Substring(21, line.Length - 21);
@@ -173,7 +179,7 @@ public class LanguagePack : ScriptableObject
         }
         else if (line.StartsWith("kitchen.fryFries: "))
         {
-            _languageHandler.kitchen.fryFries = line.Substring(18, line.Length-18);
+            _languageHandler.kitchen.fryFries = line.Substring(18, line.Length - 18);
         }
     }
 
@@ -205,11 +211,11 @@ public class LanguagePack : ScriptableObject
         }
         else if (line.StartsWith("misc.score: "))
         {
-            _languageHandler.misc.score = line.Substring(12, line.Length-13);
+            _languageHandler.misc.score = line.Substring(12, line.Length - 13);
         }
-        else if(line.StartsWith("misc.lossText: "))
+        else if (line.StartsWith("misc.lossText: "))
         {
-            _languageHandler.misc.lossText = line.Substring(15, line.Length-15);
+            _languageHandler.misc.lossText = line.Substring(15, line.Length - 15);
         }
     }
 }

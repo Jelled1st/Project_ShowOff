@@ -4,8 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StirDishRequiredStir", menuName = "ScriptableObjects/StirDishRequiredStir", order = 1)]
 public class StirDishRequiredStir : ScriptableObject, IDishObserver
 {
-    [SerializeField] List<IngredientType> _stirAfterIngredients;
-    List<IngredientType> _uniqueTypes;
+    [SerializeField]
+    private List<IngredientType> _stirAfterIngredients;
+
+    private List<IngredientType> _uniqueTypes;
     private List<IngredientType> _ingredients;
     private StirDish dish;
 
@@ -16,10 +18,11 @@ public class StirDishRequiredStir : ScriptableObject, IDishObserver
         Subscribe(dish);
 
         _uniqueTypes = new List<IngredientType>();
-        for (int i = 0; i < _stirAfterIngredients.Count; ++i)
+        for (var i = 0; i < _stirAfterIngredients.Count; ++i)
         {
             if (!_uniqueTypes.Contains(_stirAfterIngredients[i])) _uniqueTypes.Add(_stirAfterIngredients[i]);
         }
+
         _ingredients = new List<IngredientType>(_stirAfterIngredients);
     }
 
@@ -39,14 +42,15 @@ public class StirDishRequiredStir : ScriptableObject, IDishObserver
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
-        for(int i = 0; i < _ingredients.Count; ++i)
+        for (var i = 0; i < _ingredients.Count; ++i)
         {
-            if(_ingredients[i] == ingredient.GetIngredientType())
+            if (_ingredients[i] == ingredient.GetIngredientType())
             {
                 _ingredients.RemoveAt(i);
                 break;
             }
         }
+
         if (_ingredients.Count == 0)
         {
             dish.ReachRequiredStir(this);

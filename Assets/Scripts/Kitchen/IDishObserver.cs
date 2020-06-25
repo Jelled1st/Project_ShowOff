@@ -2,5 +2,4 @@
 {
     void OnIngredientAdd(ISubject subject, IIngredient ingredient);
     void OnFinishDish(ISubject subject);
-
 }

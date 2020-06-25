@@ -5,9 +5,11 @@ using UnityEngine;
 public class EasterEgg_locker : MonoBehaviour
 {
     private bool _isClicked = false;
+
     private Rigidbody _rigidBody;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _rigidBody = gameObject.GetComponent<Rigidbody>();
     }
@@ -18,6 +20,7 @@ public class EasterEgg_locker : MonoBehaviour
         {
             _rigidBody.AddRelativeForce(0, 0, 750f);
         }
+
         _isClicked = true;
     }
 }

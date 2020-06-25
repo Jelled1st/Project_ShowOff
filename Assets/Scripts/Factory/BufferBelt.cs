@@ -76,7 +76,9 @@ namespace Factory
                 _releaseTween = null;
 
                 if (_storedObjects.Count > 0)
+                {
                     ReleaseObjects();
+                }
                 else
                 {
                     FinishedOutputting();

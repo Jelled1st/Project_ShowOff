@@ -3,15 +3,13 @@
 public class DebugLog : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 
     public void Write(string output)
@@ -23,6 +21,4 @@ public class DebugLog : MonoBehaviour
     {
         Debug.Log(output);
     }
-
-
 }

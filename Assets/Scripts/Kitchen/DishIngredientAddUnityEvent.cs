@@ -8,7 +8,7 @@ public struct DishIngredientAddUnityEvent
 
     public void TryInvoke(IngredientType ingredient)
     {
-        if(ingredient == ingredientType)
+        if (ingredient == ingredientType)
         {
             events.Invoke();
         }

@@ -4,36 +4,40 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class FryableFood : MonoBehaviour, IControllable, IIngredient
 {
-    [SerializeField] private IngredientType _ingredientType;
-    [SerializeField] private float _ingredientHeight;
-    [SerializeField] private float _timeToFry;
+    [SerializeField]
+    private IngredientType _ingredientType;
+
+    [SerializeField]
+    private float _ingredientHeight;
+
+    [SerializeField]
+    private float _timeToFry;
+
     public FryFryer fryer;
     private float _friedTime = 0.0f;
-    bool _isFried = false;
+    private bool _isFried = false;
 
     private List<IObserver> _observers = new List<IObserver>();
 
-    void Awake()
+    private void Awake()
     {
-        this.gameObject.tag = "Ingredient";
+        gameObject.tag = "Ingredient";
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 
     public void Fry()
     {
         _friedTime += Time.deltaTime;
-        if(!_isFried && IsFried())
+        if (!_isFried && IsFried())
         {
             _isFried = true;
             Notify(new IngredientDoneEvent(this));
@@ -56,27 +60,32 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
     }
 
     #region IIngredient
+
     public void AddedToDish()
     {
         fryer.RemoveFood(this);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public GameObject GetDishMesh()
     {
         if (ReadyForDish())
         {
-            GameObject copy = Instantiate(this.gameObject);
+            var copy = Instantiate(gameObject);
             Destroy(copy.GetComponent<FryableFood>());
             Destroy(copy.GetComponent<Collider>());
-            Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
-            for (int i = 0; i < renderers.Length; ++i)
+            var renderers = copy.GetComponentsInChildren<Renderer>();
+            for (var i = 0; i < renderers.Length; ++i)
             {
                 renderers[i].enabled = true;
             }
+
             return copy;
         }
-        else return null;
+        else
+        {
+            return null;
+        }
     }
 
     public float GetHeight()
@@ -95,15 +104,19 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
         {
             return true;
         }
-        else return false;
+        else
+        {
+            return false;
+        }
     }
+
     #endregion
 
     #region IControllable
 
     public GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(this.gameObject);
+        var copy = Instantiate(gameObject);
         Destroy(copy.GetComponent<FryableFood>());
         Destroy(copy.GetComponent<Collider>());
         return copy;
@@ -159,7 +172,7 @@ public class FryableFood : MonoBehaviour, IControllable, IIngredient
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }

@@ -25,7 +25,7 @@ public enum IngredientType
     Cucumber,
     FetaCheese,
     LettuceLeaves,
-    Paprika, 
+    Paprika
 }
 
 public interface IIngredient : ISubject

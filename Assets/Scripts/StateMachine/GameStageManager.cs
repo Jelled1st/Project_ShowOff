@@ -5,8 +5,11 @@ namespace StateMachine
 {
     public class GameStageManager : LazySingleton<GameStageManager>
     {
-        [SerializeField] private StageSettingsContainer _stageSettingsContainer;
-        [SerializeField] private GameStages _initialStage;
+        [SerializeField]
+        private StageSettingsContainer _stageSettingsContainer;
+
+        [SerializeField]
+        private GameStages _initialStage;
 
         private static GameStage CurrentStageType { get; set; }
 

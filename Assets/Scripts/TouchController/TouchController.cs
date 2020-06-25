@@ -5,17 +5,19 @@ using UnityEngine.EventSystems;
 
 public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 {
-    [Tooltip("Amount of time an object needs to be clicked before onHold() is called, if an object is held less than this time it will be registered as a single press")]
-    [SerializeField] private float _holdTime = 0.3f;
+    [Tooltip(
+        "Amount of time an object needs to be clicked before onHold() is called, if an object is held less than this time it will be registered as a single press")]
+    [SerializeField]
+    private float _holdTime = 0.3f;
 
-    List<IControlsObserver> _observers = new List<IControlsObserver>();
+    private List<IControlsObserver> _observers = new List<IControlsObserver>();
 
     // General
     private IControllable _selected = null;
     private GameObject _selectedGameObject = null;
     private IControllable _previousSelected = null;
     private bool _paused = false;
-    
+
     // Holding
     private float _timeHeld = 0.0f;
     private ControllerHitInfo _hitInfo;
@@ -25,10 +27,15 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     private List<Vector3> _swipePositions;
     private bool _swipeStarted = false;
     private bool _currentlySwiping = false;
-    [Tooltip("Minimal amount of speed required for a press and move for it to be registered as a swipe, swipeSpeed will be scaled by 0.005 because of measuring in 3D distance")]
-    [SerializeField] private float _swipeSpeed = 1;
+
+    [Tooltip(
+        "Minimal amount of speed required for a press and move for it to be registered as a swipe, swipeSpeed will be scaled by 0.005 because of measuring in 3D distance")]
+    [SerializeField]
+    private float _swipeSpeed = 1;
+
     [Tooltip("Minimal distance for a swipe to be registered as swipe")]
-    [SerializeField] private float _swipeDistance = 1;
+    [SerializeField]
+    private float _swipeDistance = 1;
 
     // Drag and drop - can be the same as swiping, however a swipe needs a min speed and does not have to start on an object
     private IControllable _dragSelected = null;
@@ -37,22 +44,24 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     private bool _wasDraggingLastFrame = false;
 
     // UI raycasting
-    [SerializeField] private Canvas _canvas;
+    [SerializeField]
+    private Canvas _canvas;
+
     private GraphicRaycaster _graphicRaycaster;
     private EventSystem _eventSystem;
 
     // DEBUG
     private bool _debugLog = false;
 
-    void Awake()
+    private void Awake()
     {
-        this.gameObject.tag = "Controller";
+        gameObject.tag = "Controller";
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        GameObject gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
+        var gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
         ISubject gameHandlerSubject;
         if (gameHandler != null && gameHandler.TryGetComponent<ISubject>(out gameHandlerSubject))
         {
@@ -69,27 +78,31 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             {
                 _graphicRaycaster = _canvas.gameObject.AddComponent<GraphicRaycaster>();
             }
+
             if (_canvas.TryGetComponent<EventSystem>(out _eventSystem))
             {
                 _eventSystem = _canvas.gameObject.AddComponent<EventSystem>();
             }
         }
-        else Debug.LogWarning("No canvas added to controller");
+        else
+        {
+            Debug.LogWarning("No canvas added to controller");
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         //if (_paused) return;
-        bool mousePressed = Input.GetMouseButton(0);
+        var mousePressed = Input.GetMouseButton(0);
         IControllable controllable = null;
-        ControllerHitInfo hitInfo = new ControllerHitInfo(true);
+        var hitInfo = new ControllerHitInfo(true);
 
         if (mousePressed)
         {
-            bool hitUI = false;
-            if(_canvas != null) hitUI = HandleUIRaycast(out hitInfo);
-            if(hitUI)
+            var hitUI = false;
+            if (_canvas != null) hitUI = HandleUIRaycast(out hitInfo);
+            if (hitUI)
             {
                 controllable = hitInfo.gameObject.GetComponent<IControllable>();
                 _selected = controllable;
@@ -99,7 +112,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {
-                    if(_debugLog) Debug.Log("Hitcast hit: " + hit.transform.gameObject);
+                    if (_debugLog) Debug.Log("Hitcast hit: " + hit.transform.gameObject);
                     if (hit.transform.gameObject.TryGetComponent<IControllable>(out controllable))
                     {
                         hitInfo = new ControllerHitInfo(controllable, hit);
@@ -109,21 +122,28 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                     {
                         controllable = hit.transform.gameObject.GetComponentInParent<IControllable>();
 
-                        if(controllable != null)
+                        if (controllable != null)
                         {
                             hitInfo = new ControllerHitInfo(controllable, hit);
                             HitControllable(controllable, new ControllerHitInfo(controllable, hit));
                         }
-                        else HitNonControllable(new ControllerHitInfo(null, hit));
+                        else
+                        {
+                            HitNonControllable(new ControllerHitInfo(null, hit));
+                        }
                     }
                 }
-                else ResetPressAndHold();
+                else
+                {
+                    ResetPressAndHold();
+                }
             }
         }
         else
         {
             ResetPressAndHold();
         }
+
         HandleDragCalls();
         HandleSwipe(mousePressed, controllable != null);
     }
@@ -132,7 +152,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     {
         if (_selectedGameObject != null)
         {
-            if(Input.GetMouseButton(0) && _selected != null) //mouse is still down
+            if (Input.GetMouseButton(0) && _selected != null) //mouse is still down
             {
                 if (!_isDragging)
                 {
@@ -148,13 +168,14 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             {
                 if (!_swipeStarted && !_isDragging) OnPress(_selected, _hitInfo);
             }
-            
+
             _selected = null;
             _selectedGameObject = null;
             _timeHeld = 0;
         }
+
         _wasDraggingLastFrame = _isDragging;
-        if(!Input.GetMouseButton(0)) _isDragging = false;
+        if (!Input.GetMouseButton(0)) _isDragging = false;
     }
 
     private void StartDrag()
@@ -166,15 +187,15 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     private bool HandleUIRaycast(out ControllerHitInfo hitInfo)
     {
-        PointerEventData pointerEventData = new PointerEventData(_eventSystem);
+        var pointerEventData = new PointerEventData(_eventSystem);
         pointerEventData.position = Input.mousePosition;
 
-        List<RaycastResult> results = new List<RaycastResult>();
+        var results = new List<RaycastResult>();
         _graphicRaycaster.Raycast(pointerEventData, results);
 
         RaycastResult result;
         IControllable controllable = null;
-        for (int i = 0; i < results.Count; ++i)
+        for (var i = 0; i < results.Count; ++i)
         {
             if (results[i].gameObject.TryGetComponent<IControllable>(out controllable))
             {
@@ -184,6 +205,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
                 return true;
             }
         }
+
         //don't reset press, maybe world objects are hit
         hitInfo = new ControllerHitInfo(true);
         return false;
@@ -197,7 +219,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         {
             OnSwipe(GetLastSwipeDirection(), _lastMousePosition, controllable, hitInfo);
         }
-        else if(!_isDragging)// Not dragging nor swiping
+        else if (!_isDragging) // Not dragging nor swiping
         {
             //only if not swiping
             if (_selected != null && _selected != controllable)
@@ -214,6 +236,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
                 _timeHeld = 0;
             }
+
             _selected = controllable;
             _selectedGameObject = hitInfo.gameObject;
             _timeHeld += Time.unscaledDeltaTime;
@@ -234,7 +257,10 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             {
                 StartDrag();
             }
-            else _selected = null;
+            else
+            {
+                _selected = null;
+            }
 
             //if (_selected != null)
             //{
@@ -269,8 +295,11 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             _isDragging = false;
             _wasDraggingLastFrame = false;
         }
-        Vector3 mouse3d = new Vector3();
-        if (_isDragging || _wasDraggingLastFrame) mouse3d = Get3dCursorPosition((_dragStartInfo.gameObject.transform.position - Camera.main.transform.position).magnitude);
+
+        var mouse3d = new Vector3();
+        if (_isDragging || _wasDraggingLastFrame)
+            mouse3d = Get3dCursorPosition(
+                (_dragStartInfo.gameObject.transform.position - Camera.main.transform.position).magnitude);
         else return;
         if (_isDragging)
         {
@@ -300,17 +329,19 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
 
     private void HandleSwipe(bool mousePressed, bool hitControllable)
     {
-        Vector3 mousePos = Get3dCursorPosition(0.02f);
+        var mousePos = Get3dCursorPosition(0.02f);
         if (mousePressed)
         {
-            if ( _currentlySwiping || ( (Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed || (_swipeStarted)) ) ) //if a controllable was hit swiped are not allowed to start
+            if (_currentlySwiping || Mathf.Abs((mousePos - _lastMousePosition).magnitude) >= _swipeSpeed ||
+                _swipeStarted) //if a controllable was hit swiped are not allowed to start
             {
                 _swipeStarted = true;
                 _swipePositions.Add(mousePos);
-                if(_swipePositions.Count == 50)
+                if (_swipePositions.Count == 50)
                 {
                     _swipePositions.RemoveAt(0);
                 }
+
                 OnSwipe(GetLastSwipeDirection(), _lastMousePosition, null, _hitInfo);
                 //register swipe
                 if (!_currentlySwiping)
@@ -337,26 +368,30 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
             _swipePositions.Clear();
             _currentlySwiping = false;
         }
+
         _lastMousePosition = mousePos;
     }
 
     private Vector3 GetLastSwipeDirection()
     {
-        if (_swipePositions.Count <= 0) return new Vector3();
+        if (_swipePositions.Count <= 0)
+        {
+            return new Vector3();
+        }
         else if (_swipePositions.Count == 1)
         {
             return _swipePositions[0] - _lastMousePosition;
         }
         else
         {
-            int lastIndex = _swipePositions.Count - 1;
+            var lastIndex = _swipePositions.Count - 1;
             return _swipePositions[lastIndex] - _swipePositions[lastIndex - 1];
         }
     }
 
     private Vector3 Get3dCursorPosition(float z)
     {
-        Vector3 screenPoint = Input.mousePosition;
+        var screenPoint = Input.mousePosition;
         screenPoint.z = z;
         return Camera.main.ScreenToWorldPoint(screenPoint);
     }
@@ -365,7 +400,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     {
         float length = 0;
 
-        for(int i = 0; i < _swipePositions.Count - 1; ++i)
+        for (var i = 0; i < _swipePositions.Count - 1; ++i)
         {
             length += (_swipePositions[i + 1] - _swipePositions[i]).magnitude;
         }
@@ -378,24 +413,23 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     {
         if (observer is IControlsObserver)
         {
-            _observers.Add((IControlsObserver)observer);
+            _observers.Add((IControlsObserver) observer);
         }
     }
 
     public void UnRegister(IObserver observer)
     {
-        if (observer is IControlsObserver) _observers.Remove((IControlsObserver)observer);
+        if (observer is IControlsObserver) _observers.Remove((IControlsObserver) observer);
     }
 
     public void OnNotify(AObserverEvent observerEvent)
     {
-
     }
 
     public void OnClick(IControllable pressed, ControllerHitInfo hitInfo)
     {
         pressed?.OnClick(hitInfo.point);
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnClick(hitInfo);
         }
@@ -404,7 +438,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     public void OnPress(IControllable pressed, ControllerHitInfo hitInfo)
     {
         pressed?.OnPress(hitInfo.point);
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnPress(hitInfo);
         }
@@ -413,7 +447,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     public void OnHold(float holdTime, IControllable held, ControllerHitInfo hitInfo)
     {
         held?.OnHold(holdTime, hitInfo.point);
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnHold(holdTime, hitInfo);
         }
@@ -422,7 +456,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     public void OnHoldRelease(float timeHeld, IControllable released)
     {
         released?.OnHoldRelease(timeHeld);
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnHoldRelease(timeHeld, released);
         }
@@ -431,7 +465,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     public void OnSwipe(Vector3 direction, Vector3 lastPoint, IControllable swiped, ControllerHitInfo hitInfo)
     {
         swiped?.OnSwipe(direction, lastPoint);
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnSwipe(direction, lastPoint, hitInfo);
         }
@@ -440,7 +474,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     public void OnDrag(Vector3 position, IControllable dragged, ControllerHitInfo hitInfo)
     {
         dragged.OnDrag(position);
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnDrag(position, dragged, hitInfo);
         }
@@ -450,7 +484,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     {
         dragged.OnDragDrop(position, droppedOn, hitInfo);
         droppedOn.OnDrop(dragged, hitInfo);
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnDragDrop(position, dragged, droppedOn, hitInfo);
         }
@@ -459,7 +493,7 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
     public void OnDragDropFailed(Vector3 position, IControllable dragged)
     {
         dragged.OnDragDropFailed(position);
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnDragDropFailed(position, dragged);
         }

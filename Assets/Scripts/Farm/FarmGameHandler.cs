@@ -7,45 +7,66 @@ using UnityEngine.UI;
 [RequireComponent(typeof(BoxCollider))]
 public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarmPlotObserver, ISwarmObserver
 {
-    [SerializeField] GameObject _swarmPrefab;
+    [SerializeField]
+    private GameObject _swarmPrefab;
+
     private TouchController _touchController;
+
     [Header("SpawnStates and rates")]
-    [SerializeField] List<FarmPlotSpawnStateRate> _stateSpawnRates;
-    [SerializeField] private string _nextScene = "";
+    [SerializeField]
+    private List<FarmPlotSpawnStateRate> _stateSpawnRates;
+
+    [SerializeField]
+    private string _nextScene = "";
+
     public GameObject blackOutSquare;
     public GameObject blackoutCanvas;
 
     [Header("Scores")]
-    [SerializeField] private float _harvestPoints = 250;
-    [SerializeField] private float _fullyHealthyPoints = 500;
-    [SerializeField] private float _killBugPoinst = 100;
-    [SerializeField] private float _decayPenaltyPoints = 0;
-    [SerializeField] private float _witherPenaltyPoints = 25;
+    [SerializeField]
+    private float _harvestPoints = 250;
+
+    [SerializeField]
+    private float _fullyHealthyPoints = 500;
+
+    [SerializeField]
+    private float _killBugPoinst = 100;
+
+    [SerializeField]
+    private float _decayPenaltyPoints = 0;
+
+    [SerializeField]
+    private float _witherPenaltyPoints = 25;
 
     private List<IGameHandlerObserver> _gameHandlerObservers;
     private List<FarmPlot> _farmPlots = new List<FarmPlot>();
     private bool _paused = false;
     private bool _gameFinished = false;
     private bool _debugLog = false;
-    bool _trulyFinished = false;
+    private bool _trulyFinished = false;
 
     private bool _plantsStartAtGrown = false;
 
     [Header("Tutorial")]
-    [SerializeField] FarmTutorial _turorial;
-    [SerializeField] private bool _doTutorial = true;
+    [SerializeField]
+    private FarmTutorial _turorial;
+
+    [SerializeField]
+    private bool _doTutorial = true;
+
     private bool _pausedForTutorial = false;
     private bool _repeatPause = false;
     private bool _repeatPauseForTutorial = false;
 
-    void Awake()
+    private void Awake()
     {
-        this.gameObject.tag = "GameHandler";
+        gameObject.tag = "GameHandler";
         if (_nextScene == "")
         {
             _nextScene = SceneManager.GetActiveScene().name;
             Debug.LogWarning("Next scene not set, reloading this scene assumed");
         }
+
         Swarm.RegisterStatic(this);
         if (blackoutCanvas.activeInHierarchy == false)
         {
@@ -54,36 +75,42 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartCoroutine(FadeIn());
-        
-        GameObject controller = GameObject.FindGameObjectWithTag("Controller");
-        if (controller == null) Debug.LogError("No controller found!");
+
+        var controller = GameObject.FindGameObjectWithTag("Controller");
+        if (controller == null)
+        {
+            Debug.LogError("No controller found!");
+        }
         else
         {
             _touchController = controller.GetComponent<TouchController>();
             Subscribe(_touchController);
         }
 
-        GameObject[] farmPlotsGOs = GameObject.FindGameObjectsWithTag("FarmPlot");
+        var farmPlotsGOs = GameObject.FindGameObjectsWithTag("FarmPlot");
         //Set states before substribing
-        for (int i = 0; i < farmPlotsGOs.Length; ++i)
+        for (var i = 0; i < farmPlotsGOs.Length; ++i)
         {
             _farmPlots.Add(farmPlotsGOs[i].GetComponent<FarmPlot>());
         }
 
         if (_plantsStartAtGrown)
         {
-            for (int i = 0; i < _farmPlots.Count; ++i)
+            for (var i = 0; i < _farmPlots.Count; ++i)
             {
                 _farmPlots[i].SetStartState(FarmPlot.State.Grown);
             }
         }
-        else SetFarmPlotStates(_farmPlots);
+        else
+        {
+            SetFarmPlotStates(_farmPlots);
+        }
 
         _turorial.Init();
-        for (int i = 0; i < _farmPlots.Count; ++i)
+        for (var i = 0; i < _farmPlots.Count; ++i)
         {
             Subscribe(_farmPlots[i]);
         }
@@ -91,32 +118,35 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     private void SetFarmPlotStates(List<FarmPlot> farmPlots)
     {
-        if(_stateSpawnRates == null || _stateSpawnRates.Count == 0)
+        if (_stateSpawnRates == null || _stateSpawnRates.Count == 0)
         {
-            for(int i = 0; i < farmPlots.Count; ++i)
+            for (var i = 0; i < farmPlots.Count; ++i)
             {
                 farmPlots[i].SetStartState(FarmPlot.State.Rough);
             }
+
             return;
         }
 
-        List<int> farmPlotsToBeSet = new List<int>();
-        for (int i = 0; i < farmPlots.Count; ++i)
+        var farmPlotsToBeSet = new List<int>();
+        for (var i = 0; i < farmPlots.Count; ++i)
         {
             farmPlotsToBeSet.Add(i);
         }
+
         _stateSpawnRates.Sort();
-        for (int i = 0; i < _stateSpawnRates.Count; ++i)
+        for (var i = 0; i < _stateSpawnRates.Count; ++i)
         {
             if (farmPlotsToBeSet.Count == 0) break;
-            if(_debugLog) Debug.Log("Applying spawn rate " + _stateSpawnRates[i].state);
-            List<int> chosenIndeces = GetAppliedStateSpawnRate(_stateSpawnRates[i], farmPlotsToBeSet);
-            for(int j = 0; j < chosenIndeces.Count; ++j)
+            if (_debugLog) Debug.Log("Applying spawn rate " + _stateSpawnRates[i].state);
+            var chosenIndeces = GetAppliedStateSpawnRate(_stateSpawnRates[i], farmPlotsToBeSet);
+            for (var j = 0; j < chosenIndeces.Count; ++j)
             {
-                if(_debugLog) Debug.Log("Chosen index[" + j + "] = " + chosenIndeces[j]);
+                if (_debugLog) Debug.Log("Chosen index[" + j + "] = " + chosenIndeces[j]);
                 farmPlots[chosenIndeces[j]].SetStartState(_stateSpawnRates[i].state);
             }
-            for(int j = chosenIndeces.Count -1; j >= 0; --j)
+
+            for (var j = chosenIndeces.Count - 1; j >= 0; --j)
             {
                 farmPlotsToBeSet.Remove(chosenIndeces[j]);
             }
@@ -126,33 +156,36 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     //returns a list of chosen indecis by rng
     private List<int> GetAppliedStateSpawnRate(FarmPlotSpawnStateRate spawnRate, List<int> indicesLeft)
     {
-        List<int> chosenIndices = new List<int>();
-        List<int> indexOptions = new List<int>(indicesLeft); //copy of indicesLeft
-        if(spawnRate.finalPlotAmount != -1)
+        var chosenIndices = new List<int>();
+        var indexOptions = new List<int>(indicesLeft); //copy of indicesLeft
+        if (spawnRate.finalPlotAmount != -1)
         {
-            for(int i = 0; i < spawnRate.finalPlotAmount; ++i)
+            for (var i = 0; i < spawnRate.finalPlotAmount; ++i)
             {
                 if (indexOptions.Count == 0) break;
-                int index = UnityEngine.Random.Range(0, indexOptions.Count);
+                var index = Random.Range(0, indexOptions.Count);
                 chosenIndices.Add(indexOptions[index]);
                 indexOptions.RemoveAt(index);
             }
+
             return chosenIndices;
         }
+
         //first at the min amount of spawns
-        for (int i = 0; i < spawnRate.minSpawns; ++i)
+        for (var i = 0; i < spawnRate.minSpawns; ++i)
         {
             if (indexOptions.Count == 0) break;
-            int index = UnityEngine.Random.Range(0, indexOptions.Count);
+            var index = Random.Range(0, indexOptions.Count);
             chosenIndices.Add(indexOptions[index]);
             indexOptions.RemoveAt(index);
         }
+
         //then do it randomly until all plots have been gone through or max is reached
-        for(int i = 0; i < indexOptions.Count; ++i)
+        for (var i = 0; i < indexOptions.Count; ++i)
         {
             if (spawnRate.maxSpawns == chosenIndices.Count) break;
-            int rand = UnityEngine.Random.Range(0, 101);
-            if(rand <= spawnRate.spawnRate)
+            var rand = Random.Range(0, 101);
+            if (rand <= spawnRate.spawnRate)
             {
                 chosenIndices.Add(indexOptions[i]);
                 indexOptions.RemoveAt(i);
@@ -164,16 +197,18 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (_repeatPause)
         {
             Pause(_repeatPauseForTutorial);
         }
+
         if (_pausedForTutorial && Input.GetMouseButtonDown(0))
         {
             UnPause();
         }
+
         /*if(Input.GetKeyDown(KeyCode.Space))
         {
             FinishGame();
@@ -204,7 +239,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         if (!_paused)
         {
             _paused = true;
-            for (int i = 0; i < _gameHandlerObservers.Count; ++i)
+            for (var i = 0; i < _gameHandlerObservers.Count; ++i)
             {
                 _gameHandlerObservers[i].OnPause();
             }
@@ -217,7 +252,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         {
             _pausedForTutorial = false;
             _paused = false;
-            for (int i = 0; i < _gameHandlerObservers.Count; ++i)
+            for (var i = 0; i < _gameHandlerObservers.Count; ++i)
             {
                 _gameHandlerObservers[i].OnContinue();
             }
@@ -229,11 +264,12 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         if (!_gameFinished)
         {
             _gameFinished = true;
-            for (int i = 0; i < _gameHandlerObservers.Count; ++i)
+            for (var i = 0; i < _gameHandlerObservers.Count; ++i)
             {
                 _gameHandlerObservers[i].OnFinish();
             }
         }
+
         StartCoroutine(LoadScene());
     }
 
@@ -241,68 +277,70 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     {
         Debug.Log("crossed");
         Truck truck;
-        if(other.TryGetComponent<Truck>(out truck) && _gameFinished)
+        if (other.TryGetComponent<Truck>(out truck) && _gameFinished)
         {
             //Game truly finished
             _trulyFinished = true;
         }
     }
 
-    IEnumerator LoadScene(int fadeSpeed = 5)
+    private IEnumerator LoadScene(int fadeSpeed = 5)
     {
         yield return null;
         //declare color for fade out
-        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        var objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_nextScene);
+        var asyncOperation = SceneManager.LoadSceneAsync(_nextScene);
 
         asyncOperation.allowSceneActivation = false;
-        
+
         while (!asyncOperation.isDone)
         {
-            print("Loading Progress: " + (asyncOperation.progress * 100) + "%");
-            if(asyncOperation.progress >= 0.9f)
+            print("Loading Progress: " + asyncOperation.progress * 100 + "%");
+            if (asyncOperation.progress >= 0.9f)
             {
                 if (_trulyFinished == true)
                 {
                     //fade out first
                     while (blackOutSquare.GetComponent<Image>().color.a < 1)
                     {
-                        fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+                        fadeAmount = objectColor.a + fadeSpeed * Time.deltaTime;
 
                         objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                         blackOutSquare.GetComponent<Image>().color = objectColor;
                         yield return null;
                     }
+
                     //then activate new scene
                     asyncOperation.allowSceneActivation = true;
                 }
             }
+
             yield return null;
         }
     }
 
     public IEnumerator FadeIn(bool fadeToWhite = true, int fadeSpeed = 5)
     {
-        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        var objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
 
         if (fadeToWhite)
         {
             while (blackOutSquare.GetComponent<Image>().color.a > 0)
             {
-                fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+                fadeAmount = objectColor.a - fadeSpeed * Time.deltaTime;
 
                 objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                 blackOutSquare.GetComponent<Image>().color = objectColor;
                 yield return null;
             }
         }
-
     }
 
     #region ControlsObserver
+
     public void OnClick(ControllerHitInfo hitInfo)
     {
     }
@@ -334,6 +372,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     public void OnDragDropFailed(Vector3 position, IControllable dragged)
     {
     }
+
     #endregion
 
     public void Subscribe(ISubject subject)
@@ -348,20 +387,21 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void OnNotify(AObserverEvent observerEvent)
     {
-        if(observerEvent is SwarmSpawnEvent)
+        if (observerEvent is SwarmSpawnEvent)
         {
             Subscribe((observerEvent as SwarmSpawnEvent).swarm);
         }
     }
 
     #region IFarmPlotObserver
+
     public void OnPlotStartStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
     }
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
-        if(state == FarmPlot.State.Decay)
+        if (state == FarmPlot.State.Decay)
         {
             Scores.SubScore(_decayPenaltyPoints);
         }
@@ -369,15 +409,15 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         {
             Scores.SubScore(_witherPenaltyPoints);
         }
-        else if(state == FarmPlot.State.Growing)
+        else if (state == FarmPlot.State.Growing)
         {
-            GameObject swarmGO = Instantiate(_swarmPrefab);
-            Swarm swarm = swarmGO.GetComponent<Swarm>();
+            var swarmGO = Instantiate(_swarmPrefab);
+            var swarm = swarmGO.GetComponent<Swarm>();
             swarm.Init(plot);
             swarmGO.transform.position = plot.gameObject.transform.position;
             Subscribe(swarm);
         }
-        else if(state == FarmPlot.State.Grown)
+        else if (state == FarmPlot.State.Grown)
         {
             if (!plot.HasBeenPoisened()) Scores.AddScore(_fullyHealthyPoints);
         }
@@ -388,6 +428,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     {
         Scores.AddScore(_harvestPoints);
     }
+
     #endregion
 
     public void Register(IObserver observer)
@@ -433,5 +474,6 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
     public void OnBugspawnFail()
     {
     }
+
     #endregion
 }

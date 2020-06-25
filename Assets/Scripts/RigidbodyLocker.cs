@@ -10,6 +10,7 @@ public class RigidbodyLocker : MonoBehaviour
             rigidbody.freezeRotation = true;
         }
     }
+
     private void OnCollisionExit(Collision other)
     {
         other.gameObject.TryGetComponent(out Rigidbody rigidbody);

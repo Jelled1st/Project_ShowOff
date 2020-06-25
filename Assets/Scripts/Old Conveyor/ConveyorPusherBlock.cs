@@ -17,40 +17,40 @@ public class ConveyorPusherBlock : MonoBehaviour
     {
         _conveyerBelt = conveyerBelt;
 
-        this.gameObject.name = name;
-        this.transform.SetParent(parent);
+        gameObject.name = name;
+        transform.SetParent(parent);
         BoxCollider collider;
-        if (!this.gameObject.TryGetComponent<BoxCollider>(out collider))
+        if (!gameObject.TryGetComponent<BoxCollider>(out collider))
         {
-            collider = this.gameObject.AddComponent<BoxCollider>();
+            collider = gameObject.AddComponent<BoxCollider>();
         }
 
-        GameObject visualizer = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        var visualizer = GameObject.CreatePrimitive(PrimitiveType.Cube);
         Destroy(visualizer.GetComponent<BoxCollider>());
-        visualizer.transform.SetParent(this.transform);
+        visualizer.transform.SetParent(transform);
         visualizer.transform.localPosition = new Vector3(0, 0, 0);
         visualizer.transform.localScale = new Vector3(1, 1, 1);
 
-        this.gameObject.transform.position = position;
-        this.gameObject.transform.Rotate(rotation.eulerAngles);
-        this.gameObject.transform.localScale = InitScale;
+        gameObject.transform.position = position;
+        gameObject.transform.Rotate(rotation.eulerAngles);
+        gameObject.transform.localScale = InitScale;
 
 
         _initCalled = true;
     }
 
-    void Start()
+    private void Start()
     {
         if (!_initCalled) Debug.LogError("ConveyerPusherBlock not initialized, call Init() before Start()");
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // if there is no waypoint to move to, return
         if (_currentWayPoint == null) return;
 
-        if (!DOTween.IsTweening(this.gameObject.transform))
+        if (!DOTween.IsTweening(gameObject.transform))
         {
             SetCurrentWayPoint(null, -1, 0);
         }
@@ -93,9 +93,9 @@ public class ConveyorPusherBlock : MonoBehaviour
 
         if (_currentWayPoint != null)
         {
-            this.transform.DOKill();
-            this.transform.DOMove(wayPoint.transform.position, time).SetEase(Ease.Linear);
-            this.transform.DORotate(wayPoint.transform.rotation.eulerAngles, time);
+            transform.DOKill();
+            transform.DOMove(wayPoint.transform.position, time).SetEase(Ease.Linear);
+            transform.DORotate(wayPoint.transform.rotation.eulerAngles, time);
         }
     }
 
@@ -108,7 +108,6 @@ public class ConveyorPusherBlock : MonoBehaviour
 
     private void OnDestroy()
     {
-        
-        this.transform.DOKill();
+        transform.DOKill();
     }
 }

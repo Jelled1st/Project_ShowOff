@@ -5,13 +5,26 @@ using DG.Tweening;
 [RequireComponent(typeof(Collider))]
 public class FryFryer : MonoBehaviour, IControllable, ISubject
 {
-    [SerializeField] private GameObject _basket;
-    [SerializeField] GameObject _foodNode;
-    [SerializeField] GameObject _basketDownNode;
-    [SerializeField] ProgressBar _progressBar;
-    [SerializeField] GameObject _oil;
-    [SerializeField] [Range(0.0f, 1.0f)] float _oilTempIncrease;
-    FryableFood _food;
+    [SerializeField]
+    private GameObject _basket;
+
+    [SerializeField]
+    private GameObject _foodNode;
+
+    [SerializeField]
+    private GameObject _basketDownNode;
+
+    [SerializeField]
+    private ProgressBar _progressBar;
+
+    [SerializeField]
+    private GameObject _oil;
+
+    [SerializeField]
+    [Range(0.0f, 1.0f)]
+    private float _oilTempIncrease;
+
+    private FryableFood _food;
     private bool _basketIsUp = true;
     private Material _oilMat;
     private float _oilHeat = 0;
@@ -19,23 +32,23 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
     private List<IObserver> _observers = new List<IObserver>();
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _progressBar.SetActive(false);
         _oilMat = _oil.GetComponent<Renderer>().materials[0];
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(_food != null && !_basketIsUp)
+        if (_food != null && !_basketIsUp)
         {
             _oilHeat = Mathf.Min(_oilHeat + _oilTempIncrease, 1.0f);
             _oilMat.SetFloat("_OilCooking", _oilHeat);
             _food.Fry();
-            float value = _food.GetTimeFried() / _food.GetFryTime();
+            var value = _food.GetTimeFried() / _food.GetFryTime();
             _progressBar.SetPercentage(value);
-            _progressBar.SetFillColor(new Color(1-value, value, 0, 1));
+            _progressBar.SetFillColor(new Color(1 - value, value, 0, 1));
             if (_food.IsFried())
             {
                 Notify(new FryerStopEvent(this, _food));
@@ -51,15 +64,18 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
 
     private void MoveBasketUp()
     {
-        Vector3 pos = _basketDownNode.transform.position;
-        Vector3 rot = _basketDownNode.transform.rotation.eulerAngles;
+        var pos = _basketDownNode.transform.position;
+        var rot = _basketDownNode.transform.rotation.eulerAngles;
         if (_food != null)
         {
-            Vector3 foodPos = _food.transform.position + pos - _basket.transform.position;
-            Vector3 foodRotation = (Quaternion.FromToRotation(_basket.transform.rotation.eulerAngles, _basketDownNode.transform.rotation.eulerAngles) * _food.transform.rotation).eulerAngles;
+            var foodPos = _food.transform.position + pos - _basket.transform.position;
+            var foodRotation =
+                (Quaternion.FromToRotation(_basket.transform.rotation.eulerAngles,
+                    _basketDownNode.transform.rotation.eulerAngles) * _food.transform.rotation).eulerAngles;
             _food.transform.DOMove(foodPos, 0.3f);
             _food.transform.DORotate(foodRotation, 0.3f);
         }
+
         _basketDownNode.transform.position = _basket.transform.position;
         _basketDownNode.transform.rotation = _basket.transform.rotation;
         _basket.transform.DOMove(pos, 0.3f);
@@ -70,15 +86,18 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
 
     private void MoveBasketDown()
     {
-        Vector3 pos = _basketDownNode.transform.position;
-        Vector3 rot = _basketDownNode.transform.rotation.eulerAngles;
+        var pos = _basketDownNode.transform.position;
+        var rot = _basketDownNode.transform.rotation.eulerAngles;
         if (_food != null)
         {
-            Vector3 foodPos = _food.transform.position + pos - _basket.transform.position;
-            Vector3 foodRotation = (Quaternion.FromToRotation(_basket.transform.rotation.eulerAngles, _basketDownNode.transform.rotation.eulerAngles) * _food.transform.rotation).eulerAngles;
+            var foodPos = _food.transform.position + pos - _basket.transform.position;
+            var foodRotation =
+                (Quaternion.FromToRotation(_basket.transform.rotation.eulerAngles,
+                    _basketDownNode.transform.rotation.eulerAngles) * _food.transform.rotation).eulerAngles;
             _food.transform.DOMove(foodPos, 0.3f);
             _food.transform.DORotate(foodRotation, 0.3f);
         }
+
         _basketDownNode.transform.position = _basket.transform.position;
         _basketDownNode.transform.rotation = _basket.transform.rotation;
         _basket.transform.DOMove(pos, 0.3f);
@@ -106,6 +125,7 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
     }
 
     #region IControllable
+
     public GameObject GetDragCopy()
     {
         if (_food == null || !_basketIsUp)
@@ -113,7 +133,8 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
             Debug.Log("Returning null");
             return null;
         }
-        GameObject copy = _food.GetDragCopy();
+
+        var copy = _food.GetDragCopy();
         copy.transform.SetParent(null);
         return copy;
     }
@@ -128,7 +149,7 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if(_food != null) droppedOn.OnDrop(_food.GetComponent<IControllable>(), hitInfo);
+        if (_food != null) droppedOn.OnDrop(_food.GetComponent<IControllable>(), hitInfo);
     }
 
     public void OnDragDropFailed(Vector3 position)
@@ -158,6 +179,7 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
     }
+
     #endregion
 
     public void Register(IObserver observer)
@@ -172,7 +194,7 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }

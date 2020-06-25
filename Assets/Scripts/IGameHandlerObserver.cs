@@ -2,6 +2,7 @@
 {
     // OnPause is called when the game gets paused
     void OnPause();
+
     //OnContinue is called when the game was paused and now continues
     void OnContinue();
 

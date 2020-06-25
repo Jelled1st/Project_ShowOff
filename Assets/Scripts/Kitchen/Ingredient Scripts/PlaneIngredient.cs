@@ -3,42 +3,45 @@
 [RequireComponent(typeof(Collider))]
 public class PlaneIngredient : MonoBehaviour, IIngredient, IControllable
 {
-    [SerializeField] IngredientType _ingredientType;
-    [SerializeField] float _ingredientHeight;
+    [SerializeField]
+    private IngredientType _ingredientType;
 
-    void Awake()
+    [SerializeField]
+    private float _ingredientHeight;
+
+    private void Awake()
     {
-        this.gameObject.tag = "Ingredient";
+        gameObject.tag = "Ingredient";
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 
     #region IIngredient
+
     public void AddedToDish()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public GameObject GetDishMesh()
     {
-        GameObject copy = GameObject.Instantiate(this.gameObject);
+        var copy = Instantiate(gameObject);
         Destroy(copy.GetComponent<PlaneIngredient>());
-        Destroy(copy.GetComponent<Collider>()); 
-        Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
-        for (int i = 0; i < renderers.Length; ++i)
+        Destroy(copy.GetComponent<Collider>());
+        var renderers = copy.GetComponentsInChildren<Renderer>();
+        for (var i = 0; i < renderers.Length; ++i)
         {
             renderers[i].enabled = true;
         }
+
         return copy;
     }
 
@@ -56,6 +59,7 @@ public class PlaneIngredient : MonoBehaviour, IIngredient, IControllable
     {
         return true;
     }
+
     #endregion
 
     #region IControllable
@@ -98,11 +102,12 @@ public class PlaneIngredient : MonoBehaviour, IIngredient, IControllable
 
     public GameObject GetDragCopy()
     {
-        GameObject copy = GameObject.Instantiate(this.gameObject);
+        var copy = Instantiate(gameObject);
         Destroy(copy.GetComponent<PlaneIngredient>());
         Destroy(copy.GetComponent<Collider>());
         return copy;
     }
+
     #endregion
 
 
@@ -118,5 +123,4 @@ public class PlaneIngredient : MonoBehaviour, IIngredient, IControllable
     {
         throw new System.NotImplementedException("Notify on PlaneIngredient is not implemented");
     }
-
 }

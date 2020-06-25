@@ -6,24 +6,38 @@ using UnityEngine.UI;
 
 public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
 {
-    [SerializeField] KitchenGameHandler _gameHandler;
-    [SerializeField] Camera _camera;
-    [SerializeField] GameObject _cameraNode;
-    [SerializeField] GameObject _scoreUI;
-    [SerializeField] float _tweenTime = 1.0f;
-    [SerializeField] string _nextScene;
-    [SerializeField] GameObject _completedDishNode;
-    bool _gamefinished = false;
+    [SerializeField]
+    private KitchenGameHandler _gameHandler;
+
+    [SerializeField]
+    private Camera _camera;
+
+    [SerializeField]
+    private GameObject _cameraNode;
+
+    [SerializeField]
+    private GameObject _scoreUI;
+
+    [SerializeField]
+    private float _tweenTime = 1.0f;
+
+    [SerializeField]
+    private string _nextScene;
+
+    [SerializeField]
+    private GameObject _completedDishNode;
+
+    private bool _gamefinished = false;
     public GameObject blackOutSquare;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Subscribe(_gameHandler);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (_gamefinished)
         {
@@ -33,6 +47,7 @@ public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
                 {
                     _scoreUI.SetActive(true);
                 }
+
                 if (Input.GetMouseButtonDown(0))
                 {
                     StartCoroutine(LoadScene());
@@ -55,7 +70,7 @@ public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
 
     private void CopyAndPlaceDish()
     {
-        GameObject dish = Instantiate(_gameHandler.GetChosenDish().transform.parent.gameObject);
+        var dish = Instantiate(_gameHandler.GetChosenDish().transform.parent.gameObject);
         Destroy(dish.GetComponent<Dish>());
         dish.transform.SetParent(_completedDishNode.transform);
         dish.transform.localPosition = new Vector3(0, 0, 0);
@@ -79,24 +94,25 @@ public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
         subject.UnRegister(this);
     }
 
-    IEnumerator LoadScene()
+    private IEnumerator LoadScene()
     {
         yield return null;
 
-        Color objectColor = blackOutSquare.GetComponent<Image>().color;
+        var objectColor = blackOutSquare.GetComponent<Image>().color;
         float fadeAmount;
         float fadeSpeed = 5;
 
         //fade to black
         while (blackOutSquare.GetComponent<Image>().color.a < 1)
         {
-            fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+            fadeAmount = objectColor.a + fadeSpeed * Time.deltaTime;
 
             objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
             blackOutSquare.GetComponent<Image>().color = objectColor;
             yield return null;
         }
+
         //Begin to load specified scene
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_nextScene);
+        var asyncLoad = SceneManager.LoadSceneAsync(_nextScene);
     }
 }

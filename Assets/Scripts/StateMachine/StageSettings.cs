@@ -3,5 +3,5 @@ using UnityEngine;
 
 public abstract class StageSettings : ScriptableObject
 {
-    [field: SerializeField, Scene] public int StageScene { get; private set; }
+    [field: SerializeField] [field: Scene] public int StageScene { get; private set; }
 }

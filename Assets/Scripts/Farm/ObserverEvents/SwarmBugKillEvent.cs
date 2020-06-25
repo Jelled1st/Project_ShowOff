@@ -2,9 +2,10 @@
 {
     public readonly SwarmUnit bug;
     public readonly Swarm swarm;
+
     public SwarmBugKillEvent(SwarmUnit swarmUnit, Swarm invoker) : base(invoker)
     {
-        this.bug = swarmUnit;
-        this.swarm = invoker;
+        bug = swarmUnit;
+        swarm = invoker;
     }
 }

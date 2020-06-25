@@ -3,10 +3,17 @@ using DG.Tweening;
 
 public class TouchFeedback : MonoBehaviour, IControlsObserver
 {
-    [SerializeField] private ParticleSystem _pressFeedback;
-    [SerializeField] private ParticleSystem _swipeFeedback;
-    [SerializeField] private bool _doPressFeedback = true;
-    [SerializeField] private bool _doHoldFeedback = true;
+    [SerializeField]
+    private ParticleSystem _pressFeedback;
+
+    [SerializeField]
+    private ParticleSystem _swipeFeedback;
+
+    [SerializeField]
+    private bool _doPressFeedback = true;
+
+    [SerializeField]
+    private bool _doHoldFeedback = true;
 
     private TouchController _touchController;
     private bool _isHeld = false;
@@ -15,10 +22,13 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
     private GameObject _dragCopy = null;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        GameObject controller = GameObject.FindGameObjectWithTag("Controller");
-        if (controller == null) Debug.LogError("No controller found!");
+        var controller = GameObject.FindGameObjectWithTag("Controller");
+        if (controller == null)
+        {
+            Debug.LogError("No controller found!");
+        }
         else
         {
             _touchController = controller.GetComponent<TouchController>();
@@ -26,12 +36,13 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if(_isSwiping == false && _swipeFeedback != null && !_swipeFeedback.Equals(null))
+        if (_isSwiping == false && _swipeFeedback != null && !_swipeFeedback.Equals(null))
         {
             _swipeFeedback.gameObject.SetActive(false);
         }
+
         _isSwiping = false;
     }
 
@@ -42,13 +53,12 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     public void OnClick(ControllerHitInfo hitInfo)
     {
-
     }
 
     public void OnPress(ControllerHitInfo hitInfo)
     {
         if (hitInfo.uiElement || !_doPressFeedback) return;
-        _pressFeedback.transform.position = hitInfo.point + hitInfo.normal*0.1f;
+        _pressFeedback.transform.position = hitInfo.point + hitInfo.normal * 0.1f;
         _pressFeedback.transform.forward = hitInfo.normal;
         _pressFeedback.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
         _pressFeedback.transform.DOComplete();
@@ -62,27 +72,27 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         _pressFeedback.transform.position = hitInfo.point + hitInfo.normal * 0.1f;
         _pressFeedback.transform.forward = hitInfo.normal;
         _pressFeedback.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-        if(!_isHeld)
+        if (!_isHeld)
         {
             _pressFeedback.transform.DOComplete();
             _pressFeedback.transform.DOScale(new Vector3(2.0f, 2.0f, 2.0f), 0.2f);
-            ParticleSystem.MainModule main = _pressFeedback.main;
+            var main = _pressFeedback.main;
             main.loop = true;
             _isHeld = true;
         }
-        else if(!DOTween.IsTweening(_pressFeedback.transform))
+        else if (!DOTween.IsTweening(_pressFeedback.transform))
         {
             _pressFeedback.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
             _pressFeedback.transform.DOPunchScale(new Vector3(1.0f, 1.0f, 1.0f), 1.0f, 0);
         }
 
-        if(!_pressFeedback.isPlaying) _pressFeedback.Play();
+        if (!_pressFeedback.isPlaying) _pressFeedback.Play();
     }
 
     public void OnHoldRelease(float timeHeld, IControllable released)
     {
         _isHeld = false;
-        ParticleSystem.MainModule main = _pressFeedback.main;
+        var main = _pressFeedback.main;
         main.loop = false;
         _pressFeedback.transform.DOComplete();
         _pressFeedback.transform.localScale = new Vector3(0, 0, 0);
@@ -90,11 +100,11 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     public void OnSwipe(Vector3 direction, Vector3 lastPoint, ControllerHitInfo hitInfo)
     {
-        Vector3 screenPoint = lastPoint + direction;
+        var screenPoint = lastPoint + direction;
         //screenPoint.z = 1;
         //Vector3 mouse3d = Camera.main.ScreenToWorldPoint(screenPoint);
 
-        if(_dragCopy == null) DoSwipeParticle(screenPoint);
+        if (_dragCopy == null) DoSwipeParticle(screenPoint);
     }
 
     private void DoSwipeParticle(Vector3 point)
@@ -102,7 +112,7 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         _swipeFeedback.gameObject.SetActive(true);
         _isSwiping = true;
 
-        Vector3 toCamera = Camera.main.transform.position - point;
+        var toCamera = Camera.main.transform.position - point;
         point = Camera.main.transform.position - toCamera.normalized;
 
         _swipeFeedback.transform.position = point;
@@ -114,16 +124,17 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
         if (_dragCopy == null)
         {
             _dragCopy = dragged.GetDragCopy();
-            if(_dragCopy != null && !hitInfo.uiElement)
+            if (_dragCopy != null && !hitInfo.uiElement)
             {
-                Vector3 originalPos = position;
-                Vector3 toCamera = Camera.main.transform.position - position;
+                var originalPos = position;
+                var toCamera = Camera.main.transform.position - position;
                 position = Camera.main.transform.position - toCamera.normalized;
 
                 _dragCopy.transform.position = position;
                 _dragCopy.transform.localScale /= (Camera.main.transform.position - originalPos).magnitude;
             }
         }
+
         if (_dragCopy != null) // else would not call this if _dragCopy had just been set
         {
             if (hitInfo.uiElement)
@@ -132,8 +143,8 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
             }
             else
             {
-                Vector3 originalPos = position;
-                Vector3 toCamera = Camera.main.transform.position - position;
+                var originalPos = position;
+                var toCamera = Camera.main.transform.position - position;
                 position = Camera.main.transform.position - toCamera.normalized;
 
                 _dragCopy.transform.position = position;
@@ -143,12 +154,12 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     public void OnDragDrop(Vector3 position, IControllable dragged, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if(_dragCopy != null) Destroy(_dragCopy);
+        if (_dragCopy != null) Destroy(_dragCopy);
     }
 
     public void OnDragDropFailed(Vector3 position, IControllable dragged)
     {
-        if(_dragCopy != null) Destroy(_dragCopy);
+        if (_dragCopy != null) Destroy(_dragCopy);
     }
 
     public void Subscribe(ISubject subject)

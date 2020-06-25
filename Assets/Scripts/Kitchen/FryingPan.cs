@@ -4,26 +4,28 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class FryingPan : MonoBehaviour, IControllable, ISubject
 {
-    [SerializeField] List<GameObject> _foodNodes;
-    bool _stoveOn = false;
-    List<GameObject> _availableNodes;
-    List<BakableFood> _food = new List<BakableFood>();
-    Dictionary<BakableFood, GameObject> _foodNodePair = new Dictionary<BakableFood, GameObject>();
-    Dictionary<BakableFood, bool> _foodBaked = new Dictionary<BakableFood, bool>();
-    Dictionary<BakableFood, bool> _foodBurnt = new Dictionary<BakableFood, bool>();
+    [SerializeField]
+    private List<GameObject> _foodNodes;
+
+    private bool _stoveOn = false;
+    private List<GameObject> _availableNodes;
+    private List<BakableFood> _food = new List<BakableFood>();
+    private Dictionary<BakableFood, GameObject> _foodNodePair = new Dictionary<BakableFood, GameObject>();
+    private Dictionary<BakableFood, bool> _foodBaked = new Dictionary<BakableFood, bool>();
+    private Dictionary<BakableFood, bool> _foodBurnt = new Dictionary<BakableFood, bool>();
 
     private List<IObserver> _observers = new List<IObserver>();
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _availableNodes = new List<GameObject>(_foodNodes);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        for (int i = 0; i < _food.Count; ++i)
+        for (var i = 0; i < _food.Count; ++i)
         {
             _food[i].Bake();
             if (_food[i].IsBaked() && !_foodBaked[_food[i]])
@@ -117,7 +119,7 @@ public class FryingPan : MonoBehaviour, IControllable, ISubject
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }

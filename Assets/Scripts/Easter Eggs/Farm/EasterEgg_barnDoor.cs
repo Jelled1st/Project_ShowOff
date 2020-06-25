@@ -3,7 +3,8 @@
 public class EasterEgg_barnDoor : MonoBehaviour
 {
     private Animator _anim;
-    void Start()
+
+    private void Start()
     {
         _anim = gameObject.GetComponent<Animator>();
     }

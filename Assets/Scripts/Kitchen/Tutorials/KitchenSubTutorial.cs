@@ -5,55 +5,127 @@ using TMPro;
 
 public class KitchenSubTutorial : MonoBehaviour
 {
-    [SerializeField] List<GameObject> _tutorialElements;
-    [SerializeField] TextMeshProUGUI _friesInFryer;
-    [SerializeField] TextMeshProUGUI _meatToFryingPan;
-    [SerializeField] TextMeshProUGUI _flipMeat;
-    [SerializeField] TextMeshProUGUI _dragIngredientToCuttingBoard;
-    [SerializeField] TextMeshProUGUI _cutIngredient;
-    [SerializeField] Dish _sideDish;
-    [SerializeField] UnityEvent _onExecute;
+    [SerializeField]
+    private List<GameObject> _tutorialElements;
+
+    [SerializeField]
+    private TextMeshProUGUI _friesInFryer;
+
+    [SerializeField]
+    private TextMeshProUGUI _meatToFryingPan;
+
+    [SerializeField]
+    private TextMeshProUGUI _flipMeat;
+
+    [SerializeField]
+    private TextMeshProUGUI _dragIngredientToCuttingBoard;
+
+    [SerializeField]
+    private TextMeshProUGUI _cutIngredient;
+
+    [SerializeField]
+    private Dish _sideDish;
+
+    [SerializeField]
+    private UnityEvent _onExecute;
+
     private bool _firstFryer = false;
-    [SerializeField] UnityEvent _onFryingStart;
+
+    [SerializeField]
+    private UnityEvent _onFryingStart;
+
     private bool _firstFryDone = false;
-    [SerializeField] protected UnityEvent _onFryingDone;
+
+    [SerializeField]
+    protected UnityEvent _onFryingDone;
+
     private bool _firstCook = false;
-    [SerializeField] protected UnityEvent _onCookingStart;
+
+    [SerializeField]
+    protected UnityEvent _onCookingStart;
+
     private bool _firstCookDone = false;
-    [SerializeField] protected UnityEvent _onCookingDone;
+
+    [SerializeField]
+    protected UnityEvent _onCookingDone;
+
     private bool _firstBaking = false;
-    [SerializeField] protected UnityEvent _onBakingStart;
+
+    [SerializeField]
+    protected UnityEvent _onBakingStart;
+
     private bool _firstSide = false;
-    [SerializeField] protected UnityEvent _onSideBaked;
+
+    [SerializeField]
+    protected UnityEvent _onSideBaked;
+
     private bool _firstBakingFlip = false;
-    [SerializeField] protected UnityEvent _onBakingFlip;
+
+    [SerializeField]
+    protected UnityEvent _onBakingFlip;
+
     private bool _firstBakingDone = false;
-    [SerializeField] protected UnityEvent _onBakingDone;
+
+    [SerializeField]
+    protected UnityEvent _onBakingDone;
+
     private bool _firstIngredientCut = false;
-    [SerializeField] protected UnityEvent _onIngredientCut;
+
+    [SerializeField]
+    protected UnityEvent _onIngredientCut;
+
     private bool _firstIngredientCutUp = false;
-    [SerializeField] protected UnityEvent _onIngredientCutUp;
+
+    [SerializeField]
+    protected UnityEvent _onIngredientCutUp;
+
     private bool _firstIngredientOnBoard = false;
-    [SerializeField] protected UnityEvent _onIngredientToCuttingBoard;
+
+    [SerializeField]
+    protected UnityEvent _onIngredientToCuttingBoard;
+
     private bool _firstIngredientPulled = false;
-    [SerializeField] protected UnityEvent _onIngredientPulled;
+
+    [SerializeField]
+    protected UnityEvent _onIngredientPulled;
+
     private bool _firstIngredientAdded = false;
-    [SerializeField] protected UnityEvent _onIngredientToDish;
-    [SerializeField] protected UnityEvent _onFirstIngredientToDish;
+
+    [SerializeField]
+    protected UnityEvent _onIngredientToDish;
+
+    [SerializeField]
+    protected UnityEvent _onFirstIngredientToDish;
+
     private bool _firstIngredientSideDish = false;
-    [SerializeField] protected UnityEvent _onIngredientToSideDish;
+
+    [SerializeField]
+    protected UnityEvent _onIngredientToSideDish;
+
     private bool _firstCookingStir = false;
-    [SerializeField] protected UnityEvent _onCookingStir;
+
+    [SerializeField]
+    protected UnityEvent _onCookingStir;
+
     private bool _firstDishStir = false;
-    [SerializeField] protected UnityEvent _onDishStir;
+
+    [SerializeField]
+    protected UnityEvent _onDishStir;
+
     private bool _firstCookingAllDone = false;
-    [SerializeField] protected UnityEvent _onCookingAllIngredientsDone;
-    [SerializeField] protected UnityEvent _onDishDone;
-    [SerializeField] protected UnityEvent _onSideDishToMain;
+
+    [SerializeField]
+    protected UnityEvent _onCookingAllIngredientsDone;
+
+    [SerializeField]
+    protected UnityEvent _onDishDone;
+
+    [SerializeField]
+    protected UnityEvent _onSideDishToMain;
 
     public void DisableAllElements()
     {
-        for (int i = 0; i < _tutorialElements.Count; ++i)
+        for (var i = 0; i < _tutorialElements.Count; ++i)
         {
             _tutorialElements[i].SetActive(false);
         }
@@ -61,7 +133,7 @@ public class KitchenSubTutorial : MonoBehaviour
 
     public void EnableAllElements()
     {
-        for (int i = 0; i < _tutorialElements.Count; ++i)
+        for (var i = 0; i < _tutorialElements.Count; ++i)
         {
             _tutorialElements[i].SetActive(true);
         }
@@ -77,7 +149,11 @@ public class KitchenSubTutorial : MonoBehaviour
         StrikeThroughText(text);
     }
 
-    public virtual void Execute() => _onExecute.Invoke();
+    public virtual void Execute()
+    {
+        _onExecute.Invoke();
+    }
+
     public virtual void FryingStart()
     {
         if (_firstFryer) return;
@@ -86,6 +162,7 @@ public class KitchenSubTutorial : MonoBehaviour
         _onFryingStart.Invoke();
         StrikeThroughText(_friesInFryer);
     }
+
     public virtual void FryingDone()
     {
         if (_firstFryDone) return;
@@ -203,6 +280,7 @@ public class KitchenSubTutorial : MonoBehaviour
         _onIngredientToCuttingBoard.Invoke();
         StrikeThroughText(_dragIngredientToCuttingBoard);
     }
+
     public virtual void IngredientPulled()
     {
         if (_firstIngredientPulled) return;
@@ -219,6 +297,7 @@ public class KitchenSubTutorial : MonoBehaviour
             _firstIngredientSideDish = true;
             _onIngredientToSideDish.Invoke();
         }
+
         if (_firstIngredientAdded) return;
         _firstIngredientAdded = true;
         _onFirstIngredientToDish.Invoke();
@@ -226,7 +305,6 @@ public class KitchenSubTutorial : MonoBehaviour
 
     public virtual void IngredientDone(IIngredient ingredient)
     {
-
     }
 
     public virtual void DishComplete(Dish dish)

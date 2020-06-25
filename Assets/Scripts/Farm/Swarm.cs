@@ -3,18 +3,37 @@ using UnityEngine;
 
 public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObserver
 {
-    [SerializeField] private GameObject _swarmUnitPrefab;
+    [SerializeField]
+    private GameObject _swarmUnitPrefab;
+
     [Tooltip("SwarmSize, x is minimum size, y is maximum size")]
-    [SerializeField] private Vector2Int _swarmSize = new Vector2Int(1, 3);
+    [SerializeField]
+    private Vector2Int _swarmSize = new Vector2Int(1, 3);
+
     [Tooltip("SwarmSize, x is minimum size, y is maximum size")]
-    [SerializeField] private Vector2 _spawnRange = new Vector2(2.0f, 3.0f);
-    [SerializeField] private int _angleAmount = 10;
-    [SerializeField] private float _speed = 0.5f;
-    [SerializeField] private float _fleeSpeed = 2.0f;
-    [SerializeField] private float _spawnTime = 1.5f;
-    [SerializeField] private Vector2 _outOfScreenMargin = new Vector2(100, 300);
+    [SerializeField]
+    private Vector2 _spawnRange = new Vector2(2.0f, 3.0f);
+
+    [SerializeField]
+    private int _angleAmount = 10;
+
+    [SerializeField]
+    private float _speed = 0.5f;
+
+    [SerializeField]
+    private float _fleeSpeed = 2.0f;
+
+    [SerializeField]
+    private float _spawnTime = 1.5f;
+
+    [SerializeField]
+    private Vector2 _outOfScreenMargin = new Vector2(100, 300);
+
     [Tooltip("Spawnchance in percentage")]
-    [Range(0, 100)] [SerializeField] private float _spawnChance = 75;
+    [Range(0, 100)]
+    [SerializeField]
+    private float _spawnChance = 75;
+
     private FarmPlot _farmPlot;
     private List<GameObject> _swarmUnits;
     private bool _initCalled = false;
@@ -22,18 +41,19 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     private bool _flee = false;
     private List<float> _angles = new List<float>();
     private float _timeSinceLastSpawn = 0.0f;
-    bool _ignoreSpawnTimer = true;
-    Vector3 _destination;
+    private bool _ignoreSpawnTimer = true;
+    private Vector3 _destination;
     private bool _paused;
 
-    [SerializeField] private SFX soundEffectManager;
+    [SerializeField]
+    private SFX soundEffectManager;
 
     private List<IObserver> _observers = new List<IObserver>();
     private static List<IObserver> _staticObservers;
 
     public void Init(FarmPlot plot)
     {
-        GameObject gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
+        var gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
         ISubject gameHandlerSubject;
         if (gameHandler.TryGetComponent<ISubject>(out gameHandlerSubject))
         {
@@ -51,70 +71,82 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     private void initAngleList()
     {
-        for(int i = 0; i < (360/_angleAmount); ++i)
+        for (var i = 0; i < 360 / _angleAmount; ++i)
         {
             _angles.Add(i * _angleAmount);
         }
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (!_initCalled) Debug.LogWarning("Init not called before Start on Swarm");
         soundEffectManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<SFX>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (_paused) return;
-        for (int i = 0; i < _swarmUnits.Count; ++i)
+        for (var i = 0; i < _swarmUnits.Count; ++i)
         {
-            Vector3 diff = _destination - _swarmUnits[i].transform.position;
+            var diff = _destination - _swarmUnits[i].transform.position;
             if (_flee)
             {
                 _swarmUnits[i].transform.localPosition += diff.normalized * -_fleeSpeed * Time.deltaTime;
-                if (Mathf.Abs(GetUnitAngleWithCamera(_swarmUnits[i])) > Camera.main.fieldOfView) RemoveUnit(_swarmUnits[i].GetComponent<SwarmUnit>());
+                if (Mathf.Abs(GetUnitAngleWithCamera(_swarmUnits[i])) > Camera.main.fieldOfView)
+                    RemoveUnit(_swarmUnits[i].GetComponent<SwarmUnit>());
             }
-            else _swarmUnits[i].transform.localPosition += diff.normalized * _speed * Time.deltaTime;
+            else
+            {
+                _swarmUnits[i].transform.localPosition += diff.normalized * _speed * Time.deltaTime;
+            }
         }
+
         if (_continueSpawning)
         {
             _timeSinceLastSpawn += Time.deltaTime;
             if (_timeSinceLastSpawn >= _spawnTime || _ignoreSpawnTimer)
             {
-                float rand = Random.Range(0.0f, 100.0f);
+                var rand = Random.Range(0.0f, 100.0f);
                 if (rand <= _spawnChance)
                 {
                     SpawnUnits();
                 }
-                else OnFailedSpawnChance();
+                else
+                {
+                    OnFailedSpawnChance();
+                }
             }
         }
-        else if (_swarmUnits.Count == 0) Destroy(this.gameObject);
+        else if (_swarmUnits.Count == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void SpawnUnits()
     {
-        int spawnCount = Random.Range(_swarmSize.x, _swarmSize.y+1);
-        while(spawnCount >= 0)
+        var spawnCount = Random.Range(_swarmSize.x, _swarmSize.y + 1);
+        while (spawnCount >= 0)
         {
             if (_angles.Count == 0) return;
-            int angleIndex = Random.Range(0, _angles.Count);
-            float angle = _angles[angleIndex];
+            var angleIndex = Random.Range(0, _angles.Count);
+            var angle = _angles[angleIndex];
             _angles.RemoveAt(angleIndex);
-            Quaternion angleRotation = Quaternion.Euler(0, angle, 0);
-            Vector3 spawnPosition = angleRotation * new Vector3(Random.Range(_spawnRange.x, _spawnRange.y), 1.0f, 0);
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(spawnPosition);
+            var angleRotation = Quaternion.Euler(0, angle, 0);
+            var spawnPosition = angleRotation * new Vector3(Random.Range(_spawnRange.x, _spawnRange.y), 1.0f, 0);
+            var screenPosition = Camera.main.WorldToScreenPoint(spawnPosition);
             if (PointOutOfScreen(screenPosition))
             {
                 continue;
             }
-            GameObject unit = Instantiate(_swarmUnitPrefab);
+
+            var unit = Instantiate(_swarmUnitPrefab);
             _swarmUnits.Add(unit);
-            SwarmUnit script = unit.GetComponent<SwarmUnit>();
+            var script = unit.GetComponent<SwarmUnit>();
             script.Init(this);
-            unit.transform.SetParent(this.transform);
+            unit.transform.SetParent(transform);
             unit.transform.localPosition = spawnPosition;
             unit.transform.LookAt(_destination);
             OnSpawnUnit(script);
@@ -126,18 +158,21 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     private bool PointOutOfScreen(Vector3 point)
     {
-        if (point.x < _outOfScreenMargin.x || point.x > Screen.width - _outOfScreenMargin.x || 
+        if (point.x < _outOfScreenMargin.x || point.x > Screen.width - _outOfScreenMargin.x ||
             point.y < _outOfScreenMargin.y || point.y > Screen.height - _outOfScreenMargin.y)
         {
             return true;
         }
-        else return false;
+        else
+        {
+            return false;
+        }
     }
 
     private float GetUnitAngleWithCamera(GameObject unit)
     {
-        Vector3 toCam = unit.transform.position - Camera.main.transform.position;
-        float angle = Vector3.Angle(toCam, Camera.main.transform.forward);
+        var toCam = unit.transform.position - Camera.main.transform.position;
+        var angle = Vector3.Angle(toCam, Camera.main.transform.forward);
         return angle;
     }
 
@@ -147,9 +182,9 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         _timeSinceLastSpawn = 0.0f;
         _ignoreSpawnTimer = false;
 
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
-            if(_observers[i] is ISwarmObserver) (_observers[i] as ISwarmObserver).OnBugSpawn(unit);
+            if (_observers[i] is ISwarmObserver) (_observers[i] as ISwarmObserver).OnBugSpawn(unit);
         }
     }
 
@@ -158,7 +193,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         _timeSinceLastSpawn = 0.0f;
         _ignoreSpawnTimer = false;
 
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             if (_observers[i] is ISwarmObserver) (_observers[i] as ISwarmObserver).OnBugspawnFail();
         }
@@ -166,11 +201,12 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     private void OnFlee()
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             if (_observers[i] is ISwarmObserver) (_observers[i] as ISwarmObserver).OnFlee();
         }
-        for(int i = 0; i < _swarmUnits.Count; ++i)
+
+        for (var i = 0; i < _swarmUnits.Count; ++i)
         {
             _swarmUnits[i].transform.Rotate(new Vector3(0, 180, 0), Space.World);
         }
@@ -178,7 +214,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     public void UnitReachedPlot(SwarmUnit unit, FarmPlot plot)
     {
-        if(plot == _farmPlot)
+        if (plot == _farmPlot)
         {
             _farmPlot.Decay();
             RemoveUnit(unit);
@@ -187,10 +223,11 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     public void UnitHit(SwarmUnit unit)
     {
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             if (_observers[i] is ISwarmObserver) (_observers[i] as ISwarmObserver).OnBugKill(unit);
         }
+
         Notify(new SwarmBugKillEvent(unit, this));
         RemoveUnit(unit);
     }
@@ -202,7 +239,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         //soundEffectManager.SoundSwarmStop();
 
         Destroy(unit.gameObject);
-        if (_swarmUnits.Count == 0 && !_continueSpawning) Destroy(this.gameObject);
+        if (_swarmUnits.Count == 0 && !_continueSpawning) Destroy(gameObject);
     }
 
     public void OnPlotStartStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
@@ -217,9 +254,9 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
             _flee = true;
             OnFlee();
         }
-        if(state == FarmPlot.State.Healing)
-        {
 
+        if (state == FarmPlot.State.Healing)
+        {
         }
     }
 
@@ -254,10 +291,10 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     public void OnNotify(AObserverEvent observerEvent)
     {
-
     }
 
     #region ISubject
+
     public void Register(IObserver observer)
     {
         _observers.Add(observer);
@@ -281,7 +318,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }
@@ -290,16 +327,17 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     private static void NotifyStaticObservers(AObserverEvent observerEvent)
     {
         if (_staticObservers == null) return;
-        for (int i = 0; i < _staticObservers.Count; ++i)
+        for (var i = 0; i < _staticObservers.Count; ++i)
         {
             _staticObservers[i].OnNotify(observerEvent);
         }
     }
+
     #endregion
 
     public void OnDestroy()
     {
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             if (_observers[i] is ISwarmObserver) (_observers[i] as ISwarmObserver).OnSwarmDestroy();
         }

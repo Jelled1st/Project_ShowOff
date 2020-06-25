@@ -5,21 +5,34 @@ using DG.Tweening;
 
 public class FarmTool : MonoBehaviour, IControllable, ISubject
 {
-    enum Functionalities
+    private enum Functionalities
     {
         Dig,
         Plant,
         Water,
-        Heal,
+        Heal
     }
 
-    [SerializeField] Functionalities _functionality;
-    [SerializeField] float _cooldown = 3.0f;
-    [SerializeField] float _farmPlotCooldown = 3.0f;
-    [SerializeField] ProgressBar _cooldownBar;
-    [SerializeField] Canvas _parentCanvas;
-    [SerializeField] Vector3 _dragScale = new Vector3(1.0f, 1.0f, 1.0f);
+    [SerializeField]
+    private Functionalities _functionality;
+
+    [SerializeField]
+    private float _cooldown = 3.0f;
+
+    [SerializeField]
+    private float _farmPlotCooldown = 3.0f;
+
+    [SerializeField]
+    private ProgressBar _cooldownBar;
+
+    [SerializeField]
+    private Canvas _parentCanvas;
+
+    [SerializeField]
+    private Vector3 _dragScale = new Vector3(1.0f, 1.0f, 1.0f);
+
     private delegate bool FunctionalityFunctions(FarmPlot plot, float cooldown, FarmTool tool);
+
     private FunctionalityFunctions _functionaliesHandler;
     private float _timeSinceLastUse = 0.0f;
     private RawImage _image;
@@ -27,17 +40,17 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
 
     private List<IObserver> _observers = new List<IObserver>();
 
-    void Awake()
+    private void Awake()
     {
-        _image = this.GetComponent<RawImage>();
+        _image = GetComponent<RawImage>();
         _cooldownBar.SetActive(false);
-        this.gameObject.tag = "FarmTool";
+        gameObject.tag = "FarmTool";
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        switch(_functionality)
+        switch (_functionality)
         {
             case Functionalities.Dig:
                 _functionaliesHandler = FarmPlot.Dig;
@@ -55,14 +68,14 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         _timeSinceLastUse += Time.deltaTime;
-        if(_timeSinceLastUse < _cooldown)
+        if (_timeSinceLastUse < _cooldown)
         {
-            if(_isOnCooldown) _cooldownBar.SetPercentage(1 - (_timeSinceLastUse / _cooldown));
+            if (_isOnCooldown) _cooldownBar.SetPercentage(1 - _timeSinceLastUse / _cooldown);
         }
-        else if(_isOnCooldown)
+        else if (_isOnCooldown)
         {
             OnBecomesUseable();
             _isOnCooldown = false;
@@ -71,7 +84,7 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
 
     private void Wiggle()
     {
-        this.transform.DOPunchRotation(new Vector3(0, 0, 20), 0.3f, 50);
+        transform.DOPunchRotation(new Vector3(0, 0, 20), 0.3f, 50);
     }
 
     private void OnUse()
@@ -147,7 +160,7 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
 
     public GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(this.gameObject);
+        var copy = Instantiate(gameObject);
         Destroy(copy.GetComponent<FarmTool>());
         copy.transform.localScale = _dragScale;
         copy.layer = 0;
@@ -157,7 +170,6 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
 
     public void OnNotify(AObserverEvent observerEvent)
     {
-
     }
 
     public void Register(IObserver observer)
@@ -172,7 +184,7 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }

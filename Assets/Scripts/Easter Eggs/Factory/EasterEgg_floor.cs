@@ -5,47 +5,61 @@ using UnityEngine;
 
 public class EasterEgg_floor : MonoBehaviour
 {
-    [SerializeField] private Material _mat;
+    [SerializeField]
+    private Material _mat;
 
     private Color _colorBase;
-    [SerializeField] private Color _color1;
-    [SerializeField] private Color _color2;
-    [SerializeField] private Color _color3;
+
+    [SerializeField]
+    private Color _color1;
+
+    [SerializeField]
+    private Color _color2;
+
+    [SerializeField]
+    private Color _color3;
+
     private int _colorCounter = 2;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _colorBase = _mat.GetColor("_BaseColor");
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 
 
     private void OnMouseDown()
     {
-        if(_colorCounter == 1)
+        if (_colorCounter == 1)
         {
             _mat.DOColor(_colorBase, "_BaseColor", 1f);
         }
-        if(_colorCounter == 2)
+
+        if (_colorCounter == 2)
         {
             _mat.DOColor(_color1, "_BaseColor", 1f);
         }
-        if(_colorCounter == 3){
+
+        if (_colorCounter == 3)
+        {
             _mat.DOColor(_color2, "_BaseColor", 1f);
         }
-        if(_colorCounter == 4)
+
+        if (_colorCounter == 4)
         {
             _mat.DOColor(_color3, "_BaseColor", 1f);
             _colorCounter = 0;
         }
+
         _colorCounter++;
     }
-    void OnDestroy()
+
+    private void OnDestroy()
     {
         _mat.SetColor("_BaseColor", _colorBase);
     }

@@ -6,8 +6,12 @@ using DG.Tweening;
 public class Knife : MonoBehaviour, IControllable
 {
     [Tooltip("1 is most precise (complete equal to the rotation), 0 is perpedicular, -1 is opposite direction")]
-    [SerializeField] private float _swipePrecision = 0.8f;
-    [SerializeField] private int _swipeFramesLength = 5;
+    [SerializeField]
+    private float _swipePrecision = 0.8f;
+
+    [SerializeField]
+    private int _swipeFramesLength = 5;
+
     //private Rigidbody _rigidBody;
     private bool _isSwiping = false;
     private int _swipeFramesCount = 0;
@@ -17,47 +21,49 @@ public class Knife : MonoBehaviour, IControllable
 
     private List<CuttableFood> _foodsToCut = null;
 
-    void Awake()
+    private void Awake()
     {
-        Rigidbody rigidBody = this.gameObject.GetComponent<Rigidbody>();
+        var rigidBody = gameObject.GetComponent<Rigidbody>();
         rigidBody.useGravity = false;
         rigidBody.isKinematic = true;
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        _rotationBeforeCut = this.transform.rotation.eulerAngles;
+        _rotationBeforeCut = transform.rotation.eulerAngles;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(_swipeFramesCount >= _swipeFramesLength || _isCutting)
+        if (_swipeFramesCount >= _swipeFramesLength || _isCutting)
         {
             _swipeFramesCount = 0;
             Cut();
         }
-        else if(_isResettingCut)
+        else if (_isResettingCut)
         {
             _swipeFramesCount = 0;
             ResetCut();
         }
+
         if (!_isSwiping)
         {
             _swipeFramesCount = 0;
         }
+
         _isSwiping = false;
     }
 
     private void Cut()
     {
-        if (!DOTween.IsTweening(this.transform))
+        if (!DOTween.IsTweening(transform))
         {
             if (!_isCutting)
             {
                 _isCutting = true;
-                this.transform.DORotate(new Vector3(0, 0, 0), 0.4f);
+                transform.DORotate(new Vector3(0, 0, 0), 0.4f);
             }
             else
             {
@@ -70,12 +76,12 @@ public class Knife : MonoBehaviour, IControllable
 
     private void ResetCut()
     {
-        if (!DOTween.IsTweening(this.transform))
+        if (!DOTween.IsTweening(transform))
         {
             if (!_isResettingCut)
             {
                 _isResettingCut = true;
-                this.transform.DORotate(_rotationBeforeCut, 0.4f);
+                transform.DORotate(_rotationBeforeCut, 0.4f);
             }
             else
             {
@@ -87,7 +93,7 @@ public class Knife : MonoBehaviour, IControllable
     private void TryCutFood()
     {
         if (_foodsToCut == null) return;
-        for (int i = 0; i < _foodsToCut.Count; ++i)
+        for (var i = 0; i < _foodsToCut.Count; ++i)
         {
             _foodsToCut[i].Cut();
         }
@@ -133,8 +139,8 @@ public class Knife : MonoBehaviour, IControllable
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
         if (_isCutting || _isResettingCut) return;
-        float directionRotationDiff = Vector3.Dot(direction.normalized, this.transform.forward);
-        if(Mathf.Abs(directionRotationDiff) >= _swipePrecision)
+        var directionRotationDiff = Vector3.Dot(direction.normalized, transform.forward);
+        if (Mathf.Abs(directionRotationDiff) >= _swipePrecision)
         {
             _isSwiping = true;
             ++_swipeFramesCount;
@@ -144,7 +150,7 @@ public class Knife : MonoBehaviour, IControllable
     public void OnTriggerEnter(Collider other)
     {
         CuttableFood food;
-        if(other.TryGetComponent<CuttableFood>(out food))
+        if (other.TryGetComponent<CuttableFood>(out food))
         {
             if (_foodsToCut == null) _foodsToCut = new List<CuttableFood>();
             _foodsToCut.Add(food);

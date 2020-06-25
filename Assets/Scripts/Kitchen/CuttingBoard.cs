@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class CuttingBoard : MonoBehaviour, IControllable, ISubject
 {
-    [SerializeField] private GameObject _cutPosition;
+    [SerializeField]
+    private GameObject _cutPosition;
+
     private CuttableFood _selected = null;
 
     private List<IObserver> _observers = new List<IObserver>();
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 
     public Vector3 GetCutPosition()
@@ -31,6 +31,7 @@ public class CuttingBoard : MonoBehaviour, IControllable, ISubject
     }
 
     #region IControllable
+
     public GameObject GetDragCopy()
     {
         return null;
@@ -54,9 +55,9 @@ public class CuttingBoard : MonoBehaviour, IControllable, ISubject
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
-        if(dropped is CuttableFood && _selected == null)
+        if (dropped is CuttableFood && _selected == null)
         {
-            CuttableFood food = dropped as CuttableFood;
+            var food = dropped as CuttableFood;
             _selected = food;
             food.cuttingBoard = this;
             food.transform.position = _cutPosition.transform.position;
@@ -80,6 +81,7 @@ public class CuttingBoard : MonoBehaviour, IControllable, ISubject
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
     }
+
     #endregion
 
     public void Register(IObserver observer)
@@ -94,7 +96,7 @@ public class CuttingBoard : MonoBehaviour, IControllable, ISubject
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }

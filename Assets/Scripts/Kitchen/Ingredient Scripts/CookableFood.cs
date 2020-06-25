@@ -4,43 +4,59 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class CookableFood : MonoBehaviour, IControllable, IIngredient
 {
-    [SerializeField] private IngredientType _ingredientType;
-    [SerializeField] private float _ingredientHeight;
-    [SerializeField] private float _timeToCook = 2.0f;
-    [HideInInspector] public CookingPan cookingPan;
-    [SerializeField] List<CookableFood> _completeCookingWith;
-    [SerializeField] List<CookableFood> _canOnlyBeAddedWithFood;
-    [SerializeField] GameObject _currentMesh;
-    [SerializeField] GameObject _cookMesh;
-    [SerializeField] Vector3 _cookMeshOffset;
+    [SerializeField]
+    private IngredientType _ingredientType;
+
+    [SerializeField]
+    private float _ingredientHeight;
+
+    [SerializeField]
+    private float _timeToCook = 2.0f;
+
+    [HideInInspector]
+    public CookingPan cookingPan;
+
+    [SerializeField]
+    private List<CookableFood> _completeCookingWith;
+
+    [SerializeField]
+    private List<CookableFood> _canOnlyBeAddedWithFood;
+
+    [SerializeField]
+    private GameObject _currentMesh;
+
+    [SerializeField]
+    private GameObject _cookMesh;
+
+    [SerializeField]
+    private Vector3 _cookMeshOffset;
+
     private bool _stateCook = false;
     private float _cookedTime = 0.0f;
-    bool _isDoneCooking = false;
+    private bool _isDoneCooking = false;
 
-    List<IObserver> _observers = new List<IObserver>();
+    private List<IObserver> _observers = new List<IObserver>();
 
-    void Awake()
+    private void Awake()
     {
-        this.gameObject.tag = "Ingredient";
+        gameObject.tag = "Ingredient";
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 
     public void Cook(float modifier = 1.0f)
     {
-        if(!_stateCook)
+        if (!_stateCook)
         {
-            Transform transform = _currentMesh.transform;
+            var transform = _currentMesh.transform;
             _stateCook = true;
             Destroy(_currentMesh);
             _currentMesh = Instantiate(_cookMesh);
@@ -48,8 +64,9 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
             _currentMesh.transform.localPosition = transform.localPosition + _cookMeshOffset;
             _currentMesh.transform.localRotation = transform.localRotation;
         }
-        _cookedTime += Time.deltaTime *  modifier;
-        if(!_isDoneCooking && IsCooked(true))
+
+        _cookedTime += Time.deltaTime * modifier;
+        if (!_isDoneCooking && IsCooked(true))
         {
             _isDoneCooking = true;
             Notify(new IngredientDoneEvent(this));
@@ -59,19 +76,23 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     public bool IsCooked(bool withSideIngredients = false)
     {
         if (_isDoneCooking) return true;
-        if (!withSideIngredients) return _cookedTime >= _timeToCook;
+        if (!withSideIngredients)
+        {
+            return _cookedTime >= _timeToCook;
+        }
         else
         {
             if (_cookedTime < _timeToCook) return false;
-            bool allDone = true;
-            for(int i = 0; i < _completeCookingWith.Count; ++i)
+            var allDone = true;
+            for (var i = 0; i < _completeCookingWith.Count; ++i)
             {
-                if(!_completeCookingWith[i].IsCooked(true))
+                if (!_completeCookingWith[i].IsCooked(true))
                 {
                     allDone = false;
                     break;
                 }
             }
+
             return allDone;
         }
     }
@@ -88,6 +109,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
 
     #region IIngredient
+
     public IngredientType GetIngredientType()
     {
         return _ingredientType;
@@ -101,7 +123,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     public void AddedToDish()
     {
         cookingPan?.RemoveFood(this);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public float GetHeight()
@@ -113,22 +135,25 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
     {
         if (ReadyForDish())
         {
-            GameObject copy = Instantiate(this.gameObject);
+            var copy = Instantiate(gameObject);
             Destroy(copy.GetComponent<CookableFood>());
             Destroy(copy.GetComponent<Collider>());
-            Renderer[] renderers = copy.GetComponentsInChildren<Renderer>();
-            for (int i = 0; i < renderers.Length; ++i)
+            var renderers = copy.GetComponentsInChildren<Renderer>();
+            for (var i = 0; i < renderers.Length; ++i)
             {
                 renderers[i].enabled = true;
             }
+
             return copy;
         }
+
         return null;
     }
 
     #endregion
 
     #region IControllable
+
     public void OnClick(Vector3 hitPoint)
     {
     }
@@ -167,12 +192,13 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(this.gameObject);
+        var copy = Instantiate(gameObject);
         Destroy(copy.GetComponent<CookableFood>());
         Destroy(copy.GetComponent<Collider>());
         copy.GetComponentInChildren<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         return copy;
     }
+
     #endregion
 
 
@@ -188,7 +214,7 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }

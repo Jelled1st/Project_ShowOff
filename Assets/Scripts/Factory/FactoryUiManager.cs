@@ -29,8 +29,10 @@ namespace Factory
                 Time.timeScale = toggle ? 0f : 1f;
             }
             else
+            {
                 Debug.LogError(
                     $"{nameof(FactoryUiManager)} does not contain reference to {nameof(_youLostScreen)}");
+            }
         }
 
         public void SetTimer(int time)

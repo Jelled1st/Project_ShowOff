@@ -3,23 +3,25 @@ using TMPro;
 
 public class LanguageText : MonoBehaviour
 {
-    [SerializeField] protected TextMeshProUGUI _textMeshProUgui;
-    [SerializeField] protected string _fieldName;
+    [SerializeField]
+    protected TextMeshProUGUI _textMeshProUgui;
+
+    [SerializeField]
+    protected string _fieldName;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        if (_textMeshProUgui == null) this.TryGetComponent<TextMeshProUGUI>(out _textMeshProUgui);
+        if (_textMeshProUgui == null) TryGetComponent<TextMeshProUGUI>(out _textMeshProUgui);
 
         if (_textMeshProUgui == null) return;
-        string text = LanguageHandler.instance.Register(this, _fieldName);
+        var text = LanguageHandler.instance.Register(this, _fieldName);
         _textMeshProUgui.text = text;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 
     public virtual void SetText(string text)

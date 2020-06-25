@@ -2,16 +2,20 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObserver, IControlsObserver, ISwarmObserver, IDishObserver
+public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObserver, IControlsObserver, ISwarmObserver,
+    IDishObserver
 {
     #region Event functions
+
     [System.Serializable]
     public struct FarmEventsFunctions
     {
         [Tooltip("Plot changed")]
         public List<PlotChangeUnityEvent> onPlotChange;
+
         [Tooltip("Cooldown has to play before change, newState is the state that it will be after the cooldown")]
         public List<PlotChangeUnityEvent> onPlotChangeStart;
+
         public UnityEvent onPlotHarvest;
 
         public UnityEvent onSwarmSpawn;
@@ -72,9 +76,11 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         public UnityEvent onPause;
         public UnityEvent onFinish;
     }
+
     #endregion
 
     #region combining structs
+
     [System.Serializable]
     public struct CookingSubjects
     {
@@ -82,20 +88,41 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         public FryFryer fryFryer;
         public CookingPan cookingPan;
     }
+
     #endregion
 
-    [SerializeField] private GameObject _gameHandler;
-    [SerializeField] private TouchController _touchController;
-    [SerializeField] private List<ISubject> _subjects;
-    [SerializeField] private List<FarmPlot> _farmPlots;
-    [SerializeField] private List<FarmTool> _farmTools;
-    [SerializeField] private List<Dish> _dishes;
-    [SerializeField] private CookingSubjects _cookingSubjects;
+    [SerializeField]
+    private GameObject _gameHandler;
 
-    [SerializeField] private GameEventFunctions _gameEvents;
-    [SerializeField] private ControlsEventFucntions _controllerEvents;
-    [SerializeField] private FarmEventsFunctions _farmEvents;
-    [SerializeField] private DishEventFunctions _dishEvents;
+    [SerializeField]
+    private TouchController _touchController;
+
+    [SerializeField]
+    private List<ISubject> _subjects;
+
+    [SerializeField]
+    private List<FarmPlot> _farmPlots;
+
+    [SerializeField]
+    private List<FarmTool> _farmTools;
+
+    [SerializeField]
+    private List<Dish> _dishes;
+
+    [SerializeField]
+    private CookingSubjects _cookingSubjects;
+
+    [SerializeField]
+    private GameEventFunctions _gameEvents;
+
+    [SerializeField]
+    private ControlsEventFucntions _controllerEvents;
+
+    [SerializeField]
+    private FarmEventsFunctions _farmEvents;
+
+    [SerializeField]
+    private DishEventFunctions _dishEvents;
 
     private bool _bugHasSpawned = false;
 
@@ -111,96 +138,106 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     }
 
     #region Subscribing
+
     private void SubscribeToGameHandler()
     {
         if (_gameHandler == null)
         {
             _gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
         }
-        else Subscribe(_gameHandler.GetComponent<ISubject>());
+        else
+        {
+            Subscribe(_gameHandler.GetComponent<ISubject>());
+        }
     }
+
     private void SubscribeToTouchController()
     {
         if (_touchController == null)
         {
-            GameObject controllerGO = GameObject.FindGameObjectWithTag("Controller");
+            var controllerGO = GameObject.FindGameObjectWithTag("Controller");
             _touchController = controllerGO.GetComponent<TouchController>();
         }
+
         Subscribe(_touchController);
     }
+
     private void SubscribeToFarmPlots()
     {
         if (_farmPlots.Count == 0)
         {
-            GameObject[] farmPlotsGOs = GameObject.FindGameObjectsWithTag("FarmPlot");
-            for (int i = 0; i < farmPlotsGOs.Length; ++i)
+            var farmPlotsGOs = GameObject.FindGameObjectsWithTag("FarmPlot");
+            for (var i = 0; i < farmPlotsGOs.Length; ++i)
             {
-                FarmPlot farmPlot = farmPlotsGOs[i].GetComponent<FarmPlot>();
+                var farmPlot = farmPlotsGOs[i].GetComponent<FarmPlot>();
                 _farmPlots.Add(farmPlot);
                 Subscribe(farmPlot);
             }
         }
         else
         {
-            for (int i = 0; i < _farmPlots.Count; ++i)
+            for (var i = 0; i < _farmPlots.Count; ++i)
             {
                 Subscribe(_farmPlots[i]);
             }
         }
     }
+
     private void SubscribeToFarmTools()
     {
         if (_farmTools.Count == 0)
         {
-            GameObject[] farmToolsGOs = GameObject.FindGameObjectsWithTag("FarmTool");
-            for (int i = 0; i < farmToolsGOs.Length; ++i)
+            var farmToolsGOs = GameObject.FindGameObjectsWithTag("FarmTool");
+            for (var i = 0; i < farmToolsGOs.Length; ++i)
             {
-                FarmTool farmTool = farmToolsGOs[i].GetComponent<FarmTool>();
+                var farmTool = farmToolsGOs[i].GetComponent<FarmTool>();
                 _farmTools.Add(farmTool);
                 Subscribe(farmTool);
             }
         }
         else
         {
-            for (int i = 0; i < _farmTools.Count; ++i)
+            for (var i = 0; i < _farmTools.Count; ++i)
             {
                 Subscribe(_farmTools[i]);
             }
         }
     }
+
     private void SubscribeToDishes()
     {
         if (_dishes.Count == 0)
         {
-            GameObject[] dishesGO = GameObject.FindGameObjectsWithTag("Dish");
-            for (int i = 0; i < dishesGO.Length; ++i)
+            var dishesGO = GameObject.FindGameObjectsWithTag("Dish");
+            for (var i = 0; i < dishesGO.Length; ++i)
             {
-                Dish dish = dishesGO[i].GetComponent<Dish>();
+                var dish = dishesGO[i].GetComponent<Dish>();
                 _dishes.Add(dish);
                 Subscribe(dish);
             }
         }
         else
         {
-            for (int i = 0; i < _dishes.Count; ++i)
+            for (var i = 0; i < _dishes.Count; ++i)
             {
                 Subscribe(_dishes[i]);
             }
         }
 
-        if(_cookingSubjects.cookingPan != null )Subscribe(_cookingSubjects.cookingPan);
-        if(_cookingSubjects.fryFryer != null) Subscribe(_cookingSubjects.fryFryer);
-        if(_cookingSubjects.fryingPan != null) Subscribe(_cookingSubjects.fryingPan);
+        if (_cookingSubjects.cookingPan != null) Subscribe(_cookingSubjects.cookingPan);
+        if (_cookingSubjects.fryFryer != null) Subscribe(_cookingSubjects.fryFryer);
+        if (_cookingSubjects.fryingPan != null) Subscribe(_cookingSubjects.fryingPan);
     }
 
     private void SubscribeToOther()
     {
         if (_subjects == null || _subjects.Count == 0) return;
-        for(int i = 0; i < _subjects.Count; ++i)
+        for (var i = 0; i < _subjects.Count; ++i)
         {
             Subscribe(_subjects[i]);
         }
     }
+
     #endregion
 
     public void OnNotify(AObserverEvent observerEvent)
@@ -213,7 +250,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     {
         if (observerEvent is SwarmSpawnEvent)
         {
-            this.Subscribe((observerEvent as SwarmSpawnEvent).swarm);
+            Subscribe((observerEvent as SwarmSpawnEvent).swarm);
             _farmEvents.onSwarmSpawn.Invoke();
             return true;
         }
@@ -237,6 +274,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
             _farmEvents.onFarmPlotInactive.Invoke();
             return true;
         }
+
         return false;
     }
 
@@ -284,7 +322,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
         }
         else if (observerEvent is CuttableCutEvent)
         {
-            CuttableCutEvent cuttableCut = observerEvent as CuttableCutEvent;
+            var cuttableCut = observerEvent as CuttableCutEvent;
             if (cuttableCut.isHard)
             {
                 _dishEvents.onCutCuttableHard.Invoke();
@@ -306,15 +344,17 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
             _dishEvents.onFryerStop.Invoke();
             return true;
         }
-        else if(observerEvent is DishStirEvent)
+        else if (observerEvent is DishStirEvent)
         {
             _dishEvents.onDishStir.Invoke();
             return true;
         }
+
         return false;
     }
 
     #region ISwarmObserver
+
     public void OnBugKill(SwarmUnit unit)
     {
         _farmEvents.onBugKill.Invoke();
@@ -322,11 +362,12 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnBugSpawn(SwarmUnit unit)
     {
-        if(!_bugHasSpawned)
+        if (!_bugHasSpawned)
         {
             _bugHasSpawned = true;
             _farmEvents.onFirstBugSpawn.Invoke();
         }
+
         _farmEvents.onBugSpawn.Invoke();
     }
 
@@ -344,9 +385,11 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     {
         _farmEvents.onSwarmDestroy.Invoke();
     }
+
     #endregion
 
     #region IControlsObserver
+
     public void OnClick(ControllerHitInfo hitInfo)
     {
         _controllerEvents.onClick.Invoke();
@@ -386,9 +429,11 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     {
         _controllerEvents.onSwipe.Invoke();
     }
+
     #endregion
 
     #region IGameHandlerObserver
+
     public void OnContinue()
     {
         _gameEvents.onPlay.Invoke();
@@ -403,9 +448,11 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
     {
         _gameEvents.onPause.Invoke();
     }
+
     #endregion
 
     #region IFarmPlotObserver
+
     public void OnPlotHarvest(FarmPlot plot)
     {
         _farmEvents.onPlotHarvest.Invoke();
@@ -413,7 +460,7 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnPlotStartStateSwitch(FarmPlot.State switchState, FarmPlot.State currentState, FarmPlot plot)
     {
-        for (int i = 0; i < _farmEvents.onPlotChangeStart.Count; ++i)
+        for (var i = 0; i < _farmEvents.onPlotChangeStart.Count; ++i)
         {
             _farmEvents.onPlotChangeStart[i].TryInvoke(switchState, currentState);
         }
@@ -421,14 +468,16 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
-        for (int i = 0; i < _farmEvents.onPlotChange.Count; ++i)
+        for (var i = 0; i < _farmEvents.onPlotChange.Count; ++i)
         {
             _farmEvents.onPlotChange[i].TryInvoke(state, previousState);
         }
     }
+
     #endregion
 
     #region IDishObserver
+
     public void OnFinishDish(ISubject subject)
     {
         _dishEvents.onDishFinish.Invoke();
@@ -436,11 +485,12 @@ public class OnEventPlayer : MonoBehaviour, IGameHandlerObserver, IFarmPlotObser
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
-        for (int i = 0; i < _dishEvents.onDishAddIngredient.Count; ++i)
+        for (var i = 0; i < _dishEvents.onDishAddIngredient.Count; ++i)
         {
             _dishEvents.onDishAddIngredient[i].TryInvoke(ingredient.GetIngredientType());
         }
     }
+
     #endregion
 
     public void Subscribe(ISubject subject)

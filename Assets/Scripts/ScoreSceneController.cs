@@ -193,7 +193,7 @@ public class ScoreSceneController : MonoBehaviour
                 .AppendCallback(() =>
                 {
                     _keyboard.InputEnabled = false;
-                    for (int i = _inputText.text.Length; i < _maxLetters; i++)
+                    for (var i = _inputText.text.Length; i < _maxLetters; i++)
                     {
                         charactersInput += "<color=red>X</color>";
                     }

@@ -3,18 +3,34 @@ using UnityEngine;
 
 public class KitchenTutorial : MonoBehaviour, IDishObserver
 {
-    [SerializeField] KitchenSubTutorial _burgerTutorial;
-    [SerializeField] KitchenSubTutorial _ccFriesTutorial;
-    [SerializeField] KitchenSubTutorial _fishNChipsTutorial;
-    [SerializeField] FryFryer _fryer;
-    [SerializeField] FryingPan _pan;
-    [SerializeField] CookingPan _cooker;
-    [SerializeField] CuttingBoard _cuttingBoard;
-    [HideInInspector] public KitchenGameHandler gameHandler;
+    [SerializeField]
+    private KitchenSubTutorial _burgerTutorial;
+
+    [SerializeField]
+    private KitchenSubTutorial _ccFriesTutorial;
+
+    [SerializeField]
+    private KitchenSubTutorial _fishNChipsTutorial;
+
+    [SerializeField]
+    private FryFryer _fryer;
+
+    [SerializeField]
+    private FryingPan _pan;
+
+    [SerializeField]
+    private CookingPan _cooker;
+
+    [SerializeField]
+    private CuttingBoard _cuttingBoard;
+
+    [HideInInspector]
+    public KitchenGameHandler gameHandler;
+
     private KitchenSubTutorial _activeTutorial;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _burgerTutorial?.DisableAllElements();
         _ccFriesTutorial?.DisableAllElements();
@@ -26,25 +42,25 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 
     public void ChooseDish(Dish dish)
     {
         Subscribe(dish);
-        List<Dish> sideDishes = dish.GetSideDishesLeft();
-        for(int i = 0; i < sideDishes.Count; ++i)
+        var sideDishes = dish.GetSideDishesLeft();
+        for (var i = 0; i < sideDishes.Count; ++i)
         {
             Subscribe(sideDishes[i]);
         }
+
         gameHandler.SubscribeToAllIngredients(this);
         if (dish.GetDishType() == Dish.DishTypes.BurgerAndFries)
         {
             _activeTutorial = _burgerTutorial;
         }
-        else if(dish.GetDishType() == Dish.DishTypes.ChiliCheeseFries)
+        else if (dish.GetDishType() == Dish.DishTypes.ChiliCheeseFries)
         {
             _activeTutorial = _ccFriesTutorial;
         }
@@ -52,7 +68,8 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         {
             _activeTutorial = _fishNChipsTutorial;
         }
-        if(_activeTutorial != null) _activeTutorial.Execute();
+
+        if (_activeTutorial != null) _activeTutorial.Execute();
     }
 
     public void Subscribe(ISubject subject)
@@ -67,19 +84,19 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
 
     public void OnNotify(AObserverEvent observerEvent)
     {
-        if(observerEvent is BakingStartEvent)
+        if (observerEvent is BakingStartEvent)
         {
             _activeTutorial?.BakingStart();
         }
-        else if(observerEvent is SideBakedEvent)
+        else if (observerEvent is SideBakedEvent)
         {
             _activeTutorial?.SideBakedDone();
         }
-        else if(observerEvent is BakingDoneEvent)
+        else if (observerEvent is BakingDoneEvent)
         {
             _activeTutorial?.BakingDone();
         }
-        else if(observerEvent is BakingFlipEvent)
+        else if (observerEvent is BakingFlipEvent)
         {
             _activeTutorial?.BakingFlip();
         }
@@ -107,7 +124,7 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         {
             _activeTutorial?.IngredientCutUp();
         }
-        else if(observerEvent is CuttableOnCuttingBoardEvent)
+        else if (observerEvent is CuttableOnCuttingBoardEvent)
         {
             _activeTutorial?.IngredientToCuttingBoard();
         }
@@ -115,23 +132,23 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         {
             _activeTutorial?.IngredientPulled();
         }
-        else if(observerEvent is IngredientDoneEvent)
+        else if (observerEvent is IngredientDoneEvent)
         {
             _activeTutorial?.IngredientDone((observerEvent as IngredientDoneEvent).ingredient);
         }
-        else if(observerEvent is CookingStirEvent)
+        else if (observerEvent is CookingStirEvent)
         {
             _activeTutorial?.CookingStir();
         }
-        else if(observerEvent is DishStirEvent)
+        else if (observerEvent is DishStirEvent)
         {
             _activeTutorial?.DishStir();
         }
-        else if(observerEvent is CookingAllIngredientsDoneEvent)
+        else if (observerEvent is CookingAllIngredientsDoneEvent)
         {
             _activeTutorial?.CookingAllIngredientsDone();
         }
-        else if(observerEvent is SideDishDraggedToMain)
+        else if (observerEvent is SideDishDraggedToMain)
         {
             _activeTutorial?.SideDishToMain();
         }

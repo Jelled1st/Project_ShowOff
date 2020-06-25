@@ -3,24 +3,31 @@ using UnityEngine;
 
 public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 {
-    [SerializeField] private IngredientType _ingredientType;
-    [SerializeField] private float _ingredientHeight;
-    [SerializeField] private List<PullableFoodPullable> _pullables;
-    [SerializeField] private InvisibleOnDrag _invisibleOnDrag;
+    [SerializeField]
+    private IngredientType _ingredientType;
+
+    [SerializeField]
+    private float _ingredientHeight;
+
+    [SerializeField]
+    private List<PullableFoodPullable> _pullables;
+
+    [SerializeField]
+    private InvisibleOnDrag _invisibleOnDrag;
 
     private PullableFoodPullable currentPullable;
 
     private List<IObserver> _observers = new List<IObserver>();
 
-    void Awake()
+    private void Awake()
     {
-        this.tag = "Ingredient";
+        tag = "Ingredient";
     }
 
-    void Start()
+    private void Start()
     {
-        if(_invisibleOnDrag != null) _invisibleOnDrag.active = false;
-        for(int i = 0; i < _pullables.Count; ++i)
+        if (_invisibleOnDrag != null) _invisibleOnDrag.active = false;
+        for (var i = 0; i < _pullables.Count; ++i)
         {
             _pullables[i].foodParent = this;
         }
@@ -28,7 +35,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 
     public void OnDisable()
     {
-        for(int i = 0; i < _pullables.Count; ++i)
+        for (var i = 0; i < _pullables.Count; ++i)
         {
             _pullables[i].gameObject.SetActive(false);
         }
@@ -36,7 +43,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 
     public void OnEnable()
     {
-        for (int i = 0; i < _pullables.Count; ++i)
+        for (var i = 0; i < _pullables.Count; ++i)
         {
             _pullables[i].gameObject.SetActive(true);
         }
@@ -44,7 +51,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 
     public void OnDestroy()
     {
-        for (int i = 0; i < _pullables.Count; ++i)
+        for (var i = 0; i < _pullables.Count; ++i)
         {
             Destroy(_pullables[i].gameObject);
         }
@@ -60,6 +67,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
     }
 
     #region IIngredient
+
     public void AddedToDish()
     {
         if (currentPullable != null)
@@ -96,21 +104,23 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
     {
         return currentPullable != null;
     }
+
     #endregion
 
     #region IControllable
 
     public GameObject GetDragCopy()
     {
-        if(ReadyForDish())
+        if (ReadyForDish())
         {
             if (_invisibleOnDrag != null) _invisibleOnDrag.active = true;
-            GameObject copy = Instantiate(this.gameObject);
+            var copy = Instantiate(gameObject);
             Destroy(copy.GetComponent<PullableFood>());
             Destroy(copy.GetComponent<Collider>());
-            copy.transform.localScale = this.transform.lossyScale;
+            copy.transform.localScale = transform.lossyScale;
             return copy;
         }
+
         return null;
     }
 
@@ -124,7 +134,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if(droppedOn is Dish)
+        if (droppedOn is Dish)
         {
             droppedOn.OnDrop(this, hitInfo);
         }
@@ -166,7 +176,7 @@ public class PullableFood : MonoBehaviour, IIngredient, IControllable, ISubject
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }

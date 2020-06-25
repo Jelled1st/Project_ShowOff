@@ -5,27 +5,39 @@ using DG.Tweening;
 [RequireComponent(typeof(Collider))]
 public class CookingPan : MonoBehaviour, IControllable, ISubject
 {
-    [SerializeField] GameObject _foodNode;
-    [SerializeField] GameObject _water;
-    [SerializeField] GameObject _spoon;
-    [SerializeField] GameObject _spoonBottomNode;
-    [SerializeField] float _stirBonusModifier = 0.5f;
-    [SerializeField] float _stirTime = 0.8f;
-    Animator _spoonAnimator;
+    [SerializeField]
+    private GameObject _foodNode;
+
+    [SerializeField]
+    private GameObject _water;
+
+    [SerializeField]
+    private GameObject _spoon;
+
+    [SerializeField]
+    private GameObject _spoonBottomNode;
+
+    [SerializeField]
+    private float _stirBonusModifier = 0.5f;
+
+    [SerializeField]
+    private float _stirTime = 0.8f;
+
+    private Animator _spoonAnimator;
     private List<CookableFood> _food = new List<CookableFood>();
     private bool _foodIsCooked = false;
 
-    List<IObserver> _observers = new List<IObserver>();
+    private List<IObserver> _observers = new List<IObserver>();
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _spoonAnimator = _spoon.GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (_food.Count == 0) return;
         CookAllFood();
@@ -35,30 +47,33 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
             Notify(new CookingDoneEvent(this, _food[_food.Count - 1]));
             if (_food[_food.Count - 1].IsCooked(true)) Notify(new CookingAllIngredientsDoneEvent(this));
         }
-        _water.GetComponent<Renderer>().material.SetFloat("_OilCooking", _food[_food.Count-1].GetProgress());
+
+        _water.GetComponent<Renderer>().material.SetFloat("_OilCooking", _food[_food.Count - 1].GetProgress());
     }
 
     private void CookAllFood(float mod = 1.0f)
     {
-        for (int i = 0; i < _food.Count; ++i) _food[i].Cook(mod);
+        for (var i = 0; i < _food.Count; ++i) _food[i].Cook(mod);
     }
 
     public void TryAddFood(CookableFood food)
     {
-        List<CookableFood> requiredFood = food.GetRequiredHeadIngredients();
+        var requiredFood = food.GetRequiredHeadIngredients();
         if (requiredFood.Count != 0)
         {
-            bool containsIngredient = false;
-            for(int i = 0; i < requiredFood.Count; ++i)
+            var containsIngredient = false;
+            for (var i = 0; i < requiredFood.Count; ++i)
             {
-                if(requiredFood[i] == null || _food.Contains(requiredFood[i]))
+                if (requiredFood[i] == null || _food.Contains(requiredFood[i]))
                 {
                     containsIngredient = true;
                     break;
                 }
             }
-            if(!containsIngredient || !_food[_food.Count -1].IsCooked(false)) return;
+
+            if (!containsIngredient || !_food[_food.Count - 1].IsCooked(false)) return;
         }
+
         _food.Add(food);
         food.transform.SetParent(_foodNode.transform);
         food.transform.localPosition = new Vector3(0, 0, 0);
@@ -77,38 +92,42 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     }
 
     #region IControllable
+
     public GameObject GetDragCopy()
     {
         if (_food == null || _food.Count == 0 || !_food[_food.Count - 1].IsCooked(true))
         {
             return null;
         }
-        GameObject copy = Instantiate(_spoon);
+
+        var copy = Instantiate(_spoon);
         copy.transform.localScale = _spoon.transform.lossyScale;
-        Animator ani = copy.GetComponent<Animator>();
+        var ani = copy.GetComponent<Animator>();
         Destroy(ani);
-        GameObject empty = new GameObject();
+        var empty = new GameObject();
         empty.transform.SetParent(copy.transform);
         empty.transform.localScale = new Vector3(
-                empty.transform.localScale.x * _spoonBottomNode.transform.localScale.x,
-                empty.transform.localScale.y * _spoonBottomNode.transform.localScale.y,
-                empty.transform.localScale.z * _spoonBottomNode.transform.localScale.z
-                );
+            empty.transform.localScale.x * _spoonBottomNode.transform.localScale.x,
+            empty.transform.localScale.y * _spoonBottomNode.transform.localScale.y,
+            empty.transform.localScale.z * _spoonBottomNode.transform.localScale.z
+        );
 
         empty.transform.localPosition = _spoonBottomNode.transform.localPosition;
-        for (int i = 0; i < _food.Count; ++i)
+        for (var i = 0; i < _food.Count; ++i)
         {
-            GameObject foodCopy = _food[i].GetDragCopy();
+            var foodCopy = _food[i].GetDragCopy();
             foodCopy.transform.SetParent(empty.transform);
             foodCopy.transform.localPosition = new Vector3(0, 0, 0);
             foodCopy.transform.localScale = _food[i].transform.lossyScale;
         }
+
         Destroy(copy.GetComponent<CookingPan>());
-        Collider[] colliders = copy.GetComponentsInChildren<Collider>();
-        for (int i = 0; i < colliders.Length; ++i)
+        var colliders = copy.GetComponentsInChildren<Collider>();
+        for (var i = 0; i < colliders.Length; ++i)
         {
             Destroy(colliders[i]);
         }
+
         return copy;
     }
 
@@ -124,9 +143,9 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     {
         if (_food != null && _food.Count > 0)
         {
-            for (int i = _food.Count - 1; i >= 0; --i)
+            for (var i = _food.Count - 1; i >= 0; --i)
             {
-                CookableFood food = _food[i];
+                var food = _food[i];
                 food.OnDragDrop(position, droppedOn, hitInfo);
                 droppedOn.OnDrop(food.GetComponent<IControllable>(), hitInfo);
             }
@@ -181,10 +200,11 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }
     }
+
     #endregion
 }

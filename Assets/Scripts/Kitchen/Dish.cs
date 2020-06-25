@@ -10,39 +10,65 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         BurgerAndFries = 0,
         ChiliCheeseFries,
         FishAndChips,
-        SideDish,
+        SideDish
     }
 
-    [SerializeField] DishTypes _dishType;
+    [SerializeField]
+    private DishTypes _dishType;
 
     [Header("Required Ingredients")]
-    [SerializeField] protected List<IngredientType> _requiredIngredients;
-    [SerializeField] protected List<GameObject> _requiredIngredientMeshes;
+    [SerializeField]
+    protected List<IngredientType> _requiredIngredients;
+
+    [SerializeField]
+    protected List<GameObject> _requiredIngredientMeshes;
 
     [Header("Optional Ingredients")]
-    [SerializeField] protected List<IngredientType> _optionalIngredients;
+    [SerializeField]
+    protected List<IngredientType> _optionalIngredients;
+
     [Tooltip("The placements of the optional ingredients")]
-    [SerializeField] protected List<GameObject> _optionalIngredientMeshes;
+    [SerializeField]
+    protected List<GameObject> _optionalIngredientMeshes;
 
     [Header("Final ingredient")]
-    [SerializeField] protected IngredientType _finishIngredient;
+    [SerializeField]
+    protected IngredientType _finishIngredient;
+
     protected bool _finishIngredientPlaced = false;
-    [SerializeField] protected GameObject _finishIngredientMesh;
+
+    [SerializeField]
+    protected GameObject _finishIngredientMesh;
 
     [Header("Misc")]
     [Tooltip("the dishes this dish is dependent on. All dependent dishes must be done before completing this")]
-    [SerializeField] List<Dish> _sideDishesLeft = new List<Dish>();
-    [Tooltip("Auto finish is that the player does not need to make an action to register a complete side dish, if false, the player needs to drag it to this")]
-    [SerializeField] List<bool> _sideDishesAutoComplete = new List<bool>();
+    [SerializeField]
+    private List<Dish> _sideDishesLeft = new List<Dish>();
+
+    [Tooltip(
+        "Auto finish is that the player does not need to make an action to register a complete side dish, if false, the player needs to drag it to this")]
+    [SerializeField]
+    private List<bool> _sideDishesAutoComplete = new List<bool>();
+
     private List<List<GameObject>> _sideDishMeshesToEnable;
-    [SerializeField] List<IngredientType> _sideDishesMeshIngredientTypes;
-    [SerializeField] List<GameObject> _sideDishMeshes;
+
+    [SerializeField]
+    private List<IngredientType> _sideDishesMeshIngredientTypes;
+
+    [SerializeField]
+    private List<GameObject> _sideDishMeshes;
 
     [Tooltip("Stack all ingredients from the using the required placements index 0")]
-    [SerializeField] protected bool _stackAllIngredients = false;
-    [SerializeField] protected GameObject _stackIngredientsNode;
+    [SerializeField]
+    protected bool _stackAllIngredients = false;
+
+    [SerializeField]
+    protected GameObject _stackIngredientsNode;
+
     protected List<IngredientType> _addedIngredients = new List<IngredientType>();
-    protected Dictionary<IngredientType, GameObject> _addedIngredientObjects = new Dictionary<IngredientType, GameObject>();
+
+    protected Dictionary<IngredientType, GameObject> _addedIngredientObjects =
+        new Dictionary<IngredientType, GameObject>();
 
     protected List<IDishObserver> _observers = new List<IDishObserver>();
 
@@ -50,7 +76,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     protected void Awake()
     {
-        this.gameObject.tag = "Dish"; 
+        gameObject.tag = "Dish";
     }
 
     // Start is called before the first frame update
@@ -63,16 +89,17 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             if (_optionalIngredients.Count != _optionalIngredientMeshes.Count)
                 Debug.Log("Dish warning: Amount of optional ingredients does not match meshes count");
         }
+
         if (_sideDishesLeft.Count != _sideDishesAutoComplete.Count)
             Debug.Log("Side dishes count does not equal side dish auto complete or side dish mesh count");
 
-        for (int i = 0; i < _sideDishesLeft.Count; ++i)
+        for (var i = 0; i < _sideDishesLeft.Count; ++i)
         {
             Subscribe(_sideDishesLeft[i]);
         }
 
         _sideDishMeshesToEnable = new List<List<GameObject>>();
-        for(int i = 0; i < _sideDishesLeft.Count; ++i)
+        for (var i = 0; i < _sideDishesLeft.Count; ++i)
         {
             _sideDishMeshesToEnable.Add(new List<GameObject>());
         }
@@ -81,7 +108,6 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     // Update is called once per frame
     protected void Update()
     {
-
     }
 
     public DishTypes GetDishType()
@@ -111,31 +137,33 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     public List<IngredientType> GetAllPossibleIngredients(bool includeSideDishes = true)
     {
-        List<IngredientType> allIngredients = new List<IngredientType>(_requiredIngredients);
-        for(int i = 0; i < _optionalIngredients.Count; ++i)
+        var allIngredients = new List<IngredientType>(_requiredIngredients);
+        for (var i = 0; i < _optionalIngredients.Count; ++i)
         {
             allIngredients.Add(_optionalIngredients[i]);
         }
+
         if (_finishIngredient != IngredientType.Undefined) allIngredients.Add(_finishIngredient);
         if (includeSideDishes)
         {
-            for (int i = 0; i < _sideDishesLeft.Count; ++i)
+            for (var i = 0; i < _sideDishesLeft.Count; ++i)
             {
-                List<IngredientType> ingredientTypes = _sideDishesLeft[i].GetAllPossibleIngredients();
-                for (int j = 0; j < ingredientTypes.Count; ++j)
+                var ingredientTypes = _sideDishesLeft[i].GetAllPossibleIngredients();
+                for (var j = 0; j < ingredientTypes.Count; ++j)
                 {
                     allIngredients.Add(ingredientTypes[j]);
                 }
             }
         }
+
         return allIngredients;
     }
 
     protected virtual bool TryAddIngredient(IIngredient ingredient)
     {
         if (_debugLog) Debug.Log("Trying to add " + ingredient);
-        IngredientType type = ingredient.GetIngredientType();
-        if(_finishIngredient != IngredientType.Undefined && type == _finishIngredient)
+        var type = ingredient.GetIngredientType();
+        if (_finishIngredient != IngredientType.Undefined && type == _finishIngredient)
         {
             if (IsFinished(false))
             {
@@ -148,8 +176,9 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 return true;
             }
         }
+
         if (_finishIngredientPlaced) return false;
-        for (int i = 0; i < _requiredIngredients.Count; ++i)
+        for (var i = 0; i < _requiredIngredients.Count; ++i)
         {
             if (type == _requiredIngredients[i])
             {
@@ -158,11 +187,12 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 AddIngredientMesh(type, ingredient.GetDishMesh(), ingredient.GetHeight(), true, i);
                 _requiredIngredients.RemoveAt(i); //remove ingredient from the list
                 InformObserversAddIngredient(ingredient);
-                if(IsFinished(true)) InformObserversFinish();
+                if (IsFinished(true)) InformObserversFinish();
                 return true;
             }
         }
-        for (int i = 0; i < _optionalIngredients.Count; ++i)
+
+        for (var i = 0; i < _optionalIngredients.Count; ++i)
         {
             if (type == _optionalIngredients[i])
             {
@@ -174,6 +204,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 return true;
             }
         }
+
         if (_debugLog) Debug.Log(ingredient + " Could not be added");
         return false;
     }
@@ -189,26 +220,29 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 else if (_finishIngredientPlaced) return true;
             }
         }
+
         return false;
     }
 
-    protected void AddIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight, bool requiredIngredient, int indexInList)
+    protected void AddIngredientMesh(IngredientType type, GameObject ingredientMesh, float ingredientHeight,
+        bool requiredIngredient, int indexInList)
     {
         if (ingredientMesh == null) return;
-        if(_addedIngredientObjects.ContainsKey(type))
+        if (_addedIngredientObjects.ContainsKey(type))
         {
             Destroy(ingredientMesh);
             return;
         }
+
         _addedIngredients.Add(type);
 
         if (_stackAllIngredients)
         {
             _addedIngredientObjects.Add(type, ingredientMesh);
-            ingredientMesh.transform.SetParent(this.transform);
+            ingredientMesh.transform.SetParent(transform);
 
-            Vector3 pos = new Vector3();
-            Quaternion rot = new Quaternion();
+            var pos = new Vector3();
+            var rot = new Quaternion();
             pos = _stackIngredientsNode.transform.position;
             rot = _stackIngredientsNode.transform.rotation;
             _stackIngredientsNode.transform.position += new Vector3(0, ingredientHeight, 0);
@@ -218,7 +252,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         else
         {
             Destroy(ingredientMesh);
-            if(requiredIngredient)
+            if (requiredIngredient)
             {
                 if (_requiredIngredientMeshes[indexInList] != null)
                 {
@@ -246,11 +280,11 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
         if (_stackAllIngredients)
         {
-            GameObject ingredientGO = ingredientMesh;
+            var ingredientGO = ingredientMesh;
             _addedIngredientObjects.Add(type, ingredientGO);
-            ingredientGO.transform.SetParent(this.transform);
-            Vector3 pos = new Vector3();
-            Quaternion rot = new Quaternion();
+            ingredientGO.transform.SetParent(transform);
+            var pos = new Vector3();
+            var rot = new Quaternion();
             pos = _stackIngredientsNode.transform.position;
             rot = _stackIngredientsNode.transform.rotation;
             ingredientGO.transform.position = pos;
@@ -264,20 +298,25 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
             _addedIngredientObjects.Add(type, _finishIngredientMesh);
             _finishIngredientMesh = null;
         }
-        if(_debugLog) Debug.Log(ingredientMesh);
+
+        if (_debugLog) Debug.Log(ingredientMesh);
     }
 
     #region IControllable
+
     public virtual GameObject GetDragCopy()
     {
         if (IsFinished(true) && _dishType == DishTypes.SideDish)
         {
-            GameObject copy = Instantiate(this.gameObject);
+            var copy = Instantiate(gameObject);
             Destroy(copy.GetComponent<Dish>());
             Destroy(copy.GetComponent<Collider>());
             return copy;
         }
-        else return null;
+        else
+        {
+            return null;
+        }
     }
 
     public void OnClick(Vector3 hitPoint)
@@ -298,10 +337,10 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     public void OnDrop(IControllable dropped, ControllerHitInfo hitInfo)
     {
-        if(_debugLog) Debug.Log(dropped + " dropped");
+        if (_debugLog) Debug.Log(dropped + " dropped");
         if (dropped is IIngredient)
         {
-            IIngredient ingredient = dropped as IIngredient;
+            var ingredient = dropped as IIngredient;
             if (ingredient.ReadyForDish())
             {
                 if (_debugLog) Debug.Log(dropped + " is ready for dish");
@@ -312,28 +351,30 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 }
             }
         }
-        else if(dropped is Dish)
+        else if (dropped is Dish)
         {
-            Dish dish = dropped as Dish;
+            var dish = dropped as Dish;
             if (dish != null && dish.IsFinished(true))
             {
-                for (int i = 0; i < _sideDishesLeft.Count; ++i)
+                for (var i = 0; i < _sideDishesLeft.Count; ++i)
                 {
                     if (_sideDishesLeft[i] as Dish == dish)
                     {
                         Destroy(dish.gameObject);
                         if (_debugLog) Debug.Log("enabling " + _sideDishMeshesToEnable[i].Count + " meshes");
-                        for (int j = 0; j < _sideDishMeshesToEnable[i].Count; ++j)
+                        for (var j = 0; j < _sideDishMeshesToEnable[i].Count; ++j)
                         {
                             if (_debugLog) Debug.Log("Enabling " + _sideDishMeshesToEnable[i][j]);
                             _sideDishMeshesToEnable[i][j].SetActive(true);
                         }
+
                         _sideDishMeshesToEnable.RemoveAt(i);
                         _sideDishesLeft.RemoveAt(i);
                         Notify(new SideDishDraggedToMain(this, dish));
                     }
                 }
             }
+
             if (IsFinished(true))
             {
                 InformObserversFinish();
@@ -357,9 +398,11 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     public void OnSwipe(Vector3 direction, Vector3 lastPoint)
     {
     }
+
     #endregion
 
     #region ISubject
+
     public void Register(IObserver observer)
     {
         if (observer is IDishObserver)
@@ -378,17 +421,19 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     public void Notify(AObserverEvent observerEvent)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnNotify(observerEvent);
         }
     }
+
     #endregion
 
     #region IDishObserver
+
     protected void InformObserversAddIngredient(IIngredient ingredient)
     {
-        for(int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnIngredientAdd(this, ingredient);
         }
@@ -396,7 +441,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     protected void InformObserversFinish()
     {
-        for (int i = 0; i < _observers.Count; ++i)
+        for (var i = 0; i < _observers.Count; ++i)
         {
             _observers[i].OnFinishDish(this);
         }
@@ -404,15 +449,15 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     public void OnIngredientAdd(ISubject subject, IIngredient ingredient)
     {
-        Dish sideDish = subject as Dish;
+        var sideDish = subject as Dish;
         if (sideDish != null)
         {
-            for (int i = 0; i < _sideDishesLeft.Count; ++i)
+            for (var i = 0; i < _sideDishesLeft.Count; ++i)
             {
                 if (sideDish == _sideDishesLeft[i])
                 {
                     if (_debugLog) Debug.Log(sideDish + " found");
-                    for (int j = 0; j < _sideDishesMeshIngredientTypes.Count; ++j)
+                    for (var j = 0; j < _sideDishesMeshIngredientTypes.Count; ++j)
                     {
                         if (_sideDishesMeshIngredientTypes[j] == ingredient.GetIngredientType())
                         {
@@ -423,6 +468,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                             break;
                         }
                     }
+
                     break;
                 }
             }
@@ -431,10 +477,10 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
 
     public void OnFinishDish(ISubject subject)
     {
-        Dish dish = subject as Dish;
+        var dish = subject as Dish;
         if (dish != null)
         {
-            for (int i = 0; i < _sideDishesLeft.Count; ++i)
+            for (var i = 0; i < _sideDishesLeft.Count; ++i)
             {
                 if (_sideDishesLeft[i] == dish)
                 {
@@ -445,6 +491,7 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
                 }
             }
         }
+
         if (_requiredIngredients.Count == 0 && _sideDishesLeft.Count == 0)
         {
             InformObserversFinish();
@@ -464,5 +511,6 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
     public void OnNotify(AObserverEvent observerEvent)
     {
     }
+
     #endregion
 }

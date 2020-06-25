@@ -58,6 +58,6 @@ public class BadWordsList : ScriptableObject
     public static bool IsBadWord(string word)
     {
         return Instance._badWords.Contains(word.ToLower()) ||
-               (Instance._customBadWords != null && Instance._customBadWords.Contains(word.ToLower()));
+               Instance._customBadWords != null && Instance._customBadWords.Contains(word.ToLower());
     }
 }

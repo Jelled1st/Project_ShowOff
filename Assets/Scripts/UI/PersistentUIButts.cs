@@ -3,16 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class PersistentUIButts : MonoBehaviour
 {
-    [SerializeField] private string mainMenuName = "!Main Menu";
-    [SerializeField] private GameObject mainConfirm;
-    [SerializeField] private GameObject resetConfirm;
+    [SerializeField]
+    private string mainMenuName = "!Main Menu";
+
+    [SerializeField]
+    private GameObject mainConfirm;
+
+    [SerializeField]
+    private GameObject resetConfirm;
 
     private void Start()
     {
         if (mainConfirm.activeInHierarchy)
         {
             mainConfirm.SetActive(false);
-            
         }
 
         if (resetConfirm.activeInHierarchy)
@@ -28,7 +32,7 @@ public class PersistentUIButts : MonoBehaviour
 
     public void RestartLevel()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        var currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
     }
 

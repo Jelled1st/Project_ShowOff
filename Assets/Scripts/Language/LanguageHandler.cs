@@ -4,12 +4,14 @@ using UnityEngine.SceneManagement;
 
 public class LanguageHandler : MonoBehaviour
 {
-    [SerializeField] LanguagePack _languagePack;
+    [SerializeField]
+    private LanguagePack _languagePack;
 
     public static LanguageHandler instance = null;
-    private static List<LanguageText> _texts; 
+    private static List<LanguageText> _texts;
 
     #region text structs
+
     public struct MainSceneText
     {
         public string start;
@@ -25,8 +27,8 @@ public class LanguageHandler : MonoBehaviour
         public string shovelQuest;
         public string plantQuest;
         public string waterQuest;
-    }   
-    
+    }
+
     public struct FactorySceneText
     {
         public string mainQuest;
@@ -77,6 +79,7 @@ public class LanguageHandler : MonoBehaviour
         public string score;
         public string lossText;
     }
+
     #endregion
 
     public MainSceneText main;
@@ -88,12 +91,12 @@ public class LanguageHandler : MonoBehaviour
     public MiscText misc;
 
 
-    void Awake()
+    private void Awake()
     {
         Debug.Log("Current instance: " + instance);
         if (instance != null)
         {
-            if (this.gameObject.GetComponents<Component>().Length == 2) DestroyImmediate(this.gameObject);
+            if (gameObject.GetComponents<Component>().Length == 2) DestroyImmediate(gameObject);
             else DestroyImmediate(this);
         }
         else
@@ -101,7 +104,7 @@ public class LanguageHandler : MonoBehaviour
             Debug.Log("new language instance");
             _texts = new List<LanguageText>();
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
             _languagePack.UnPack(this);
         }
     }
@@ -111,9 +114,9 @@ public class LanguageHandler : MonoBehaviour
         if (languagePack == _languagePack) return;
         _languagePack = languagePack;
         languagePack.UnPack(this);
-        for(int i = 0; i < _texts.Count; ++i)
+        for (var i = 0; i < _texts.Count; ++i)
         {
-            string text = GetTextForField(_texts[i].GetFieldName());
+            var text = GetTextForField(_texts[i].GetFieldName());
             _texts[i].SetText(text);
         }
     }
@@ -142,6 +145,7 @@ public class LanguageHandler : MonoBehaviour
     private string GetTextForField(string field)
     {
         #region Main
+
         if (field.StartsWith("main.start"))
         {
             return main.start;
@@ -162,8 +166,11 @@ public class LanguageHandler : MonoBehaviour
         {
             return main.subtitle;
         }
+
         #endregion
+
         #region Farm
+
         else if (field.StartsWith("farm.mainQuest"))
         {
             return farm.mainQuest;
@@ -180,8 +187,11 @@ public class LanguageHandler : MonoBehaviour
         {
             return farm.waterQuest;
         }
+
         #endregion
+
         #region Factory
+
         else if (field.StartsWith("factory.mainQuest"))
         {
             return factory.mainQuest;
@@ -206,8 +216,11 @@ public class LanguageHandler : MonoBehaviour
         {
             return factory.packageQuest;
         }
+
         #endregion
+
         #region Kitchen
+
         else if (field.StartsWith("kitchen.cookPatty"))
         {
             return kitchen.cookPatty;
@@ -267,8 +280,11 @@ public class LanguageHandler : MonoBehaviour
         {
             return kitchen.fryFries;
         }
+
         #endregion
+
         #region Persistant UI
+
         else if (field.StartsWith("persUI.restart"))
         {
             return persUI.restart;
@@ -285,8 +301,11 @@ public class LanguageHandler : MonoBehaviour
         {
             return persUI.no;
         }
+
         #endregion
+
         #region Timout
+
         else if (field.StartsWith("timeout.reminder"))
         {
             return timeout.reminder;
@@ -295,8 +314,11 @@ public class LanguageHandler : MonoBehaviour
         {
             return timeout.yes;
         }
+
         #endregion
+
         #region Misc
+
         else if (field.StartsWith("misc.score"))
         {
             return misc.score;
@@ -305,7 +327,9 @@ public class LanguageHandler : MonoBehaviour
         {
             return misc.lossText;
         }
+
         #endregion
+
         return "NO TRANSLATION";
     }
 }

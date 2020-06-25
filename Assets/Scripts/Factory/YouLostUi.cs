@@ -13,7 +13,7 @@ public class YouLostUi : MonoBehaviour
 
     public void RestartLevel()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        var currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
     }
 

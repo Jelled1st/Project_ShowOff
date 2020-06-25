@@ -5,7 +5,7 @@ public static class GeometryUtils
     public static Vector3 TriangleHeightPoint(ref Vector3 linePointA, ref Vector3 linePointB,
         ref Vector3 heightPoint)
     {
-        float lambda =
+        var lambda =
             (linePointA.x * linePointA.x + linePointB.x * heightPoint.x -
              linePointA.x * (linePointB.x + heightPoint.x) + linePointA.y * linePointA.y -
              linePointA.y * linePointB.y - linePointA.y * heightPoint.y +

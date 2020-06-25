@@ -2,9 +2,10 @@
 {
     public readonly CuttingBoard board;
     public readonly CuttableFood food;
+
     public CuttableOnCuttingBoardEvent(CuttingBoard cuttingBoard, CuttableFood food) : base(cuttingBoard)
     {
-        this.board = cuttingBoard;
+        board = cuttingBoard;
         this.food = food;
     }
 }

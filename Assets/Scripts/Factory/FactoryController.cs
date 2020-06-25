@@ -117,7 +117,7 @@ namespace Factory
         private StageTimer _stageTimer;
         private FactoryQuestController _factoryQuestController;
 
-        bool _trulyFinished = false;
+        private bool _trulyFinished = false;
 
         public int PotatoesNeededToPassLevel1 => _potatoesNeededToPassLevel1;
 
@@ -146,9 +146,9 @@ namespace Factory
                 blackoutCanvas.SetActive(true);
             }
         }
+
         private void Start()
         {
-
             StartCoroutine(FadeIn());
         }
 
@@ -316,43 +316,43 @@ namespace Factory
 
             _sceneLoad.allowSceneActivation = false;
         }
+
         public IEnumerator FadeIn(bool fadeToWhite = true, int fadeSpeed = 5)
         {
-            Color objectColor = blackOutSquare.GetComponent<Image>().color;
+            var objectColor = blackOutSquare.GetComponent<Image>().color;
             float fadeAmount;
 
             if (fadeToWhite)
             {
                 while (blackOutSquare.GetComponent<Image>().color.a > 0)
                 {
-                    fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+                    fadeAmount = objectColor.a - fadeSpeed * Time.deltaTime;
 
                     objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                     blackOutSquare.GetComponent<Image>().color = objectColor;
                     yield return null;
                 }
             }
-
         }
 
         public IEnumerator FadeOut(bool fadeToBlack = true, int fadeSpeed = 5)
         {
-            Color objectColor = blackOutSquare.GetComponent<Image>().color;
+            var objectColor = blackOutSquare.GetComponent<Image>().color;
             float fadeAmount;
 
             if (fadeToBlack)
             {
                 while (blackOutSquare.GetComponent<Image>().color.a < 1)
                 {
-                    fadeAmount = objectColor.a + (fadeSpeed * Time.deltaTime);
+                    fadeAmount = objectColor.a + fadeSpeed * Time.deltaTime;
 
                     objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
                     blackOutSquare.GetComponent<Image>().color = objectColor;
                     yield return null;
                 }
+
                 _sceneLoad.allowSceneActivation = true;
             }
-
         }
     }
 }

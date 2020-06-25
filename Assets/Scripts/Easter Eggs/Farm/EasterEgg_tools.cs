@@ -5,19 +5,31 @@ using UnityEngine;
 
 public class EasterEgg_tools : MonoBehaviour
 {
-    [SerializeField] private Rigidbody _tool1;
-    [SerializeField] private Rigidbody _tool2;
-    [SerializeField] private Rigidbody _tool3;
-    [SerializeField] private GameObject _beam;
-    [SerializeField] private int _playCount;
+    [SerializeField]
+    private Rigidbody _tool1;
+
+    [SerializeField]
+    private Rigidbody _tool2;
+
+    [SerializeField]
+    private Rigidbody _tool3;
+
+    [SerializeField]
+    private GameObject _beam;
+
+    [SerializeField]
+    private int _playCount;
+
     private bool _isOpen = false;
     private bool _hasClicked = false;
-    void Start()
+
+    private void Start()
     {
         _tool1.constraints = RigidbodyConstraints.FreezeAll;
         _tool2.constraints = RigidbodyConstraints.FreezeAll;
         _tool3.constraints = RigidbodyConstraints.FreezeAll;
     }
+
     private void Update()
     {
         if (!_hasClicked && _isOpen && _playCount < 1)
@@ -53,11 +65,13 @@ public class EasterEgg_tools : MonoBehaviour
         {
             _beam.SetActive(true);
         }
+
         //start tools coroutine
         if (!_hasClicked && _playCount < 1)
         {
             StartCoroutine(beam());
         }
+
         _playCount--;
     }
 
@@ -65,16 +79,17 @@ public class EasterEgg_tools : MonoBehaviour
     {
         yield return null;
 
-        while(_beam.transform.localScale.x < 2.45f && !_isOpen)
+        while (_beam.transform.localScale.x < 2.45f && !_isOpen)
         {
             _beam.GetComponent<Transform>().DOScale(new Vector3(2.5f, 5, 2.5f), 1);
-            if(_beam.transform.localScale.x > 1.5f)
+            if (_beam.transform.localScale.x > 1.5f)
             {
                 _isOpen = true;
                 yield return new WaitForSeconds(4);
                 _beam.GetComponent<Transform>().DOScale(new Vector3(0, 5, 0), 0.5f);
                 yield break;
             }
+
             yield return null;
         }
     }

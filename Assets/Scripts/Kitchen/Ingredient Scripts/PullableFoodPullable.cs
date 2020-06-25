@@ -3,11 +3,12 @@
 [RequireComponent(typeof(Collider))]
 public class PullableFoodPullable : MonoBehaviour, IControllable
 {
-    [HideInInspector] public PullableFood foodParent;
+    [HideInInspector]
+    public PullableFood foodParent;
 
     public GameObject GetDishMesh()
     {
-        GameObject copy = GetDragCopy();
+        var copy = GetDragCopy();
         copy.GetComponent<Renderer>().enabled = true;
         copy.transform.localScale = copy.transform.localScale * 0.3f;
         return copy;
@@ -15,10 +16,10 @@ public class PullableFoodPullable : MonoBehaviour, IControllable
 
     public GameObject GetDragCopy()
     {
-        GameObject copy = Instantiate(this.gameObject);
+        var copy = Instantiate(gameObject);
         Destroy(copy.GetComponent<PullableFoodPullable>());
         Destroy(copy.GetComponent<Collider>());
-        copy.transform.localScale = this.transform.lossyScale;
+        copy.transform.localScale = transform.lossyScale;
         return copy;
     }
 

@@ -9,7 +9,7 @@ public class SideDishDraggedToMain : AObserverEvent
 
     public SideDishDraggedToMain(Dish dish, Dish sideDish) : base(dish)
     {
-        this.mainDish = dish;
+        mainDish = dish;
         this.sideDish = sideDish;
     }
 }

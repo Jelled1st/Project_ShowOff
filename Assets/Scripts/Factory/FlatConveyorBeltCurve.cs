@@ -8,7 +8,7 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
 
     protected override void FixedUpdateMovement()
     {
-        Quaternion rot = _rBody.rotation;
+        var rot = _rBody.rotation;
         _rBody.rotation *= Quaternion.Euler(0, Speed * _eyeCandySpeedMultiplier, 0);
         _rBody.MoveRotation(rot);
     }
@@ -20,8 +20,8 @@ public class FlatConveyorBeltCurve : FlatConveyorBelt
     protected override void Turn()
     {
         _rotateTween = DOTween.Sequence().Append(
-                this.gameObject.transform.parent.DORotate(
-                    this.gameObject.transform.parent.rotation.eulerAngles + new Vector3(0, 90, 0), RotateInterval))
+                gameObject.transform.parent.DORotate(
+                    gameObject.transform.parent.rotation.eulerAngles + new Vector3(0, 90, 0), RotateInterval))
             .AppendCallback(
                 () => { _rotateTween = null; });
     }

@@ -42,8 +42,12 @@ public class FarmPlotSpawnStateRate : ScriptableObject, IComparable
      * 
      */
     public int importance;
+
     public FarmPlot.State state;
-    [Range(0, 100)] public int spawnRate = 10;
+
+    [Range(0, 100)]
+    public int spawnRate = 10;
+
     public uint minSpawns = 0;
     public int maxSpawns = 2;
     public int finalPlotAmount = -1;
@@ -52,9 +56,12 @@ public class FarmPlotSpawnStateRate : ScriptableObject, IComparable
     {
         if (obj is FarmPlotSpawnStateRate)
         {
-            FarmPlotSpawnStateRate other = (FarmPlotSpawnStateRate)obj;
-            return other.importance - this.importance;
+            var other = (FarmPlotSpawnStateRate) obj;
+            return other.importance - importance;
         }
-        else return 0;
+        else
+        {
+            return 0;
+        }
     }
 }
