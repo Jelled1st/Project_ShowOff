@@ -125,7 +125,7 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
 
     public void OnDragDrop(Vector3 position, IControllable droppedOn, ControllerHitInfo hitInfo)
     {
-        if (!_isOnCooldown)
+        if (!_isOnCooldown && _parentCanvas.isActiveAndEnabled)
         {
             FarmPlot plot;
             if (hitInfo.gameObject.TryGetComponent<FarmPlot>(out plot))
