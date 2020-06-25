@@ -27,7 +27,6 @@ public class StirDish : Dish
         base.Awake();
     }
 
-    // Start is called before the first frame update
     private new void Start()
     {
         base.Start();
@@ -36,12 +35,6 @@ public class StirDish : Dish
         {
             _requiredStirOptions[i].Init(this);
         }
-    }
-
-    // Update is called once per frame
-    private new void Update()
-    {
-        base.Update();
     }
 
     protected override bool IsFinished(bool includeFinishIngredient)

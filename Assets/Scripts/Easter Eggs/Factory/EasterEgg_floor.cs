@@ -21,17 +21,10 @@ public class EasterEgg_floor : MonoBehaviour
 
     private int _colorCounter = 2;
 
-    // Start is called before the first frame update
     private void Start()
     {
         _colorBase = _mat.GetColor("_BaseColor");
     }
-
-    // Update is called once per frame
-    private void Update()
-    {
-    }
-
 
     private void OnMouseDown()
     {

@@ -50,7 +50,6 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
         gameObject.tag = "Ingredient";
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         var main = _smokeParticles.main;
@@ -64,7 +63,6 @@ public class BakableFood : MonoBehaviour, IControllable, IIngredient, ISubject
         }
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_isBaking)

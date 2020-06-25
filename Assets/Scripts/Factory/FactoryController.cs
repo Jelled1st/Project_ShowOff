@@ -152,15 +152,6 @@ namespace Factory
             StartCoroutine(FadeIn());
         }
 
-        private void Update()
-        {
-            /*if (Input.GetKeyDown(KeyCode.Space))
-            {
-                FinishScene();
-            }*/
-        }
-
-
         private void OnEnable()
         {
             _potatoPackageStacks.ToList().ForEach(t => t.SetActive(false));

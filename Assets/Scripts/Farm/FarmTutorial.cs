@@ -86,7 +86,6 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
 
     private bool _firstUpdateCalled = false;
 
-    // Start is called before the first frame update
     public void Init()
     {
         SubscribeAndDisableFarmPlots();
@@ -142,7 +141,6 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
         }
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (!_firstUpdateCalled)

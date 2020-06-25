@@ -10,15 +10,9 @@ public class MoveCuttable : MonoBehaviour, IObserver
     [SerializeField]
     private List<Vector3> _moves;
 
-    // Start is called before the first frame update
     private void Start()
     {
         Subscribe(_cuttable);
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
     }
 
     public void OnNotify(AObserverEvent observerEvent)

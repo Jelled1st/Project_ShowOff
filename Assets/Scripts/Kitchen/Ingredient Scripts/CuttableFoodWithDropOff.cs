@@ -17,16 +17,9 @@ public class CuttableFoodWithDropOff : CuttableFood
         base.Awake();
     }
 
-    // Start is called before the first frame update
     private new void Start()
     {
         base.Start();
-    }
-
-    // Update is called once per frame
-    private new void Update()
-    {
-        base.Update();
     }
 
     public override bool Cut()

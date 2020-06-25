@@ -10,15 +10,9 @@ public class RotateCuttable : MonoBehaviour, IObserver
     [SerializeField]
     private List<Vector3> _rotations;
 
-    // Start is called before the first frame update
     private void Start()
     {
         Subscribe(_cuttable);
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
     }
 
     public void OnNotify(AObserverEvent observerEvent)

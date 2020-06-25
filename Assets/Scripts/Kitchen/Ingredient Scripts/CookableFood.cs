@@ -42,16 +42,6 @@ public class CookableFood : MonoBehaviour, IControllable, IIngredient
         gameObject.tag = "Ingredient";
     }
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-    }
-
     public void Cook(float modifier = 1.0f)
     {
         if (!_stateCook)

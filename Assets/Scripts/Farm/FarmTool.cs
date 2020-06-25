@@ -47,7 +47,6 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
         gameObject.tag = "FarmTool";
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         switch (_functionality)
@@ -67,7 +66,6 @@ public class FarmTool : MonoBehaviour, IControllable, ISubject
         }
     }
 
-    // Update is called once per frame
     private void Update()
     {
         _timeSinceLastUse += Time.deltaTime;

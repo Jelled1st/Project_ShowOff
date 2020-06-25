@@ -31,18 +31,12 @@ public class CuttableFood : MonoBehaviour, IControllable, IIngredient, ISubject
         gameObject.tag = "Ingredient";
     }
 
-    // Start is called before the first frame update
     protected void Start()
     {
         if (_cutStates != null && (_cutStates.Count == 0 || _cutStates[0] != _currentState))
         {
             _cutStates.Insert(0, _currentState);
         }
-    }
-
-    // Update is called once per frame
-    protected void Update()
-    {
     }
 
     public virtual bool Cut()

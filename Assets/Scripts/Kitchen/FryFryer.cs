@@ -31,14 +31,12 @@ public class FryFryer : MonoBehaviour, IControllable, ISubject
 
     private List<IObserver> _observers = new List<IObserver>();
 
-    // Start is called before the first frame update
     private void Start()
     {
         _progressBar.SetActive(false);
         _oilMat = _oil.GetComponent<Renderer>().materials[0];
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_food != null && !_basketIsUp)

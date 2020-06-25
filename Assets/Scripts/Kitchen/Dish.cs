@@ -79,7 +79,6 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         gameObject.tag = "Dish";
     }
 
-    // Start is called before the first frame update
     protected void Start()
     {
         if (!_stackAllIngredients)
@@ -105,10 +104,6 @@ public class Dish : MonoBehaviour, IControllable, ISubject, IDishObserver
         }
     }
 
-    // Update is called once per frame
-    protected void Update()
-    {
-    }
 
     public DishTypes GetDishType()
     {

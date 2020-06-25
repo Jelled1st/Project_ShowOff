@@ -98,7 +98,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         gameObject.tag = "FarmPlot";
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         var gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
@@ -124,7 +123,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         _neglectCooldown = true;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_paused) return;

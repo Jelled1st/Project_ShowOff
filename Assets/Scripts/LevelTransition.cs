@@ -12,15 +12,9 @@ public class LevelTransition : MonoBehaviour
     private bool messagePassed = false;
     public GameObject blackOutSquare;
 
-    // Start is called before the first frame update
     private void Start()
     {
         StartCoroutine(LoadScene());
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
     }
 
     private void Awake()

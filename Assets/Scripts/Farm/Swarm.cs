@@ -77,14 +77,12 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         }
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         if (!_initCalled) Debug.LogWarning("Init not called before Start on Swarm");
         soundEffectManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<SFX>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_paused) return;

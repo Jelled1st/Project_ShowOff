@@ -12,15 +12,9 @@ public class BurgerTutorial : KitchenSubTutorial
     [SerializeField]
     private Dish _burgerSideDish;
 
-    // Start is called before the first frame update
     private void Start()
     {
         _onBakingDone.AddListener(delegate { StrikeThroughText(_pattyToBurger); });
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
     }
 
     public override void IngredientDone(IIngredient ingredient)

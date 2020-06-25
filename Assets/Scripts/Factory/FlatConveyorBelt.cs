@@ -126,7 +126,6 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         }
     }
 
-    // Start is called before the first frame update
     protected virtual void Start()
     {
         if (!TryGetComponent(out _rBody))
@@ -198,7 +197,6 @@ public class FlatConveyorBelt : MonoBehaviour, IControllable
         _scrollingMaterials.ForEach(t => t.SetFloat(ShaderConstants.ScrollingShaderSpeedFloat, Speed * mul));
     }
 
-    // Update is called once per frame
     private void FixedUpdate()
     {
         if (enabled)

@@ -12,16 +12,6 @@ public class ProgressBar : MonoBehaviour
     [SerializeField]
     private Image _fillColor;
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-    }
-
     public void SetActive(bool active)
     {
         _slider.gameObject.SetActive(active);

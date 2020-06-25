@@ -58,7 +58,6 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         gameObject.tag = "Controller";
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         var gameHandler = GameObject.FindGameObjectWithTag("GameHandler");
@@ -90,7 +89,6 @@ public class TouchController : MonoBehaviour, ISubject, IGameHandlerObserver
         }
     }
 
-    // Update is called once per frame
     private void Update()
     {
         //if (_paused) return;

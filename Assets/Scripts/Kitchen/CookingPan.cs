@@ -30,13 +30,11 @@ public class CookingPan : MonoBehaviour, IControllable, ISubject
     private List<IObserver> _observers = new List<IObserver>();
 
 
-    // Start is called before the first frame update
     private void Start()
     {
         _spoonAnimator = _spoon.GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_food.Count == 0) return;

@@ -17,7 +17,6 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
 
     public bool active = true;
 
-    // Start is called before the first frame update
     private void Start()
     {
         if (_controllable == null) _controllable = gameObject;
@@ -25,7 +24,6 @@ public class InvisibleOnDrag : MonoBehaviour, IControlsObserver
         Subscribe(_controller);
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (!active) return;

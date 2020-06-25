@@ -9,7 +9,6 @@ public class ScoreDisplay : LanguageText, IScoresObserver
     private float _unAddedScore;
     private string _preText = "Score: ";
 
-    // Start is called before the first frame update
     private void Start()
     {
         Subscribe();
@@ -18,7 +17,6 @@ public class ScoreDisplay : LanguageText, IScoresObserver
         _textMeshProUgui.text = _preText + _displayScore + "!";
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_unAddedScore != 0.0f)

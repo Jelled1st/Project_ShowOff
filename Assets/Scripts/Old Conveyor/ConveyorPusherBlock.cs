@@ -44,7 +44,6 @@ public class ConveyorPusherBlock : MonoBehaviour
         if (!_initCalled) Debug.LogError("ConveyerPusherBlock not initialized, call Init() before Start()");
     }
 
-    // Update is called once per frame
     private void Update()
     {
         // if there is no waypoint to move to, return

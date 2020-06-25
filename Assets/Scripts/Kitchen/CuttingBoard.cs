@@ -10,16 +10,6 @@ public class CuttingBoard : MonoBehaviour, IControllable, ISubject
 
     private List<IObserver> _observers = new List<IObserver>();
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-    }
-
     public Vector3 GetCutPosition()
     {
         return _cutPosition.transform.position;

@@ -36,7 +36,6 @@ public class ConveyorBelt : MonoBehaviour
     private Tween _rotateTween;
     private List<GameObject> _wayPoints;
 
-    // Start is called before the first frame update
     private void Start()
     {
         _wayPoints = new List<GameObject>();
@@ -59,7 +58,6 @@ public class ConveyorBelt : MonoBehaviour
         gameObject.tag = "ConveyorBelt";
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (DOTween.IsTweening(gameObject.transform))

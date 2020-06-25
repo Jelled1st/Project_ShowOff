@@ -35,7 +35,6 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         gameObject.tag = "GameHandler";
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         if (blackoutCanvas.activeInHierarchy == false)
@@ -58,7 +57,6 @@ public class KitchenGameHandler : MonoBehaviour, ISubject, IDishObserver
         _kitchenTutorial.gameHandler = this;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Equals) && _choosenDish == null) ChooseDish(_dishes[0]);

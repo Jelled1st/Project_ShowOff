@@ -8,7 +8,6 @@ public class EasterEgg_locker : MonoBehaviour
 
     private Rigidbody _rigidBody;
 
-    // Start is called before the first frame update
     private void Start()
     {
         _rigidBody = gameObject.GetComponent<Rigidbody>();

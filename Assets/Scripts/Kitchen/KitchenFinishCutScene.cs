@@ -30,13 +30,11 @@ public class KitchenFinishCutScene : MonoBehaviour, IGameHandlerObserver
     private bool _gamefinished = false;
     public GameObject blackOutSquare;
 
-    // Start is called before the first frame update
     private void Start()
     {
         Subscribe(_gameHandler);
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_gamefinished)

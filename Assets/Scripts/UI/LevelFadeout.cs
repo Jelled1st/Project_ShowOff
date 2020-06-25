@@ -7,10 +7,6 @@ public class LevelFadeout : MonoBehaviour
 {
     public GameObject blackOutSquare;
 
-    private void Update()
-    {
-    }
-
     public IEnumerator FadeBlackOutSquare(bool fadeToBlack = true, int fadeSpeed = 5)
     {
         var objectColor = blackOutSquare.GetComponent<Image>().color;

@@ -19,7 +19,6 @@ public class Truck : MonoBehaviour, IGameHandlerObserver
     [SerializeField]
     private BKM musicManager;
 
-    // Start is called before the first frame update
     private void Start()
     {
         var gameHandler = GameObject.FindGameObjectWithTag("GameHandler");

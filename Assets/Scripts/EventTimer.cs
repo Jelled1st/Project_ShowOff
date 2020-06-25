@@ -26,13 +26,11 @@ public class EventTimer : MonoBehaviour
     private bool _paused = false;
     private bool _reachedTime = false;
 
-    // Start is called before the first frame update
     private void Start()
     {
         if (_pauseTimeOnEnd || _countDown) _timerEndEvent.AddListener(Pause);
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_paused) return;

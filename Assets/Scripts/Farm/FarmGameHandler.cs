@@ -74,7 +74,6 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         }
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         StartCoroutine(FadeIn());
@@ -196,7 +195,6 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
         return chosenIndices;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_repeatPause)

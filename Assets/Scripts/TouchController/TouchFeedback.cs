@@ -21,7 +21,6 @@ public class TouchFeedback : MonoBehaviour, IControlsObserver
 
     private GameObject _dragCopy = null;
 
-    // Start is called before the first frame update
     private void Start()
     {
         var controller = GameObject.FindGameObjectWithTag("Controller");

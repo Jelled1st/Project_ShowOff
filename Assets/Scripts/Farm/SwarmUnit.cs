@@ -15,12 +15,6 @@ public class SwarmUnit : MonoBehaviour, IControllable
         _swarm = swarm;
     }
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
-
-    // Update is called once per frame
     private void Update()
     {
         var hoverMove = new Vector3(

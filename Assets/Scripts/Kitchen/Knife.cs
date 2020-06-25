@@ -28,13 +28,11 @@ public class Knife : MonoBehaviour, IControllable
         rigidBody.isKinematic = true;
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         _rotationBeforeCut = transform.rotation.eulerAngles;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_swipeFramesCount >= _swipeFramesLength || _isCutting)

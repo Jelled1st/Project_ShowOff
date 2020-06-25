@@ -29,7 +29,6 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
 
     private KitchenSubTutorial _activeTutorial;
 
-    // Start is called before the first frame update
     private void Start()
     {
         _burgerTutorial?.DisableAllElements();
@@ -39,11 +38,6 @@ public class KitchenTutorial : MonoBehaviour, IDishObserver
         Subscribe(_pan);
         Subscribe(_cooker);
         Subscribe(_cuttingBoard);
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
     }
 
     public void ChooseDish(Dish dish)

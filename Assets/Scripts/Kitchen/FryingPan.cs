@@ -16,13 +16,11 @@ public class FryingPan : MonoBehaviour, IControllable, ISubject
 
     private List<IObserver> _observers = new List<IObserver>();
 
-    // Start is called before the first frame update
     private void Start()
     {
         _availableNodes = new List<GameObject>(_foodNodes);
     }
 
-    // Update is called once per frame
     private void Update()
     {
         for (var i = 0; i < _food.Count; ++i)

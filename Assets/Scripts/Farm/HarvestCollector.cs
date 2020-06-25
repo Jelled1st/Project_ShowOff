@@ -14,7 +14,6 @@ public class HarvestCollector : MonoBehaviour, IControllable
     [SerializeField]
     private FarmGameHandler _gameHandler;
 
-    // Start is called before the first frame update
     private void Start()
     {
         _potatoPositionsLeft = new List<int>();
@@ -23,12 +22,6 @@ public class HarvestCollector : MonoBehaviour, IControllable
             _potatoPositionsLeft.Add(i);
         }
     }
-
-    // Update is called once per frame
-    private void Update()
-    {
-    }
-
 
     private void CollectPotato()
     {

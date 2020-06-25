@@ -17,7 +17,6 @@ public class FarmPlotAnimatedToolsHandler : MonoBehaviour, IFarmPlotObserver
 
     private Dictionary<FarmPlot, GameObject> _farmPlotAnimatedTools = new Dictionary<FarmPlot, GameObject>();
 
-    // Start is called before the first frame update
     private void Start()
     {
         if (_farmTools.Count != _playStates.Count || _farmTools.Count != _spawnOffset.Count ||
@@ -31,11 +30,6 @@ public class FarmPlotAnimatedToolsHandler : MonoBehaviour, IFarmPlotObserver
             var farmPlot = farmPlotsGOs[i].GetComponent<FarmPlot>();
             Subscribe(farmPlot);
         }
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
     }
 
     private void SpawnAnimatedTool(FarmPlot plot, FarmPlot.State state, FarmPlot.State currentState)
