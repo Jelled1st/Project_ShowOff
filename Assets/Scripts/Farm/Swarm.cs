@@ -63,13 +63,13 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
         _swarmUnits = new List<GameObject>();
         _farmPlot = plot;
         Subscribe(_farmPlot);
-        InitAngleList();
+        initAngleList();
         _destination = _farmPlot.transform.position + new Vector3(0, 0.5f, 0);
 
         NotifyStaticObservers(new SwarmSpawnEvent(this, this));
     }
 
-    private void InitAngleList()
+    private void initAngleList()
     {
         for (var i = 0; i < 360 / _angleAmount; ++i)
         {
