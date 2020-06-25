@@ -12,7 +12,7 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
     [SerializeField] private float _speed = 0.5f;
     [SerializeField] private float _fleeSpeed = 2.0f;
     [SerializeField] private float _spawnTime = 1.5f;
-    [SerializeField] private float _outOfScreenMargin = 100;
+    [SerializeField] private Vector2 _outOfScreenMargin = new Vector2(100, 300);
     [Tooltip("Spawnchance in percentage")]
     [Range(0, 100)] [SerializeField] private float _spawnChance = 75;
     private FarmPlot _farmPlot;
@@ -126,8 +126,8 @@ public class Swarm : MonoBehaviour, ISubject, IFarmPlotObserver, IGameHandlerObs
 
     private bool PointOutOfScreen(Vector3 point)
     {
-        if (point.x < _outOfScreenMargin || point.x > Screen.width - _outOfScreenMargin || 
-            point.y < _outOfScreenMargin || point.y > Screen.height - _outOfScreenMargin)
+        if (point.x < _outOfScreenMargin.x || point.x > Screen.width - _outOfScreenMargin.x || 
+            point.y < _outOfScreenMargin.y || point.y > Screen.height - _outOfScreenMargin.y)
         {
             return true;
         }
