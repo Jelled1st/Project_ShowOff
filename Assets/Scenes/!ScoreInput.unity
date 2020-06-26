@@ -424,6 +424,7 @@ MonoBehaviour:
   - _score: {fileID: 249258528}
     _name: {fileID: 1631460203}
     _dishRender: {fileID: 1957817593}
+  _currentUserScore: {fileID: 1657980111}
   _currentUserRenderTexture: {fileID: 73956493}
   _keyboard: {fileID: 1026797583}
   _scoreParent: {fileID: 1513123204}

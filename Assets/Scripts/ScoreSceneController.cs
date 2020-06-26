@@ -51,6 +51,9 @@ public class ScoreSceneController : MonoBehaviour
     private GameScore[] _scores;
 
     [SerializeField]
+    private TextMeshProUGUI _currentUserScore;
+
+    [SerializeField]
     private RawImage _currentUserRenderTexture;
 
     [SerializeField]
@@ -80,6 +83,7 @@ public class ScoreSceneController : MonoBehaviour
             _keyboard.InputEnabled = true;
 
             _inputVisuals.SetActive(true);
+            _currentUserScore.text = ((int) Scores.GetCurrentUser().score).ToString();
             _currentUserRenderTexture.texture = GetDishTexture(Scores.GetCurrentUser().dish);
             _inputText.text = "";
 
