@@ -18,7 +18,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         Harvested
     };
 
-    private enum StateReady
+    public enum StateReady
     {
         OnCooldown = -1,
         InvalidAdvancement = -2,
@@ -78,8 +78,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     public bool _interActable = true;
 
     [Header("Plant positions")]
-    [SerializeField]
-    private GameObject[] _plantPositions = new GameObject[4];
+    [SerializeField] private GameObject[] _plantPositions = new GameObject[4];
+
+    [Header("State machine")]
+    [SerializeField] private FarmPlotStateProvider _stateProvider;
+    private FarmPlotState _currentStateObject;
 
     // Observers
     private List<IObserver> _observers = new List<IObserver>();
@@ -426,7 +429,14 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         _timeSinceLastCultivation = 0;
     }
 
-    private void ClearPlants()
+    private void SetState(FarmPlotState state)
+    {
+        _currentStateObject.ExitState();
+        _currentStateObject = Instantiate(state);
+        _currentStateObject.EnterState(this);
+    }
+
+    public void ClearPlants()
     {
         for (var i = 0; i < _plantPositions.Length; ++i)
         {
@@ -439,7 +449,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    private void SetPlants(List<GameObject> plantMeshes)
+    public void SetPlants(List<GameObject> plantMeshes)
     {
         if (plantMeshes == null || plantMeshes.Count == 0) return;
         for (var i = 0; i < _plantPositions.Length; ++i)
@@ -448,6 +458,11 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             plant.transform.SetParent(_plantPositions[i].transform);
             plant.transform.localPosition = new Vector3(0, 0, 0);
         }
+    }
+
+    public void EnableDirtMounds(bool active)
+    {
+        _dirtMound.SetActive(active);
     }
 
     public bool HasBeenPoisened()
