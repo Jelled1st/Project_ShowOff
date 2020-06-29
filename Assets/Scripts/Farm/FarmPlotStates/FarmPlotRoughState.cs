@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RoughFarmPlot", menuName = "ScriptableObject/FarmPlotStates/RoughState")]
+[CreateAssetMenu(fileName = "GrownState", menuName = "FarmPlotStates/RoughState", order = 0)]
 public class FarmPlotRoughState : FarmPlotState
 {
     public override void EnterState(FarmPlot plot)
@@ -17,9 +17,9 @@ public class FarmPlotRoughState : FarmPlotState
     {
     }
 
-    public override FarmPlot.StateReady ReadyForState(FarmPlotState state)
+    public override FarmPlot.StateReady ReadyForState(FarmPlot.State state)
     {
-        if (state.GetState() == FarmPlot.State.Dug) return FarmPlot.StateReady.Ready;
+        if (state == FarmPlot.State.Dug) return FarmPlot.StateReady.Ready;
         else return FarmPlot.StateReady.InvalidAdvancement;
     }
 }

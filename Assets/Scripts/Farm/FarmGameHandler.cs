@@ -399,6 +399,7 @@ public class FarmGameHandler : MonoBehaviour, ISubject, IControlsObserver, IFarm
 
     public void OnPlotStateSwitch(FarmPlot.State state, FarmPlot.State previousState, FarmPlot plot)
     {
+        Debug.Log(plot + " changed to " + state + " from " + previousState);
         if (state == FarmPlot.State.Decay)
         {
             Scores.SubScore(_decayPenaltyPoints);

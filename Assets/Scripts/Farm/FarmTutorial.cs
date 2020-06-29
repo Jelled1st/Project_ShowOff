@@ -212,6 +212,12 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
 
     public void OnPlotHarvest(FarmPlot plot)
     {
+        if (!_firstHarvestCompleted)
+        {
+            _firstHarvestCompleted = true;
+            DOTween.Kill(_harvestHand.transform);
+            _harvestHand.SetActive(false);
+        }
     }
 
     public void OnPlotStartStateSwitch(FarmPlot.State switchState, FarmPlot.State currentState, FarmPlot plot)
@@ -272,15 +278,6 @@ public class FarmTutorial : MonoBehaviour, IFarmPlotObserver, ISubject
                 Vector2 truckPos = Camera.main.WorldToScreenPoint(_truck.transform.position);
                 _harvestHand.transform.position = _harvestTweenStart;
                 _harvestHand.transform.DOMove(truckPos, 1.5f);
-            }
-        }
-        else if (state == FarmPlot.State.Harvested)
-        {
-            if (!_firstHarvestCompleted)
-            {
-                _firstHarvestCompleted = true;
-                DOTween.Kill(_harvestHand.transform);
-                _harvestHand.SetActive(false);
             }
         }
         else if (state == FarmPlot.State.Decay)

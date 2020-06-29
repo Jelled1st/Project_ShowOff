@@ -26,22 +26,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         Ready = 1
     }
 
-
-    [SerializeField]
-    private float _timeTillGrown = 10.0f;
-
-    [Tooltip("Higher slowness means growing takes longer")]
-    [SerializeField]
-    private float _decayGrowSlowness = 2.0f;
-
-    [SerializeField]
-    private float _timeTillWithered = 10.0f;
-
     [SerializeField]
     private ProgressBar _progressBar;
-
-    private float _timeSinceLastCultivation = 0.0f;
-    private float _growTime;
     private bool _neglectCooldown = true;
     private bool _paused = false;
     private bool _hasBeenPoisened = false;
@@ -56,23 +42,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     [Header("State meshes")]
     [SerializeField]
     private GameObject _dirtMound;
-
-    [SerializeField]
-    private List<GameObject> _plantPlantedMeshes;
-
-    [SerializeField]
-    private List<GameObject> _plantGrowingMeshes;
-
-    [SerializeField]
-    private List<GameObject> _plantDecayingMeshes;
-
-    [SerializeField]
-    private List<GameObject> _plantWitheredMeshes;
-
-    [SerializeField]
-    private List<GameObject> _plantGrownMeshes;
-
-    private bool useMeshSwitching = false;
     public bool _interActable = true;
 
     [Header("Plant positions")]
@@ -80,19 +49,18 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     [Header("State machine")]
     [SerializeField] private FarmPlotStateProvider _stateProvider;
-    [SerializeField] private FarmPlotState _startState;
-    private Stack<FarmPlotState> _currentState;
+    [SerializeField] private FarmPlotState _currentState;
+    private Stack<FarmPlotState> _states = new Stack<FarmPlotState>();
 
     // Observers
     private List<IObserver> _observers = new List<IObserver>();
 
     private bool _updateHasBeenCalled = false;
     private bool _cultivateAfterCooldown = false;
+    private bool _popStateAfterCooldown = false;
     private State _cultivateStateAfterCooldown;
     private bool _isOnCooldown = false;
     private float _cooldownTimer = 0.0f;
-
-    private const bool _debugLog = false;
 
     private void Awake()
     {
@@ -109,7 +77,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             Subscribe(gameHandlerSubject);
         }
 
-        SetState(_startState);
+        _states.Push(_stateProvider.GetNullState());
+        SetState(_currentState);
         _neglectCooldown = true;
     }
 
@@ -120,68 +89,52 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public void SetStartState(State state)
     {
+        return;
         if (_updateHasBeenCalled) return;
-        CultivateToState(state);
+        ClearAllStates();
+        SetState(state);
         _neglectCooldown = true;
+    }
+
+    public void ClearAllStates()
+    {
+        while(_states.Count > 1)
+        {
+            FarmPlotState state = _states.Pop();
+            state.ExitState();
+        }
     }
 
     private void Update()
     {
         if (_paused) return;
         _updateHasBeenCalled = true;
-        _timeSinceLastCultivation += Time.deltaTime;
         if (_isOnCooldown) _cooldownTimer += Time.deltaTime;
         if (_cooldownTimer >= _cooldown && _isOnCooldown)
         {
             _isOnCooldown = false;
             if (_cultivateAfterCooldown)
             {
-                CultivateToState(_cultivateStateAfterCooldown);
+                SetState(_cultivateStateAfterCooldown);
+            }
+            else if (_popStateAfterCooldown)
+            {
+                PopState();
+                _popStateAfterCooldown = false;
             }
         }
 
-        if (_state == State.Growing)
-        {
-            _growTime += Time.deltaTime;
-            //Debug.Log("Grow time: " + _growTime + " ( " + (_growTime >= _timeTillGrown) + " )");
-        }
-        else if (_state == State.Decay)
-        {
-            _growTime += Time.deltaTime / _decayGrowSlowness;
-        }
-
-        if (ReadyForState(State.Grown) == StateReady.Ready)
-        {
-            CultivateToState(State.Grown);
-        }
-        else if (ReadyForState(State.Withered) == StateReady.Ready)
-        {
-            CultivateToState(State.Withered);
-        }
+        _states.Peek().Update();
 
         if (_progressBar != null)
         {
-            if (_state == State.Growing)
-            {
-                _progressBar.SetFillColor(new Color(102 / 255.0f, 77 / 255.0f, 63 / 255.0f));
-                _progressBar.SetActive(true);
-                var percentage = _growTime / _timeTillGrown;
-                if (percentage <= 1.0f) _progressBar.SetPercentage(percentage);
-                else _progressBar.SetPercentage(1.0f);
-            }
-            else if (_state == State.Decay)
-            {
-                _progressBar.SetFillColor(new Color(209 / 255.0f, 69 / 255.0f, 69 / 255.0f));
-                _progressBar.SetActive(true);
-                _progressBar.SetPercentage(1 - _timeSinceLastCultivation / _timeTillWithered);
-            }
-            else if (_cooldownTimer <= _cooldown && !_neglectCooldown && _isOnCooldown)
+            if (_cooldownTimer <= _cooldown && !_neglectCooldown && _isOnCooldown)
             {
                 _progressBar.SetFillColor(new Color(102 / 255.0f, 77 / 255.0f, 63 / 255.0f));
                 _progressBar.SetActive(true);
                 _progressBar.SetPercentage(_cooldownTimer / _cooldown);
             }
-            else
+            else if(_states.Peek().SetStateProgress(_progressBar))
             {
                 _progressBar.SetActive(false);
             }
@@ -250,8 +203,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public bool Water(float cooldown, FarmTool tool)
     {
-        var readyForState = ReadyForState(State.Growing);
-        if (readyForState == StateReady.Ready && _state == State.Planted && _interActable)
+        FarmPlot.StateReady readyForGrow = ReadyForState(State.Growing);
+        FarmPlot.StateReady readyForHeal = ReadyForState(State.Healing);
+        if (readyForGrow == StateReady.Ready && readyForHeal == StateReady.InvalidAdvancement && _interActable)
         {
             soundEffectManager.SoundWater();
 
@@ -261,7 +215,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
         else
         {
-            if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
+            if (readyForGrow == StateReady.OnCooldown || readyForHeal == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
             else Notify(new WrongToolOnPlotWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
@@ -270,18 +224,18 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public bool Heal(float cooldown, FarmTool tool)
     {
-        var readyForState = ReadyForState(State.Growing);
-        if (readyForState == StateReady.Ready && _state == State.Decay && _interActable)
+        FarmPlot.StateReady readyForHeal = ReadyForState(State.Healing);
+        if (readyForHeal == StateReady.Ready && _interActable)
         {
             soundEffectManager.SoundPesticide();
 
             _cooldown = cooldown;
-            CultivateToState(State.Healing);
+            SetState(State.Healing);
             return true;
         }
         else
         {
-            if (readyForState == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
+            if (readyForHeal == StateReady.OnCooldown) Notify(new PlotOnCooldownWarningEvent(this, tool));
             else Notify(new WrongToolOnPlotWarningEvent(this, tool));
             Debug.Log("Not allowed");
             return false;
@@ -294,49 +248,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
     {
         if (_cooldownTimer >= _cooldown || _neglectCooldown)
         {
-            switch (state)
-            {
-                case State.Withered:
-                    if (_state == State.Decay && _timeSinceLastCultivation >= _timeTillWithered)
-                        return StateReady.Ready;
-                    else return StateReady.InvalidAdvancement;
-                case State.Rough:
-                    if (_state == State.Grown) return StateReady.Ready;
-                    return StateReady.InvalidAdvancement;
-                    ;
-                case State.Dug:
-                    if (_state == State.Rough || _state == State.Withered || _state == State.Harvested ||
-                        _state == State.Undifined) return StateReady.Ready;
-                    else return StateReady.InvalidAdvancement;
-                    ;
-                case State.Planted:
-                    if (_state == State.Dug) return StateReady.Ready;
-                    else return StateReady.InvalidAdvancement;
-                    ;
-                case State.Growing:
-                    if (_state == State.Planted || _state == State.Decay) return StateReady.Ready;
-                    else return StateReady.InvalidAdvancement;
-                    ;
-                case State.Decay:
-                    if (_state == State.Growing) return StateReady.Ready;
-                    else return StateReady.InvalidAdvancement;
-                    ;
-                case State.Healing:
-                    if (_state == State.Decay) return StateReady.Ready;
-                    else return StateReady.InvalidAdvancement;
-                    ;
-                case State.Grown:
-                    if (_state == State.Growing && _growTime >= _timeTillGrown) return StateReady.Ready;
-                    else return StateReady.InvalidAdvancement;
-                    ;
-                case State.Harvested:
-                    if (_state == State.Grown) return StateReady.Ready;
-                    else return StateReady.InvalidAdvancement;
-                    ;
-                default:
-                    return StateReady.InvalidAdvancement;
-                    ;
-            }
+            return _states.Peek().ReadyForState(state);
         }
         else
         {
@@ -344,9 +256,9 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         }
     }
 
-    private void CultivateAfterCooldown(State state)
+    public void CultivateAfterCooldown(State state)
     {
-        InformObserversOfStartStateSwitch(state, _state);
+        InformObserversOfStartStateSwitch(state, _states.Peek().GetState());
         _isOnCooldown = true;
         _cultivateAfterCooldown = true;
         _cultivateStateAfterCooldown = state;
@@ -354,78 +266,15 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         _neglectCooldown = false;
     }
 
-    private void CultivateToState(State state)
+    public void PopStateAfterCooldown()
     {
-        InformObserversOfStateSwitch(state, _state);
-        var previousState = _state;
-        _state = state;
-        ClearPlants();
+        FarmPlotState now = _states.Pop();
+        InformObserversOfStartStateSwitch(_states.Peek().GetState(), now.GetState());
+        _states.Push(now);
+        _isOnCooldown = true;
+        _popStateAfterCooldown = true;
+        _cooldownTimer = 0.0f;
         _neglectCooldown = false;
-        _cultivateAfterCooldown = false;
-        switch (_state)
-        {
-            case State.Withered:
-                if (_debugLog) Debug.Log("Withered!");
-                _growTime = 0.0f;
-                _dirtMound.SetActive(false);
-                SetPlants(_plantWitheredMeshes);
-                break;
-            case State.Rough:
-                if (_debugLog) Debug.Log("Rough!");
-                _growTime = 0.0f;
-                _dirtMound.SetActive(false);
-                break;
-            case State.Dug:
-                if (_debugLog) Debug.Log("Dug!");
-                _growTime = 0.0f;
-                _dirtMound.SetActive(true);
-                break;
-            case State.Planted:
-                if (_debugLog) Debug.Log("Planted!");
-                _growTime = 0.0f;
-                _dirtMound.SetActive(true);
-                SetPlants(_plantPlantedMeshes);
-                break;
-            case State.Growing:
-                if (_debugLog) Debug.Log("Growing!");
-                if (previousState == State.Healing) _growTime = Mathf.Min(_growTime, _timeTillGrown - 1.0f);
-                _dirtMound.SetActive(true);
-                SetPlants(_plantGrowingMeshes);
-                _neglectCooldown = true;
-                break;
-            case State.Decay:
-                if (_debugLog) Debug.Log("Decay!");
-                _hasBeenPoisened = true;
-                _dirtMound.SetActive(true);
-                SetPlants(_plantDecayingMeshes);
-                _neglectCooldown = true;
-                break;
-            case State.Healing:
-                if (_debugLog) Debug.Log("Healing!");
-                _dirtMound.SetActive(true);
-                SetPlants(_plantDecayingMeshes);
-                CultivateAfterCooldown(State.Growing);
-                break;
-            case State.Grown:
-                if (_debugLog) Debug.Log("Grown!");
-                _growTime = 0.0f;
-
-                soundEffectManager.SoundPlantGrowth();
-
-                _dirtMound.SetActive(true);
-                SetPlants(_plantGrownMeshes);
-                _neglectCooldown = true;
-                break;
-            case State.Harvested:
-                if (_debugLog) Debug.Log("Harvested!");
-                _growTime = 0.0f;
-                _dirtMound.SetActive(false);
-                break;
-            default:
-                break;
-        }
-
-        _timeSinceLastCultivation = 0;
     }
 
     public void SetState(FarmPlot.State state)
@@ -435,17 +284,28 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public void SetState(FarmPlotState state, bool popPrevious = false)
     {
-        _currentState.Peek().UnLoad();
-        if (popPrevious) _currentState.Pop().ExitState();
-        _currentState.Push(Instantiate(state));
-        _currentState.Peek().EnterState(this);
+        FarmPlotState newState = Instantiate(state);
+        newState.EnterState(this);
+        if (_states.Count > 0)
+        {
+            InformObserversOfStateSwitch(newState.GetState(), _states.Peek().GetState());
+        }
+        else InformObserversOfStateSwitch(newState.GetState(), State.Undifined);
+
+        _states.Peek().UnLoad(_states.Peek());
+        if (popPrevious) _states.Pop().ExitState();
+        _states.Push(newState);
+        _currentState = _states.Peek();
+
+        _neglectCooldown = false;
+        _cultivateAfterCooldown = false;
     }
 
     public void PopState(bool informLoad = true)
     {
-        FarmPlotState state = _currentState.Pop();
+        FarmPlotState state = _states.Pop();
         state.ExitState();
-        _currentState.Peek().ReLoad();
+        _states.Peek().ReLoad(state);
     }
 
     public void ClearPlants()
@@ -484,7 +344,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public void Decay()
     {
-        if (ReadyForState(State.Decay) == StateReady.Ready) CultivateToState(State.Decay);
+        if (ReadyForState(State.Decay) == StateReady.Ready) SetState(State.Decay);
     }
 
     public bool Harvest()
@@ -492,7 +352,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         InformObserversOfHarvest();
         if (ReadyForState(State.Harvested) == StateReady.Ready)
         {
-            CultivateToState(State.Harvested);
+            this.ClearAllStates();
+            SetState(State.Rough);
             return true;
         }
         else
@@ -541,7 +402,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public GameObject GetDragCopy()
     {
-        if (_currentState.Peek().GetState() == State.Grown)
+        if (_states.Peek().GetState() == State.Grown)
         {
             var copy = Instantiate(_harvestPotatoPrefab);
             soundEffectManager.SoundUproot();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "GrownState", menuName = "FarmPlotStates/GrownState", order = 6)]
 public class FarmPlotGrownState : FarmPlotState
 {
     public override void EnterState(FarmPlot plot)
@@ -9,9 +10,9 @@ public class FarmPlotGrownState : FarmPlotState
         this._state = FarmPlot.State.Grown;
         base.EnterState(plot);
     }
-    public override FarmPlot.StateReady ReadyForState(FarmPlotState state)
+    public override FarmPlot.StateReady ReadyForState(FarmPlot.State state)
     {
-        if (state.GetState() == FarmPlot.State.Rough) return FarmPlot.StateReady.Ready;
+        if (state == FarmPlot.State.Rough || state == FarmPlot.State.Harvested) return FarmPlot.StateReady.Ready;
         else return FarmPlot.StateReady.InvalidAdvancement;
     }
 

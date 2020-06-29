@@ -17,12 +17,12 @@ public abstract class FarmPlotState : ScriptableObject
         plot.EnableDirtMounds(_enabledDirtMounds);
     }
 
-    public virtual void ReLoad()
+    public virtual void ReLoad(FarmPlotState unloadedState)
     {
 
     }
 
-    public virtual void UnLoad()
+    public virtual void UnLoad(FarmPlotState loadedState)
     {
 
     }
@@ -41,7 +41,7 @@ public abstract class FarmPlotState : ScriptableObject
         return true;
     }
 
-    public abstract FarmPlot.StateReady ReadyForState(FarmPlotState state);
+    public abstract FarmPlot.StateReady ReadyForState(FarmPlot.State state);
     public FarmPlot.State GetState()
     {
         return _state;

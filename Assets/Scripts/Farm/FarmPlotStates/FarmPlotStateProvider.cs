@@ -11,6 +11,7 @@ public class FarmPlotStateProvider : MonoBehaviour
 
     private void Start()
     {
+        _states = new Dictionary<FarmPlot.State, FarmPlotState>();
         if (_farmplotStates.Count == _stateObjects.Count)
         {
             for (int i = 0; i < _farmplotStates.Count; ++i)
@@ -25,5 +26,10 @@ public class FarmPlotStateProvider : MonoBehaviour
     {
         if (_states.ContainsKey(state)) return _states[state];
         else return _nullState;
+    }
+
+    public FarmPlotState GetNullState()
+    {
+        return _nullState;
     }
 }
