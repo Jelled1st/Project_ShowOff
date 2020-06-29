@@ -7,14 +7,24 @@ public abstract class FarmPlotState : ScriptableObject
     [SerializeField] protected List<GameObject> _plants;
     [SerializeField] protected bool _enabledDirtMounds;
     protected FarmPlot.State _state;
-    protected FarmPlot plot;
+    protected FarmPlot _plot;
 
     public virtual void EnterState(FarmPlot plot)
     {
-        this.plot = plot;
+        this._plot = plot;
         plot.ClearPlants();
         plot.SetPlants(_plants);
         plot.EnableDirtMounds(_enabledDirtMounds);
+    }
+
+    public virtual void ReLoad()
+    {
+
+    }
+
+    public virtual void UnLoad()
+    {
+
     }
 
     public abstract void Update();

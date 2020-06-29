@@ -26,8 +26,6 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         Ready = 1
     }
 
-    [SerializeField]
-    private State _state = State.Rough;
 
     [SerializeField]
     private float _timeTillGrown = 10.0f;
@@ -82,7 +80,8 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     [Header("State machine")]
     [SerializeField] private FarmPlotStateProvider _stateProvider;
-    private FarmPlotState _currentStateObject;
+    [SerializeField] private FarmPlotState _startState;
+    private Stack<FarmPlotState> _currentState;
 
     // Observers
     private List<IObserver> _observers = new List<IObserver>();
@@ -110,7 +109,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
             Subscribe(gameHandlerSubject);
         }
 
-        CultivateToState(_state);
+        SetState(_startState);
         _neglectCooldown = true;
     }
 
@@ -429,11 +428,24 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
         _timeSinceLastCultivation = 0;
     }
 
-    private void SetState(FarmPlotState state)
+    public void SetState(FarmPlot.State state)
     {
-        _currentStateObject.ExitState();
-        _currentStateObject = Instantiate(state);
-        _currentStateObject.EnterState(this);
+        SetState(_stateProvider.RequestStateObjectForState(state));
+    }
+
+    public void SetState(FarmPlotState state, bool popPrevious = false)
+    {
+        _currentState.Peek().UnLoad();
+        if (popPrevious) _currentState.Pop().ExitState();
+        _currentState.Push(Instantiate(state));
+        _currentState.Peek().EnterState(this);
+    }
+
+    public void PopState(bool informLoad = true)
+    {
+        FarmPlotState state = _currentState.Pop();
+        state.ExitState();
+        _currentState.Peek().ReLoad();
     }
 
     public void ClearPlants()
@@ -529,7 +541,7 @@ public class FarmPlot : MonoBehaviour, IControllable, ISubject, IGameHandlerObse
 
     public GameObject GetDragCopy()
     {
-        if (_state == State.Grown)
+        if (_currentState.Peek().GetState() == State.Grown)
         {
             var copy = Instantiate(_harvestPotatoPrefab);
             soundEffectManager.SoundUproot();
