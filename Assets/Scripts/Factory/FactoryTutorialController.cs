@@ -114,9 +114,9 @@ public class FactoryTutorialController : MonoBehaviour
         _rotationPart.Init();
         _machineBreakPart.Init();
 
-        FlatConveyorBelt.SpecialBeltPressed += delegate { _slowdownPart?.Passed(); };
-        FlatConveyorBelt.SpecialBeltPressed += delegate { _speedupPart?.Passed(); };
-        FlatConveyorBelt.BeltRotated += delegate { _rotationPart?.Passed(); };
+        // FlatConveyorBelt.SpecialBeltPressed += delegate { _slowdownPart?.Passed(); };
+        // FlatConveyorBelt.SpecialBeltPressed += delegate { _speedupPart?.Passed(); };
+        // FlatConveyorBelt.BeltRotated += delegate { _rotationPart?.Passed(); };
 
         Machine.MachineBreaking += OnMachineBreak;
         Machine.MachineStartedRepairing += OnMachineRepair;

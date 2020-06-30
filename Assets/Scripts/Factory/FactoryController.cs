@@ -3,6 +3,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using System.Collections;
 using System.Linq;
+using AlphaOmega.Conveyors;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 

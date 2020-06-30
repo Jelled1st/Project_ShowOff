@@ -2,21 +2,34 @@
 
 public class RigidbodyLocker : MonoBehaviour
 {
+    //Required to have a checkbox in inspector
+    private void OnEnable()
+    {
+    }
+
     private void OnCollisionEnter(Collision other)
     {
-        other.gameObject.TryGetComponent(out Rigidbody rigidbody);
-        if (!rigidbody.Equals(null))
+        if (!enabled)
+            return;
+
+        other.gameObject.TryGetComponent(out Rigidbody otherRigidbody);
+
+        if (!otherRigidbody.Equals(null))
         {
-            rigidbody.freezeRotation = true;
+            otherRigidbody.freezeRotation = true;
         }
     }
 
     private void OnCollisionExit(Collision other)
     {
-        other.gameObject.TryGetComponent(out Rigidbody rigidbody);
-        if (!rigidbody.Equals(null))
+        if (!enabled)
+            return;
+
+        other.gameObject.TryGetComponent(out Rigidbody otherRigidbody);
+
+        if (!otherRigidbody.Equals(null))
         {
-            rigidbody.freezeRotation = false;
+            otherRigidbody.freezeRotation = false;
         }
     }
 }

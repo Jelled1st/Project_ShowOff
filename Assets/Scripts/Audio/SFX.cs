@@ -27,8 +27,8 @@ public class SFX : MonoBehaviour
 
     private void OnEnable()
     {
-        FlatConveyorBelt.ConveyorTurned += SoundRotate;
-        FlatConveyorBelt.SpecialConveyorHeld += SoundSpecialConveyor;
+        // FlatConveyorBelt.ConveyorTurned += SoundRotate;
+        // FlatConveyorBelt.SpecialConveyorHeld += SoundSpecialConveyor;
         Machine.ItemEnteredMachine += SoundItemEnteredMachine;
         Machine.ItemLeftMachine += SoundItemLeftMachine;
         Machine.MachineBreaking += SoundBreaking;
@@ -38,8 +38,8 @@ public class SFX : MonoBehaviour
 
     private void OnDisable()
     {
-        FlatConveyorBelt.ConveyorTurned -= SoundRotate;
-        FlatConveyorBelt.SpecialConveyorHeld -= SoundSpecialConveyor;
+        // FlatConveyorBelt.ConveyorTurned -= SoundRotate;
+        // FlatConveyorBelt.SpecialConveyorHeld -= SoundSpecialConveyor;
         Machine.ItemEnteredMachine -= SoundItemEnteredMachine;
         Machine.ItemLeftMachine -= SoundItemLeftMachine;
         Machine.MachineBreaking -= SoundBreaking;
@@ -166,33 +166,33 @@ public class SFX : MonoBehaviour
         }
     }
 
-    private void SoundSpecialConveyor(FlatConveyorBelt.SpecialBeltType specialBeltType, bool isHolding)
-    {
-        if (isHolding)
-        {
-            switch (specialBeltType)
-            {
-                case FlatConveyorBelt.SpecialBeltType.SpeedUp:
-                    SoundSpeedup();
-                    break;
-                case FlatConveyorBelt.SpecialBeltType.SpeedDown:
-                    SoundSlowdown();
-                    break;
-            }
-        }
-        else
-        {
-            switch (specialBeltType)
-            {
-                case FlatConveyorBelt.SpecialBeltType.SpeedUp:
-                    SoundSlowdown();
-                    break;
-                case FlatConveyorBelt.SpecialBeltType.SpeedDown:
-                    SoundSpeedup();
-                    break;
-            }
-        }
-    }
+    // private void SoundSpecialConveyor(SpecialBeltType specialBeltType, bool isHolding)
+    // {
+    //     if (isHolding)
+    //     {
+    //         switch (specialBeltType)
+    //         {
+    //             case SpecialBeltType.SpeedUp:
+    //                 SoundSpeedup();
+    //                 break;
+    //             case SpecialBeltType.SpeedDown:
+    //                 SoundSlowdown();
+    //                 break;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         switch (specialBeltType)
+    //         {
+    //             case SpecialBeltType.SpeedUp:
+    //                 SoundSlowdown();
+    //                 break;
+    //             case SpecialBeltType.SpeedDown:
+    //                 SoundSpeedup();
+    //                 break;
+    //         }
+    //     }
+    // }
 
     // Sound when rotating conveyor belts
     public void SoundRotate()
